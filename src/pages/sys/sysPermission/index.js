@@ -1,22 +1,17 @@
 /* eslint-disable no-plusplus */
-// 系统设置 - 部门管理
+// 系统设置 - 菜单管理
 import React from 'react';
-import { connect } from 'dva';
-import { Tree, Tag, Icon, Divider, Modal, Popconfirm, notification } from 'antd';
+import { Tag, Tree, Icon, Divider, Modal, Popconfirm, notification } from 'antd';
 import AddUp from './components/AddUp';
-import Index from '../sysRole/Index';
 import { postRequest } from '@/utils/api';
-import { SYS_D_TREE, SYS_DEL_D } from '@/services/SysInterface';
-import styles from './Index.less';
+import { SYS_PER_TREE, SYS_DEL_PER } from '@/services/SysInterface';
+import styles from './index.less';
 
-@connect(({ screen }) => ({
-  screen,
-}))
-class sysDepartment extends React.Component {
+class SysPermission extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      departmentList: [],
+      perList: [],
       info: null,
       open: false,
       type: null,
@@ -28,13 +23,13 @@ class sysDepartment extends React.Component {
   }
 
   initialization = async () => {
-    let departmentList = await postRequest(SYS_D_TREE);
-    departmentList = departmentList.data;
+    let perList = await postRequest(SYS_PER_TREE);
+    perList = perList.data;
     this.setState({
-      departmentList,
+      perList,
     });
     if (this.state.info && this.state.info.id > 0) {
-      const info = this.getInfo(departmentList);
+      const info = this.getInfo(perList);
       this.setState({
         info,
       });
@@ -64,8 +59,8 @@ class sysDepartment extends React.Component {
     }
   };
 
-  deleteSysDepartment = async id => {
-    const data = await postRequest(`${SYS_DEL_D}/${id}`);
+  deleteSysPer = async id => {
+    const data = await postRequest(`${SYS_DEL_PER}/${id}`);
     if (data.status === 200) {
       notification.success({ message: data.msg });
       this.initialization();
@@ -74,10 +69,10 @@ class sysDepartment extends React.Component {
     }
   };
 
-  recursion(departmentList, i) {
+  recursion(perList, i) {
     const arr = [];
-    departmentList.forEach(department => {
-      if (department.parentId === i) {
+    perList.forEach(per => {
+      if (per.parentId === i) {
         arr.push(
           <Tree.TreeNode
             title={
@@ -85,16 +80,28 @@ class sysDepartment extends React.Component {
                 className={styles.treeNode}
                 onClick={() => {
                   this.setState({
-                    info: department,
+                    info: per,
                   });
                 }}
               >
-                {department.departmentName}
+                <Icon
+                  type={
+                    per.perImg
+                      ? per.perImg
+                      : per.perType === 0
+                      ? 'appstore'
+                      : per.perType === 1
+                      ? 'pic-right'
+                      : 'poweroff'
+                  }
+                />
+                &nbsp;&nbsp;
+                {per.perName}
               </Tag>
             }
-            key={department.id}
+            key={per.id}
           >
-            {this.recursion(department.children, department.id)}
+            {this.recursion(per.children, per.id)}
           </Tree.TreeNode>
         );
       }
@@ -103,11 +110,11 @@ class sysDepartment extends React.Component {
   }
 
   render() {
-    const { info, departmentList } = this.state;
+    const { info, perList } = this.state;
     return (
-      <div className={styles.departWrap}>
+      <div className={styles.perWrap}>
         <Modal
-          title={this.state.type === 'up' ? '编辑部门' : '添加部门'}
+          title={this.state.type === 'up' ? '编辑权限' : '添加权限'}
           style={{ top: 20 }}
           width={500}
           visible={this.state.open}
@@ -133,18 +140,18 @@ class sysDepartment extends React.Component {
                       this.setState({
                         info: {
                           id: 0,
-                          departmentName: '部门结构',
+                          perName: '菜单结构',
                         },
                       });
                     }}
                   >
                     <Icon type="folder" />
-                    &nbsp;&nbsp;部门结构
+                    &nbsp;&nbsp;菜单结构
                   </Tag>
                 }
                 key="0"
               >
-                {this.recursion(departmentList, 0)}
+                {this.recursion(perList, 0)}
               </Tree.TreeNode>
             </Tree>
           </div>
@@ -162,7 +169,7 @@ class sysDepartment extends React.Component {
                       });
                     }}
                   >
-                    添加下级部门
+                    添加下级权限
                   </span>
                   {info.id > 0 && (
                     <span
@@ -174,28 +181,29 @@ class sysDepartment extends React.Component {
                         });
                       }}
                     >
-                      修改部门
+                      修改权限
                     </span>
                   )}
                   {info.id > 0 && (
                     <Popconfirm
                       title="确认删除吗"
                       onConfirm={() => {
-                        this.deleteSysDepartment(info.id);
+                        this.deleteSysPer(info.id);
                       }}
                     >
-                      <span className={styles.departBtn}>删除部门</span>
+                      <span className={styles.departBtn}>删除权限</span>
                     </Popconfirm>
                   )}
                 </div>
                 <div className={styles.departTagWrap}>
-                  <Tag>部门名称: {info.departmentName}</Tag>
-                  <Tag>部门编号: {info.departmentNumber}</Tag>
-                  <Tag>父级部门: {info.parentName}</Tag>
+                  <Tag>权限名称: {info.perName}</Tag>
+                  <Tag>权限标识: {info.permissionCode}</Tag>
+                  <Tag>权限类别: {info.perTypeStr}</Tag>
+                  <Tag>权限图标: {info.perImg}</Tag>
+                  <Tag>权限地址: {info.perUrl}</Tag>
+                  <Tag>权限顺序: {info.sort}</Tag>
+                  <Tag>父级权限: {info.parentName}</Tag>
                   <Tag>备注: {info.remarks}</Tag>
-                </div>
-                <div>
-                  <Index id={this.state.info.id} />
                 </div>
               </div>
             )}
@@ -206,4 +214,4 @@ class sysDepartment extends React.Component {
   }
 }
 
-export default sysDepartment;
+export default SysPermission;
