@@ -1,0 +1,114 @@
+@import '~antd/lib/style/themes/default.less';
+
+.main {
+  position: relative;
+  background: url('https://haifeng-1258278342.cos.ap-chengdu.myqcloud.com/images/haiqi_bg.png')
+    no-repeat;
+  -webkit-background-size: 100% 100%;
+  background-size: 100% 100%;
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Microsoft YaHei UI', serif;
+  .loginWrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    width: 50%;
+    height: 60%;
+    .loginLeft {
+      flex: 1;
+      background: url('https://haifeng-1258278342.cos.ap-chengdu.myqcloud.com/images/haiqi_logoBG.png')
+        no-repeat;
+      -webkit-background-size: cover;
+      background-size: cover;
+      background-origin: content-box;
+      > i {
+        position: absolute;
+        z-index: 99;
+        top: 0;
+        left: 0;
+        width: 50%;
+        height: 100%;
+        background-color: rgba(26, 179, 147, 0.7);
+      }
+      > div {
+        background: url('https://haifeng-1258278342.cos.ap-chengdu.myqcloud.com/images/haiqi_logo.png')
+          no-repeat;
+        -webkit-background-size: 85px 50px;
+        background-size: 85px 50px;
+        background-position: 20px 20px;
+        color: #fff;
+        font-size: 24px;
+        position: relative;
+        z-index: 199;
+        height: 100%;
+        > p:first-child {
+          padding: 30px 0 0 130px;
+          font-size: 24px;
+        }
+        > p:last-child {
+          position: absolute;
+          bottom: 20px;
+          left: 0;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          > span {
+            flex: 1;
+            text-align: center;
+          }
+          > span:first-child {
+            flex: 1;
+            text-align: right;
+          }
+          > span:last-child {
+            flex: 1;
+            text-align: left;
+          }
+        }
+      }
+    }
+    .loginRight {
+      flex: 1;
+      text-align: center;
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      h3 {
+        font-family: 'Microsoft YaHei UI', serif !important;
+        font-size: 22px;
+        margin: 20px 0;
+      }
+      input {
+        outline: none;
+        border: none;
+        color: #666;
+        box-sizing: border-box;
+        padding-left: 48px !important;
+        border-bottom: 1px solid #efebed;
+        border-radius: 0;
+        font-family: 'Microsoft YaHei UI', serif !important;
+      }
+      input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 1000px #fff inset;
+        -webkit-text-fill-color: #666;
+        caret-color: #333;
+      }
+      input[type='text']:focus,
+      input[type='password']:focus {
+        -webkit-box-shadow: 0 0 0 1000px #fff inset;
+        -webkit-text-fill-color: #666;
+        caret-color: #333;
+      }
+      .inputDom,
+      .btnDom {
+        width: 100%;
+        font-size: 16px;
+      }
+    }
+  }
+}
