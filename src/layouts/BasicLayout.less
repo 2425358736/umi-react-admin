@@ -1,0 +1,100 @@
+@import '~antd/lib/style/themes/default.less';
+
+.content {
+  margin: 68px 20px 20px;
+  padding-top: @layout-header-height;
+}
+
+.breadDom {
+  position: absolute;
+  top: 64px;
+  right: 0;
+  width: calc(~'100% - 170px');
+  height: 48px;
+  line-height: 48px;
+  padding-left: 21px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px 0 rgba(197, 197, 197, 0.5);
+}
+
+:global {
+  /* table里滚动条样式 */
+  .ant-table-fixed-header .ant-table-scroll .ant-table-header {
+    overflow-y: auto !important;
+  }
+
+  .ant-table-body::-webkit-scrollbar {
+    width: 0; /* 滚动条宽度 */
+  }
+
+  .ant-table-body::-webkit-scrollbar:horizontal {
+    width: 10px; /* 滚动条宽度 */
+  }
+
+  .ant-table-body::-webkit-scrollbar:vertical {
+    width: 14px; /* 滚动条宽度 */
+  }
+
+  .ant-table-body::-webkit-scrollbar-thumb:vertical {
+    background-color: #ededed; /* 滑道 */
+  }
+
+  .ant-table-body::-webkit-scrollbar-thumb:horizontal {
+    background-color: #ededed; /* 滑道 */
+  }
+
+  .ant-table-body::-webkit-scrollbar-track {
+    background-color: #fff;
+  }
+  .ant-table-pagination.ant-pagination {
+    margin: 16px;
+  }
+  .ant-drawer-wrapper-body {
+    /* Drawer */
+    font-family: 'Microsoft YaHei UI', serif;
+    background-color: #f3f3f3;
+    padding: 0 10px;
+    height: calc(~'100vh - 112px') !important;
+    .ant-drawer-header {
+      padding: 0;
+      margin-bottom: 10px;
+      background-color: #f3f3f3;
+      border-radius: 0;
+      border-bottom: 1px solid #e4e4e4;
+      .ant-drawer-title {
+        height: 48px;
+        line-height: 48px;
+        font-size: 16px;
+        font-weight: 400;
+        color: rgba(51, 51, 51, 1);
+        letter-spacing: 1px;
+      }
+    }
+    .ant-drawer-body {
+      padding: 0;
+    }
+  }
+  .ant-modal-header {
+    width: 100%;
+    padding: 0 20px;
+    background-color: #fafafa;
+    .ant-modal-title {
+      height: 49px;
+      line-height: 49px;
+      font-size: 16px;
+      font-weight: 600;
+      color: rgba(51, 51, 51, 1);
+      letter-spacing: 1px;
+    }
+  }
+  .ant-modal-body {
+    padding: 0;
+  }
+  .ant-form-item {
+    margin-bottom: 12px;
+  }
+  .ant-table-thead > tr > th,
+  .ant-table-tbody > tr > td {
+    padding: 8px 16px;
+  }
+}

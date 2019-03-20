@@ -1,0 +1,41 @@
+.searchWrap {
+  .highSearchBtn {
+    height: 32px;
+    line-height: 32px;
+    padding-left: 17px;
+    font-size: 14px;
+    color: rgba(26, 179, 147, 1);
+    cursor: pointer;
+  }
+  .highSearchWrap {
+    width: 100%;
+    > div {
+      float: left;
+      margin-top: 10px;
+      min-width: 30%;
+      > span {
+        display: inline-block;
+        width: 100px;
+        text-align: right;
+      }
+      .inputDom {
+        width: 266px;
+        margin: 0 10px;
+      }
+    }
+    > div:last-child {
+      margin-bottom: 10px;
+    }
+  }
+  .highSearchWrap:after {
+    display: block;
+    content: ' ';
+    height: 0;
+    clear: both;
+    overflow: hidden;
+    visibility: hidden;
+  }
+  .btnGroup {
+    float: right;
+  }
+}
