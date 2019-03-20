@@ -183,7 +183,7 @@ class AddUp extends React.Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
-      <div style={{ marginLeft: '10%', overflow: 'hidden' }}>
+      <div style={{ margin: '15px 0 0 10%', overflow: 'hidden' }}>
         <Form layout="horizontal">
           <Row>
             <Col span={12}>
@@ -257,7 +257,7 @@ class AddUp extends React.Component {
             </Col>
           </Row>
         </Form>
-        <div style={{ float: 'right', marginRight: '8%', marginTop: 20 }}>
+        <div style={{ float: 'right', margin: '0 70px 20px 0' }}>
           <Button
             onClick={this.handleCancel}
             style={{ backgroundColor: 'rgba(243, 243, 243, 1)', color: '#666666', marginRight: 20 }}

@@ -103,7 +103,7 @@ class AddUp extends React.Component {
             {getFieldDecorator('parentName')(<Input disabled />)}
           </FormItem>
         </Form>
-        <div style={{ float: 'right', margin: '0 70px 20px 0', marginTop: 20 }}>
+        <div style={{ float: 'right', margin: '0 70px 20px 0' }}>
           <Button
             onClick={this.handleCancel}
             style={{ backgroundColor: 'rgba(243, 243, 243, 1)', color: '#666666', marginRight: 20 }}
