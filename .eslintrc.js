@@ -40,6 +40,7 @@ module.exports = {
     'guard-for-in': 0,
     'no-restricted-globals': 0,
     'no-nested-ternary': 0,
+    camelcase: 0,
   },
   settings: {
     polyfills: ['fetch', 'promises', 'url'],

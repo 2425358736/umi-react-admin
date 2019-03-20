@@ -5,23 +5,15 @@ import { http } from '@/utils/api';
 class UploadImg extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      previewVisible: false,
-      previewImage: '',
-      fileList: [],
-    };
-  }
-
-  componentWillReceiveProps = nextProps => {
-    if (nextProps.fileList !== this.props.fileList) {
+    if (props.fileList !== this.props.fileList) {
       const fileList = [];
       if (
-        nextProps.fileList !== null &&
-        typeof nextProps.fileList !== 'undefined' &&
-        nextProps.fileList !== ''
+        props.fileList !== null &&
+        typeof props.fileList !== 'undefined' &&
+        props.fileList !== ''
       ) {
-        if (nextProps.fileList.length > 0) {
-          const imgArr = nextProps.fileList.split('#');
+        if (props.fileList.length > 0) {
+          const imgArr = props.fileList.split('#');
           imgArr.forEach((img, i) => {
             if (img !== '') {
               const json = {
@@ -39,7 +31,12 @@ class UploadImg extends React.Component {
         fileList,
       });
     }
-  };
+    this.state = {
+      previewVisible: false,
+      previewImage: '',
+      fileList: [],
+    };
+  }
 
   handleCancel = () => {
     this.setState({ previewVisible: false });

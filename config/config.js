@@ -108,6 +108,10 @@ export default {
           path: '/sys/sysDict',
           component: './sys/sysDict/index',
         },
+        {
+          path: '/moveIn',
+          component: './moveIn/index',
+        },
       ],
     },
   ],

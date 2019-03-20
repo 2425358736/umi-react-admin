@@ -2,6 +2,8 @@ export const SYS_LOGIN = '/sys/verificationUser'; // 登录
 
 export const SYS_LOGOUT = '/sys/logout'; // 退出登录
 
+export const SYS_Dict = '/sys/sysDictListType'; // 数据字典
+
 export const SYS_USER_INFO = '/sys/getUserInfoDetailed'; // 当前用户信息
 
 export const SYS_MENU = '/sys/getSysMenu'; // 用户拥有的菜单
@@ -73,3 +75,9 @@ export const SYS_MAIL_INFO = '/sys/sysMailInfo'; // 站内信详情
 export const SYS_NOTICE = '/sys/sysNoticeList'; // 未读站内信
 
 export const SYS_READ_ALL = '/sys/readAll'; // 批量已读
+
+// ------------ 迁入 start ----------------
+
+export const MOVE_IN = '/household/immigration'; // 户口迁入
+
+// ------------ 迁入 end ----------------

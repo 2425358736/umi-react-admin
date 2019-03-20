@@ -192,3 +192,7 @@ export function jsonString(json) {
 function exportExcelGet(url, params) {
   window.open(`${http}/upload/excel?list=${params}`);
 }
+
+export function verVal(val) {
+  return val !== '' && typeof val !== 'undefined' && val !== null;
+}
