@@ -41,13 +41,13 @@ class DictType extends React.Component {
   };
 
   /**
-   * 行点击时间
+   * 行点击事件
    * @param id
    */
   onRowClick = async id => {
     const data = await postRequest(`/sys/sysDictListType/${id}`);
     if (data.status === 200) {
-      this.componentDidMount();
+      this.props.onTypeCall(data.data);
     } else {
       notification.error({ message: data.msg, description: data.subMsg });
     }

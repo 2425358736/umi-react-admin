@@ -17,16 +17,21 @@ class DictList extends React.Component {
   }
 
   componentDidMount = async () => {
+    this.columnsUp();
+  };
+
+  componentWillReceiveProps = nextProps => {
     this.setState({
       loading: true,
     });
-    this.columnsUp();
-    // 查询信息
-    const data = await postRequest('/sys/sysDictList');
-    this.setState({
-      dataSource: data.data,
-      loading: false,
-    });
+    if (nextProps.dataSource) {
+      this.setState({ dataSource: nextProps.dataSource });
+    }
+    setTimeout(() => {
+      this.setState({
+        loading: false,
+      });
+    }, 500);
   };
 
   /**

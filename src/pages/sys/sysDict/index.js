@@ -6,17 +6,27 @@ import styles from './index.less';
 class SysDict extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      data: [],
+    };
   }
+
+  /**
+   * 行点击事件
+   * @param data
+   */
+  onTypeCall = async data => {
+    this.setState({ data });
+  };
 
   render() {
     return (
       <div className={styles.dictWrap}>
         <div className={styles.menuLeft}>
-          <DictType />
+          <DictType onTypeCall={this.onTypeCall} />
         </div>
         <div className={styles.menuRight}>
-          <DictList />
+          <DictList dataSource={this.state.data} />
         </div>
       </div>
     );
