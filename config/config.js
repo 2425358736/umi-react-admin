@@ -112,6 +112,10 @@ export default {
           path: '/moveIn',
           component: './moveIn/index',
         },
+        {
+          path: '/examine',
+          component: './examine/index',
+        },
       ],
     },
   ],

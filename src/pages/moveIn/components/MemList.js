@@ -1,18 +1,18 @@
 import React from 'react';
-import { Table, Popconfirm, Select, Input, Radio, Icon } from 'antd';
+import { Table, Popconfirm, Select, Input, Radio, Icon, notification } from 'antd';
 import UploadImg from '../../../components/UpLoad/UploadImage';
 import { postRequest } from '@/utils/api';
 import styles from '../index.less';
 
 import { SYS_Dict } from '@/services/SysInterface';
 
-class memList extends React.Component {
+class MemList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       dataSource: [
         {
-          key: 0,
+          id: 0,
           relationship: 1,
           fullName: '',
           sex: 0,
@@ -40,11 +40,25 @@ class memList extends React.Component {
       await this.setState({ nationArr: nationArr.data });
     }
 
+    if (this.props.list && this.props.list.length > 0) {
+      this.setState({ dataSource: this.props.list });
+    }
+
     this.columnsUp();
   };
 
   componentWillReceiveProps = nextProps => {
     if (nextProps.getList) {
+      let flag = true;
+      this.state.dataSource.forEach(item => {
+        if (item.idNumber.toString().length < 14) {
+          flag = false;
+        }
+      });
+      if (!flag) {
+        notification.error({ message: '请输入正确的身份证号' });
+        return;
+      }
       this.props.onListCall(this.state.dataSource);
     }
   };
@@ -60,7 +74,7 @@ class memList extends React.Component {
       columns: [
         {
           title: '与户主关系',
-          width: '14%',
+          width: '10%',
           dataIndex: 'relationship',
           render(text, record, index) {
             return (
@@ -89,7 +103,7 @@ class memList extends React.Component {
         },
         {
           title: '姓名',
-          width: '14%',
+          width: '12%',
           dataIndex: 'fullName',
           render(text, record, index) {
             return (
@@ -108,7 +122,7 @@ class memList extends React.Component {
         },
         {
           title: '性别',
-          width: '14%',
+          width: '16%',
           dataIndex: 'sex',
           render(text, record, index) {
             return (
@@ -197,7 +211,7 @@ class memList extends React.Component {
           width: '8%',
           dataIndex: 'opt',
           render(text, record, index) {
-            if (index !== 0) {
+            if (index !== 0 && !that.props.list) {
               return (
                 <div>
                   <Popconfirm
@@ -222,36 +236,45 @@ class memList extends React.Component {
   };
 
   render() {
+    const that = this;
     const { dataSource } = this.state;
     return (
       <div>
         <div>
-          <span
-            className={styles.addBtn}
-            onClick={() => {
-              const json = {
-                key: new Date().getTime(),
-                relationship: null,
-                fullName: '',
-                sex: 0,
-                nationalities: null,
-                idNumber: '',
-                memberPictures: '',
-              };
-              dataSource.push(json);
-              this.setState({
-                dataSource,
-              });
-            }}
-          >
-            添加成员
-            <Icon className={styles.iconDom} type="plus-circle" key="Icon" />
-          </span>
-          <Table pagination={false} columns={this.state.columns} dataSource={dataSource} />
+          {!that.props.list && (
+            <span
+              className={styles.addBtn}
+              onClick={() => {
+                const json = {
+                  id: new Date().getTime(),
+                  relationship: null,
+                  fullName: '',
+                  sex: 0,
+                  nationalities: null,
+                  idNumber: '',
+                  memberPictures: '',
+                };
+                dataSource.push(json);
+                this.setState({
+                  dataSource,
+                });
+              }}
+            >
+              添加成员
+              <Icon className={styles.iconDom} type="plus-circle" key="Icon" />
+            </span>
+          )}
+          <Table
+            rowKey="id"
+            scroll={{ x: 900 }}
+            pagination={false}
+            columns={this.state.columns}
+            dataSource={dataSource}
+          />
         </div>
       </div>
     );
   }
 }
 
-export default memList;
+export default MemList;

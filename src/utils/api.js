@@ -94,6 +94,10 @@ export function deleteRequest(url, params) {
 }
 
 export function postFormDateRequest(url, params) {
+  let headers = {};
+  if (localStorage.getItem('Authorization')) {
+    headers = { Authorization: localStorage.getItem('Authorization') };
+  }
   let paramstr = '';
   for (const key in params) {
     if (key) {
@@ -106,6 +110,7 @@ export function postFormDateRequest(url, params) {
   return new Promise((resolve, reject) => {
     request(http + url, {
       method: 'POST',
+      headers,
       body: paramstr,
     })
       .then(response => {

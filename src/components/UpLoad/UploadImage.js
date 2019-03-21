@@ -5,8 +5,8 @@ import { http } from '@/utils/api';
 class UploadImg extends React.Component {
   constructor(props) {
     super(props);
-    if (props.fileList !== this.props.fileList) {
-      const fileList = [];
+    const fileList = [];
+    if (props.fileList) {
       if (
         props.fileList !== null &&
         typeof props.fileList !== 'undefined' &&
@@ -27,14 +27,11 @@ class UploadImg extends React.Component {
           });
         }
       }
-      this.setState({
-        fileList,
-      });
     }
     this.state = {
       previewVisible: false,
       previewImage: '',
-      fileList: [],
+      fileList,
     };
   }
 
@@ -58,7 +55,9 @@ class UploadImg extends React.Component {
         imgUrl = `${imgUrl + file.name}`;
       }
     });
-    this.props.callback(imgUrl);
+    if (imgUrl.indexOf('http') >= 0) {
+      this.props.callback(imgUrl);
+    }
     this.setState({ fileList });
   };
 

@@ -9,18 +9,34 @@ import { connect } from 'dva';
 class Info extends React.Component {
   constructor(props) {
     super(props);
+    const identifying = this.digui(Math.round(Math.random() * 999999999));
     this.state = {
       open: false,
       title: '',
+      identifying,
     };
   }
+
+  digui = identifying => {
+    const { list } = this.props;
+    let on = true;
+    list.forEach(json => {
+      if (json.toString() === identifying.toString()) {
+        on = false;
+      }
+    });
+    if (on) {
+      return identifying;
+    }
+    return this.digui(Math.round(Math.random() * 999999999));
+  };
 
   componentWillReceiveProps = async nextProps => {
     const { list } = nextProps;
     let title1 = '';
     let on = false;
     list.forEach(json => {
-      if (json.key === nextProps.identifying) {
+      if (json.key === this.state.identifying) {
         on = json.open;
         title1 = json.title;
       }
@@ -32,7 +48,8 @@ class Info extends React.Component {
   };
 
   render() {
-    const { dispatch, list, children, identifying, title, id } = this.props;
+    const { dispatch, list, children, title, id } = this.props;
+    const { identifying } = this.state;
     return (
       <div>
         <div
@@ -78,7 +95,7 @@ class Info extends React.Component {
           width="1000px"
           onClose={() => {
             list.forEach((json, i) => {
-              if (json.key === this.props.identifying) {
+              if (json.key === identifying) {
                 list.splice(i, list.length);
               }
             });
