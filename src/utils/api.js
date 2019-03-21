@@ -2,9 +2,9 @@ import router from 'umi/router';
 import moment from 'moment';
 import request from './request';
 
-export const http = 'http://192.168.2.166:8090';
+export const http = 'http://127.0.0.1:8090';
 
-export const ws = 'ws://192.168.2.166:8090/websocket';
+export const ws = 'ws://127.0.0.1:8090/websocket';
 
 export function getRequest(url) {
   return new Promise((resolve, reject) => {
