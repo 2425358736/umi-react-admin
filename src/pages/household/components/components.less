@@ -99,3 +99,31 @@
   margin: 94px 0 30px;
   text-align: center;
 }
+
+.historyUl {
+  padding: 10px 0;
+  margin: 0;
+  > li {
+    float: left;
+    margin-right: 20px;
+    .historyImgWrap {
+      width: 100px;
+      height: 100px;
+      > img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    > p {
+      text-align: center;
+      margin-top: 10px;
+    }
+  }
+}
+
+.historyUl:after {
+  content: '';
+  display: block;
+  height: 0;
+  clear: both;
+}

@@ -7,12 +7,6 @@ class MemberList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pagination: {
-        showSizeChanger: true,
-        showQuickJumper: true,
-        pageSizeOptions: ['5', '10', '15'],
-        defaultPageSize: 5,
-      },
       columns: [
         {
           title: '序号',
@@ -53,7 +47,7 @@ class MemberList extends React.Component {
         {
           title: '个人单页',
           width: '14%',
-          dataIndex: 'memberChangeId',
+          dataIndex: 'memberPictures',
           render(text, record) {
             return (
               <div style={{ width: '50px', height: '50px' }}>
@@ -92,7 +86,7 @@ class MemberList extends React.Component {
           rowKey="id"
           columns={this.state.columns}
           dataSource={this.state.dataSource}
-          pagination={this.state.pagination}
+          pagination={false}
         />
       </div>
     );

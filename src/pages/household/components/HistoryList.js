@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table } from 'antd';
-
+import HistoryDetail from './HistoryDetail';
+import HistorySourceDetail from './HistorySourceDetail';
 import { Info } from '@/components/BusinessComponent/BusCom';
 
 class HistoryList extends React.Component {
@@ -46,6 +47,15 @@ class HistoryList extends React.Component {
           title: '来源编号',
           width: '12%',
           dataIndex: '?',
+          render(text, record) {
+            return (
+              <div>
+                <Info title="户口簿历史来源详情" info={<HistorySourceDetail id={record.id} />}>
+                  来源详情
+                </Info>
+              </div>
+            );
+          },
         },
         {
           title: '状态',
@@ -69,13 +79,10 @@ class HistoryList extends React.Component {
           title: '操作',
           width: '10%',
           dataIndex: 'opt',
-          render() {
+          render(text, record) {
             return (
               <div>
-                <Info
-                  title="户口簿历史详情"
-                  // info={<HouseholdDetail id={record.id}/>}
-                >
+                <Info title="户口簿历史详情" info={<HistoryDetail id={record.id} />}>
                   详情
                 </Info>
               </div>
