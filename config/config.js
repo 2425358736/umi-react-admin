@@ -116,6 +116,10 @@ export default {
           path: '/examine',
           component: './examine/index',
         },
+        {
+          path: '/household',
+          component: './household/index',
+        },
       ],
     },
   ],

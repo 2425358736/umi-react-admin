@@ -28,7 +28,7 @@ class MemList extends React.Component {
   }
 
   componentDidMount = async () => {
-    // 大队列表
+    // 与户主关系
     const withArr = await postRequest(`${SYS_Dict}/1`);
     if (withArr.status === 200) {
       await this.setState({ withArr: withArr.data });
@@ -189,7 +189,7 @@ class MemList extends React.Component {
           },
         },
         {
-          title: '证件',
+          title: '个人单页',
           width: '14%',
           dataIndex: 'memberPictures',
           render(text, record, index) {

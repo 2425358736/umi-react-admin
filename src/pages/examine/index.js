@@ -67,6 +67,16 @@ const search = {
       queryField: 'householdNumber',
       component: 'Input',
     },
+    {
+      queryTitle: '身份证号',
+      queryField: 'householderNumber',
+      component: 'Input',
+    },
+    {
+      queryTitle: '住址',
+      queryField: 'homeAddress',
+      component: 'Input',
+    },
   ],
 };
 

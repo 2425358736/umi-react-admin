@@ -266,7 +266,7 @@ class MoveInExamine extends React.Component {
             <span />
             <span>审核记录</span>
           </div>
-          {fetchData.id && <ExamineRecord propId={fetchData.id} />}
+          {fetchData && fetchData.id && <ExamineRecord propId={fetchData.id} />}
         </div>
       </div>
     );

@@ -96,3 +96,13 @@ export const MOVEIN_CANCEL = '/household/cancel'; // 迁入作废
 export const MOVEIN_SUCCESS = '/household/auditSuccess'; // 迁入通过
 
 // ------------ 审批 end ----------------
+
+// ------------ 户口簿 start ----------------
+
+export const HOUSEHOLD_LIST_HEADER = '/household/householdHead'; // 户口簿列表头部汇总
+
+export const HOUSEHOLD_LIST = '/household/householdRegisterList'; // 户口簿列表
+
+export const HOUSEHOLD_DETAIL = '/household/householdRegisterInfo'; // 户口簿详情
+
+// ------------ 户口簿 end ----------------

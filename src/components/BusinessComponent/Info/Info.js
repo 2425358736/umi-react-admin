@@ -51,7 +51,7 @@ class Info extends React.Component {
     const { dispatch, list, children, title, id } = this.props;
     const { identifying } = this.state;
     return (
-      <div>
+      <div style={{ display: 'inline-block' }}>
         <div
           style={{
             cursor: 'pointer',
