@@ -8,7 +8,7 @@ import { SYS_Dict, MOVE_IN } from '@/services/SysInterface';
 
 const styles = require('./index.less');
 
-class AddUp extends React.Component {
+class MoveIn extends React.Component {
   homePicture = '';
 
   indexPictures = '';
@@ -233,6 +233,6 @@ class AddUp extends React.Component {
   }
 }
 
-const AddUpComponent = Form.create()(AddUp);
+const MoveInComponent = Form.create()(MoveIn);
 
-export default AddUpComponent;
+export default MoveInComponent;

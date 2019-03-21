@@ -81,3 +81,18 @@ export const SYS_READ_ALL = '/sys/readAll'; // 批量已读
 export const MOVE_IN = '/household/immigration'; // 户口迁入
 
 // ------------ 迁入 end ----------------
+// ------------ 审批 start ----------------
+
+export const EXAMINE_LIST = '/household/householdChangeList'; // 审批列表
+
+export const EXAMINE_LIST_HEADER = '/household/approvalHead'; // 审批列表头部汇总
+
+export const EXAMINE_Detail = '/household/householdChangeInfo'; // 审批详情
+
+export const EXAMINE_RECORD = '/household/auditRecord'; // 审批记录
+
+export const MOVEIN_CANCEL = '/household/cancel'; // 迁入作废
+
+export const MOVEIN_SUCCESS = '/household/auditSuccess'; // 迁入通过
+
+// ------------ 审批 end ----------------

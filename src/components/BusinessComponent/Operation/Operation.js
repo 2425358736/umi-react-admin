@@ -1,6 +1,8 @@
 import React from 'react';
-import { Popconfirm } from 'antd';
+import { Popconfirm, Button } from 'antd';
 import { connect } from 'dva';
+
+import styles from './Operation.less';
 
 @connect(({ screen }) => ({
   screen,
@@ -33,14 +35,27 @@ class Operation extends React.Component {
 
   render() {
     return (
-      <div>
-        {!this.props.reminder && <a onClick={this.click}>{this.props.title}</a>}
-        {this.props.reminder && (
-          <Popconfirm title={this.props.reminder} onConfirm={this.click}>
-            <a>{this.props.title}</a>
-          </Popconfirm>
+      <span>
+        {this.props.isBtn ? (
+          <Button
+            type={this.props.btnType === 'submit' ? 'primary' : ''}
+            className={this.props.btnType === 'submit' ? styles.submitBtn : styles.cancelBtn}
+            loading={this.props.buttonLoading}
+            onClick={this.click}
+          >
+            {this.props.title}
+          </Button>
+        ) : (
+          <div>
+            {!this.props.reminder && <a onClick={this.click}>{this.props.title}</a>}
+            {this.props.reminder && (
+              <Popconfirm title={this.props.reminder} onConfirm={this.click}>
+                <a>{this.props.title}</a>
+              </Popconfirm>
+            )}
+          </div>
         )}
-      </div>
+      </span>
     );
   }
 }

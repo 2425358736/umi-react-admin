@@ -88,7 +88,7 @@ export default function request(url, options) {
         router.push('/error/404');
       }
       if (status === 'TypeError') {
-        window.location.href = '/user/login';
+        // window.location.href = '/user/login';
       }
     });
 }

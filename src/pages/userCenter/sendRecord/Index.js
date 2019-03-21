@@ -188,11 +188,7 @@ class Index extends React.Component {
                   dataIndex: 'informationTitle',
                   render(text, record) {
                     return (
-                      <Info
-                        identifying={record.informationTitle + new Date()}
-                        title={record.informationTitle}
-                        info={<SendInfo id={record.id} />}
-                      >
+                      <Info title={record.informationTitle} info={<SendInfo id={record.id} />}>
                         {record.informationTitle}
                       </Info>
                     );
