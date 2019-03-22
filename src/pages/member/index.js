@@ -277,7 +277,7 @@ class MemberList extends React.Component {
           title: '性别',
           width: '6%',
           dataIndex: 'sex',
-          column: 'sex',
+          column: 'sexStr',
           filters: [
             {
               text: '男',
