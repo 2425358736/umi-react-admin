@@ -81,7 +81,7 @@ class MoveInExamine extends React.Component {
         return;
       }
       if (this.state.fetchData.changeType === 0) {
-        if (!verVal(this.props.form.getFieldValue('remarks'))) {
+        if (!verVal(this.props.form.getFieldValue('householdNumber'))) {
           notification.error({ message: '请输入该迁入户口的编号' });
           return;
         }
