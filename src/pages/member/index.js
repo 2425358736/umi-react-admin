@@ -24,122 +24,55 @@ const search = {
     queryTitle: '姓名，全拼，简拼，身份证号，手机号',
     queryField: 'fullName',
   },
-  senior: [
-    {
-      queryTitle: '编号',
-      queryField: 'householdNumber',
-      component: 'Input',
-    },
-    {
-      queryTitle: '户主',
-      queryField: 'householderName',
-      component: 'Input',
-    },
-    {
-      queryTitle: '户号',
-      queryField: 'householdRegisterNumber',
-      component: 'Input',
-    },
-    {
-      queryTitle: '年龄起',
-      queryField: 'ageStart',
-      component: 'Input',
-    },
-    {
-      queryTitle: '年龄止',
-      queryField: 'ageEnd',
-      component: 'Input',
-    },
-    {
-      queryTitle: '住址',
-      queryField: 'homeAddress',
-      component: 'Input',
-    },
-    {
-      queryTitle: '出生日期起',
-      queryField: 'birthStartDate',
-      component: 'DatePicker',
-    },
-    {
-      queryTitle: '出生日期止',
-      queryField: 'birthEndDate',
-      component: 'DatePicker',
-    },
-  ],
+  senior: [],
 };
 
 class MemberList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      columns: [],
-    };
-  }
-
-  queueArr = async () => {
-    // 大队列表
-    const arr = [];
-    const arr1 = [
+    search.senior = [
       {
-        displayTitle: '总共',
-        displayField: 'name0',
+        queryTitle: '编号',
+        queryField: 'householdNumber',
+        component: 'Input',
+      },
+      {
+        queryTitle: '户主',
+        queryField: 'householderName',
+        component: 'Input',
+      },
+      {
+        queryTitle: '户号',
+        queryField: 'householdRegisterNumber',
+        component: 'Input',
+      },
+      {
+        queryTitle: '年龄起',
+        queryField: 'ageStart',
+        component: 'Input',
+      },
+      {
+        queryTitle: '年龄止',
+        queryField: 'ageEnd',
+        component: 'Input',
+      },
+      {
+        queryTitle: '住址',
+        queryField: 'homeAddress',
+        component: 'Input',
+      },
+      {
+        queryTitle: '出生日期起',
+        queryField: 'birthStartDate',
+        component: 'DatePicker',
+      },
+      {
+        queryTitle: '出生日期止',
+        queryField: 'birthEndDate',
+        component: 'DatePicker',
       },
     ];
-    const queueArr = await postRequest(`${SYS_Dict}/6`);
-    if (queueArr.status === 200) {
-      queueArr.data.forEach(item => {
-        arr.push({
-          text: item.dataLabel,
-          value: item.id.toString(),
-        });
-        arr1.push({
-          displayTitle: item.dataLabel,
-          displayField: `name${item.id}`,
-          queryTitle: '大队',
-          queryField: 'troops',
-          queryValue: [item.id.toString()],
-        });
-      });
-    }
-    topStatistics.topJson = arr1;
-    return arr;
-  };
-
-  nationArr = async () => {
-    // 民族列表
-    const arr3 = [];
-    const nationArr = await postRequest(`${SYS_Dict}/8`);
-    if (nationArr.status === 200) {
-      nationArr.data.forEach(item => {
-        arr3.push({
-          text: item.dataLabel,
-          value: item.id.toString(),
-        });
-      });
-    }
-    return arr3;
-  };
-
-  withArr = async () => {
-    // 与户主关系
-    const arr4 = [];
-    const withArr = await postRequest(`${SYS_Dict}/1`);
-    if (withArr.status === 200) {
-      withArr.data.forEach(item => {
-        arr4.push({
-          text: item.dataLabel,
-          value: item.id.toString(),
-        });
-      });
-    }
-    return arr4;
-  };
-
-  componentWillMount = async () => {
-    const arr = await this.queueArr();
-    const arr3 = await this.nationArr();
-    const arr4 = await this.withArr();
-    this.setState({
+    this.state = {
       columns: [
         {
           title: '序号',
@@ -175,9 +108,7 @@ class MemberList extends React.Component {
         {
           title: '民族',
           width: '6%',
-          dataIndex: 'nationalities',
-          column: 'nationalitiesStr',
-          filters: arr3,
+          dataIndex: 'nationalitiesStr',
         },
         {
           title: '身份证号',
@@ -225,16 +156,12 @@ class MemberList extends React.Component {
         {
           title: '与户主关系',
           width: '8%',
-          dataIndex: 'relationship',
-          column: 'relationshipStr',
-          filters: arr4,
+          dataIndex: 'relationshipStr',
         },
         {
           title: '大队',
           width: '6%',
-          dataIndex: 'troops',
-          column: 'troopsStr',
-          filters: arr,
+          dataIndex: 'troopsStr',
         },
         {
           title: '住址',
@@ -259,7 +186,87 @@ class MemberList extends React.Component {
           },
         },
       ],
+    };
+  }
+
+  queueArr = async () => {
+    // 大队列表
+    const arr = [];
+    const arr1 = [
+      {
+        displayTitle: '总共',
+        displayField: 'name0',
+      },
+    ];
+    const queueArr = await postRequest(`${SYS_Dict}/6`);
+    if (queueArr.status === 200) {
+      queueArr.data.forEach(item => {
+        arr.push({
+          title: item.dataLabel,
+          value: item.id.toString(),
+        });
+        arr1.push({
+          displayTitle: item.dataLabel,
+          displayField: `name${item.id}`,
+          queryTitle: '大队',
+          queryField: 'troops',
+          queryValue: [item.id.toString()],
+        });
+      });
+    }
+    topStatistics.topJson = arr1;
+    search.senior.push({
+      queryTitle: '大队',
+      queryField: 'troops',
+      component: 'Select-Multiple',
+      componentData: arr,
     });
+  };
+
+  nationArr = async () => {
+    // 民族列表
+    const arr3 = [];
+    const nationArr = await postRequest(`${SYS_Dict}/8`);
+    if (nationArr.status === 200) {
+      nationArr.data.forEach(item => {
+        arr3.push({
+          title: item.dataLabel,
+          value: item.id.toString(),
+        });
+      });
+    }
+    search.senior.push({
+      queryTitle: '民族',
+      queryField: 'nationalities',
+      component: 'Select-Multiple',
+      componentData: arr3,
+    });
+  };
+
+  withArr = async () => {
+    // 与户主关系
+    const arr4 = [];
+    const withArr = await postRequest(`${SYS_Dict}/1`);
+    if (withArr.status === 200) {
+      withArr.data.forEach(item => {
+        arr4.push({
+          title: item.dataLabel,
+          value: item.id.toString(),
+        });
+      });
+    }
+    search.senior.push({
+      queryTitle: '户主关系',
+      queryField: 'relationship',
+      component: 'Select-Multiple',
+      componentData: arr4,
+    });
+  };
+
+  componentWillMount = async () => {
+    this.queueArr();
+    this.nationArr();
+    this.withArr();
   };
 
   render() {
