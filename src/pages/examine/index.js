@@ -8,7 +8,7 @@ import {
   Info,
 } from '@/components/BusinessComponent/BusCom';
 
-import MoveInExamine from './components/MoveInexamine/MoveInExamine';
+import ExamineDetail from './components/ExamineDetail';
 
 import styles from './index.less';
 
@@ -194,8 +194,25 @@ class Examine extends React.Component {
             return (
               <span>
                 {record.auditStatus === 0 && (
-                  <Info title="迁入审批" info={<MoveInExamine id={record.id} />}>
-                    审批
+                  <Info
+                    title={
+                      record.changeType === 0
+                        ? '迁入审批'
+                        : record.changeType === 1
+                        ? '增员审批'
+                        : record.changeType === 2
+                        ? '减员审批'
+                        : '注销审批'
+                    }
+                    info={<ExamineDetail id={record.id} />}
+                  >
+                    {record.changeType === 0
+                      ? '迁入审批'
+                      : record.changeType === 1
+                      ? '增员审批'
+                      : record.changeType === 2
+                      ? '减员审批'
+                      : '注销审批'}
                   </Info>
                 )}
               </span>

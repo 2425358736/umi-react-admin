@@ -3,8 +3,9 @@ import { Table, Popconfirm, Select, Input, Radio, Icon } from 'antd';
 import UploadImg from '../../../components/UpLoad/UploadImage';
 import { postRequest } from '@/utils/api';
 import styles from '../index.less';
-
+import { Info } from '@/components/BusinessComponent/BusCom';
 import { SYS_Dict } from '@/services/SysInterface';
+import MemberDetail from '../../member/components/MemberDetail';
 
 class MemList extends React.Component {
   constructor(props) {
@@ -60,168 +61,230 @@ class MemList extends React.Component {
   columnsUp = () => {
     const that = this;
     const { withArr, nationArr } = this.state;
-    this.setState({
-      columns: [
-        {
-          title: '与户主关系',
-          width: '10%',
-          dataIndex: 'relationship',
-          render(text, record, index) {
-            return (
-              <Select
-                showSearch
-                style={{ width: '150px' }}
-                placeholder="请选择与户主关系"
-                optionFilterProp="children"
-                value={record.relationship}
-                disabled={index === 0}
-                onChange={value => {
-                  that.state.dataSource[index].relationship = value;
-                  that.setState({
-                    dataSource: that.state.dataSource,
-                  });
-                }}
-              >
-                {withArr.map(item => (
-                  <Select.Option disabled={item.id === 1} key={item.id} value={item.id}>
-                    {item.dataLabel}
-                  </Select.Option>
-                ))}
-              </Select>
-            );
-          },
+    const { type } = this.props;
+    const columns = [
+      {
+        title: '与户主关系',
+        width: '12%',
+        dataIndex: 'relationship',
+        render(text, record, index) {
+          return (
+            <div>
+              {type === 2 || type === 3 ? (
+                <span>{record.relationshipStr}</span>
+              ) : (
+                <Select
+                  showSearch
+                  style={{ width: '150px' }}
+                  placeholder="请选择与户主关系"
+                  optionFilterProp="children"
+                  value={record.relationship}
+                  disabled={index === 0}
+                  onChange={value => {
+                    that.state.dataSource[index].relationship = value;
+                    that.setState({
+                      dataSource: that.state.dataSource,
+                    });
+                  }}
+                >
+                  {withArr.map(item => (
+                    <Select.Option disabled={item.id === 1} key={item.id} value={item.id}>
+                      {item.dataLabel}
+                    </Select.Option>
+                  ))}
+                </Select>
+              )}
+            </div>
+          );
         },
-        {
-          title: '姓名',
-          width: '12%',
-          dataIndex: 'fullName',
-          render(text, record, index) {
-            return (
-              <Input
-                placeholder="请输入姓名"
-                value={record.fullName}
-                onChange={e => {
-                  that.state.dataSource[index].fullName = e.target.value;
-                  that.setState({
-                    dataSource: that.state.dataSource,
-                  });
-                }}
-              />
-            );
-          },
+      },
+      {
+        title: '姓名',
+        width: '10%',
+        dataIndex: 'fullName',
+        render(text, record, index) {
+          return (
+            <div>
+              {type === 2 || type === 3 ? (
+                <span>{record.fullName}</span>
+              ) : (
+                <Input
+                  placeholder="请输入姓名"
+                  value={record.fullName}
+                  onChange={e => {
+                    that.state.dataSource[index].fullName = e.target.value;
+                    that.setState({
+                      dataSource: that.state.dataSource,
+                    });
+                  }}
+                />
+              )}
+            </div>
+          );
         },
-        {
-          title: '性别',
-          width: '16%',
-          dataIndex: 'sex',
-          render(text, record, index) {
-            return (
-              <Radio.Group
-                onChange={e => {
-                  that.state.dataSource[index].sex = e.target.value;
-                  that.setState({
-                    dataSource: that.state.dataSource,
-                  });
-                }}
-                value={record.sex}
-              >
-                <Radio value={0}>男</Radio>
-                <Radio value={1}>女</Radio>
-              </Radio.Group>
-            );
-          },
+      },
+      {
+        title: '性别',
+        width: '16%',
+        dataIndex: 'sex',
+        render(text, record, index) {
+          return (
+            <div>
+              {type === 2 || type === 3 ? (
+                <span>{text === 0 ? '男' : text === 1 ? '女' : '未知'}</span>
+              ) : (
+                <Radio.Group
+                  onChange={e => {
+                    that.state.dataSource[index].sex = e.target.value;
+                    that.setState({
+                      dataSource: that.state.dataSource,
+                    });
+                  }}
+                  value={record.sex}
+                >
+                  <Radio value={0}>男</Radio>
+                  <Radio value={1}>女</Radio>
+                </Radio.Group>
+              )}
+            </div>
+          );
         },
-        {
-          title: '民族',
-          width: '14%',
-          dataIndex: 'nationalities',
-          render(text, record, index) {
-            return (
-              <Select
-                showSearch
-                style={{ width: '150px' }}
-                defaultValue={record.nationalities}
-                placeholder="请选择民族"
-                optionFilterProp="children"
-                onChange={value => {
-                  that.state.dataSource[index].nationalities = value;
-                  that.setState({
-                    dataSource: that.state.dataSource,
-                  });
-                }}
-              >
-                {nationArr.map(item => (
-                  <Select.Option key={item.id} value={item.id}>
-                    {item.dataLabel}
-                  </Select.Option>
-                ))}
-              </Select>
-            );
-          },
+      },
+      {
+        title: '民族',
+        width: '14%',
+        dataIndex: 'nationalities',
+        render(text, record, index) {
+          return (
+            <div>
+              {type === 2 || type === 3 ? (
+                <span>{record.nationalitiesStr}</span>
+              ) : (
+                <Select
+                  showSearch
+                  style={{ width: '150px' }}
+                  defaultValue={record.nationalities}
+                  placeholder="请选择民族"
+                  optionFilterProp="children"
+                  onChange={value => {
+                    that.state.dataSource[index].nationalities = value;
+                    that.setState({
+                      dataSource: that.state.dataSource,
+                    });
+                  }}
+                >
+                  {nationArr.map(item => (
+                    <Select.Option key={item.id} value={item.id}>
+                      {item.dataLabel}
+                    </Select.Option>
+                  ))}
+                </Select>
+              )}
+            </div>
+          );
         },
-        {
-          title: '身份证号',
-          width: '14%',
-          dataIndex: 'idNumber',
-          render(text, record, index) {
-            return (
-              <Input
-                placeholder="请输入身份证号"
-                value={record.idNumber}
-                onChange={e => {
-                  that.state.dataSource[index].idNumber = e.target.value;
-                  that.setState({
-                    dataSource: that.state.dataSource,
-                  });
-                }}
-              />
-            );
-          },
+      },
+      {
+        title: '身份证号',
+        width: '14%',
+        dataIndex: 'idNumber',
+        render(text, record, index) {
+          return (
+            <div>
+              {type === 2 || type === 3 ? (
+                <span>{text}</span>
+              ) : (
+                <Input
+                  placeholder="请输入身份证号"
+                  value={record.idNumber}
+                  onChange={e => {
+                    that.state.dataSource[index].idNumber = e.target.value;
+                    that.setState({
+                      dataSource: that.state.dataSource,
+                    });
+                  }}
+                />
+              )}
+            </div>
+          );
         },
-        {
-          title: '个人单页',
-          width: '14%',
-          dataIndex: 'memberPictures',
-          render(text, record, index) {
-            return (
-              <UploadImg
-                fileList={record.memberPictures}
-                callback={imgUrl => {
-                  that.state.dataSource[index].memberPictures = imgUrl;
-                  that.setState({
-                    dataSource: that.state.dataSource,
-                  });
-                }}
-              />
-            );
-          },
-        },
-        {
-          title: '操作',
-          width: '8%',
-          dataIndex: 'opt',
-          render(text, record, index) {
-            if (index !== 0 && !that.props.list) {
-              return (
-                <div>
-                  <Popconfirm
-                    title="确认删除吗"
-                    onConfirm={() => {
-                      that.state.dataSource.splice(index, 1);
-                      that.setState({
-                        dataSource: that.state.dataSource,
-                      });
-                    }}
-                  >
-                    <a>删除</a>
-                  </Popconfirm>
+      },
+      {
+        title: '个人单页',
+        width: '14%',
+        dataIndex: 'memberPictures',
+        render(text, record, index) {
+          return (
+            <div>
+              {type === 2 || type === 3 ? (
+                <div style={{ width: '50px', height: '50px' }}>
+                  <img
+                    style={{ width: '100%', height: '100%' }}
+                    src={record.memberPictures}
+                    alt=""
+                  />
                 </div>
-              );
-            }
-            return null;
-          },
+              ) : (
+                <UploadImg
+                  fileList={record.memberPictures}
+                  callback={imgUrl => {
+                    that.state.dataSource[index].memberPictures = imgUrl;
+                    that.setState({
+                      dataSource: that.state.dataSource,
+                    });
+                  }}
+                />
+              )}
+            </div>
+          );
         },
-      ],
+      },
+    ];
+    if (type !== 0 && !type) {
+      columns.push({
+        title: '操作',
+        width: '8%',
+        dataIndex: 'opt',
+        render(text, record, index) {
+          return (
+            <div>
+              {record.relationship !== 1 && (
+                <Popconfirm
+                  title="确认删除吗"
+                  onConfirm={() => {
+                    that.state.dataSource.splice(index, 1);
+                    that.setState({
+                      dataSource: that.state.dataSource,
+                    });
+                  }}
+                >
+                  <a>删除</a>
+                </Popconfirm>
+              )}
+            </div>
+          );
+        },
+      });
+    }
+    if (type === 3) {
+      columns.push({
+        title: '操作',
+        width: '8%',
+        dataIndex: 'opt',
+        render(text, record) {
+          return (
+            <div>
+              <Info title="成员详情" info={<MemberDetail id={record.memberId} />}>
+                详情
+              </Info>
+            </div>
+          );
+        },
+      });
+    }
+
+    this.setState({
+      columns,
     });
   };
 
