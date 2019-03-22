@@ -1,14 +1,11 @@
 import React from 'react';
 import { Icon } from 'antd';
-import HouseholdDetail from '../../household/components/HouseholdDetail';
-import HouseholdMemberList from './HouseholdMemberList';
 import styles from './components.less';
 import { getRequest } from '@/utils/api';
 
-import { Info } from '@/components/BusinessComponent/BusCom';
 import { MEMBER_DETAIL } from '@/services/SysInterface';
 
-class MemberDetail extends React.Component {
+class GroupDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,6 +40,14 @@ class MemberDetail extends React.Component {
             <div className={styles.cardDom}>
               <p className={styles.cardTitle}>
                 <Icon type="credit-card" className={styles.iconDom} />
+                小组
+              </p>
+              <p className={styles.cardContent}>{fetchData.idNumber}</p>
+            </div>
+
+            <div className={styles.cardDom}>
+              <p className={styles.cardTitle}>
+                <Icon type="credit-card" className={styles.iconDom} />
                 身份证号
               </p>
               <p className={styles.cardContent}>{fetchData.idNumber}</p>
@@ -68,14 +73,6 @@ class MemberDetail extends React.Component {
 
             <div className={styles.cardDom}>
               <p className={styles.cardTitle}>
-                <Icon type="tags" className={styles.iconDom} />
-                政治面貌
-              </p>
-              <p className={styles.cardContent}>{fetchData.politicsFaceStr}</p>
-            </div>
-
-            <div className={styles.cardDom}>
-              <p className={styles.cardTitle}>
                 <Icon type="phone" className={styles.iconDom} />
                 手机号
               </p>
@@ -85,84 +82,51 @@ class MemberDetail extends React.Component {
         </div>
 
         <div className={styles.midOneWrap}>
-          <div className={styles.midOneLeft}>
-            <div className={styles.midOneTitle}>
-              <span />
-              <span>个人信息</span>
-            </div>
-            <div className={styles.conWrap}>
-              <div className={styles.itemDom}>
-                <span>微信头像：</span>
-                <div className={styles.imgWrap}>
-                  <img src={fetchData.wxPortrait} alt="" />
-                </div>
-              </div>
-              <div className={styles.itemDom}>
-                <span>微信昵称：</span>
-                <span>{fetchData.wxNickname}</span>
-              </div>
-              <div className={styles.itemDom}>
-                <span>微信手机号：</span>
-                <span>{fetchData.wxPhoneNumber}</span>
-              </div>
-            </div>
-          </div>
-
           <div className={styles.midOneRight}>
             <div className={styles.midOneTitle}>
               <span />
-              <div className={styles.btnWrap}>
-                <Info title="户口簿详情" info={<HouseholdDetail id={fetchData.householdId} />}>
-                  <p style={{ color: '#fff' }}>查看详情</p>
-                </Info>
-              </div>
-              <span>户口簿信息</span>
+              <span>党员信息</span>
             </div>
+
             <div className={styles.conWrap}>
               <div className={styles.itemDom}>
-                <span>户口簿版本号</span>
+                <span>入党日期</span>
                 <p>{householdRegisterVo.version}</p>
               </div>
               <div className={styles.itemDom}>
-                <span>编号</span>
+                <span>当前支部</span>
                 <p>{householdRegisterVo.householdNumber}</p>
               </div>
-            </div>
-            <div className={styles.conWrap}>
               <div className={styles.itemDom}>
-                <span>户号</span>
+                <span>支部联系人</span>
                 <p>{householdRegisterVo.householdRegisterNumber}</p>
               </div>
-              <div className={styles.itemDom}>
-                <span>户主</span>
-                <p>{householdRegisterVo.householderName}</p>
-              </div>
             </div>
+
             <div className={styles.conWrap}>
               <div className={styles.itemDom}>
-                <span>户别</span>
+                <span>入党支部</span>
+                <p>{householdRegisterVo.householderName}</p>
+              </div>
+              <div className={styles.itemDom}>
+                <span>支部书记</span>
                 <p>{householdRegisterVo.date}</p>
               </div>
               <div className={styles.itemDom}>
-                <span>住址</span>
+                <span>联系人电话</span>
                 <p>{householdRegisterVo.homeAddress}</p>
               </div>
             </div>
-          </div>
-        </div>
 
-        <div className={styles.bottomWrap}>
-          <div className={styles.bottomTitle}>
-            <span />
-            <span>户口簿成员</span>
+            <div className={styles.remarkWrap}>
+              <span>备注</span>
+              <p>{householdRegisterVo.date}</p>
+            </div>
           </div>
-          {fetchData && fetchData.id && (
-            <HouseholdMemberList dataSource={fetchData.householdRegisterVo.listMember} />
-          )}
         </div>
       </div>
     );
   }
 }
 
-export default MemberDetail;
+export default GroupDetail;

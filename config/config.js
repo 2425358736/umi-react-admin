@@ -124,6 +124,10 @@ export default {
           path: '/member',
           component: './member/index',
         },
+        {
+          path: '/group',
+          component: './group/index',
+        },
       ],
     },
   ],
