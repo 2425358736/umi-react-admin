@@ -37,7 +37,7 @@ class MemberDetail extends React.Component {
         <div className={styles.topWrap}>
           <div className={styles.topTitle}>
             <span />
-            <span>姓名：{fetchData.householdNumber}</span>
+            <span>姓名：{fetchData.fullName}</span>
           </div>
           <div className={styles.cardWrap}>
             <div className={styles.cardDom}>

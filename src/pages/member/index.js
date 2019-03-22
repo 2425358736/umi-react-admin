@@ -104,6 +104,9 @@ class MemberList extends React.Component {
               value: '2',
             },
           ],
+          render(text) {
+            return text === 0 ? '男' : text === 1 ? '女' : '未知';
+          },
         },
         {
           title: '民族',
