@@ -9,9 +9,11 @@ import {
   Search,
   Operation,
   Info,
+  Up,
 } from '@/components/BusinessComponent/BusCom';
 
 import HouseholdDetail from './components/HouseholdDetail';
+import AddMemberApply from './components/AddMemberApply';
 
 import styles from './index.less';
 
@@ -166,13 +168,7 @@ class Household extends React.Component {
             const opRecord = (
               <Menu>
                 <Menu.Item>
-                  <Operation
-                    title="增员"
-                    mode={0}
-                    onClick={() => {
-                      that.reset(record.id);
-                    }}
-                  />
+                  <Up width={800} id={record.id} component={AddMemberApply} title="增员" />
                 </Menu.Item>
                 <Menu.Item>
                   <Operation

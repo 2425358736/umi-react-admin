@@ -117,4 +117,6 @@ export const MEMBER_LIST = '/household/householdMemberList'; // 成员列表
 
 export const MEMBER_DETAIL = '/household/householdMemberInfo'; // 成员详情
 
+export const ADD_MEMBER = '/household/addMembers'; // 成员详情
+
 // ------------ 成员 end ----------------

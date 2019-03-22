@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table, Popconfirm, Select, Input, Radio, Icon } from 'antd';
-import UploadImg from '../../../components/UpLoad/UploadImage';
+import UploadImg from '../../../../../components/UpLoad/UploadImage';
 import { postRequest } from '@/utils/api';
 import styles from '../index.less';
 
@@ -13,7 +13,7 @@ class MemList extends React.Component {
       dataSource: [
         {
           id: 0,
-          relationship: 1,
+          relationship: 169,
           fullName: '',
           sex: 0,
           nationalities: null,
@@ -64,17 +64,16 @@ class MemList extends React.Component {
       columns: [
         {
           title: '与户主关系',
-          width: '10%',
+          width: '12%',
           dataIndex: 'relationship',
           render(text, record, index) {
             return (
               <Select
                 showSearch
-                style={{ width: '150px' }}
+                style={{ width: '100px' }}
                 placeholder="请选择与户主关系"
                 optionFilterProp="children"
                 value={record.relationship}
-                disabled={index === 0}
                 onChange={value => {
                   that.state.dataSource[index].relationship = value;
                   that.setState({
@@ -98,6 +97,7 @@ class MemList extends React.Component {
           render(text, record, index) {
             return (
               <Input
+                style={{ width: '100px' }}
                 placeholder="请输入姓名"
                 value={record.fullName}
                 onChange={e => {
@@ -112,11 +112,12 @@ class MemList extends React.Component {
         },
         {
           title: '性别',
-          width: '16%',
+          width: '14%',
           dataIndex: 'sex',
           render(text, record, index) {
             return (
               <Radio.Group
+                style={{ whiteSpace: 'nowrap' }}
                 onChange={e => {
                   that.state.dataSource[index].sex = e.target.value;
                   that.setState({
@@ -133,13 +134,13 @@ class MemList extends React.Component {
         },
         {
           title: '民族',
-          width: '14%',
+          width: '12%',
           dataIndex: 'nationalities',
           render(text, record, index) {
             return (
               <Select
                 showSearch
-                style={{ width: '150px' }}
+                style={{ width: '100px' }}
                 defaultValue={record.nationalities}
                 placeholder="请选择民族"
                 optionFilterProp="children"
@@ -166,6 +167,7 @@ class MemList extends React.Component {
           render(text, record, index) {
             return (
               <Input
+                style={{ width: '100px' }}
                 placeholder="请输入身份证号"
                 value={record.idNumber}
                 onChange={e => {
@@ -198,7 +200,7 @@ class MemList extends React.Component {
         },
         {
           title: '操作',
-          width: '8%',
+          width: '14%',
           dataIndex: 'opt',
           render(text, record, index) {
             if (index !== 0 && !that.props.list) {
@@ -255,8 +257,8 @@ class MemList extends React.Component {
             </span>
           )}
           <Table
+            scroll={{ x: 880 }}
             rowKey="id"
-            scroll={{ x: 900 }}
             pagination={false}
             columns={this.state.columns}
             dataSource={dataSource}

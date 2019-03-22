@@ -83,6 +83,16 @@ class MoveIn extends React.Component {
         return;
       }
       await this.setState({ getList: true });
+      let flag = true;
+      this.state.dataSource.forEach(item => {
+        if (item.idNumber.toString().length < 14) {
+          flag = false;
+        }
+      });
+      if (!flag) {
+        notification.error({ message: '请输入正确的身份证号' });
+        return;
+      }
       this.setState({
         buttonLoading: true,
       });
