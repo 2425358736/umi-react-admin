@@ -3,7 +3,7 @@ import { Menu, Divider, Dropdown, Icon } from 'antd';
 import { postRequest } from '@/utils/api';
 
 import {
-  BaseTable,
+  ScreeningTag,
   OrdinaryTable,
   TopStatistics,
   Search,
@@ -61,7 +61,7 @@ class Household extends React.Component {
     };
   }
 
-  componentWillMount = async () => {
+  componentDidMount = async () => {
     // 大队列表
     const arr = [];
     const arr1 = [
@@ -203,15 +203,25 @@ class Household extends React.Component {
   render() {
     return (
       <div className={styles.sysUserWrap}>
-        {this.state.columns.length > 0 && (
-          <BaseTable
-            isTop={
-              <TopStatistics sourceUrl={HOUSEHOLD_LIST_HEADER} topJson={topStatistics.topJson} />
-            }
-            search={<Search ordinary={search.ordinary} senior={search.senior} />}
-            table={<OrdinaryTable listUrl={HOUSEHOLD_LIST} columns={this.state.columns} />}
-          />
-        )}
+        <div className={styles.baseTableWrap}>
+          <TopStatistics sourceUrl={HOUSEHOLD_LIST_HEADER} topJson={topStatistics.topJson} />
+          <div className={styles.screenTag}>
+            <Search ordinary={search.ordinary} senior={search.senior} />
+            <ScreeningTag />
+          </div>
+          <div className={styles.tableWrap}>
+            <div>
+              <OrdinaryTable
+                scroll={{
+                  x: 1900,
+                  y: 'calc(100vh - 218px)',
+                }}
+                listUrl={HOUSEHOLD_LIST}
+                columns={this.state.columns}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
