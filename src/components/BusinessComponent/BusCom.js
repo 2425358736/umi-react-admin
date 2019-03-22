@@ -7,5 +7,17 @@ import Add from '@/components/BusinessComponent/Add/Add';
 import Up from '@/components/BusinessComponent/Up/Up';
 import Operation from '@/components/BusinessComponent/Operation/Operation';
 import Info from '@/components/BusinessComponent/Info/Info';
+import ScreeningTag from '@/components/BusinessComponent/ScreeningTags/ScreeningTag';
 
-export { BaseTable, OrdinaryTable, TopStatistics, Search, ExportButton, Add, Up, Operation, Info };
+export {
+  BaseTable,
+  OrdinaryTable,
+  TopStatistics,
+  Search,
+  ExportButton,
+  Add,
+  Up,
+  Operation,
+  Info,
+  ScreeningTag,
+};

@@ -2,10 +2,10 @@ import React from 'react';
 import { postRequest } from '@/utils/api';
 
 import {
-  BaseTable,
   OrdinaryTable,
   TopStatistics,
   Search,
+  ScreeningTag,
   Info,
 } from '@/components/BusinessComponent/BusCom';
 
@@ -272,11 +272,14 @@ class MemberList extends React.Component {
   render() {
     return (
       <div className={styles.sysUserWrap}>
-        {this.state.columns.length > 0 && (
-          <BaseTable
-            isTop={<TopStatistics sourceUrl={MEMBER_LIST_HEADER} topJson={topStatistics.topJson} />}
-            search={<Search ordinary={search.ordinary} senior={search.senior} />}
-            table={
+        <div className={styles.baseTableWrap}>
+          <TopStatistics sourceUrl={MEMBER_LIST_HEADER} topJson={topStatistics.topJson} />
+          <div className={styles.screenTag}>
+            <Search ordinary={search.ordinary} senior={search.senior} />
+            <ScreeningTag />
+          </div>
+          <div className={styles.tableWrap}>
+            <div>
               <OrdinaryTable
                 scroll={{
                   x: 1900,
@@ -285,9 +288,9 @@ class MemberList extends React.Component {
                 listUrl={MEMBER_LIST}
                 columns={this.state.columns}
               />
-            }
-          />
-        )}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
