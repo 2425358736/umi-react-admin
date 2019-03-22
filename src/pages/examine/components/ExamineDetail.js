@@ -1,12 +1,13 @@
 import React from 'react';
 import { Form, Input, Icon, notification } from 'antd';
-import UploadImg from '../../../../components/UpLoad/UploadImage';
-import MemList from '../../../moveIn/components/MemList';
+import UploadImg from '../../../components/UpLoad/UploadImage';
+import MemList from '../../moveIn/components/MemList';
+import MemberList from './MemberList';
 import ExamineRecord from './ExamineRecord';
-import styles from '../components.less';
+import styles from './components.less';
 import { getRequest, postRequest, postFormDateRequest, jsonString, verVal } from '@/utils/api';
 
-import { Operation } from '@/components/BusinessComponent/BusCom';
+import { Info, Operation } from '@/components/BusinessComponent/BusCom';
 
 import { EXAMINE_Detail, MOVEIN_CANCEL, MOVEIN_SUCCESS } from '@/services/SysInterface';
 
@@ -79,9 +80,11 @@ class MoveInExamine extends React.Component {
         notification.error({ message: '请上传索引页' });
         return;
       }
-      if (!verVal(this.props.form.getFieldValue('remarks'))) {
-        notification.error({ message: '请输入该迁入户口的编号' });
-        return;
+      if (this.state.fetchData.changeType === 0) {
+        if (!verVal(this.props.form.getFieldValue('householdNumber'))) {
+          notification.error({ message: '请输入该迁入户口的编号' });
+          return;
+        }
       }
       await this.setState({ getList: true });
       this.setState({
@@ -195,10 +198,27 @@ class MoveInExamine extends React.Component {
         <div className={styles.midWrap}>
           <div className={styles.titleDom}>
             <span />
-            <span>迁入成员列表</span>
+            {(fetchData.changeType === 1 || fetchData.changeType === 2) && (
+              <div className={styles.btnWrap}>
+                <Info title="户口簿详情" info={<MemberList id={fetchData.householdId} />}>
+                  <p style={{ color: '#fff' }}>查看当前成员列表</p>
+                </Info>
+              </div>
+            )}
+            <span>
+              {fetchData.changeType === 0
+                ? '迁入成员列表'
+                : fetchData.changeType === 1
+                ? '增员列表'
+                : fetchData.changeType === 2
+                ? '减员列表'
+                : '注销成员列表'}
+            </span>
           </div>
           <div>
             <MemList
+              type={fetchData.changeType}
+              id={fetchData.householdId}
               list={fetchData.list}
               getList={this.state.getList}
               onListCall={this.onListCall}
@@ -228,16 +248,18 @@ class MoveInExamine extends React.Component {
                       <Input.TextArea autosize={{ minRows: 4 }} placeholder="请输入备注" />
                     )}
                   </Form.Item>
-                  <Form.Item
-                    className={styles.inputDom}
-                    label="编号"
-                    labelCol={{ span: 6 }}
-                    wrapperCol={{ span: 16 }}
-                  >
-                    {getFieldDecorator('householdNumber', {})(
-                      <Input placeholder="请输入该迁入户口的编号" />
-                    )}
-                  </Form.Item>
+                  {fetchData.changeType === 0 && (
+                    <Form.Item
+                      className={styles.inputDom}
+                      label="编号"
+                      labelCol={{ span: 6 }}
+                      wrapperCol={{ span: 16 }}
+                    >
+                      {getFieldDecorator('householdNumber', {})(
+                        <Input placeholder="请输入该迁入户口的编号" />
+                      )}
+                    </Form.Item>
+                  )}
                 </Form>
               </div>
             </div>
@@ -247,14 +269,30 @@ class MoveInExamine extends React.Component {
                 btnType="submit"
                 buttonLoading={this.state.subBtnLoading}
                 onClick={this.handleSubmit}
-                title="迁入通过"
+                title={
+                  fetchData.changeType === 0
+                    ? '迁入通过'
+                    : fetchData.changeType === 1
+                    ? '增员通过'
+                    : fetchData.changeType === 2
+                    ? '减员通过'
+                    : '注销通过'
+                }
                 mode={0}
               />
               <Operation
                 isBtn
                 buttonLoading={this.state.cancelBtnLoading}
                 onClick={this.handleCancel}
-                title="迁入作废"
+                title={
+                  fetchData.changeType === 0
+                    ? '迁入作废'
+                    : fetchData.changeType === 1
+                    ? '增员作废'
+                    : fetchData.changeType === 2
+                    ? '减员作废'
+                    : '注销作废'
+                }
                 mode={0}
               />
             </div>

@@ -59,11 +59,14 @@ class NowMemList extends React.Component {
           title: '性别',
           width: '14%',
           dataIndex: 'sex',
+          render(text) {
+            return text === 0 ? '男' : text === 1 ? '女' : '未知';
+          },
         },
         {
           title: '民族',
           width: '12%',
-          dataIndex: 'nationalities',
+          dataIndex: 'nationalitiesStr',
         },
         {
           title: '身份证号',

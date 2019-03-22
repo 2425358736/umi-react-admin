@@ -183,13 +183,15 @@ class Household extends React.Component {
                 <Info title="户口簿详情" info={<HouseholdDetail id={record.id} />}>
                   详情
                 </Info>
-                <Divider type="vertical" />
-                <Dropdown overlay={opRecord} placement="bottomLeft">
-                  <Icon
-                    type="ellipsis"
-                    style={{ paddingTop: '10px', fontSize: 14, color: '#1ab393' }}
-                  />
-                </Dropdown>
+                {record.householdStatus === 0 && <Divider type="vertical" />}
+                {record.householdStatus === 0 && (
+                  <Dropdown overlay={opRecord} placement="bottomLeft">
+                    <Icon
+                      type="ellipsis"
+                      style={{ paddingTop: '10px', fontSize: 14, color: '#1ab393' }}
+                    />
+                  </Dropdown>
+                )}
               </div>
             );
           },
