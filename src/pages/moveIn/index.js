@@ -84,7 +84,7 @@ class MoveIn extends React.Component {
       }
       await this.setState({ getList: true });
       let flag = true;
-      this.state.dataSource.forEach(item => {
+      this.state.list.forEach(item => {
         if (item.idNumber.toString().length < 14) {
           flag = false;
         }

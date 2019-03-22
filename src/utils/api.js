@@ -5,6 +5,8 @@ import request from './request';
 export const http = 'http://127.0.0.1:8090';
 
 export const ws = 'ws://127.0.0.1:8090/websocket';
+// export const http = 'http://192.168.2.166:8090';
+// export const ws = 'ws://192.168.2.166:8090/websocket';
 
 export function getRequest(url) {
   return new Promise((resolve, reject) => {
@@ -75,13 +77,15 @@ export function putRequest(url, params) {
   });
 }
 
-export function deleteRequest(url, params) {
+export function deleteRequest(url) {
   return new Promise((resolve, reject) => {
+    let headers = {};
+    if (localStorage.getItem('Authorization')) {
+      headers = { Authorization: localStorage.getItem('Authorization') };
+    }
     request(http + url, {
       method: 'delete',
-      body: {
-        ...params,
-      },
+      headers,
     })
       .then(response => {
         const resultData = response;

@@ -1,0 +1,107 @@
+.subApplyWrap {
+  width: 100%;
+  height: calc(~'100vh - 152px');
+  box-sizing: border-box;
+  padding: 0 20px;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 2px 4px 0 rgba(224, 224, 224, 0.5);
+  border-radius: 8px;
+  overflow: auto;
+  .titleDom {
+    height: 40px;
+    line-height: 40px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #f8f8f8;
+    > span:first-child {
+      display: inline-block;
+      width: 3px;
+      height: 14px;
+      background: rgba(26, 179, 147, 1);
+      border-radius: 2px;
+      vertical-align: middle;
+    }
+    > span:last-child {
+      padding-left: 9px;
+      font-size: 15px;
+      font-weight: 400;
+      color: rgba(51, 51, 51, 1);
+      vertical-align: middle;
+    }
+  }
+  .applyUl {
+    > li {
+      margin-bottom: 14px;
+      > span:first-child {
+        margin-right: 20px;
+        font-size: 14px;
+        color: rgba(51, 51, 51, 1);
+      }
+      > span:last-child {
+        margin-top: 4px;
+        font-size: 14px;
+        color: rgba(153, 153, 153, 1);
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+    //> li:last-child {
+    //  > span {
+    //    float: left;
+    //  }
+    //  > ul {
+    //    display: inline-block;
+    //    padding: 0;
+    //    > li {
+    //      display: inline-block;
+    //      margin-right: 20px;
+    //      .imgWrap {
+    //        width: 100px;
+    //        height: 100px;
+    //        > img {
+    //          width: 100%;
+    //        }
+    //      }
+    //      > p {
+    //        margin-top: 20px;
+    //        text-align: center;
+    //      }
+    //    }
+    //  }
+    //}
+  }
+  .btnGroup {
+    margin: 94px 0 30px;
+    text-align: center;
+    .submitBtn {
+      width: 116px;
+      height: 36px;
+      border-radius: 2px;
+    }
+    .cancelBtn {
+      width: 116px;
+      height: 36px;
+      background-color: rgba(255, 255, 255, 1);
+      color: #1ab393;
+      margin-left: 10px;
+      border-radius: 2px;
+      border: 1px solid rgba(26, 179, 147, 1);
+    }
+  }
+}
+
+.addBtn {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: rgba(26, 179, 147, 1);
+  cursor: pointer;
+  .iconDom {
+    padding-top: 4px;
+    margin-right: 6px;
+    font-size: 14px;
+    color: #999;
+  }
+}

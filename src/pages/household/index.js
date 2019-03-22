@@ -7,13 +7,14 @@ import {
   OrdinaryTable,
   TopStatistics,
   Search,
-  Operation,
   Info,
   Up,
 } from '@/components/BusinessComponent/BusCom';
 
 import HouseholdDetail from './components/HouseholdDetail';
 import AddMemberApply from './components/AddMemberApply';
+import SubMemberApply from './components/SubMemberApply';
+import DeleteApply from './components/DeleteApply';
 
 import styles from './index.less';
 
@@ -61,7 +62,6 @@ class Household extends React.Component {
   }
 
   componentWillMount = async () => {
-    const that = this;
     // 大队列表
     const arr = [];
     const arr1 = [
@@ -171,22 +171,10 @@ class Household extends React.Component {
                   <Up width={800} id={record.id} component={AddMemberApply} title="增员" />
                 </Menu.Item>
                 <Menu.Item>
-                  <Operation
-                    title="减员"
-                    mode={0}
-                    onClick={async () => {
-                      await that.delete(record.id);
-                    }}
-                  />
+                  <Up width={800} id={record.id} component={SubMemberApply} title="减员" />
                 </Menu.Item>
                 <Menu.Item>
-                  <Operation
-                    title="注销"
-                    mode={0}
-                    onClick={async () => {
-                      await that.delete(record.id);
-                    }}
-                  />
+                  <Up width={800} id={record.id} component={DeleteApply} title="注销" />
                 </Menu.Item>
               </Menu>
             );
