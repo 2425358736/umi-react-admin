@@ -31,6 +31,7 @@ export default {
       name: 'a.id',
       type: 'desc',
     },
+    code: 0,
   },
 
   effects: {
@@ -46,6 +47,8 @@ export default {
       if (payload) {
         payload = JSON.parse(payload);
       }
+      const code = Math.round(Math.random() * 999999999);
+      payload.code = code;
       yield put({
         type: 'save',
         payload: payload || {
@@ -59,6 +62,7 @@ export default {
             name: 'a.id',
             type: 'desc',
           },
+          code,
         },
       });
     },
