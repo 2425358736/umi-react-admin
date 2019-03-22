@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-comp */
 import React from 'react';
 import { Divider } from 'antd';
 import { connect } from 'dva';
@@ -16,7 +17,7 @@ class TopStatistics extends React.Component {
     };
   }
 
-  componentWillMount = async () => {
+  request = async () => {
     const data = await postRequest(this.props.sourceUrl);
     if (data.status === 200) {
       this.setState({
@@ -25,8 +26,13 @@ class TopStatistics extends React.Component {
     }
   };
 
-  componentWillReceiveProps = () => {
-    this.componentWillMount();
+  screen = null;
+
+  componentWillReceiveProps = nextProps => {
+    if (JSON.stringify(nextProps.screen) !== JSON.stringify(this.screen)) {
+      this.request();
+    }
+    this.screen = JSON.parse(JSON.stringify(nextProps.screen));
   };
 
   render() {

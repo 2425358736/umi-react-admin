@@ -21,9 +21,10 @@ class Operation extends React.Component {
         dispatch,
       } = this.props;
       if (this.props.mode === 0) {
+        const code = Math.round(Math.random() * 999999999);
         dispatch({
           type: 'screen/fetch',
-          payload: { query, queryShow, pagination, orders },
+          payload: { query, queryShow, pagination, orders, code },
         });
       } else if (this.props.mode === 1) {
         dispatch({

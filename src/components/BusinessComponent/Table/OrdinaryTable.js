@@ -1,4 +1,4 @@
-/* eslint-disable no-param-reassign,no-restricted-globals */
+/* eslint-disable no-param-reassign,no-restricted-globals,react/sort-comp */
 import React from 'react';
 import { connect } from 'dva';
 import { Table, notification, Button } from 'antd';
@@ -165,13 +165,18 @@ class OrdinaryTable extends React.Component {
     });
   };
 
+  screen = null;
+
   componentWillReceiveProps = nextProps => {
     this.columnsUp(nextProps);
     const { pagination } = this.state;
     this.setState({
       pagination: Object.assign(pagination, nextProps.screen.pagination),
     });
-    this.request(nextProps);
+    if (JSON.stringify(nextProps.screen) !== JSON.stringify(this.screen)) {
+      this.request(nextProps);
+    }
+    this.screen = JSON.parse(JSON.stringify(nextProps.screen));
   };
 
   request = async props => {

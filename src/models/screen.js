@@ -31,6 +31,7 @@ export default {
       name: 'a.id',
       type: 'desc',
     },
+    code: 0,
   },
 
   effects: {
@@ -43,8 +44,10 @@ export default {
     *init(_, { put }) {
       const url = location.pathname;
       let payload = localStorage.getItem(url);
+      const code = Math.round(Math.random() * 999999999);
       if (payload) {
         payload = JSON.parse(payload);
+        payload.code = code;
       }
       yield put({
         type: 'save',
@@ -59,6 +62,7 @@ export default {
             name: 'a.id',
             type: 'desc',
           },
+          code,
         },
       });
     },

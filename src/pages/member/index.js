@@ -24,54 +24,53 @@ const search = {
     queryTitle: '姓名，全拼，简拼，身份证号，手机号',
     queryField: 'fullName',
   },
-  senior: [],
+  senior: [
+    {
+      queryTitle: '编号',
+      queryField: 'householdNumber',
+      component: 'Input',
+    },
+    {
+      queryTitle: '户主',
+      queryField: 'householderName',
+      component: 'Input',
+    },
+    {
+      queryTitle: '户号',
+      queryField: 'householdRegisterNumber',
+      component: 'Input',
+    },
+    {
+      queryTitle: '年龄起',
+      queryField: 'ageStart',
+      component: 'Input',
+    },
+    {
+      queryTitle: '年龄止',
+      queryField: 'ageEnd',
+      component: 'Input',
+    },
+    {
+      queryTitle: '住址',
+      queryField: 'homeAddress',
+      component: 'Input',
+    },
+    {
+      queryTitle: '出生日期起',
+      queryField: 'birthStartDate',
+      component: 'DatePicker',
+    },
+    {
+      queryTitle: '出生日期止',
+      queryField: 'birthEndDate',
+      component: 'DatePicker',
+    },
+  ],
 };
 
 class MemberList extends React.Component {
   constructor(props) {
     super(props);
-    search.senior = [
-      {
-        queryTitle: '编号',
-        queryField: 'householdNumber',
-        component: 'Input',
-      },
-      {
-        queryTitle: '户主',
-        queryField: 'householderName',
-        component: 'Input',
-      },
-      {
-        queryTitle: '户号',
-        queryField: 'householdRegisterNumber',
-        component: 'Input',
-      },
-      {
-        queryTitle: '年龄起',
-        queryField: 'ageStart',
-        component: 'Input',
-      },
-      {
-        queryTitle: '年龄止',
-        queryField: 'ageEnd',
-        component: 'Input',
-      },
-      {
-        queryTitle: '住址',
-        queryField: 'homeAddress',
-        component: 'Input',
-      },
-      {
-        queryTitle: '出生日期起',
-        queryField: 'birthStartDate',
-        component: 'DatePicker',
-      },
-      {
-        queryTitle: '出生日期止',
-        queryField: 'birthEndDate',
-        component: 'DatePicker',
-      },
-    ];
     this.state = {
       columns: [
         {
@@ -111,7 +110,9 @@ class MemberList extends React.Component {
         {
           title: '民族',
           width: '6%',
-          dataIndex: 'nationalitiesStr',
+          dataIndex: 'nationalities',
+          column: 'nationalitiesStr',
+          filters: [],
         },
         {
           title: '身份证号',
@@ -159,12 +160,16 @@ class MemberList extends React.Component {
         {
           title: '与户主关系',
           width: '8%',
-          dataIndex: 'relationshipStr',
+          dataIndex: 'relationship',
+          column: 'relationshipStr',
+          filters: [],
         },
         {
           title: '大队',
           width: '6%',
-          dataIndex: 'troopsStr',
+          dataIndex: 'troops',
+          column: 'troopsStr',
+          filters: [],
         },
         {
           title: '住址',
@@ -205,7 +210,7 @@ class MemberList extends React.Component {
     if (queueArr.status === 200) {
       queueArr.data.forEach(item => {
         arr.push({
-          title: item.dataLabel,
+          text: item.dataLabel,
           value: item.id.toString(),
         });
         arr1.push({
@@ -218,12 +223,7 @@ class MemberList extends React.Component {
       });
     }
     topStatistics.topJson = arr1;
-    search.senior.push({
-      queryTitle: '大队',
-      queryField: 'troops',
-      component: 'Select-Multiple',
-      componentData: arr,
-    });
+    return arr;
   };
 
   nationArr = async () => {
@@ -233,17 +233,12 @@ class MemberList extends React.Component {
     if (nationArr.status === 200) {
       nationArr.data.forEach(item => {
         arr3.push({
-          title: item.dataLabel,
+          text: item.dataLabel,
           value: item.id.toString(),
         });
       });
     }
-    search.senior.push({
-      queryTitle: '民族',
-      queryField: 'nationalities',
-      component: 'Select-Multiple',
-      componentData: arr3,
-    });
+    return arr3;
   };
 
   withArr = async () => {
@@ -253,23 +248,139 @@ class MemberList extends React.Component {
     if (withArr.status === 200) {
       withArr.data.forEach(item => {
         arr4.push({
-          title: item.dataLabel,
+          text: item.dataLabel,
           value: item.id.toString(),
         });
       });
     }
-    search.senior.push({
-      queryTitle: '户主关系',
-      queryField: 'relationship',
-      component: 'Select-Multiple',
-      componentData: arr4,
-    });
+    return arr4;
   };
 
   componentWillMount = async () => {
-    this.queueArr();
-    this.nationArr();
-    this.withArr();
+    const arr = await this.queueArr();
+    const arr3 = await this.nationArr();
+    const arr4 = await this.withArr();
+    this.setState({
+      columns: [
+        {
+          title: '序号',
+          width: '4%',
+          dataIndex: 'id',
+          isIncrement: true,
+        },
+        {
+          title: '姓名',
+          width: '6%',
+          dataIndex: 'fullName',
+        },
+        {
+          title: '性别',
+          width: '6%',
+          dataIndex: 'sex',
+          column: 'sexStr',
+          filters: [
+            {
+              text: '男',
+              value: '0',
+            },
+            {
+              text: '女',
+              value: '1',
+            },
+            {
+              text: '未知',
+              value: '2',
+            },
+          ],
+        },
+        {
+          title: '民族',
+          width: '6%',
+          dataIndex: 'nationalities',
+          column: 'nationalitiesStr',
+          filters: arr3,
+        },
+        {
+          title: '身份证号',
+          width: '6%',
+          dataIndex: 'idNumber',
+          render(text) {
+            return <span style={{ wordBreak: 'break-all' }}>{text}</span>;
+          },
+        },
+        {
+          title: '政治面貌',
+          width: '6%',
+          dataIndex: 'politicsFaceStr',
+        },
+        {
+          title: '手机号',
+          width: '6%',
+          dataIndex: 'phoneNumber',
+        },
+        {
+          title: '出生日期',
+          width: '8%',
+          dataIndex: 'birthDate',
+        },
+        {
+          title: '年龄',
+          width: '6%',
+          dataIndex: 'age',
+        },
+        {
+          title: '户号',
+          width: '6%',
+          dataIndex: 'householdRegisterNumber',
+        },
+        {
+          title: '编号',
+          width: '6%',
+          dataIndex: 'householdNumber',
+        },
+        {
+          title: '户主',
+          width: '6%',
+          dataIndex: 'householderName',
+        },
+        {
+          title: '与户主关系',
+          width: '8%',
+          dataIndex: 'relationship',
+          column: 'relationshipStr',
+          filters: arr4,
+        },
+        {
+          title: '大队',
+          width: '6%',
+          dataIndex: 'troops',
+          column: 'troopsStr',
+          filters: arr,
+        },
+        {
+          title: '住址',
+          width: '8%',
+          dataIndex: 'homeAddress',
+          render(text) {
+            return <span style={{ wordBreak: 'break-all' }}>{text}</span>;
+          },
+        },
+        {
+          title: '操作',
+          width: '6%',
+          dataIndex: 'opt',
+          render(text, record) {
+            return (
+              <div>
+                <Info title="成员详情" info={<MemberDetail id={record.id} />}>
+                  详情
+                </Info>
+              </div>
+            );
+          },
+        },
+      ],
+    });
   };
 
   render() {
