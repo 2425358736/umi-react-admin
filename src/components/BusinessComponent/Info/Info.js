@@ -51,7 +51,7 @@ class Info extends React.Component {
     const { list, dispatch } = this.props;
     list.forEach((json, i) => {
       if (json.key === this.state.identifying) {
-        list.split(i, i);
+        list.splice(i, 1);
       }
     });
     dispatch({
