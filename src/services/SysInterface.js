@@ -124,3 +124,9 @@ export const SUB_MEMBER = '/household/abatementMember'; // 减员申请
 export const DELETE_MEMBER = '/household/cancellation'; // 注销申请
 
 // ------------ 成员 end ----------------
+
+// ------------ 党建 start ----------------
+
+export const GROUP_LIST = '/household/getPartyMemberList'; // 党建列表
+
+// ------------ 党建 end ----------------

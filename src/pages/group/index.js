@@ -7,13 +7,15 @@ import {
   Search,
   ScreeningTag,
   Info,
+  Add,
 } from '@/components/BusinessComponent/BusCom';
 
 import GroupDetail from './components/GroupDetail';
+import GroupAdd from './components/GroupAdd';
 
 import styles from './index.less';
 
-import { MEMBER_LIST_HEADER, MEMBER_LIST, SYS_Dict } from '@/services/SysInterface';
+import { MEMBER_LIST_HEADER, GROUP_LIST, SYS_Dict } from '@/services/SysInterface';
 
 const topStatistics = {
   topJson: [],
@@ -73,12 +75,12 @@ class GroupList extends React.Component {
         {
           title: '小组',
           width: '8%',
-          dataIndex: 'fullName',
+          dataIndex: 'branchGroupName',
         },
         {
           title: '姓名',
           width: '8%',
-          dataIndex: 'politicsFaceStr',
+          dataIndex: 'fullName',
         },
         {
           title: '性别',
@@ -106,7 +108,7 @@ class GroupList extends React.Component {
         {
           title: '民族',
           width: '8%',
-          dataIndex: 'nationalitiesStr',
+          dataIndex: 'nationalitiesName',
         },
         {
           title: '身份证号',
@@ -134,14 +136,8 @@ class GroupList extends React.Component {
         {
           title: '党龄',
           width: '8%',
-          dataIndex: 'householdRegisterNumber',
+          dataIndex: 'partyAge',
         },
-        {
-          title: '编号',
-          width: '8%',
-          dataIndex: 'householdNumber',
-        },
-
         {
           title: '操作',
           width: '8%',
@@ -225,7 +221,13 @@ class GroupList extends React.Component {
         <div className={styles.baseTableWrap}>
           <TopStatistics sourceUrl={MEMBER_LIST_HEADER} topJson={topStatistics.topJson} />
           <div className={styles.screenTag}>
-            <Search ordinary={search.ordinary} senior={search.senior} />
+            <Search
+              ordinary={search.ordinary}
+              senior={search.senior}
+              operationBlock={[
+                <Add key="1" width={800} title="党员关系转入" component={GroupAdd} />,
+              ]}
+            />
             <ScreeningTag />
           </div>
           <div className={styles.tableWrap}>
@@ -235,7 +237,7 @@ class GroupList extends React.Component {
                   x: 1300,
                   y: 'calc(100vh - 218px)',
                 }}
-                listUrl={MEMBER_LIST}
+                listUrl={GROUP_LIST}
                 columns={this.state.columns}
               />
             </div>
