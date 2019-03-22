@@ -35,8 +35,8 @@ class HistoryList extends React.Component {
         },
         {
           title: '户别',
-          width: '10%',
-          dataIndex: 'householdType',
+          width: '9%',
+          dataIndex: 'householdTypeStr',
         },
         {
           title: '版本号',
@@ -46,12 +46,15 @@ class HistoryList extends React.Component {
         {
           title: '来源编号',
           width: '12%',
-          dataIndex: '?',
+          dataIndex: 'number',
           render(text, record) {
             return (
               <div>
-                <Info title="户口簿历史来源详情" info={<HistorySourceDetail id={record.id} />}>
-                  来源详情
+                <Info
+                  title="户口簿历史来源详情"
+                  info={<HistorySourceDetail id={record.householdChangeId} />}
+                >
+                  {text}
                 </Info>
               </div>
             );
@@ -67,12 +70,12 @@ class HistoryList extends React.Component {
         },
         {
           title: '审核员',
-          width: '10%',
+          width: '9%',
           dataIndex: 'operatorName',
         },
         {
           title: '审核时间',
-          width: '12%',
+          width: '13%',
           dataIndex: 'auditDate',
         },
         {

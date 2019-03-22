@@ -3,7 +3,7 @@ import { Table, Icon } from 'antd';
 import styles from './components.less';
 import { getRequest } from '@/utils/api';
 
-import { HISTORY_SOURCE_DETAIL } from '@/services/SysInterface';
+import { EXAMINE_Detail } from '@/services/SysInterface';
 
 class HistoryDetail extends React.Component {
   constructor(props) {
@@ -65,7 +65,7 @@ class HistoryDetail extends React.Component {
   }
 
   componentWillMount = async () => {
-    const data = await getRequest(`${HISTORY_SOURCE_DETAIL}?id=${this.props.id}`);
+    const data = await getRequest(`${EXAMINE_Detail}?id=${this.props.id}`);
     if (data.status === 200) {
       await this.setState({
         fetchData: data.data,

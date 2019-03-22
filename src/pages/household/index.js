@@ -18,7 +18,12 @@ import styles from './index.less';
 import { HOUSEHOLD_LIST_HEADER, HOUSEHOLD_LIST, SYS_Dict } from '@/services/SysInterface';
 
 const topStatistics = {
-  topJson: [],
+  topJson: [
+    {
+      displayTitle: '总共',
+      displayField: 'name0',
+    },
+  ],
 };
 
 const search = {
@@ -79,7 +84,7 @@ class Household extends React.Component {
         });
       });
     }
-    topStatistics.topJson = arr1;
+    topStatistics.topJson = [...topStatistics.topJson, ...arr1];
 
     this.setState({
       columns: [
