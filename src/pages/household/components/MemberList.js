@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table } from 'antd';
-
+import MemberDetail from '../../member/components/MemberDetail';
 import { Info } from '@/components/BusinessComponent/BusCom';
 
 class MemberList extends React.Component {
@@ -60,13 +60,10 @@ class MemberList extends React.Component {
           title: '操作',
           width: '12%',
           dataIndex: 'opt',
-          render() {
+          render(text, record) {
             return (
               <div>
-                <Info
-                  title="成员详情"
-                  // info={<HouseholdDetail id={record.id}/>}
-                >
+                <Info title="成员详情" info={<MemberDetail id={record.id} />}>
                   详情
                 </Info>
               </div>

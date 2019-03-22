@@ -250,7 +250,6 @@ class MoveInExamine extends React.Component {
                 title="迁入通过"
                 mode={0}
               />
-              {}
               <Operation
                 isBtn
                 buttonLoading={this.state.cancelBtnLoading}

@@ -105,8 +105,16 @@ export const HOUSEHOLD_LIST = '/household/householdRegisterList'; // 户口簿�
 
 export const HOUSEHOLD_DETAIL = '/household/householdRegisterInfo'; // 户口簿详情
 
-export const HISTORY_SOURCE_DETAIL = '/household/householdChangeInfo'; // 户口簿历史来源详情
-
 export const HISTORY_DETAIL = '/household/householdVersionInfo'; // 户口簿历史详情
 
 // ------------ 户口簿 end ----------------
+
+// ------------ 成员 start ----------------
+
+export const MEMBER_LIST_HEADER = '/household/householdMemberHead'; // 成员列表头部汇总
+
+export const MEMBER_LIST = '/household/householdMemberList'; // 成员列表
+
+export const MEMBER_DETAIL = '/household/householdMemberInfo'; // 成员详情
+
+// ------------ 成员 end ----------------

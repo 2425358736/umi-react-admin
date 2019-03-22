@@ -18,12 +18,7 @@ import styles from './index.less';
 import { HOUSEHOLD_LIST_HEADER, HOUSEHOLD_LIST, SYS_Dict } from '@/services/SysInterface';
 
 const topStatistics = {
-  topJson: [
-    {
-      displayTitle: '总共',
-      displayField: 'name0',
-    },
-  ],
+  topJson: [],
 };
 
 const search = {
@@ -67,7 +62,12 @@ class Household extends React.Component {
     const that = this;
     // 大队列表
     const arr = [];
-    const arr1 = [];
+    const arr1 = [
+      {
+        displayTitle: '总共',
+        displayField: 'name0',
+      },
+    ];
     const queueArr = await postRequest(`${SYS_Dict}/6`);
     if (queueArr.status === 200) {
       queueArr.data.forEach(item => {
@@ -84,7 +84,7 @@ class Household extends React.Component {
         });
       });
     }
-    topStatistics.topJson = [...topStatistics.topJson, ...arr1];
+    topStatistics.topJson = arr1;
 
     this.setState({
       columns: [

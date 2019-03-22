@@ -120,6 +120,10 @@ export default {
           path: '/household',
           component: './household/index',
         },
+        {
+          path: '/member',
+          component: './member/index',
+        },
       ],
     },
   ],
