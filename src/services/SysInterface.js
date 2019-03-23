@@ -127,10 +127,10 @@ export const DELETE_MEMBER = '/household/cancellation'; // 注销申请
 
 // ------------ 党建 start ----------------
 
-export const GROUP_LIST_HEADER = '/household/getPartyMemberList'; // 党建列表头部
+export const GROUP_LIST_HEADER = '/household/getPartyMemberHead'; // 党建列表头部
 
 export const GROUP_LIST = '/household/getPartyMemberList'; // 党建列表
 
-export const GROUP_DETAIL = '/household/getPartyMemberList'; // 党建详情
+export const GROUP_DETAIL = '/household/getPartyMemberMsg'; // 党建详情
 
 // ------------ 党建 end ----------------

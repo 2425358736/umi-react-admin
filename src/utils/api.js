@@ -211,7 +211,7 @@ export function verVal(val) {
 /**
  * 验证身份证
  */
-function isCardNo(card) {
+export function isCardNo(card) {
   const pattern = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
   return pattern.test(card);
 }

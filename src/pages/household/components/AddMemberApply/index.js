@@ -56,7 +56,7 @@ class AddMemberApply extends React.Component {
     await this.setState({ getList: true });
     let flag = true;
     this.state.list.forEach(item => {
-      if (!isCardNo(item)) {
+      if (!isCardNo(item.idNumber)) {
         flag = false;
       }
     });

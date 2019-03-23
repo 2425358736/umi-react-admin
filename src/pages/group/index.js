@@ -35,22 +35,22 @@ class GroupList extends React.Component {
     search.senior = [
       {
         queryTitle: '年龄起',
-        queryField: 'householdNumber',
+        queryField: 'ageStart',
         component: 'Input',
       },
       {
         queryTitle: '年龄止',
-        queryField: 'householderName',
+        queryField: 'ageEnd',
         component: 'Input',
       },
       {
         queryTitle: '党龄起',
-        queryField: 'householdRegisterNumber',
+        queryField: 'partyAgeStart',
         component: 'Input',
       },
       {
         queryTitle: '党龄止',
-        queryField: 'ageStart',
+        queryField: 'partyAgeEnd',
         component: 'Input',
       },
       {
@@ -176,7 +176,7 @@ class GroupList extends React.Component {
           displayTitle: item.dataLabel,
           displayField: `name${item.id}`,
           queryTitle: '小组',
-          queryField: 'troops',
+          queryField: 'branchGroup',
           queryValue: [item.id.toString()],
         });
       });
@@ -184,7 +184,7 @@ class GroupList extends React.Component {
     topStatistics.topJson = arr1;
     search.senior.push({
       queryTitle: '小组',
-      queryField: 'troops',
+      queryField: 'branchGroup',
       component: 'Select-Multiple',
       componentData: arr,
     });
