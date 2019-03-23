@@ -48,16 +48,18 @@ class Info extends React.Component {
   };
 
   componentWillUnmount = () => {
-    const { list, dispatch } = this.props;
-    list.forEach((json, i) => {
-      if (json.key === this.state.identifying) {
-        list.splice(i, 1);
-      }
-    });
-    dispatch({
-      type: 'breadcrumb/fetch',
-      payload: { list },
-    });
+    if (this.state.open) {
+      const { list, dispatch } = this.props;
+      list.forEach((json, i) => {
+        if (json.key === this.state.identifying) {
+          list.splice(i, 1);
+        }
+      });
+      dispatch({
+        type: 'breadcrumb/fetch',
+        payload: { list },
+      });
+    }
   };
 
   render() {

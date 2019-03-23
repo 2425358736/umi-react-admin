@@ -192,8 +192,8 @@ class BasicLayout extends React.PureComponent {
       breadcrumbNameMap,
       route: { routes },
       fixedHeader,
+      breadcrumb: { list },
     } = this.props;
-
     const isTop = PropsLayout === 'topmenu';
     const routerConfig = this.getRouterAuthority(pathname, routes);
     const contentStyle = !fixedHeader ? { paddingTop: 0 } : {};
@@ -225,7 +225,7 @@ class BasicLayout extends React.PureComponent {
             {...this.props}
           />
           <Breadcrumb className={styles.breadDom}>
-            {this.props.breadcrumb.list.map((obj, i) => (
+            {list.map((obj, i) => (
               <Breadcrumb.Item key={i.toString()}>
                 <a
                   onClick={() => {
