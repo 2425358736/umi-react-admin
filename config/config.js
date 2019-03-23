@@ -98,11 +98,11 @@ export default {
         },
         {
           path: '/sys/sendRecord',
-          component: './userCenter/SendRecord/Index',
+          component: './userCenter/sendRecord/Index',
         },
         {
           path: '/sys/insideMail',
-          component: './userCenter/InsideMail/Index',
+          component: './userCenter/insideMail/Index',
         },
         {
           path: '/sys/sysDict',
