@@ -76,6 +76,20 @@ class HouseholdDetail extends React.Component {
             <span>成员列表</span>
           </div>
           {fetchData && fetchData.id && <MemberList dataSource={fetchData.listMember} />}
+          <ul className={styles.historyUl}>
+            <li>
+              <div className={styles.historyImgWrap}>
+                <img src={fetchData.homePicture} alt="" />
+              </div>
+              <p>户主页</p>
+            </li>
+            <li>
+              <div className={styles.historyImgWrap}>
+                <img src={fetchData.indexPictures} alt="" />
+              </div>
+              <p>索引页</p>
+            </li>
+          </ul>
         </div>
         <div className={styles.midWrap}>
           <div className={styles.titleDom}>
