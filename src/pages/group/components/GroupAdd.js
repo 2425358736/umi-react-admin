@@ -1,12 +1,14 @@
 import React from 'react';
 import { Spin, DatePicker, Button, Input, Form, Radio, Select, notification } from 'antd';
-import { postRequest, jsonString } from '@/utils/api';
+import { getRequest, postRequest, jsonString, verVal } from '@/utils/api';
 
-import { SYS_Dict, SYS_ADD_USER } from '@/services/SysInterface';
+import { SYS_Dict, ADD_GROUP_CHECK, ADD_GROUP } from '@/services/SysInterface';
 
 const styles = require('./GroupAdd.less');
 
 class AddUp extends React.Component {
+  memberId = null;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -15,6 +17,7 @@ class AddUp extends React.Component {
       nationArr: [],
       branchArr: [],
       groupArr: [],
+      disable: false,
     };
   }
 
@@ -43,6 +46,36 @@ class AddUp extends React.Component {
     }
   };
 
+  /**
+   * 检索身份证号
+   */
+  onCheckClick = async () => {
+    if (verVal(this.props.form.getFieldValue('idNumber'))) {
+      const idNumber = this.props.form.getFieldValue('idNumber');
+      this.setState({ loading: true });
+      const data = await getRequest(`${ADD_GROUP_CHECK}?idNumber=${idNumber}`);
+      if (data.status === 200) {
+        this.props.form.setFieldsValue({
+          idNumber: data.data.idNumber,
+          fullName: data.data.fullName,
+          sex: data.data.sex,
+          nationalities: data.data.nationalities,
+          phoneNumber: data.data.phoneNumber,
+        });
+        this.memberId = data.data.id;
+        this.setState({ disable: true });
+      } else {
+        notification.error({ message: data.msg, description: data.subMsg });
+      }
+      this.setState({ loading: false });
+    } else {
+      notification.error({ message: '请输入身份证号检索' });
+    }
+  };
+
+  /**
+   * 提交
+   */
   handleSubmit = async () => {
     let adopt = false;
     this.props.form.validateFields(err => {
@@ -54,20 +87,27 @@ class AddUp extends React.Component {
       });
       const json = this.props.form.getFieldsValue();
       jsonString(json);
-      const data = await postRequest(SYS_ADD_USER, json);
+      json.memberId = this.memberId;
+      const data = await postRequest(ADD_GROUP, json);
       this.setState({
         buttonLoading: false,
       });
       if (data.status === 200) {
         notification.success({ message: data.msg });
         this.props.callback(true);
+        this.setState({ disable: false });
       } else {
         notification.error({ message: data.msg, description: data.subMsg });
+        this.setState({ disable: false });
       }
     }
   };
 
+  /**
+   * 取消
+   */
   handleCancel = () => {
+    this.setState({ disable: false });
     this.props.callback(false);
   };
 
@@ -88,13 +128,19 @@ class AddUp extends React.Component {
                   {getFieldDecorator('idNumber', {
                     rules: [
                       {
+                        pattern: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/,
+                        message: '请输入正确的身份证号',
+                      },
+                      {
                         required: true,
                         message: '请输入身份证号',
                       },
                     ],
-                  })(<Input placeholder="请输入身份证号" />)}
+                  })(<Input disabled={this.state.disable} placeholder="请输入身份证号" />)}
                 </Form.Item>
-                <span className={styles.checkDom}>检索</span>
+                <span onClick={this.onCheckClick} className={styles.checkDom}>
+                  检索
+                </span>
               </div>
               <div className={styles.colDom}>
                 <Form.Item label="姓名" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
@@ -105,7 +151,7 @@ class AddUp extends React.Component {
                         message: '请输入姓名',
                       },
                     ],
-                  })(<Input placeholder="请输入姓名" />)}
+                  })(<Input disabled={this.state.disable} placeholder="请输入姓名" />)}
                 </Form.Item>
               </div>
             </div>
@@ -121,7 +167,7 @@ class AddUp extends React.Component {
                       },
                     ],
                   })(
-                    <Radio.Group>
+                    <Radio.Group disabled={this.state.disable}>
                       <Radio value={0}>男</Radio>
                       <Radio value={1}>女</Radio>
                     </Radio.Group>
@@ -130,7 +176,7 @@ class AddUp extends React.Component {
               </div>
               <div className={styles.colDom}>
                 <Form.Item label="民族" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
-                  {getFieldDecorator('email', {
+                  {getFieldDecorator('nationalities', {
                     rules: [
                       {
                         required: true,
@@ -138,7 +184,12 @@ class AddUp extends React.Component {
                       },
                     ],
                   })(
-                    <Select showSearch placeholder="请选择民族" optionFilterProp="children">
+                    <Select
+                      disabled={this.state.disable}
+                      showSearch
+                      placeholder="请选择民族"
+                      optionFilterProp="children"
+                    >
                       {this.state.nationArr.map(item => (
                         <Select.Option key={item.id} value={item.id}>
                           {item.dataLabel}
@@ -153,7 +204,7 @@ class AddUp extends React.Component {
             <div className={styles.rowDom}>
               <div className={styles.colDom}>
                 <Form.Item label="政治面貌" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
-                  {getFieldDecorator('idNumber', {})(<Input placeholder="党员" disabled />)}
+                  {getFieldDecorator('politicsFace', {})(<Input placeholder="党员" disabled />)}
                 </Form.Item>
               </div>
               <div className={styles.colDom}>
@@ -165,7 +216,7 @@ class AddUp extends React.Component {
                         message: '请输入手机号',
                       },
                     ],
-                  })(<Input placeholder="请输入手机号" />)}
+                  })(<Input disabled={this.state.disable} placeholder="请输入手机号" />)}
                 </Form.Item>
               </div>
             </div>
@@ -179,7 +230,7 @@ class AddUp extends React.Component {
             <div className={styles.rowDom}>
               <div className={styles.colDom}>
                 <Form.Item label="入党日期" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
-                  {getFieldDecorator('departmentIds', {
+                  {getFieldDecorator('intoPartyDate', {
                     rules: [
                       {
                         required: true,
@@ -190,13 +241,8 @@ class AddUp extends React.Component {
                 </Form.Item>
               </div>
               <div className={styles.colDom}>
-                <Form.Item
-                  label="入党支部"
-                  labelCol={{ span: 6 }}
-                  wrapperCol={{ span: 16 }}
-                  className={styles.roleListDiv}
-                >
-                  {getFieldDecorator('roleIds', {
+                <Form.Item label="入党支部" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
+                  {getFieldDecorator('intoBranch', {
                     rules: [
                       {
                         required: true,
@@ -218,13 +264,8 @@ class AddUp extends React.Component {
 
             <div className={styles.rowDom}>
               <div className={styles.colDom}>
-                <Form.Item
-                  label="当前支部"
-                  labelCol={{ span: 6 }}
-                  wrapperCol={{ span: 16 }}
-                  className={styles.roleListDiv}
-                >
-                  {getFieldDecorator('roleIds', {
+                <Form.Item label="当前支部" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
+                  {getFieldDecorator('currentBranch', {
                     rules: [
                       {
                         required: true,
@@ -243,13 +284,8 @@ class AddUp extends React.Component {
                 </Form.Item>
               </div>
               <div className={styles.colDom}>
-                <Form.Item
-                  label="小组"
-                  labelCol={{ span: 6 }}
-                  wrapperCol={{ span: 16 }}
-                  className={styles.roleListDiv}
-                >
-                  {getFieldDecorator('roleIds', {
+                <Form.Item label="小组" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
+                  {getFieldDecorator('branchGroup', {
                     rules: [
                       {
                         required: true,
@@ -272,7 +308,7 @@ class AddUp extends React.Component {
             <div className={styles.rowDom}>
               <div className={styles.colDom}>
                 <Form.Item label="支部书记" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
-                  {getFieldDecorator('idNumber', {
+                  {getFieldDecorator('branchSecretary', {
                     rules: [
                       {
                         required: true,
@@ -284,7 +320,7 @@ class AddUp extends React.Component {
               </div>
               <div className={styles.colDom}>
                 <Form.Item label="支部联系人" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
-                  {getFieldDecorator('fullName', {
+                  {getFieldDecorator('branchContacts', {
                     rules: [
                       {
                         required: true,
@@ -299,7 +335,7 @@ class AddUp extends React.Component {
             <div className={styles.rowDom} style={{ width: '50%' }}>
               <div className={styles.colDom}>
                 <Form.Item label="联系人电话" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
-                  {getFieldDecorator('remarks', {
+                  {getFieldDecorator('contactTelephone', {
                     rules: [
                       {
                         required: true,

@@ -133,4 +133,10 @@ export const GROUP_LIST = '/household/getPartyMemberList'; // 党建列表
 
 export const GROUP_DETAIL = '/household/getPartyMemberMsg'; // 党建详情
 
+export const ADD_GROUP_CHECK = '/household/getHouseholdMemberByIdNumber'; // 添加检索
+
+export const ADD_GROUP = '/household/addPartyMember'; // 添加表单接口
+
+export const DELETE_GROUP = '/household/deletePartyMember'; // 删除接口
+
 // ------------ 党建 end ----------------

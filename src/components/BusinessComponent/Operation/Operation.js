@@ -47,14 +47,14 @@ class Operation extends React.Component {
             {this.props.title}
           </Button>
         ) : (
-          <div>
+          <span>
             {!this.props.reminder && <a onClick={this.click}>{this.props.title}</a>}
             {this.props.reminder && (
               <Popconfirm title={this.props.reminder} onConfirm={this.click}>
                 <a>{this.props.title}</a>
               </Popconfirm>
             )}
-          </div>
+          </span>
         )}
       </span>
     );
