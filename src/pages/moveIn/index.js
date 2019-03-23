@@ -2,7 +2,7 @@ import React from 'react';
 import { Spin, Button, Input, Form, Select, notification } from 'antd';
 import UploadImg from '../../components/UpLoad/UploadImage';
 import MemList from './components/MemList';
-import { postRequest, jsonString, verVal } from '@/utils/api';
+import { postRequest, jsonString, verVal, isCardNo } from '@/utils/api';
 
 import { SYS_Dict, MOVE_IN } from '@/services/SysInterface';
 
@@ -85,7 +85,7 @@ class MoveIn extends React.Component {
       await this.setState({ getList: true });
       let flag = true;
       this.state.list.forEach(item => {
-        if (item.idNumber.toString().length < 14) {
+        if (!isCardNo(item)) {
           flag = false;
         }
       });

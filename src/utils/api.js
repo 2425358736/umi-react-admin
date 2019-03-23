@@ -3,10 +3,9 @@ import moment from 'moment';
 import request from './request';
 
 export const http = 'http://127.0.0.1:8090';
-
 export const ws = 'ws://127.0.0.1:8090/websocket';
-// export const http = 'http://192.168.2.166:8090';
-// export const ws = 'ws://192.168.2.166:8090/websocket';
+// export const http = 'http://192.168.2.136:8090';
+// export const ws = 'ws://192.168.2.136:8090/websocket';
 
 export function getRequest(url) {
   return new Promise((resolve, reject) => {
@@ -202,6 +201,17 @@ function exportExcelGet(url, params) {
   window.open(`${http}/upload/excel?list=${params}`);
 }
 
+/**
+ * 验证非空
+ */
 export function verVal(val) {
   return val !== '' && typeof val !== 'undefined' && val !== null;
+}
+
+/**
+ * 验证身份证
+ */
+function isCardNo(card) {
+  const pattern = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+  return pattern.test(card);
 }

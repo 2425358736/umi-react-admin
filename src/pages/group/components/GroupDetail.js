@@ -3,7 +3,7 @@ import { Icon } from 'antd';
 import styles from './components.less';
 import { getRequest } from '@/utils/api';
 
-import { MEMBER_DETAIL } from '@/services/SysInterface';
+import { GROUP__DETAIL } from '@/services/SysInterface';
 
 class GroupDetail extends React.Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class GroupDetail extends React.Component {
   }
 
   componentWillMount = async () => {
-    const data = await getRequest(`${MEMBER_DETAIL}?id=${this.props.id}`);
+    const data = await getRequest(`${GROUP__DETAIL}?id=${this.props.id}`);
     if (data.status === 200) {
       await this.setState({
         fetchData: data.data,

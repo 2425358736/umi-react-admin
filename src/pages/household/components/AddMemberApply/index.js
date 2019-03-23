@@ -3,7 +3,7 @@ import { Spin, Button, notification } from 'antd';
 import NowMemList from './components/NowMemList';
 import NewMemList from './components/NewMemList';
 import UploadImg from '../../../../components/UpLoad/UploadImage';
-import { getRequest, postRequest } from '@/utils/api';
+import { getRequest, postRequest, isCardNo } from '@/utils/api';
 
 import { HOUSEHOLD_DETAIL, ADD_MEMBER } from '@/services/SysInterface';
 
@@ -56,7 +56,7 @@ class AddMemberApply extends React.Component {
     await this.setState({ getList: true });
     let flag = true;
     this.state.list.forEach(item => {
-      if (item.idNumber.toString().length < 14) {
+      if (!isCardNo(item)) {
         flag = false;
       }
     });

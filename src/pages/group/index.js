@@ -15,7 +15,7 @@ import GroupAdd from './components/GroupAdd';
 
 import styles from './index.less';
 
-import { MEMBER_LIST_HEADER, GROUP_LIST, SYS_Dict } from '@/services/SysInterface';
+import { GROUP_LIST_HEADER, GROUP_LIST, SYS_Dict } from '@/services/SysInterface';
 
 const topStatistics = {
   topJson: [],
@@ -219,7 +219,7 @@ class GroupList extends React.Component {
     return (
       <div className={styles.sysUserWrap}>
         <div className={styles.baseTableWrap}>
-          <TopStatistics sourceUrl={MEMBER_LIST_HEADER} topJson={topStatistics.topJson} />
+          <TopStatistics sourceUrl={GROUP_LIST_HEADER} topJson={topStatistics.topJson} />
           <div className={styles.screenTag}>
             <Search
               ordinary={search.ordinary}
