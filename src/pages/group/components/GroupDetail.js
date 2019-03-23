@@ -34,7 +34,7 @@ class GroupDetail extends React.Component {
           <div className={styles.cardWrap}>
             <div className={styles.cardDom}>
               <p className={styles.cardTitle}>
-                <Icon type="credit-card" className={styles.iconDom} />
+                <Icon type="usergroup-add" className={styles.iconDom} />
                 小组
               </p>
               <p className={styles.cardContent}>{fetchData.branchGroupName}</p>

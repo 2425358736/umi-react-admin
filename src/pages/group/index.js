@@ -148,7 +148,7 @@ class GroupList extends React.Component {
           render(text, record) {
             return (
               <div>
-                <Info title="成员详情" info={<GroupDetail id={record.id} />}>
+                <Info title="党员详情" info={<GroupDetail id={record.id} />}>
                   详情
                 </Info>
                 <Divider type="vertical" />

@@ -134,6 +134,7 @@ class MemList extends React.Component {
                 <span>{text === 0 ? '男' : text === 1 ? '女' : '未知'}</span>
               ) : (
                 <Radio.Group
+                  style={{ whiteSpace: 'nowrap' }}
                   onChange={e => {
                     that.state.dataSource[index].sex = e.target.value;
                     that.setState({
@@ -274,7 +275,7 @@ class MemList extends React.Component {
         render(text, record) {
           return (
             <div>
-              <Info title="成员详情" info={<MemberDetail id={record.memberId} />}>
+              <Info title="社员详情" info={<MemberDetail id={record.memberId} />}>
                 详情
               </Info>
             </div>
