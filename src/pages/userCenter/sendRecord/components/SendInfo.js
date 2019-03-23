@@ -34,7 +34,7 @@ class SendInfo extends React.Component {
           <div className={styles.cardWrap}>
             <div className={styles.cardDom}>
               <p className={styles.cardTitle}>
-                <Icon type="global" className={styles.iconDom} />
+                <Icon type="link" className={styles.iconDom} />
                 发送方式
               </p>
               <p className={styles.cardContent}>{fetchData.informationChannelStr}</p>
@@ -42,7 +42,7 @@ class SendInfo extends React.Component {
 
             <div className={styles.cardDom}>
               <p className={styles.cardTitle}>
-                <Icon type="global" className={styles.iconDom} />
+                <Icon type="tags" className={styles.iconDom} />
                 消息类型
               </p>
               <p className={styles.cardContent}>{fetchData.informationTypeStr}</p>
@@ -50,7 +50,7 @@ class SendInfo extends React.Component {
 
             <div className={styles.cardDom}>
               <p className={styles.cardTitle}>
-                <Icon type="global" className={styles.iconDom} />
+                <Icon type="gold" className={styles.iconDom} />
                 消息状态
               </p>
               <p className={styles.cardContent}>{fetchData.informationStateStr}</p>
@@ -58,7 +58,7 @@ class SendInfo extends React.Component {
 
             <div className={styles.cardDom}>
               <p className={styles.cardTitle}>
-                <Icon type="global" className={styles.iconDom} />
+                <Icon type="clock-circle" className={styles.iconDom} />
                 发送时间
               </p>
               <p className={styles.cardContent}>{fetchData.createDate}</p>

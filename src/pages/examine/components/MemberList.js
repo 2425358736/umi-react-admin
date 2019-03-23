@@ -66,7 +66,7 @@ class MemberList extends React.Component {
           render(text, record) {
             return (
               <div>
-                <Info title="成员详情" info={<MemberDetail id={record.id} />}>
+                <Info title="社员详情" info={<MemberDetail id={record.id} />}>
                   详情
                 </Info>
               </div>

@@ -1,5 +1,6 @@
 import React from 'react';
-import { postRequest } from '@/utils/api';
+import { Divider, notification } from 'antd';
+import { postRequest, deleteRequest } from '@/utils/api';
 
 import {
   OrdinaryTable,
@@ -8,6 +9,7 @@ import {
   ScreeningTag,
   Info,
   Add,
+  Operation,
 } from '@/components/BusinessComponent/BusCom';
 
 import GroupDetail from './components/GroupDetail';
@@ -15,7 +17,7 @@ import GroupAdd from './components/GroupAdd';
 
 import styles from './index.less';
 
-import { GROUP_LIST_HEADER, GROUP_LIST, SYS_Dict } from '@/services/SysInterface';
+import { GROUP_LIST_HEADER, GROUP_LIST, DELETE_GROUP, SYS_Dict } from '@/services/SysInterface';
 
 const topStatistics = {
   topJson: [],
@@ -64,6 +66,7 @@ class GroupList extends React.Component {
         component: 'DatePicker',
       },
     ];
+    const that = this;
     this.state = {
       columns: [
         {
@@ -145,9 +148,18 @@ class GroupList extends React.Component {
           render(text, record) {
             return (
               <div>
-                <Info title="成员详情" info={<GroupDetail id={record.id} />}>
+                <Info title="党员详情" info={<GroupDetail id={record.id} />}>
                   详情
                 </Info>
+                <Divider type="vertical" />
+                <Operation
+                  title="删除"
+                  mode={0}
+                  reminder="确认删除吗？"
+                  onClick={async () => {
+                    await that.deleteRow(record.id);
+                  }}
+                />
               </div>
             );
           },
@@ -213,6 +225,15 @@ class GroupList extends React.Component {
   componentWillMount = async () => {
     this.groupArr();
     this.nationArr();
+  };
+
+  deleteRow = async id => {
+    const data = await deleteRequest(`${DELETE_GROUP}?id=${id}`);
+    if (data.status === 200) {
+      notification.success({ message: data.msg });
+    } else {
+      notification.error({ message: data.msg, description: data.subMsg });
+    }
   };
 
   render() {
