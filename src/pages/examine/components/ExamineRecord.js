@@ -28,7 +28,7 @@ class ExamineRecord extends React.Component {
           width: '10%',
           dataIndex: 'node',
           render(text) {
-            return text === 0 ? '录入' : text === 1 ? '审核' : '确认';
+            return text === 0 ? '迁入' : text === 1 ? '审核' : '确认';
           },
         },
         {
@@ -42,7 +42,7 @@ class ExamineRecord extends React.Component {
           dataIndex: 'operationContent',
           render(text) {
             return text === 0
-              ? '录入'
+              ? '迁入'
               : text === 1
               ? '审核通过'
               : text === 2

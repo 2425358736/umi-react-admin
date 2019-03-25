@@ -112,14 +112,14 @@ class Examine extends React.Component {
         },
         {
           title: '大队',
-          width: '10%',
+          width: '5%',
           dataIndex: 'troops',
           column: 'troopsStr',
           filters: arr,
         },
         {
           title: '编号',
-          width: '10%',
+          width: '5%',
           dataIndex: 'householdNumber',
         },
         {
