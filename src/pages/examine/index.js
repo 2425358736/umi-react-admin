@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-  BaseTable,
+  ScreeningTag,
   OrdinaryTable,
   TopStatistics,
   Search,
@@ -12,7 +12,9 @@ import ExamineDetail from './components/ExamineDetail';
 
 import styles from './index.less';
 
-import { EXAMINE_LIST, EXAMINE_LIST_HEADER } from '@/services/SysInterface';
+import { postRequest } from '@/utils/api';
+
+import { EXAMINE_LIST, EXAMINE_LIST_HEADER, SYS_Dict } from '@/services/SysInterface';
 
 const topStatistics = {
   topJson: [
@@ -88,7 +90,18 @@ class Examine extends React.Component {
     };
   }
 
-  componentWillMount = () => {
+  componentWillMount = async () => {
+    // 大队列表
+    const arr = [];
+    const queueArr = await postRequest(`${SYS_Dict}/6`);
+    if (queueArr.status === 200) {
+      queueArr.data.forEach(item => {
+        arr.push({
+          text: item.dataLabel,
+          value: item.id.toString(),
+        });
+      });
+    }
     this.setState({
       columns: [
         {
@@ -96,6 +109,13 @@ class Examine extends React.Component {
           width: '5%',
           dataIndex: 'id',
           isIncrement: true,
+        },
+        {
+          title: '大队',
+          width: '10%',
+          dataIndex: 'troops',
+          column: 'troopsStr',
+          filters: arr,
         },
         {
           title: '编号',
@@ -226,11 +246,18 @@ class Examine extends React.Component {
   render() {
     return (
       <div className={styles.sysUserWrap}>
-        <BaseTable
-          isTop={<TopStatistics sourceUrl={EXAMINE_LIST_HEADER} topJson={topStatistics.topJson} />}
-          search={<Search ordinary={search.ordinary} senior={search.senior} />}
-          table={<OrdinaryTable listUrl={EXAMINE_LIST} columns={this.state.columns} />}
-        />
+        <div className={styles.baseTableWrap}>
+          <TopStatistics sourceUrl={EXAMINE_LIST_HEADER} topJson={topStatistics.topJson} />
+          <div className={styles.screenTag}>
+            <Search ordinary={search.ordinary} senior={search.senior} />
+            <ScreeningTag />
+          </div>
+          <div className={styles.tableWrap}>
+            <div>
+              <OrdinaryTable listUrl={EXAMINE_LIST} columns={this.state.columns} />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
