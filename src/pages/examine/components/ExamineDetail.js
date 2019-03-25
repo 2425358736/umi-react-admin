@@ -152,7 +152,8 @@ class MoveInExamine extends React.Component {
         <div className={styles.topWrap}>
           <div className={styles.titleDom}>
             <span />
-            <span>编号：{fetchData.householdNumber}</span>
+            {fetchData.changeType === 0 && <span>户号：{fetchData.householdRegisterNumber}</span>}
+            {fetchData.changeType !== 0 && <span>编号：{fetchData.householdNumber}</span>}
           </div>
           <div className={styles.cardWrap}>
             <div className={styles.cardDom}>
@@ -162,14 +163,15 @@ class MoveInExamine extends React.Component {
               </p>
               <p className={styles.cardContent}>{fetchData.changeTypeStr}</p>
             </div>
-
-            <div className={styles.cardDom}>
-              <p className={styles.cardTitle}>
-                <Icon type="credit-card" className={styles.iconDom} />
-                户号
-              </p>
-              <p className={styles.cardContent}>{fetchData.householdRegisterNumber}</p>
-            </div>
+            {fetchData.changeType !== 0 && (
+              <div className={styles.cardDom}>
+                <p className={styles.cardTitle}>
+                  <Icon type="credit-card" className={styles.iconDom} />
+                  户号
+                </p>
+                <p className={styles.cardContent}>{fetchData.householdRegisterNumber}</p>
+              </div>
+            )}
 
             <div className={styles.cardDom}>
               <p className={styles.cardTitle}>
