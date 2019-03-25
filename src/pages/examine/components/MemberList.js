@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from 'antd';
+import { Table, Icon } from 'antd';
 import MemberDetail from '../../member/components/MemberDetail';
 import { Info } from '@/components/BusinessComponent/BusCom';
 import { getRequest } from '@/utils/api';
@@ -75,6 +75,7 @@ class MemberList extends React.Component {
         },
       ],
       dataSource: [],
+      fetchData: {},
     };
   }
 
@@ -82,25 +83,82 @@ class MemberList extends React.Component {
     const data = await getRequest(`${HOUSEHOLD_DETAIL}?id=${this.props.id}`);
     if (data.status === 200) {
       await this.setState({
+        fetchData: data.data,
         dataSource: data.data.listMember,
       });
     }
   };
 
   render() {
+    const { fetchData } = this.state;
     return (
-      <div className={styles.midWrap} style={{ minHeight: 'calc(100vh - 182px)' }}>
-        <div className={styles.titleDom}>
-          <span />
-          <span>当前成员列表</span>
+      <div>
+        <div className={styles.topWrap}>
+          <div className={styles.titleDom}>
+            <span />
+            <span>编号：{fetchData.householdNumber}</span>
+          </div>
+          <div className={styles.cardWrap}>
+            <div className={styles.cardDom}>
+              <p className={styles.cardTitle}>
+                <Icon type="credit-card" className={styles.iconDom} />
+                户号
+              </p>
+              <p className={styles.cardContent}>{fetchData.householdRegisterNumber}</p>
+            </div>
+
+            <div className={styles.cardDom}>
+              <p className={styles.cardTitle}>
+                <Icon type="team" className={styles.iconDom} />
+                户别
+              </p>
+              <p className={styles.cardContent}>{fetchData.householdTypeStr}</p>
+            </div>
+
+            <div className={styles.cardDom}>
+              <p className={styles.cardTitle}>
+                <Icon type="user" className={styles.iconDom} />
+                户主
+              </p>
+              <p className={styles.cardContent}>{fetchData.householderName}</p>
+            </div>
+
+            <div className={styles.cardDom}>
+              <p className={styles.cardTitle}>
+                <Icon type="environment" className={styles.iconDom} />
+                住址
+              </p>
+              <p className={styles.cardContent}>{fetchData.homeAddress}</p>
+            </div>
+          </div>
         </div>
-        <Table
-          scroll={{ x: 800 }}
-          rowKey="id"
-          columns={this.state.columns}
-          dataSource={this.state.dataSource}
-          pagination={false}
-        />
+        <div className={styles.midWrap} style={{ minHeight: 'calc(100vh - 182px)' }}>
+          <div className={styles.titleDom}>
+            <span />
+            <span>当前成员列表</span>
+          </div>
+          <Table
+            scroll={{ x: 800 }}
+            rowKey="id"
+            columns={this.state.columns}
+            dataSource={this.state.dataSource}
+            pagination={false}
+          />
+          <ul className={styles.historyUl}>
+            <li>
+              <div className={styles.historyImgWrap}>
+                <img src={fetchData.homePicture} alt="" />
+              </div>
+              <p>户主页</p>
+            </li>
+            <li>
+              <div className={styles.historyImgWrap}>
+                <img src={fetchData.indexPictures} alt="" />
+              </div>
+              <p>索引页</p>
+            </li>
+          </ul>
+        </div>
       </div>
     );
   }
