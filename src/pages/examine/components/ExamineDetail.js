@@ -226,7 +226,15 @@ class MoveInExamine extends React.Component {
               onListCall={this.onListCall}
             />
             <div className={styles.conWrap}>
-              {this.homePicture !== null && (
+              {fetchData.changeType === 2 && (
+                <div className={styles.subPicWrap}>
+                  <div className={styles.imgWrap}>
+                    <img src={fetchData.homePicture} alt="" />
+                  </div>
+                  <p>户主页</p>
+                </div>
+              )}
+              {fetchData.changeType !== 2 && this.homePicture !== null && (
                 <div className={styles.imgWrap}>
                   <UploadImg fileList={this.homePicture} callback={this.uploadCallback} />
                   <p>户主页</p>
