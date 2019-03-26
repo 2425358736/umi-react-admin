@@ -35,7 +35,7 @@ const exportButton = {
       column: 'householdNumber',
     },
     {
-      title: '大队',
+      title: '几队',
       column: 'troopsStr',
     },
     {
@@ -102,7 +102,7 @@ class Household extends React.Component {
   }
 
   componentDidMount = async () => {
-    // 大队列表
+    // 几队列表
     const arr = [];
     const arr1 = [
       {
@@ -120,7 +120,7 @@ class Household extends React.Component {
         arr1.push({
           displayTitle: item.dataLabel,
           displayField: `name${item.id}`,
-          queryTitle: '大队',
+          queryTitle: '几队',
           queryField: 'troops',
           queryValue: [item.id.toString()],
         });
@@ -142,7 +142,7 @@ class Household extends React.Component {
           dataIndex: 'householdNumber',
         },
         {
-          title: '大队',
+          title: '几队',
           width: '10%',
           dataIndex: 'troops',
           column: 'troopsStr',

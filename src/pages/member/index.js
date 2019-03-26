@@ -123,7 +123,7 @@ const exportButton = {
       column: 'relationshipStr',
     },
     {
-      title: '大队',
+      title: '几队',
       column: 'troopsStr',
     },
     {
@@ -229,7 +229,7 @@ class MemberList extends React.Component {
           filters: [],
         },
         {
-          title: '大队',
+          title: '几队',
           width: '6%',
           dataIndex: 'troops',
           column: 'troopsStr',
@@ -262,7 +262,7 @@ class MemberList extends React.Component {
   }
 
   queueArr = async () => {
-    // 大队列表
+    // 几队列表
     const arr = [];
     const arr1 = [
       {
@@ -280,7 +280,7 @@ class MemberList extends React.Component {
         arr1.push({
           displayTitle: item.dataLabel,
           displayField: `name${item.id}`,
-          queryTitle: '大队',
+          queryTitle: '几队',
           queryField: 'troops',
           queryValue: [item.id.toString()],
         });
@@ -415,7 +415,7 @@ class MemberList extends React.Component {
           filters: arr4,
         },
         {
-          title: '大队',
+          title: '几队',
           width: '6%',
           dataIndex: 'troops',
           column: 'troopsStr',

@@ -91,7 +91,7 @@ class Examine extends React.Component {
   }
 
   componentWillMount = async () => {
-    // 大队列表
+    // 几队列表
     const arr = [];
     const queueArr = await postRequest(`${SYS_Dict}/6`);
     if (queueArr.status === 200) {
@@ -111,7 +111,7 @@ class Examine extends React.Component {
           isIncrement: true,
         },
         {
-          title: '大队',
+          title: '几队',
           width: '5%',
           dataIndex: 'troops',
           column: 'troopsStr',

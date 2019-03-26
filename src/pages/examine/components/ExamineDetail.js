@@ -163,6 +163,13 @@ class MoveInExamine extends React.Component {
               </p>
               <p className={styles.cardContent}>{fetchData.changeTypeStr}</p>
             </div>
+            <div className={styles.cardDom}>
+              <p className={styles.cardTitle}>
+                <Icon type="credit-card" className={styles.iconDom} />
+                几队
+              </p>
+              <p className={styles.cardContent}>{fetchData.troopsStr}</p>
+            </div>
             {fetchData.changeType !== 0 && (
               <div className={styles.cardDom}>
                 <p className={styles.cardTitle}>

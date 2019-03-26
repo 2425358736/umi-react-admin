@@ -32,7 +32,7 @@ class MoveIn extends React.Component {
    */
   init = async () => {
     this.setState({ loading: true });
-    // 大队列表
+    // 几队列表
     const queueArr = await postRequest(`${SYS_Dict}/6`);
     if (queueArr.status === 200) {
       this.setState({ queueArr: queueArr.data });

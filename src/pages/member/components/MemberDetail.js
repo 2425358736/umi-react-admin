@@ -141,7 +141,7 @@ class MemberDetail extends React.Component {
             <div className={styles.conWrap}>
               <div className={styles.itemDom}>
                 <span>户别</span>
-                <p>{householdRegisterVo.date}</p>
+                <p>{householdRegisterVo.householdTypeStr}</p>
               </div>
               <div className={styles.itemDom}>
                 <span>住址</span>
