@@ -10,6 +10,7 @@ import {
   Info,
   Add,
   Operation,
+  ExportButton,
 } from '@/components/BusinessComponent/BusCom';
 
 import GroupDetail from './components/GroupDetail';
@@ -29,6 +30,51 @@ const search = {
     queryField: 'fullName',
   },
   senior: [],
+};
+
+const exportButton = {
+  columns: [
+    {
+      title: '序号',
+      column: 'id',
+    },
+    {
+      title: '小组',
+      column: 'branchGroupName',
+    },
+    {
+      title: '姓名',
+      column: 'fullName',
+    },
+    {
+      title: '性别',
+      column: 'sexStr',
+    },
+    {
+      title: '民族',
+      column: 'nationalitiesName',
+    },
+    {
+      title: '身份证号',
+      column: 'idNumber',
+    },
+    {
+      title: '手机号',
+      column: 'phoneNumber',
+    },
+    {
+      title: '出生日期',
+      column: 'birthDate',
+    },
+    {
+      title: '年龄',
+      column: 'age',
+    },
+    {
+      title: '党龄',
+      column: 'partyAge',
+    },
+  ],
 };
 
 class GroupList extends React.Component {
@@ -247,6 +293,7 @@ class GroupList extends React.Component {
               senior={search.senior}
               operationBlock={[
                 <Add key="1" width={800} title="党员关系转入" component={GroupAdd} />,
+                <ExportButton key="2" exportUrl={GROUP_LIST} columns={exportButton.columns} />,
               ]}
             />
             <ScreeningTag />

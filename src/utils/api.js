@@ -145,7 +145,7 @@ export async function exportExcel(url, params) {
     window.location.href = `${http}/file/excel?Authorization=${localStorage.getItem(
       'Authorization'
     )}`;
-    if (data.data.lastPage.toString() !== current1.toString()) {
+    if (data.data.lastPage !== 0 && data.data.lastPage.toString() !== current1.toString()) {
       exportExcel(url, params);
     } else {
       current1 = 0;

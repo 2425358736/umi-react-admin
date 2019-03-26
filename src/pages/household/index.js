@@ -9,6 +9,7 @@ import {
   Search,
   Info,
   Up,
+  ExportButton,
 } from '@/components/BusinessComponent/BusCom';
 
 import HouseholdDetail from './components/HouseholdDetail';
@@ -23,7 +24,46 @@ import { HOUSEHOLD_LIST_HEADER, HOUSEHOLD_LIST, SYS_Dict } from '@/services/SysI
 const topStatistics = {
   topJson: [],
 };
-
+const exportButton = {
+  columns: [
+    {
+      title: '序号',
+      column: 'id',
+    },
+    {
+      title: '编号',
+      column: 'householdNumber',
+    },
+    {
+      title: '大队',
+      column: 'troopsStr',
+    },
+    {
+      title: '户主',
+      column: 'householderName',
+    },
+    {
+      title: '身份证号',
+      column: 'householderNumber',
+    },
+    {
+      title: '户别',
+      column: 'householdTypeStr',
+    },
+    {
+      title: '户号',
+      column: 'householdRegisterNumber',
+    },
+    {
+      title: '住址',
+      column: 'homeAddress',
+    },
+    {
+      title: '状态',
+      column: 'householdStatusStr',
+    },
+  ],
+};
 const search = {
   ordinary: {
     queryTitle: '户主姓名',
@@ -206,7 +246,13 @@ class Household extends React.Component {
         <div className={styles.baseTableWrap}>
           <TopStatistics sourceUrl={HOUSEHOLD_LIST_HEADER} topJson={topStatistics.topJson} />
           <div className={styles.screenTag}>
-            <Search ordinary={search.ordinary} senior={search.senior} />
+            <Search
+              ordinary={search.ordinary}
+              senior={search.senior}
+              operationBlock={[
+                <ExportButton key="2" exportUrl={HOUSEHOLD_LIST} columns={exportButton.columns} />,
+              ]}
+            />
             <ScreeningTag />
           </div>
           <div className={styles.tableWrap}>

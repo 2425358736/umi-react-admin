@@ -7,6 +7,7 @@ import {
   Search,
   ScreeningTag,
   Info,
+  ExportButton,
 } from '@/components/BusinessComponent/BusCom';
 
 import MemberDetail from './components/MemberDetail';
@@ -67,7 +68,70 @@ const search = {
     },
   ],
 };
-
+const exportButton = {
+  columns: [
+    {
+      title: '序号',
+      column: 'id',
+    },
+    {
+      title: '姓名',
+      column: 'fullName',
+    },
+    {
+      title: '性别',
+      column: 'sexStr',
+    },
+    {
+      title: '民族',
+      column: 'nationalitiesStr',
+    },
+    {
+      title: '身份证号',
+      column: 'idNumber',
+    },
+    {
+      title: '政治面貌',
+      column: 'politicsFaceStr',
+    },
+    {
+      title: '手机号',
+      column: 'phoneNumber',
+    },
+    {
+      title: '出生日期',
+      column: 'birthDate',
+    },
+    {
+      title: '年龄',
+      column: 'age',
+    },
+    {
+      title: '户号',
+      column: 'householdRegisterNumber',
+    },
+    {
+      title: '编号',
+      column: 'householdNumber',
+    },
+    {
+      title: '户主',
+      column: 'householderName',
+    },
+    {
+      title: '与户主关系',
+      column: 'relationshipStr',
+    },
+    {
+      title: '大队',
+      column: 'troopsStr',
+    },
+    {
+      title: '住址',
+      column: 'homeAddress',
+    },
+  ],
+};
 class MemberList extends React.Component {
   constructor(props) {
     super(props);
@@ -389,7 +453,13 @@ class MemberList extends React.Component {
         <div className={styles.baseTableWrap}>
           <TopStatistics sourceUrl={MEMBER_LIST_HEADER} topJson={topStatistics.topJson} />
           <div className={styles.screenTag}>
-            <Search ordinary={search.ordinary} senior={search.senior} />
+            <Search
+              ordinary={search.ordinary}
+              senior={search.senior}
+              operationBlock={[
+                <ExportButton key="2" exportUrl={MEMBER_LIST} columns={exportButton.columns} />,
+              ]}
+            />
             <ScreeningTag />
           </div>
           <div className={styles.tableWrap}>
