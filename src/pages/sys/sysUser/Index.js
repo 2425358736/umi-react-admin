@@ -2,7 +2,6 @@ import React from 'react';
 import { Menu, Divider, Dropdown, Icon, notification } from 'antd';
 
 import {
-  BaseTable,
   OrdinaryTable,
   TopStatistics,
   Search,
@@ -10,6 +9,7 @@ import {
   Add,
   Up,
   Operation,
+  ScreeningTag,
 } from '@/components/BusinessComponent/BusCom';
 
 import AddUp from './components/AddUp';
@@ -23,6 +23,7 @@ import {
   SYS_USER_LIST,
   SYS_DEL_USER,
   SYS_RESET_PASSWORD,
+  SYS_ROLE_LIST,
 } from '@/services/SysInterface';
 
 const topStatistics = {
@@ -116,8 +117,148 @@ const exportButton = {
 class Index extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      columns: [],
+    };
   }
+
+  componentWillMount = () => {
+    this.columnsUp([]);
+  };
+
+  columnsUp = roleArr => {
+    this.setState({
+      columns: [
+        {
+          title: '序号',
+          width: '5%',
+          dataIndex: 'id',
+          isIncrement: true,
+        },
+        {
+          title: '角色',
+          width: '10%',
+          dataIndex: 'roleIds',
+          column: 'roleNames',
+          filters: roleArr,
+        },
+        {
+          title: '登录名',
+          width: '10%',
+          dataIndex: 'loginName',
+        },
+        {
+          title: '邮箱',
+          width: '15%',
+          dataIndex: 'email',
+        },
+        {
+          title: '手机',
+          width: '12%',
+          dataIndex: 'phone',
+        },
+        {
+          title: '创建日期',
+          width: '10%',
+          dataIndex: 'createDate',
+          sorter: true,
+        },
+        {
+          title: '修改日期',
+          width: '10%',
+          dataIndex: 'updateDate',
+        },
+        {
+          title: '冻结状态',
+          width: '8%',
+          dataIndex: 'freezeState',
+          column: 'freezeStateStr',
+          filters: [
+            {
+              text: '未冻结',
+              value: '0',
+            },
+            {
+              text: '已冻结',
+              value: '1',
+            },
+          ],
+          render(text, record) {
+            return (
+              <div>
+                <b
+                  style={{
+                    display: 'inline-block',
+                    marginRight: '6px',
+                    height: '9px',
+                    width: '9px',
+                    borderRadius: '50%',
+                    background: text === '0' ? '#f00' : '#1ab393',
+                  }}
+                />
+                <span>{record.freezeStateStr}</span>
+              </div>
+            );
+          },
+        },
+        {
+          title: '操作',
+          width: '10%',
+          dataIndex: 'opt',
+          render(text, record) {
+            const opRecord = (
+              <Menu>
+                <Menu.Item>
+                  <Operation
+                    title="重置密码"
+                    mode={0}
+                    reminder="此操作将会将密码重置，确认操作吗？"
+                    onClick={() => {
+                      this.reset(record.id);
+                    }}
+                  />
+                </Menu.Item>
+                <Menu.Item>
+                  <Operation
+                    title="删除"
+                    mode={0}
+                    reminder="此操作将会将用户删除，确认操作吗？"
+                    onClick={async () => {
+                      await this.delete(record.id);
+                    }}
+                  />
+                </Menu.Item>
+              </Menu>
+            );
+            return (
+              <div>
+                <Up width={800} id={record.id} component={AddUp} title="编辑" />
+                <Divider type="vertical" />
+                <Dropdown overlay={opRecord} placement="bottomLeft">
+                  <Icon
+                    type="ellipsis"
+                    style={{ paddingTop: '10px', fontSize: 14, color: '#1ab393' }}
+                  />
+                </Dropdown>
+              </div>
+            );
+          },
+        },
+      ],
+    });
+  };
+
+  componentDidMount = async () => {
+    const data = await postRequest(SYS_ROLE_LIST, { type: 1, query: {} });
+    if (data.status === 200) {
+      const arr = [];
+      data.data.list.forEach(json => {
+        const obj = { text: json.roleName, value: json.id.toString() };
+        arr.push(obj);
+      });
+      this.columnsUp(arr);
+    }
+  };
 
   reset = async id => {
     const data = await postRequest(`${SYS_RESET_PASSWORD}/${id}`);
@@ -138,12 +279,11 @@ class Index extends React.Component {
   };
 
   render() {
-    const that = this;
     return (
       <div className={styles.sysUserWrap}>
-        <BaseTable
-          isTop={<TopStatistics sourceUrl={SYS_USER_TOP} topJson={topStatistics.topJson} />}
-          search={
+        <div className={styles.baseTableWrap}>
+          <TopStatistics sourceUrl={SYS_USER_TOP} topJson={topStatistics.topJson} />
+          <div className={styles.screenTag}>
             <Search
               ordinary={search.ordinary}
               senior={search.senior}
@@ -152,143 +292,25 @@ class Index extends React.Component {
                 <ExportButton key="2" exportUrl={SYS_USER_LIST} columns={exportButton.columns} />,
               ]}
             />
-          }
-          table={
-            <OrdinaryTable
-              // operationBlock={[
-              //   {
-              //     title: '批量操作1',
-              //     onClick: (idArr, objArr) => {
-              //       console.log(idArr, objArr);
-              //     },
-              //   },
-              // ]}
-              listUrl={SYS_USER_LIST}
-              // isExport
-              columns={[
-                {
-                  title: '序号',
-                  width: '6%',
-                  dataIndex: 'id',
-                  isIncrement: true,
-                },
-                {
-                  title: '登录名',
-                  width: '10%',
-                  dataIndex: 'loginName',
-                  // render(text, record) {
-                  //   return (
-                  //     <Info
-                  //       identifying={record.loginName}
-                  //       title={record.loginName}
-                  //       info={<Info2 id={record.id} />}
-                  //     >
-                  //       {record.loginName}
-                  //     </Info>
-                  //   );
-                  // },
-                },
-                {
-                  title: '邮箱',
-                  width: '16%',
-                  dataIndex: 'email',
-                },
-                {
-                  title: '手机',
-                  width: '12%',
-                  dataIndex: 'phone',
-                },
-                {
-                  title: '创建日期',
-                  width: '12%',
-                  dataIndex: 'createDate',
-                  sorter: true,
-                },
-                {
-                  title: '修改日期',
-                  width: '11%',
-                  dataIndex: 'updateDate',
-                },
-                {
-                  title: '冻结状态',
-                  width: '10%',
-                  dataIndex: 'freezeState',
-                  column: 'freezeStateStr',
-                  filters: [
-                    {
-                      text: '未冻结',
-                      value: '0',
+            <ScreeningTag />
+          </div>
+          <div className={styles.tableWrap}>
+            <div>
+              <OrdinaryTable
+                operationBlock={[
+                  {
+                    title: '批量操作1',
+                    onClick: (idArr, objArr) => {
+                      console.log(idArr, objArr);
                     },
-                    {
-                      text: '已冻结',
-                      value: '1',
-                    },
-                  ],
-                  render(text, record) {
-                    return (
-                      <div>
-                        <b
-                          style={{
-                            display: 'inline-block',
-                            marginRight: '6px',
-                            height: '9px',
-                            width: '9px',
-                            borderRadius: '50%',
-                            background: text === '0' ? '#f00' : '#1ab393',
-                          }}
-                        />
-                        <span>{record.freezeStateStr}</span>
-                      </div>
-                    );
                   },
-                },
-                {
-                  title: '操作',
-                  width: '13%',
-                  dataIndex: 'opt',
-                  render(text, record) {
-                    const opRecord = (
-                      <Menu>
-                        <Menu.Item>
-                          <Operation
-                            title="重置密码"
-                            mode={0}
-                            reminder="此操作将会将密码重置，确认操作吗？"
-                            onClick={() => {
-                              that.reset(record.id);
-                            }}
-                          />
-                        </Menu.Item>
-                        <Menu.Item>
-                          <Operation
-                            title="删除"
-                            mode={0}
-                            reminder="此操作将会将用户删除，确认操作吗？"
-                            onClick={async () => {
-                              await that.delete(record.id);
-                            }}
-                          />
-                        </Menu.Item>
-                      </Menu>
-                    );
-                    return (
-                      <div>
-                        <Up width={800} id={record.id} component={AddUp} title="编辑" />
-                        <Divider type="vertical" />
-                        <Dropdown overlay={opRecord} placement="bottomLeft">
-                          <Icon
-                            type="ellipsis"
-                            style={{ paddingTop: '10px', fontSize: 14, color: '#1ab393' }}
-                          />
-                        </Dropdown>
-                      </div>
-                    );
-                  },
-                },
-              ]}
-            />
-          }
-        />
+                ]}
+                listUrl={SYS_USER_LIST}
+                columns={this.state.columns}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
