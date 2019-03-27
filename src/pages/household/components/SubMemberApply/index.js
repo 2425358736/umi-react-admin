@@ -2,7 +2,7 @@ import React from 'react';
 import { Spin, Button, notification } from 'antd';
 import NowMemList from './components/NowMemList';
 import UploadImg from '../../../../components/UpLoad/UploadImage';
-import { getRequest, postRequest, isCardNo } from '@/utils/api';
+import { getRequest, postRequest, IdentityCodeValid } from '@/utils/api';
 
 import { HOUSEHOLD_DETAIL, SUB_MEMBER } from '@/services/SysInterface';
 
@@ -55,7 +55,7 @@ class SubMemberApply extends React.Component {
     await this.setState({ getList: true });
     let flag = true;
     this.state.list.forEach(item => {
-      if (!isCardNo(item.idNumber)) {
+      if (!IdentityCodeValid(item.idNumber)) {
         flag = false;
       }
     });

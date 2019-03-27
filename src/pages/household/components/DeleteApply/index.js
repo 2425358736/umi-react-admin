@@ -2,7 +2,7 @@ import React from 'react';
 import { Spin, Button, notification } from 'antd';
 import NowMemList from './components/NowMemList';
 // import UploadImg from '../../../../components/UpLoad/UploadImage';
-import { getRequest, deleteRequest, isCardNo } from '@/utils/api';
+import { getRequest, deleteRequest, IdentityCodeValid } from '@/utils/api';
 
 import { HOUSEHOLD_DETAIL, DELETE_MEMBER } from '@/services/SysInterface';
 
@@ -55,7 +55,7 @@ class DeleteApply extends React.Component {
     await this.setState({ getList: true });
     let flag = true;
     this.state.list.forEach(item => {
-      if (!isCardNo(item.idNumber)) {
+      if (!IdentityCodeValid(item.idNumber)) {
         flag = false;
       }
     });
