@@ -86,7 +86,7 @@ class MoveIn extends React.Component {
       let flag = true;
       this.state.list.forEach(item => {
         if (!IdentityCodeValid(item.idNumber)) {
-          notification.error({ message: `${item.idNumber}身份不正确` });
+          notification.error({ message: `${item.idNumber}身份证号不正确` });
           flag = false;
         }
       });

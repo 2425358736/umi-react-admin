@@ -56,11 +56,11 @@ class SubMemberApply extends React.Component {
     let flag = true;
     this.state.list.forEach(item => {
       if (!IdentityCodeValid(item.idNumber)) {
+        notification.error({ message: `${item.idNumber}身份证号不正确` });
         flag = false;
       }
     });
     if (!flag) {
-      notification.error({ message: '请输入正确的身份证号' });
       return;
     }
     this.setState({
