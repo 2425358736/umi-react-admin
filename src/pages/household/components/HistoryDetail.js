@@ -87,6 +87,13 @@ class HistoryDetail extends React.Component {
             <div className={styles.cardDom}>
               <p className={styles.cardTitle}>
                 <Icon type="credit-card" className={styles.iconDom} />
+                版本号
+              </p>
+              <p className={styles.cardContent}>{fetchData.version}</p>
+            </div>
+            <div className={styles.cardDom}>
+              <p className={styles.cardTitle}>
+                <Icon type="credit-card" className={styles.iconDom} />
                 户号
               </p>
               <p className={styles.cardContent}>{fetchData.householdRegisterNumber}</p>
