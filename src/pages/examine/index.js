@@ -9,6 +9,7 @@ import {
 } from '@/components/BusinessComponent/BusCom';
 
 import ExamineDetail from './components/ExamineDetail';
+import ExamineInfo from './components/ExamineInfo';
 
 import styles from './index.less';
 
@@ -233,6 +234,11 @@ class Examine extends React.Component {
                       : record.changeType === 2
                       ? '减员审批'
                       : '注销审批'}
+                  </Info>
+                )}
+                {record.auditStatus !== 0 && (
+                  <Info title="审核详情" info={<ExamineInfo id={record.id} />}>
+                    详情
                   </Info>
                 )}
               </span>
