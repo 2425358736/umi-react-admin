@@ -127,6 +127,7 @@ class Index extends React.Component {
   };
 
   columnsUp = roleArr => {
+    const that = this;
     this.setState({
       columns: [
         {
@@ -213,8 +214,8 @@ class Index extends React.Component {
                     title="重置密码"
                     mode={0}
                     reminder="此操作将会将密码重置，确认操作吗？"
-                    onClick={() => {
-                      this.reset(record.id);
+                    onClick={async () => {
+                      await that.reset(record.id);
                     }}
                   />
                 </Menu.Item>
@@ -224,7 +225,7 @@ class Index extends React.Component {
                     mode={0}
                     reminder="此操作将会将用户删除，确认操作吗？"
                     onClick={async () => {
-                      await this.delete(record.id);
+                      await that.delete(record.id);
                     }}
                   />
                 </Menu.Item>
