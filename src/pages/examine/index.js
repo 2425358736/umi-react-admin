@@ -113,29 +113,29 @@ class Examine extends React.Component {
         },
         {
           title: '几队',
-          width: '5%',
+          width: '6%',
           dataIndex: 'troops',
           column: 'troopsStr',
           filters: arr,
         },
         {
           title: '编号',
-          width: '5%',
+          width: '6%',
           dataIndex: 'householdNumber',
         },
         {
           title: '户主',
-          width: '10%',
+          width: '8%',
           dataIndex: 'householderName',
         },
         {
           title: '身份证号',
-          width: '10%',
+          width: '14%',
           dataIndex: 'householderNumber',
         },
         {
           title: '户别',
-          width: '10%',
+          width: '8%',
           dataIndex: 'householdType',
           column: 'householdTypeStr',
           filters: [
@@ -260,7 +260,14 @@ class Examine extends React.Component {
           </div>
           <div className={styles.tableWrap}>
             <div>
-              <OrdinaryTable listUrl={EXAMINE_LIST} columns={this.state.columns} />
+              <OrdinaryTable
+                scroll={{
+                  x: 1400,
+                  y: 'calc(100vh - 218px)',
+                }}
+                listUrl={EXAMINE_LIST}
+                columns={this.state.columns}
+              />
             </div>
           </div>
         </div>

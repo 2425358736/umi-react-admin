@@ -40,7 +40,7 @@ class HistoryList extends React.Component {
         },
         {
           title: '版本号',
-          width: '10%',
+          width: '8%',
           dataIndex: 'version',
         },
         {
@@ -75,7 +75,7 @@ class HistoryList extends React.Component {
         },
         {
           title: '审核时间',
-          width: '13%',
+          width: '15%',
           dataIndex: 'auditDate',
         },
         {
@@ -101,7 +101,7 @@ class HistoryList extends React.Component {
     return (
       <div>
         <Table
-          scroll={{ x: 900 }}
+          scroll={{ x: 1200 }}
           rowKey="id"
           columns={this.state.columns}
           dataSource={this.state.dataSource}

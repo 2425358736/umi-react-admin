@@ -138,29 +138,29 @@ class Household extends React.Component {
         },
         {
           title: '编号',
-          width: '10%',
+          width: '8%',
           dataIndex: 'householdNumber',
         },
         {
           title: '几队',
-          width: '10%',
+          width: '8%',
           dataIndex: 'troops',
           column: 'troopsStr',
           filters: arr,
         },
         {
           title: '户主',
-          width: '10%',
+          width: '8%',
           dataIndex: 'householderName',
         },
         {
           title: '身份证号',
-          width: '10%',
+          width: '20%',
           dataIndex: 'householderNumber',
         },
         {
           title: '户别',
-          width: '10%',
+          width: '8%',
           dataIndex: 'householdType',
           column: 'householdTypeStr',
           filters: [
@@ -176,7 +176,7 @@ class Household extends React.Component {
         },
         {
           title: '户号',
-          width: '10%',
+          width: '8%',
           dataIndex: 'householdRegisterNumber',
         },
         {
@@ -259,7 +259,7 @@ class Household extends React.Component {
             <div>
               <OrdinaryTable
                 scroll={{
-                  x: 1900,
+                  x: 1200,
                   y: 'calc(100vh - 218px)',
                 }}
                 listUrl={HOUSEHOLD_LIST}

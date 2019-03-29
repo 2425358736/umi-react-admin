@@ -1,9 +1,9 @@
 import React from 'react';
-import { Spin, Button, notification } from 'antd';
+import { Spin, Modal, Button, notification } from 'antd';
 import NowMemList from './components/NowMemList';
 import NewMemList from './components/NewMemList';
 import UploadImg from '../../../../components/UpLoad/UploadImage';
-import { getRequest, postRequest, IdentityCodeValid } from '@/utils/api';
+import { getRequest, postRequest, IdentityCodeValid, verVal } from '@/utils/api';
 
 import { HOUSEHOLD_DETAIL, ADD_MEMBER } from '@/services/SysInterface';
 
@@ -19,6 +19,7 @@ class AddMemberApply extends React.Component {
       buttonLoading: false,
       loading: false,
       getList: false,
+      imgVisible: false,
     };
   }
 
@@ -55,12 +56,29 @@ class AddMemberApply extends React.Component {
   handleSubmit = async () => {
     await this.setState({ getList: true });
     let flag = true;
-    this.state.list.forEach(item => {
-      if (!IdentityCodeValid(item.idNumber)) {
-        notification.error({ message: `${item.idNumber}身份证号不正确` });
+    const list = [...this.state.list];
+    for (let i = 0, len = list.length; i < len; i += 1) {
+      if (!verVal(list[i].fullName)) {
+        notification.error({ message: `请输入姓名` });
         flag = false;
+        return;
       }
-    });
+      if (!verVal(list[i].nationalities)) {
+        notification.error({ message: `请选择民族` });
+        flag = false;
+        return;
+      }
+      if (!verVal(list[i].idNumber) || !IdentityCodeValid(list[i].idNumber)) {
+        notification.error({ message: `${list[i].idNumber}身份证号不正确` });
+        flag = false;
+        return;
+      }
+      if (!verVal(list[i].memberPictures)) {
+        notification.error({ message: `请上传${list[i].fullName}的个人单页` });
+        flag = false;
+        return;
+      }
+    }
     if (!flag) {
       return;
     }
@@ -126,7 +144,7 @@ class AddMemberApply extends React.Component {
             <li>
               <span>证件:</span>
               <ul>
-                <li>
+                <li onClick={() => this.setState({ imgVisible: true })}>
                   <div className={styles.imgWrap}>
                     <img src={fetchData.homePicture} alt="" />
                   </div>
@@ -181,6 +199,15 @@ class AddMemberApply extends React.Component {
               取消
             </Button>
           </div>
+
+          <Modal
+            title="户主页"
+            visible={this.state.imgVisible}
+            footer={null}
+            onCancel={() => this.setState({ imgVisible: false })}
+          >
+            <img style={{ width: '100%' }} src={fetchData.homePicture} alt="" />
+          </Modal>
         </div>
       </Spin>
     );

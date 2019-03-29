@@ -101,7 +101,7 @@ class MoveIn extends React.Component {
           flag = false;
           return;
         }
-        if (!verVal(list[i].memmemberPictures)) {
+        if (!verVal(list[i].memberPictures)) {
           notification.error({ message: `请上传${list[i].fullName}的个人单页` });
           flag = false;
           return;

@@ -366,7 +366,7 @@ class MemberList extends React.Component {
         },
         {
           title: '身份证号',
-          width: '8%',
+          width: '10%',
           dataIndex: 'idNumber',
         },
         {
@@ -396,12 +396,12 @@ class MemberList extends React.Component {
         },
         {
           title: '编号',
-          width: '6%',
+          width: '5%',
           dataIndex: 'householdNumber',
         },
         {
           title: '户主',
-          width: '6%',
+          width: '5%',
           dataIndex: 'householderName',
         },
         {
@@ -463,7 +463,7 @@ class MemberList extends React.Component {
             <div>
               <OrdinaryTable
                 scroll={{
-                  x: 2100,
+                  x: 1900,
                   y: 'calc(100vh - 218px)',
                 }}
                 listUrl={MEMBER_LIST}

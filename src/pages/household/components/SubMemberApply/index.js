@@ -1,8 +1,8 @@
 import React from 'react';
-import { Spin, Button, notification } from 'antd';
+import { Spin, Modal, Button, notification } from 'antd';
 import NowMemList from './components/NowMemList';
 import UploadImg from '../../../../components/UpLoad/UploadImage';
-import { getRequest, postRequest, IdentityCodeValid } from '@/utils/api';
+import { getRequest, postRequest } from '@/utils/api';
 
 import { HOUSEHOLD_DETAIL, SUB_MEMBER } from '@/services/SysInterface';
 
@@ -18,6 +18,7 @@ class SubMemberApply extends React.Component {
       buttonLoading: false,
       loading: false,
       getList: false,
+      imgVisible: false,
     };
   }
 
@@ -53,16 +54,6 @@ class SubMemberApply extends React.Component {
    */
   handleSubmit = async () => {
     await this.setState({ getList: true });
-    let flag = true;
-    this.state.list.forEach(item => {
-      if (!IdentityCodeValid(item.idNumber)) {
-        notification.error({ message: `${item.idNumber}身份证号不正确` });
-        flag = false;
-      }
-    });
-    if (!flag) {
-      return;
-    }
     this.setState({
       buttonLoading: true,
     });
@@ -125,7 +116,7 @@ class SubMemberApply extends React.Component {
             <li>
               <span>证件:</span>
               <ul>
-                <li>
+                <li onClick={() => this.setState({ imgVisible: true })}>
                   <div className={styles.imgWrap}>
                     <img src={fetchData.homePicture} alt="" />
                   </div>
@@ -172,6 +163,14 @@ class SubMemberApply extends React.Component {
               取消
             </Button>
           </div>
+          <Modal
+            title="户主页"
+            visible={this.state.imgVisible}
+            footer={null}
+            onCancel={() => this.setState({ imgVisible: false })}
+          >
+            <img style={{ width: '100%' }} src={fetchData.homePicture} alt="" />
+          </Modal>
         </div>
       </Spin>
     );
