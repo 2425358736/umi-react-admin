@@ -328,18 +328,18 @@ class MemberList extends React.Component {
       columns: [
         {
           title: '序号',
-          width: '4%',
+          width: '3%',
           dataIndex: 'id',
           isIncrement: true,
         },
         {
           title: '姓名',
-          width: '6%',
+          width: '4%',
           dataIndex: 'fullName',
         },
         {
           title: '性别',
-          width: '6%',
+          width: '4%',
           dataIndex: 'sex',
           column: 'sexStr',
           filters: [
@@ -366,11 +366,8 @@ class MemberList extends React.Component {
         },
         {
           title: '身份证号',
-          width: '6%',
+          width: '8%',
           dataIndex: 'idNumber',
-          render(text) {
-            return <span style={{ wordBreak: 'break-all' }}>{text}</span>;
-          },
         },
         {
           title: '政治面貌',
@@ -389,7 +386,7 @@ class MemberList extends React.Component {
         },
         {
           title: '年龄',
-          width: '6%',
+          width: '4%',
           dataIndex: 'age',
         },
         {
@@ -466,7 +463,7 @@ class MemberList extends React.Component {
             <div>
               <OrdinaryTable
                 scroll={{
-                  x: 1900,
+                  x: 2100,
                   y: 'calc(100vh - 218px)',
                 }}
                 listUrl={MEMBER_LIST}

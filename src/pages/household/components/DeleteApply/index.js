@@ -1,7 +1,6 @@
 import React from 'react';
 import { Spin, Button, notification } from 'antd';
 import NowMemList from './components/NowMemList';
-// import UploadImg from '../../../../components/UpLoad/UploadImage';
 import { getRequest, deleteRequest, IdentityCodeValid } from '@/utils/api';
 
 import { HOUSEHOLD_DETAIL, DELETE_MEMBER } from '@/services/SysInterface';
@@ -30,13 +29,6 @@ class DeleteApply extends React.Component {
       });
     }
   };
-
-  /**
-   * 索引页上传图片回调
-   */
-  // uploadCallback = url => {
-  //   this.indexPictures = url;
-  // };
 
   /**
    * 列表回调
@@ -116,25 +108,23 @@ class DeleteApply extends React.Component {
               <span>住址:</span>
               <span>{fetchData.homeAddress}</span>
             </li>
-            {/* <li> */}
-            {/* <span>证件:</span> */}
-            {/* <ul> */}
-            {/* <li> */}
-            {/* <div className={styles.imgWrap}> */}
-            {/* <img src={fetchData.homePicture} alt="" /> */}
-            {/* </div> */}
-            {/* <p>户主页</p> */}
-            {/* </li> */}
-            {/* <li> */}
-            {/* <div className={styles.imgWrap}> */}
-            {/* {this.indexPictures && this.indexPictures !== '' && ( */}
-            {/* <UploadImg fileList={this.indexPictures} callback={this.uploadCallback} /> */}
-            {/* )} */}
-            {/* </div> */}
-            {/* <p>索引页</p> */}
-            {/* </li> */}
-            {/* </ul> */}
-            {/* </li> */}
+            <li>
+              <span>证件:</span>
+              <ul>
+                <li>
+                  <div className={styles.imgWrap}>
+                    <img src={fetchData.homePicture} alt="" />
+                  </div>
+                  <p>户主页</p>
+                </li>
+                <li>
+                  <div className={styles.imgWrap}>
+                    <img src={fetchData.homePicture} alt="" />
+                  </div>
+                  <p>索引页</p>
+                </li>
+              </ul>
+            </li>
           </ul>
 
           {/* 分割线 */}
