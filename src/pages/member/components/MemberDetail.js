@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from 'antd';
+import { Tooltip, Icon } from 'antd';
 import HouseholdDetail from '../../household/components/HouseholdDetail';
 import HouseholdMemberList from './HouseholdMemberList';
 import styles from './components.less';
@@ -45,7 +45,10 @@ class MemberDetail extends React.Component {
                 <Icon type="credit-card" className={styles.iconDom} />
                 身份证号
               </p>
-              <p className={styles.cardContent}>{fetchData.idNumber}</p>
+              <Tooltip title={fetchData.idNumber}>
+                <p className={styles.cardContent}>{fetchData.idNumber}</p>
+              </Tooltip>
+              ,
             </div>
 
             <div className={styles.cardDom}>

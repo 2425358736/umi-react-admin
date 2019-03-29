@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Icon } from 'antd';
+import { Table, Tooltip, Icon } from 'antd';
 import styles from './components.less';
 import { getRequest } from '@/utils/api';
 
@@ -105,7 +105,9 @@ class HistoryDetail extends React.Component {
                 <Icon type="user" className={styles.iconDom} />
                 操作时间
               </p>
-              <p className={styles.cardContent}>{fetchData.inputDate}</p>
+              <Tooltip title={fetchData.inputDate}>
+                <p className={styles.cardContent}>{fetchData.inputDate}</p>
+              </Tooltip>
             </div>
           </div>
         </div>

@@ -84,12 +84,29 @@ class MoveIn extends React.Component {
       }
       await this.setState({ getList: true });
       let flag = true;
-      this.state.list.forEach(item => {
-        if (!IdentityCodeValid(item.idNumber)) {
-          notification.error({ message: `${item.idNumber}身份证号不正确` });
+      const list = [...this.state.list];
+      for (let i = 0, len = list.length; i < len; i += 1) {
+        if (!verVal(list[i].fullName)) {
+          notification.error({ message: `请输入姓名` });
           flag = false;
+          return;
         }
-      });
+        if (!verVal(list[i].nationalities)) {
+          notification.error({ message: `请选择民族` });
+          flag = false;
+          return;
+        }
+        if (!verVal(list[i].idNumber) || !IdentityCodeValid(list[i].idNumber)) {
+          notification.error({ message: `${list[i].idNumber}身份证号不正确` });
+          flag = false;
+          return;
+        }
+        if (!verVal(list[i].memmemberPictures)) {
+          notification.error({ message: `请上传${list[i].fullName}的个人单页` });
+          flag = false;
+          return;
+        }
+      }
       if (!flag) {
         return;
       }
