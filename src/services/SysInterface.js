@@ -140,3 +140,21 @@ export const ADD_GROUP = '/household/addPartyMember'; // 添加表单接口
 export const DELETE_GROUP = '/household/deletePartyMember'; // 删除接口
 
 // ------------ 党建 end ----------------
+
+// ------------ 缴费 start ----------------
+
+export const PAYMENT_LIST_HEADER = '/payment/paymentItemHead'; // 缴费列表头部汇总
+
+export const PAYMENT_LIST = '/payment/paymentItemList'; // 缴费列表
+
+export const PAYMENT_DETAIL = '/payment/paymentItemInfo'; // 缴费详情
+
+export const PAY_LIST_SINGLE = '/payment/paymentDetailsList'; // 个人缴费记录列表
+
+export const PAY_LIST_FAMILY = '/payment/paymentRecordList'; // 缴费详情
+
+export const PAYMENT_EDIT = '/payment/upPaymentItem'; // 缴费修改
+
+export const PAYMENT_ADD = '/payment/addPaymentItem'; // 缴费添加
+
+// ------------ 缴费 end ----------------

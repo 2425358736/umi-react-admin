@@ -4,7 +4,7 @@ import { ScreeningTag, OrdinaryTable, Search } from '@/components/BusinessCompon
 
 import styles from './List.less';
 
-import { HOUSEHOLD_LIST, SYS_Dict } from '@/services/SysInterface';
+import { PAY_LIST_SINGLE, SYS_Dict } from '@/services/SysInterface';
 
 const search = {
   ordinary: {
@@ -29,7 +29,7 @@ const search = {
     },
     {
       queryTitle: '缴费标准',
-      queryField: 'householdNumber',
+      queryField: 'paymentStandard',
       component: 'Input',
     },
   ],
@@ -93,17 +93,17 @@ class PayListSingle extends React.Component {
         {
           title: '缴费标准',
           width: '10%',
-          dataIndex: 'householdRegisterNumber',
+          dataIndex: 'paymentStandard',
         },
         {
           title: '缴费时间',
-          width: '14Input%',
-          dataIndex: 'homeAddress',
+          width: '14%',
+          dataIndex: 'paymentDate',
         },
         {
           title: '金额',
           width: '8%',
-          dataIndex: 'homeAddress',
+          dataIndex: 'paymentMoney',
         },
       ],
     });
@@ -122,7 +122,7 @@ class PayListSingle extends React.Component {
               scroll={{
                 x: 1000,
               }}
-              listUrl={HOUSEHOLD_LIST}
+              listUrl={PAY_LIST_SINGLE}
               columns={this.state.columns}
             />
           </div>

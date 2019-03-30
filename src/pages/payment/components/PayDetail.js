@@ -1,25 +1,24 @@
 import React from 'react';
 import { Tooltip, Icon } from 'antd';
 import PayListSingle from './PayListSingle';
+import PayListFamily from './PayListFamily';
 import styles from './PayDetail.less';
 import { getRequest } from '@/utils/api';
 
-import { MEMBER_DETAIL } from '@/services/SysInterface';
+import { PAYMENT_DETAIL } from '@/services/SysInterface';
 
 class PayDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       fetchData: {
-        householdRegisterVo: {
-          listMember: [],
-        },
+        list: [],
       },
     };
   }
 
   componentWillMount = async () => {
-    const data = await getRequest(`${MEMBER_DETAIL}?id=${this.props.id}`);
+    const data = await getRequest(`${PAYMENT_DETAIL}?id=${this.props.id}`);
     if (data.status === 200) {
       await this.setState({
         fetchData: data.data,
@@ -29,13 +28,12 @@ class PayDetail extends React.Component {
 
   render() {
     const { fetchData } = this.state;
-    const { householdRegisterVo } = this.state.fetchData;
     return (
       <div>
         <div className={styles.topWrap}>
           <div className={styles.topTitle}>
             <span />
-            <span>名称：{fetchData.fullName}</span>
+            <span>名称：{fetchData.entryName}</span>
           </div>
           <div className={styles.cardWrap}>
             <div className={styles.cardDom}>
@@ -44,7 +42,11 @@ class PayDetail extends React.Component {
                 状态
               </p>
               <p className={styles.cardContent}>
-                {fetchData.sex === 0 ? '男' : fetchData.sex === 1 ? '女' : '未知'}
+                {fetchData.releaseStatus === 0
+                  ? '未发布'
+                  : fetchData.releaseStatus === 1
+                  ? '已发布'
+                  : '已结束'}
               </p>
             </div>
 
@@ -54,7 +56,7 @@ class PayDetail extends React.Component {
                 创建时间
               </p>
               <Tooltip title={fetchData.idNumber}>
-                <p className={styles.cardContent}>{fetchData.idNumber}</p>
+                <p className={styles.cardContent}>{fetchData.createDate}</p>
               </Tooltip>
               ,
             </div>
@@ -64,7 +66,7 @@ class PayDetail extends React.Component {
                 <Icon type="user" className={styles.iconDom} />
                 缴费对象
               </p>
-              <p className={styles.cardContent}>{fetchData.nationalitiesStr}</p>
+              <p className={styles.cardContent}>{fetchData.paymentObjectStr}</p>
             </div>
 
             <div className={styles.cardDom}>
@@ -72,7 +74,7 @@ class PayDetail extends React.Component {
                 <Icon type="tags" className={styles.iconDom} />
                 参缴数
               </p>
-              <p className={styles.cardContent}>{fetchData.politicsFaceStr}</p>
+              <p className={styles.cardContent}>{fetchData.paymentNumber}</p>
             </div>
 
             <div className={styles.cardDom}>
@@ -80,7 +82,7 @@ class PayDetail extends React.Component {
                 <Icon type="phone" className={styles.iconDom} />
                 总金额
               </p>
-              <p className={styles.cardContent}>{fetchData.phoneNumber}</p>
+              <p className={styles.cardContent}>{fetchData.aggregateAmount}</p>
             </div>
           </div>
         </div>
@@ -92,20 +94,16 @@ class PayDetail extends React.Component {
               <span>缴费标准</span>
             </div>
             <div className={styles.conWrap}>
-              <div className={styles.itemDom}>
-                <p>{householdRegisterVo.version}</p>
-              </div>
-              <div className={styles.itemDom}>
-                <p>{householdRegisterVo.householdNumber}</p>
-              </div>
-            </div>
-            <div className={styles.conWrap}>
-              <div className={styles.itemDom}>
-                <p>{householdRegisterVo.householdRegisterNumber}</p>
-              </div>
-              <div className={styles.itemDom}>
-                <p>{householdRegisterVo.householderName}</p>
-              </div>
+              {fetchData &&
+                Array.isArray(fetchData.list) &&
+                fetchData.list.length > 0 &&
+                fetchData.list.map((item, index) => (
+                  <div className={styles.itemDom} key={index.toString()}>
+                    <p>
+                      {item.money} {item.unit}
+                    </p>
+                  </div>
+                ))}
             </div>
           </div>
 
@@ -114,7 +112,7 @@ class PayDetail extends React.Component {
               <span />
               <span>缴费说明</span>
             </div>
-            <p className={styles.conWrap}>{householdRegisterVo.householderName}</p>
+            <p className={styles.conWrap}>{fetchData.paymentInstructions}</p>
           </div>
         </div>
 
@@ -123,7 +121,7 @@ class PayDetail extends React.Component {
             <span />
             <span>缴费列表</span>
           </div>
-          <PayListSingle dataSource={fetchData.householdRegisterVo.listMember} />
+          {fetchData && fetchData.paymentObject === 0 ? <PayListSingle /> : <PayListFamily />}
         </div>
       </div>
     );

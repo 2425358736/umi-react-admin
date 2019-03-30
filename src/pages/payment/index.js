@@ -17,36 +17,33 @@ import PayAdd from './components/PayAdd';
 
 import styles from './index.less';
 
-import { HOUSEHOLD_LIST_HEADER, HOUSEHOLD_LIST } from '@/services/SysInterface';
+import { PAYMENT_LIST_HEADER, PAYMENT_LIST } from '@/services/SysInterface';
 
 const topStatistics = {
   topJson: [
     {
       displayTitle: '总共',
-      displayField: 'alreadySent',
-      queryTitle: '消息状态',
-      queryField: 'informationState',
-      queryValue: ['0'],
+      displayField: 'zg',
     },
     {
       displayTitle: '未发布',
-      displayField: 'noSend',
+      displayField: 'wfb',
       queryTitle: '消息状态',
-      queryField: 'informationState',
-      queryValue: ['2'],
-    },
-    {
-      displayTitle: '已发布',
-      displayField: 'alreadySent',
-      queryTitle: '消息状态',
-      queryField: 'informationState',
+      queryField: 'releaseStatus',
       queryValue: ['0'],
     },
     {
-      displayTitle: '已结束',
-      displayField: 'noSend',
+      displayTitle: '已发布',
+      displayField: 'yfb',
       queryTitle: '消息状态',
-      queryField: 'informationState',
+      queryField: 'releaseStatus',
+      queryValue: ['1'],
+    },
+    {
+      displayTitle: '已结束',
+      displayField: 'tjs',
+      queryTitle: '消息状态',
+      queryField: 'releaseStatus',
       queryValue: ['2'],
     },
   ],
@@ -55,17 +52,17 @@ const topStatistics = {
 const search = {
   ordinary: {
     queryTitle: '项目名称',
-    queryField: 'householderName',
+    queryField: 'entryName',
   },
   senior: [
     {
       queryTitle: '创建日期起',
-      queryField: 'householdRegisterNumber',
+      queryField: 'startCreateDate',
       component: 'DatePicker',
     },
     {
       queryTitle: '创建日期止',
-      queryField: 'householdNumber',
+      queryField: 'endCreateDate',
       component: 'DatePicker',
     },
   ],
@@ -79,31 +76,31 @@ const exportButton = {
     },
     {
       title: '项目名称',
-      column: 'branchGroupName',
+      column: 'entryName',
     },
     {
       title: '状态',
-      column: 'fullName',
+      column: 'releaseStatusStr',
     },
     {
       title: '缴费对象',
-      column: 'sexStr',
+      column: 'paymentObjectStr',
     },
     {
       title: '管理员',
-      column: 'nationalitiesName',
+      column: 'administrators',
     },
     {
       title: '创建时间',
-      column: 'idNumber',
+      column: 'createDate',
     },
     {
       title: '参缴数',
-      column: 'phoneNumber',
+      column: 'paymentNumber',
     },
     {
       title: '总金额',
-      column: 'birthDate',
+      column: 'aggregateAmount',
     },
   ],
 };
@@ -128,13 +125,13 @@ class Payment extends React.Component {
         {
           title: '项目名称',
           width: '10%',
-          dataIndex: 'householdNumber',
+          dataIndex: 'entryName',
         },
         {
           title: '状态',
           width: '10%',
-          dataIndex: 'troops',
-          column: 'troopsStr',
+          dataIndex: 'releaseStatus',
+          column: 'releaseStatusStr',
           filters: [
             {
               text: '未发布',
@@ -146,21 +143,22 @@ class Payment extends React.Component {
             },
             {
               text: '已结束',
-              value: '1',
+              value: '2',
             },
           ],
         },
         {
           title: '缴费对象',
           width: '10%',
-          dataIndex: 'householderName',
+          dataIndex: 'paymentObject',
+          column: 'paymentObjectStr',
           filters: [
             {
-              text: '个人',
+              text: '每户',
               value: '0',
             },
             {
-              text: '每户',
+              text: '个人',
               value: '1',
             },
           ],
@@ -168,23 +166,22 @@ class Payment extends React.Component {
         {
           title: '管理员',
           width: '10%',
-          dataIndex: '1',
+          dataIndex: 'administrators',
         },
         {
           title: '创建时间',
           width: '12%',
-          dataIndex: 'householdType',
-          column: 'householdTypeStr',
+          dataIndex: 'createDate',
         },
         {
           title: '参缴数',
           width: '10%',
-          dataIndex: 'householdRegisterNumber',
+          dataIndex: 'paymentNumber',
         },
         {
           title: '总金额',
           width: '10%',
-          dataIndex: 'homeAddress',
+          dataIndex: 'aggregateAmount',
         },
         {
           title: '操作',
@@ -210,14 +207,14 @@ class Payment extends React.Component {
     return (
       <div className={styles.sysUserWrap}>
         <div className={styles.baseTableWrap}>
-          <TopStatistics sourceUrl={HOUSEHOLD_LIST_HEADER} topJson={topStatistics.topJson} />
+          <TopStatistics sourceUrl={PAYMENT_LIST_HEADER} topJson={topStatistics.topJson} />
           <div className={styles.screenTag}>
             <Search
               ordinary={search.ordinary}
               senior={search.senior}
               operationBlock={[
                 <Add key="1" width={800} title="缴费项目录入" component={PayAdd} />,
-                <ExportButton key="2" exportUrl={HOUSEHOLD_LIST} columns={exportButton.columns} />,
+                <ExportButton key="2" exportUrl={PAYMENT_LIST} columns={exportButton.columns} />,
               ]}
             />
             <ScreeningTag />
@@ -226,10 +223,10 @@ class Payment extends React.Component {
             <div>
               <OrdinaryTable
                 scroll={{
-                  x: 1200,
+                  x: 1350,
                   y: 'calc(100vh - 218px)',
                 }}
-                listUrl={HOUSEHOLD_LIST}
+                listUrl={PAYMENT_LIST}
                 columns={this.state.columns}
               />
             </div>
