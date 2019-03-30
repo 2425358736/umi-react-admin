@@ -193,8 +193,10 @@ class Payment extends React.Component {
                 <Info title="缴费项目详情" info={<PayDetail id={record.id} />}>
                   详情
                 </Info>
-                <Divider type="vertical" />
-                <Up id={record.id} width={800} title="编辑" component={PayAdd} />
+                {record.releaseStatus !== 2 && <Divider type="vertical" />}
+                {record.releaseStatus !== 2 && (
+                  <Up id={record.id} width={800} title="编辑" component={PayAdd} />
+                )}
               </div>
             );
           },

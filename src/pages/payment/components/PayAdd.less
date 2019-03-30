@@ -24,35 +24,42 @@
     }
   }
   .rowDom {
-    width: 100%;
-    display: flex;
+    width: 95%;
     box-sizing: border-box;
-    padding-left: 75px;
-    .colDom:first-child {
-      flex: 1;
+    margin: 0 auto;
+    margin-bottom: 12px;
+    > span {
+      display: inline-block;
+      width: 139px;
+      color: rgba(0, 0, 0, 0.85);
+      text-align: right;
+      > span {
+        margin-right: 4px;
+        color: #f5222d;
+      }
     }
-    .colDom:last-child {
-      flex: 3;
+    > div:nth-of-type(1) {
+      display: inline-block;
+      width: 140px;
+    }
+    > div:nth-of-type(2) {
+      display: inline-block;
+      width: 348px;
       margin-left: 20px;
     }
   }
-  .otherDom {
-    display: flex;
-    .otherColDom {
-      flex: 1;
-      > h4 {
-        margin-bottom: 19px;
-        font-size: 14px;
-        color: rgba(104, 106, 108, 1);
-        .starDom {
-          color: #f5222d;
-          margin-right: 8px;
-        }
-      }
-      .imgWrap {
-        margin-left: 57px;
-      }
-    }
+  .addDiv {
+    width: 508px;
+    height: 32px;
+    line-height: 32px;
+    margin: 0 0 12px 158px;
+    text-align: center;
+    border: 1px dashed #d9d9d9;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .addDiv:hover {
+    color: #1ab393;
   }
   .btnGroup {
     margin: 94px 0 30px;
@@ -71,12 +78,5 @@
       border-radius: 2px;
       border: 1px solid rgba(26, 179, 147, 1);
     }
-  }
-  .checkDom {
-    position: absolute;
-    top: 10px;
-    right: -10px;
-    color: #1ab393;
-    cursor: pointer;
   }
 }

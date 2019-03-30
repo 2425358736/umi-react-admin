@@ -19,13 +19,14 @@ class Up extends React.Component {
       open: false,
     });
     if (on) {
+      const code = Math.round(Math.random() * 999999999);
       const {
         screen: { query, queryShow, pagination, orders },
         dispatch,
       } = this.props;
       dispatch({
         type: 'screen/fetch',
-        payload: { query, queryShow, pagination, orders },
+        payload: { query, queryShow, pagination, orders, code },
       });
     }
   };

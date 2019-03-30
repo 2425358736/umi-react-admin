@@ -1,8 +1,8 @@
 import React from 'react';
 import { Spin, Button, Input, Form, Radio, notification } from 'antd';
-import { postRequest, jsonString } from '@/utils/api';
+import { getRequest, postRequest, jsonString } from '@/utils/api';
 
-import { ADD_GROUP } from '@/services/SysInterface';
+import { PAYMENT_DETAIL, PAYMENT_ADD, PAYMENT_EDIT } from '@/services/SysInterface';
 
 const styles = require('./PayAdd.less');
 
@@ -14,14 +14,42 @@ class PayAdd extends React.Component {
     this.state = {
       buttonLoading: false,
       loading: false,
+      list: [
+        {
+          money: '',
+          unit: '',
+        },
+      ],
     };
   }
 
-  componentDidMount() {
-    this.props.form.setFieldsValue({
-      sex: 1,
+  componentDidMount = async () => {
+    if (this.props.id > 0) {
+      const data = await getRequest(`${PAYMENT_DETAIL}?id=${this.props.id}`);
+      if (data.status === 200) {
+        this.props.form.setFieldsValue({
+          entryName: data.data.entryName.toString(),
+          paymentInstructions: data.data.paymentInstructions.toString(),
+          paymentObject: data.data.paymentObject,
+          releaseStatus: data.data.releaseStatus,
+        });
+        this.setState({ list: data.data.list });
+      }
+    }
+  };
+
+  /**
+   * 添加缴费标准
+   */
+  addList = () => {
+    const { list } = this.state;
+    const listClone = JSON.parse(JSON.stringify(list));
+    listClone.push({
+      money: '',
+      unit: '',
     });
-  }
+    this.setState({ list: listClone });
+  };
 
   /**
    * 提交
@@ -37,8 +65,14 @@ class PayAdd extends React.Component {
       });
       const json = this.props.form.getFieldsValue();
       jsonString(json);
-      json.memberId = this.memberId;
-      const data = await postRequest(ADD_GROUP, json);
+      json.list = this.state.list;
+      let data = {};
+      if (this.props.id > 0) {
+        json.id = this.props.id;
+        data = await postRequest(PAYMENT_EDIT, json);
+      } else {
+        data = await postRequest(PAYMENT_ADD, json);
+      }
       this.setState({
         buttonLoading: false,
       });
@@ -70,18 +104,18 @@ class PayAdd extends React.Component {
             </div>
 
             <Form.Item label="项目名称" labelCol={{ span: 5 }} wrapperCol={{ span: 16 }}>
-              {getFieldDecorator('idNumber', {
+              {getFieldDecorator('entryName', {
                 rules: [
                   {
                     required: true,
                     message: '请输入项目名称',
                   },
                 ],
-              })(<Input placeholder="请输入项目名称" />)}
+              })(<Input disabled={this.props.id > 0} placeholder="请输入项目名称" />)}
             </Form.Item>
 
             <Form.Item label="项目说明" labelCol={{ span: 5 }} wrapperCol={{ span: 16 }}>
-              {getFieldDecorator('idNumber', {
+              {getFieldDecorator('paymentInstructions', {
                 rules: [
                   {
                     required: true,
@@ -91,35 +125,51 @@ class PayAdd extends React.Component {
               })(<Input.TextArea autosize={{ minRows: 4 }} placeholder="请输入项目说明" />)}
             </Form.Item>
 
-            <div className={styles.rowDom}>
-              <div className={styles.colDom}>
-                <Form.Item label="缴费标准" labelCol={{ span: 12 }} wrapperCol={{ span: 12 }}>
-                  {getFieldDecorator('sex', {
-                    rules: [
-                      {
-                        required: true,
-                        message: '请输入缴费标准',
-                      },
-                    ],
-                  })(<Input />)}
-                </Form.Item>
+            {this.state.list.map((item, index) => {
+              const that = this;
+              return (
+                <div className={styles.rowDom} key={index.toString()}>
+                  <span>
+                    <span style={{ color: 'f00' }}>*</span>缴费标准：
+                  </span>
+                  <div className={styles.colDom}>
+                    <Input
+                      value={item.money}
+                      disabled={this.props.id > 0}
+                      onChange={e => {
+                        const { list } = that.state;
+                        list[index].money = e.target.value;
+                        this.setState({
+                          list,
+                        });
+                      }}
+                    />
+                  </div>
+                  <div className={styles.colDom}>
+                    <Input
+                      value={item.unit}
+                      disabled={this.props.id > 0}
+                      onChange={e => {
+                        const { list } = that.state;
+                        list[index].unit = e.target.value;
+                        this.setState({
+                          list,
+                        });
+                      }}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+
+            {!this.props.id > 0 && (
+              <div onClick={this.addList} className={styles.addDiv}>
+                + 添加
               </div>
-              <div className={styles.colDom}>
-                <Form.Item wrapperCol={{ span: 20 }}>
-                  {getFieldDecorator('nationalities', {
-                    rules: [
-                      {
-                        required: true,
-                        message: '请输入缴费标准',
-                      },
-                    ],
-                  })(<Input style={{ width: '404px' }} />)}
-                </Form.Item>
-              </div>
-            </div>
+            )}
 
             <Form.Item label="缴费对象" labelCol={{ span: 5 }} wrapperCol={{ span: 16 }}>
-              {getFieldDecorator('sex', {
+              {getFieldDecorator('paymentObject', {
                 rules: [
                   {
                     required: true,
@@ -127,15 +177,15 @@ class PayAdd extends React.Component {
                   },
                 ],
               })(
-                <Radio.Group>
-                  <Radio value={0}>个人</Radio>
-                  <Radio value={1}>每户</Radio>
+                <Radio.Group disabled={this.props.id > 0}>
+                  <Radio value={0}>每户</Radio>
+                  <Radio value={1}>个人</Radio>
                 </Radio.Group>
               )}
             </Form.Item>
 
             <Form.Item label="状态" labelCol={{ span: 5 }} wrapperCol={{ span: 16 }}>
-              {getFieldDecorator('sex', {
+              {getFieldDecorator('releaseStatus', {
                 rules: [
                   {
                     required: true,
