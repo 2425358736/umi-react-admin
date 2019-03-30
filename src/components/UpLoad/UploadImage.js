@@ -35,6 +35,12 @@ class UploadImg extends React.Component {
     };
   }
 
+  componentWillReceiveProps = nextProps => {
+    if (nextProps.fileList === '') {
+      this.setState({ fileList: [] });
+    }
+  };
+
   handleCancel = () => {
     this.setState({ previewVisible: false });
   };

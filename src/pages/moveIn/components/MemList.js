@@ -52,6 +52,21 @@ class MemList extends React.Component {
     if (nextProps.getList) {
       this.props.onListCall(this.state.dataSource);
     }
+    if (nextProps.listNull) {
+      this.setState({
+        dataSource: [
+          {
+            id: 0,
+            relationship: 1,
+            fullName: '',
+            sex: 0,
+            nationalities: null,
+            idNumber: '',
+            memberPictures: '',
+          },
+        ],
+      });
+    }
   };
 
   /**

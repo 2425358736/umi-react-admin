@@ -20,6 +20,7 @@ class MoveIn extends React.Component {
       buttonLoading: false,
       loading: false,
       getList: false,
+      listNull: false,
     };
   }
 
@@ -126,6 +127,12 @@ class MoveIn extends React.Component {
         buttonLoading: false,
       });
       if (data.status === 200) {
+        this.props.form.resetFields();
+        this.homePicture = '';
+        this.indexPictures = '';
+        this.setState({
+          listNull: true,
+        });
         notification.success({ message: data.msg });
       } else {
         notification.error({ message: data.msg, description: data.subMsg });
@@ -240,7 +247,11 @@ class MoveIn extends React.Component {
             <span />
             <span>成员列表</span>
           </div>
-          <MemList getList={this.state.getList} onListCall={this.onListCall} />
+          <MemList
+            getList={this.state.getList}
+            onListCall={this.onListCall}
+            listNull={this.state.listNull}
+          />
           <div className={styles.btnGroup}>
             <Button
               className={styles.submitBtn}

@@ -132,8 +132,8 @@ class ExamineInfo extends React.Component {
                 </li>
               </ul>
               <div className={styles.inputWrap}>
-                <p>备注: {fetchData.aa}</p>
-                <p>编号: {fetchData.aa}</p>
+                <p>备注: {fetchData.remarks}</p>
+                {fetchData.changeType === 0 && <p>编号: {fetchData.householdNumber}</p>}
               </div>
             </div>
           </div>
