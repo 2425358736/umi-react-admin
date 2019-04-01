@@ -30,7 +30,7 @@ class NoticeDetail extends React.Component {
         <div className={styles.topWrap}>
           <div className={styles.titleDom}>
             <span />
-            <span>标题：{fetchData.entryName}</span>
+            <span>标题：{fetchData.title}</span>
           </div>
           <div className={styles.cardWrap}>
             <div className={styles.cardDom}>
@@ -38,13 +38,7 @@ class NoticeDetail extends React.Component {
                 <Icon type="diff" className={styles.iconDom} />
                 类型
               </p>
-              <p className={styles.cardContent}>
-                {fetchData.releaseStatus === 0
-                  ? '未发布'
-                  : fetchData.releaseStatus === 1
-                  ? '已发布'
-                  : '已结束'}
-              </p>
+              <p className={styles.cardContent}>{fetchData.typeStr}</p>
             </div>
 
             <div className={styles.cardDom}>
@@ -52,13 +46,7 @@ class NoticeDetail extends React.Component {
                 <Icon type="snippets" className={styles.iconDom} />
                 状态
               </p>
-              <p className={styles.cardContent}>
-                {fetchData.releaseStatus === 0
-                  ? '未发布'
-                  : fetchData.releaseStatus === 1
-                  ? '已发布'
-                  : '已结束'}
-              </p>
+              <p className={styles.cardContent}>{fetchData.stateStr}</p>
             </div>
 
             <div className={styles.cardDom}>
@@ -103,23 +91,25 @@ class NoticeDetail extends React.Component {
               <span />
               <span>通知内容</span>
             </div>
-            <div className={styles.conWrap}>{fetchData.aa}</div>
+            <div className={styles.conWrap}>{fetchData.content}</div>
             {fetchData.aa && (
               <div className={styles.midBottom}>
                 附件：
-                <a href={fetchData.aa}>{fetchData.aa}</a>
+                <a href={fetchData.aa}>{fetchData.enclosure}</a>
               </div>
             )}
           </div>
         </div>
 
-        <div className={styles.bottomWrap}>
-          <div className={styles.titleDom}>
-            <span />
-            <span>接收人列表</span>
+        {fetchData && fetchData.type === 2 && (
+          <div className={styles.bottomWrap}>
+            <div className={styles.titleDom}>
+              <span />
+              <span>接收人列表</span>
+            </div>
+            <ReceiverList />
           </div>
-          {fetchData && fetchData.paymentObject === 0 && <ReceiverList />}
-        </div>
+        )}
       </div>
     );
   }

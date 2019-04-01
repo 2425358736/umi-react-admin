@@ -2,7 +2,7 @@ import React from 'react';
 import { postRequest } from '@/utils/api';
 import { InfoTable } from '@/components/BusinessComponent/BusCom';
 
-import { PAY_LIST_SINGLE, SYS_Dict } from '@/services/SysInterface';
+import { SELECT_SENDER, SYS_Dict } from '@/services/SysInterface';
 
 const ordinary = {
   queryTitle: '姓名',
@@ -20,13 +20,13 @@ const senior = [
     component: 'Input',
   },
   {
-    queryTitle: '户主',
+    queryTitle: '是否已读',
     queryField: 'householderName',
     component: 'Input',
   },
   {
-    queryTitle: '缴费标准',
-    queryField: 'paymentStandard',
+    queryTitle: '确定状态',
+    queryField: 'confirmState',
     component: 'Input',
   },
 ];
@@ -106,7 +106,7 @@ class ReceiverList extends React.Component {
         <InfoTable
           scroll={{ x: 900 }}
           columns={this.state.columns}
-          listUrl={PAY_LIST_SINGLE}
+          listUrl={SELECT_SENDER}
           ordinary={ordinary}
           senior={senior}
           additionalData={{ paymentItemId: this.props.id }}
