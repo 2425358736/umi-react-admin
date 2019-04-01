@@ -26,9 +26,9 @@ class NoticeDetail extends React.Component {
   render() {
     const { fetchData } = this.state;
     return (
-      <div>
+      <div className={styles.noticeWrap}>
         <div className={styles.topWrap}>
-          <div className={styles.topTitle}>
+          <div className={styles.titleDom}>
             <span />
             <span>标题：{fetchData.entryName}</span>
           </div>
@@ -99,16 +99,22 @@ class NoticeDetail extends React.Component {
 
         <div className={styles.midOneWrap}>
           <div className={styles.midOneRight}>
-            <div className={styles.midOneTitle}>
+            <div className={styles.titleDom}>
               <span />
               <span>通知内容</span>
             </div>
             <div className={styles.conWrap}>{fetchData.aa}</div>
+            {fetchData.aa && (
+              <div className={styles.midBottom}>
+                附件：
+                <a href={fetchData.aa}>{fetchData.aa}</a>
+              </div>
+            )}
           </div>
         </div>
 
         <div className={styles.bottomWrap}>
-          <div className={styles.bottomTitle}>
+          <div className={styles.titleDom}>
             <span />
             <span>接收人列表</span>
           </div>
