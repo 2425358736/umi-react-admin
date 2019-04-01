@@ -1,6 +1,7 @@
 import React from 'react';
-import { Spin, Button, Input, Form, Radio, Upload, Icon, notification } from 'antd';
+import { Spin, Modal, Button, Input, Form, Radio, Upload, Tag, Icon, notification } from 'antd';
 import RichText from '../../../components/RichText';
+import AddReceiver from './AddReceiver';
 import { getRequest, postRequest, jsonString, http } from '@/utils/api';
 
 import { PAYMENT_DETAIL, PAYMENT_ADD, PAYMENT_EDIT } from '@/services/SysInterface';
@@ -15,7 +16,11 @@ class NoticeAdd extends React.Component {
     this.state = {
       buttonLoading: false,
       loading: false,
+      modalOpen: false,
       fileList: [],
+      content: '',
+      idArr: [],
+      objArr: [],
     };
   }
 
@@ -35,12 +40,35 @@ class NoticeAdd extends React.Component {
   };
 
   /**
+   * 富文本编辑器内容改变
+   */
+  // eslint-disable-next-line react/sort-comp
+  content = null;
+
+  getContent = content => {
+    this.content = content;
+  };
+
+  /**
    * 上传附件
    */
   upLoadChange = info => {
     if (info.file.status !== 'uploading') {
       this.setState({ fileList: info.fileList });
     }
+  };
+
+  /**
+   * 上传附件
+   */
+  deleteMan = id => {
+    const { idArr, objArr } = this.state;
+    const arr = idArr.filter(item => item !== id);
+    const arr1 = objArr.filter(item => item.id !== id);
+    this.setState({
+      idArr: arr,
+      objArr: arr1,
+    });
   };
 
   /**
@@ -84,6 +112,19 @@ class NoticeAdd extends React.Component {
     this.props.callback(false);
   };
 
+  /**
+   * 关闭选择接收人 Modal
+   */
+  closeModal = (idArr, objArr) => {
+    this.setState({ modalOpen: false });
+    if (idArr) {
+      this.setState({
+        idArr,
+        objArr,
+      });
+    }
+  };
+
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
@@ -116,7 +157,23 @@ class NoticeAdd extends React.Component {
               <span>
                 <span style={{ color: 'f00' }}>*</span>发送人：
               </span>
-              <span>请选择</span>
+              {this.state.idArr.length > 0 ? (
+                this.state.objArr.map(item => (
+                  <Tag key={item.id} closable onClose={() => this.deleteMan(item.id)}>
+                    {item.fullName}
+                  </Tag>
+                ))
+              ) : (
+                <span
+                  onClick={() => {
+                    this.setState({
+                      modalOpen: true,
+                    });
+                  }}
+                >
+                  请选择
+                </span>
+              )}
             </div>
 
             <Form.Item label="标题" labelCol={{ span: 5 }} wrapperCol={{ span: 16 }}>
@@ -135,7 +192,7 @@ class NoticeAdd extends React.Component {
                 <span style={{ color: 'f00' }}>*</span>内容：
               </span>
               <div className={styles.colDom}>
-                <RichText />
+                <RichText getContent={this.getContent} content={this.state.content} />
               </div>
             </div>
 
@@ -183,6 +240,16 @@ class NoticeAdd extends React.Component {
               取消
             </Button>
           </div>
+          <Modal
+            title="选择接收人"
+            width={800}
+            visible={this.state.modalOpen}
+            footer={null}
+            onCancel={this.closeModal}
+            destroyOnClose
+          >
+            <AddReceiver callback={this.closeModal} />
+          </Modal>
         </div>
       </Spin>
     );

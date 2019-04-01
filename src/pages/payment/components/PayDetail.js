@@ -58,7 +58,6 @@ class PayDetail extends React.Component {
               <Tooltip title={fetchData.idNumber}>
                 <p className={styles.cardContent}>{fetchData.createDate}</p>
               </Tooltip>
-              ,
             </div>
 
             <div className={styles.cardDom}>

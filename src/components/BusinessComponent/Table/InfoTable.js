@@ -529,6 +529,16 @@ class InfoTable extends React.Component {
                 pagination={this.state.paginationTable}
                 loading={this.state.loading}
                 onChange={this.handleTableChange}
+                rowSelection={
+                  this.props.selectCallback
+                    ? {
+                        columnWidth: '2%',
+                        onChange: (idArr, objArr) => {
+                          this.props.selectCallback(idArr, objArr);
+                        },
+                      }
+                    : null
+                }
               />
             </div>
           </div>
