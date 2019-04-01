@@ -158,3 +158,19 @@ export const PAYMENT_EDIT = '/payment/upPaymentItem'; // 缴费修改
 export const PAYMENT_ADD = '/payment/addPaymentItem'; // 缴费添加
 
 // ------------ 缴费 end ----------------
+
+// ------------ 新闻公告 start ----------------
+
+export const NOTICE_LIST_HEADER = '/announcement/announcementHead'; // 新闻公告头部汇总
+
+export const NOTICE_LIST = '/announcement/announcementList'; // 新闻公告列表
+
+export const NOTICE_DETAIL = '/announcement/announcementInfo'; // 新闻公告详情
+
+export const NOTICE_EDIT = '/announcement/upAnnouncement'; // 新闻公告修改
+
+export const NOTICE_ADD = '/announcement/addAnnouncement'; // 新闻公告添加
+
+export const SELECT_SENDER = '/household/MemberList'; // 新闻公告选择发送人列表
+
+// ------------ 新闻公告 end ----------------

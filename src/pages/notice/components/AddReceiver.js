@@ -3,7 +3,7 @@ import { Button } from 'antd';
 import { postRequest } from '@/utils/api';
 import { InfoTable } from '@/components/BusinessComponent/BusCom';
 
-import { MEMBER_LIST, SYS_Dict } from '@/services/SysInterface';
+import { SELECT_SENDER, SYS_Dict } from '@/services/SysInterface';
 
 const ordinary = {
   queryTitle: '姓名',
@@ -71,25 +71,25 @@ class AddReceiver extends React.Component {
       columns: [
         {
           title: '序号',
-          width: '6%',
+          width: '8%',
           dataIndex: 'id',
           isIncrement: true,
         },
         {
           title: '大队',
-          width: '8%',
+          width: '10%',
           dataIndex: 'troops',
           column: 'troopsStr',
           filters: arr,
         },
         {
           title: '姓名',
-          width: '8%',
+          width: '10%',
           dataIndex: 'fullName',
         },
         {
           title: '性别',
-          width: '8%',
+          width: '10%',
           dataIndex: 'sex',
           filters: [
             {
@@ -113,12 +113,12 @@ class AddReceiver extends React.Component {
         },
         {
           title: '手机号',
-          width: '10%',
+          width: '12%',
           dataIndex: 'phoneNumber',
         },
         {
           title: '与户主关系',
-          width: '12%',
+          width: '14%',
           dataIndex: 'relationship',
           column: 'relationshipsStr',
           filters: arr1,
@@ -132,7 +132,7 @@ class AddReceiver extends React.Component {
       <div style={{ padding: '0 20px 2px' }}>
         <InfoTable
           columns={this.state.columns}
-          listUrl={MEMBER_LIST}
+          listUrl={SELECT_SENDER}
           ordinary={ordinary}
           senior={senior}
           additionalData={{ paymentItemId: this.props.id }}

@@ -4,7 +4,7 @@ import ReceiverList from './ReceiverList';
 import styles from './NoticeDetail.less';
 import { getRequest } from '@/utils/api';
 
-import { PAYMENT_DETAIL } from '@/services/SysInterface';
+import { NOTICE_DETAIL } from '@/services/SysInterface';
 
 class NoticeDetail extends React.Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class NoticeDetail extends React.Component {
   }
 
   componentWillMount = async () => {
-    const data = await getRequest(`${PAYMENT_DETAIL}?id=${this.props.id}`);
+    const data = await getRequest(`${NOTICE_DETAIL}?id=${this.props.id}`);
     if (data.status === 200) {
       await this.setState({
         fetchData: data.data,

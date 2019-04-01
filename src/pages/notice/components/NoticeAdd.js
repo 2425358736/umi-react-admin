@@ -4,7 +4,7 @@ import RichText from '../../../components/RichText';
 import AddReceiver from './AddReceiver';
 import { getRequest, postRequest, jsonString, http } from '@/utils/api';
 
-import { PAYMENT_DETAIL, PAYMENT_ADD, PAYMENT_EDIT } from '@/services/SysInterface';
+import { NOTICE_DETAIL, NOTICE_ADD, NOTICE_EDIT } from '@/services/SysInterface';
 
 const styles = require('./NoticeAdd.less');
 
@@ -17,7 +17,7 @@ class NoticeAdd extends React.Component {
       buttonLoading: false,
       loading: false,
       modalOpen: false,
-      fileList: [],
+      fileUrl: '',
       content: '',
       idArr: [],
       objArr: [],
@@ -26,15 +26,27 @@ class NoticeAdd extends React.Component {
 
   componentDidMount = async () => {
     if (this.props.id > 0) {
-      const data = await getRequest(`${PAYMENT_DETAIL}?id=${this.props.id}`);
+      const data = await getRequest(`${NOTICE_DETAIL}?id=${this.props.id}`);
       if (data.status === 200) {
-        this.props.form.setFieldsValue({
-          entryName: data.data.entryName.toString(),
-          paymentInstructions: data.data.paymentInstructions.toString(),
-          paymentObject: data.data.paymentObject,
-          releaseStatus: data.data.releaseStatus,
+        const dataClone = data.data;
+        this.setState({
+          content: dataClone.content,
         });
-        this.setState({ list: data.data.list });
+        this.props.form.setFieldsValue({
+          type: dataClone.type,
+          state: dataClone.state,
+          title: dataClone.title.toString(),
+        });
+        if (dataClone.type === 2) {
+          this.setState({
+            idArr: dataClone.receiveIds.split(''),
+          });
+        }
+        if (dataClone.type === 1) {
+          this.setState({
+            fileUrl: dataClone.enclosure,
+          });
+        }
       }
     }
   };
@@ -54,7 +66,15 @@ class NoticeAdd extends React.Component {
    */
   upLoadChange = info => {
     if (info.file.status !== 'uploading') {
-      this.setState({ fileList: info.fileList });
+      let url = '';
+      info.fileList.forEach(file => {
+        if (typeof file.response !== 'undefined') {
+          url = `${url + file.response.data.ossPath}`;
+        } else {
+          url = `${url + file.name}`;
+        }
+      });
+      this.setState({ fileUrl: url });
     }
   };
 
@@ -83,21 +103,32 @@ class NoticeAdd extends React.Component {
       this.setState({
         buttonLoading: true,
       });
-      const json = this.props.form.getFieldsValue();
+      let json = this.props.form.getFieldsValue();
       jsonString(json);
-      json.list = this.state.list;
+      json = {
+        ...json,
+        receiveIds: [...this.state.idArr].join(),
+        content: this.content ? this.content : this.state.content,
+        enclosure: this.state.fileUrl,
+      };
       let data = {};
       if (this.props.id > 0) {
         json.id = this.props.id;
-        data = await postRequest(PAYMENT_EDIT, json);
+        data = await postRequest(NOTICE_EDIT, json);
       } else {
-        data = await postRequest(PAYMENT_ADD, json);
+        data = await postRequest(NOTICE_ADD, json);
       }
       this.setState({
         buttonLoading: false,
       });
       if (data.status === 200) {
         notification.success({ message: data.msg });
+        this.content = null;
+        this.setState({
+          idArr: [],
+          fileUrl: '',
+        });
+        this.props.form.resetFields();
         this.props.callback(true);
       } else {
         notification.error({ message: data.msg, description: data.subMsg });
@@ -109,6 +140,12 @@ class NoticeAdd extends React.Component {
    * 取消
    */
   handleCancel = () => {
+    this.content = null;
+    this.setState({
+      idArr: [],
+      fileUrl: '',
+    });
+    this.props.form.resetFields();
     this.props.callback(false);
   };
 
@@ -127,6 +164,7 @@ class NoticeAdd extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    const selectType = this.props.form.getFieldValue('type') || '';
     return (
       <Spin spinning={this.state.loading}>
         <div className={styles.formWrap}>
@@ -137,7 +175,7 @@ class NoticeAdd extends React.Component {
             </div>
 
             <Form.Item label="类型" labelCol={{ span: 5 }} wrapperCol={{ span: 16 }}>
-              {getFieldDecorator('releaseStatus', {
+              {getFieldDecorator('type', {
                 rules: [
                   {
                     required: true,
@@ -153,31 +191,33 @@ class NoticeAdd extends React.Component {
               )}
             </Form.Item>
 
-            <div className={styles.rowDom}>
-              <span>
-                <span style={{ color: 'f00' }}>*</span>发送人：
-              </span>
-              {this.state.idArr.length > 0 ? (
-                this.state.objArr.map(item => (
-                  <Tag key={item.id} closable onClose={() => this.deleteMan(item.id)}>
-                    {item.fullName}
-                  </Tag>
-                ))
-              ) : (
-                <span
-                  onClick={() => {
-                    this.setState({
-                      modalOpen: true,
-                    });
-                  }}
-                >
-                  请选择
+            {selectType === 2 && (
+              <div className={styles.rowDom}>
+                <span>
+                  <span style={{ color: 'f00' }}>*</span>发送人：
                 </span>
-              )}
-            </div>
+                {this.state.idArr.length > 0 ? (
+                  this.state.objArr.map(item => (
+                    <Tag key={item.id} closable onClose={() => this.deleteMan(item.id)}>
+                      {item.fullName}
+                    </Tag>
+                  ))
+                ) : (
+                  <span
+                    onClick={() => {
+                      this.setState({
+                        modalOpen: true,
+                      });
+                    }}
+                  >
+                    请选择
+                  </span>
+                )}
+              </div>
+            )}
 
             <Form.Item label="标题" labelCol={{ span: 5 }} wrapperCol={{ span: 16 }}>
-              {getFieldDecorator('entryName', {
+              {getFieldDecorator('title', {
                 rules: [
                   {
                     required: true,
@@ -192,27 +232,69 @@ class NoticeAdd extends React.Component {
                 <span style={{ color: 'f00' }}>*</span>内容：
               </span>
               <div className={styles.colDom}>
-                <RichText getContent={this.getContent} content={this.state.content} />
+                {this.props.id > 0 && this.state.content !== '' && (
+                  <RichText getContent={this.getContent} content={this.state.content} />
+                )}
+                {(typeof this.props.id === 'undefined' ||
+                  this.props.id === '' ||
+                  this.props.id === null) && (
+                  <RichText getContent={this.getContent} content={this.state.content} />
+                )}
               </div>
             </div>
 
-            <div className={styles.rowDom}>
-              <span>
-                <span style={{ color: 'f00' }}>*</span>上传附件：
-              </span>
-              <div className={styles.colDom}>
-                <Upload action={`${http}/file/fileUploader`} onChange={this.upLoadChange}>
-                  {this.state.fileList < 1 && (
-                    <Button>
-                      <Icon type="upload" /> 点击上传
-                    </Button>
+            {selectType === 1 && (
+              <div className={styles.rowDom}>
+                <span>
+                  <span style={{ color: 'f00' }}>*</span>上传附件：
+                </span>
+                <div className={styles.colDom}>
+                  {/* 编辑展示附件 */}
+                  {this.props.id > 0 &&
+                    this.state.fileUrl !== '' &&
+                    typeof this.state.fileUrl !== 'undefined' &&
+                    this.state.fileUrl !== null && (
+                      <Tag closable onClose={() => this.setState({ fileUrl: '' })}>
+                        <a style={{ color: 'rgba(26, 179, 147, 1)' }} href={this.state.fileUrl}>
+                          点击下载
+                        </a>
+                      </Tag>
+                    )}
+                  {/* 编辑更换附件 */}
+                  {this.props.id > 0 &&
+                    (typeof this.state.fileUrl === 'undefined' ||
+                      this.state.fileUrl === '' ||
+                      this.state.fileUrl === null) && (
+                      <Upload action={`${http}/file/fileUploader`} onChange={this.upLoadChange}>
+                        {(this.state.fileUrl === '' ||
+                          typeof this.state.fileUrl === 'undefined' ||
+                          this.state.fileUrl === null) && (
+                          <Button>
+                            <Icon type="upload" /> 点击上传
+                          </Button>
+                        )}
+                      </Upload>
+                    )}
+                  {/* 新增 */}
+                  {(typeof this.props.id === 'undefined' ||
+                    this.props.id === '' ||
+                    this.props.id === null) && (
+                    <Upload action={`${http}/file/fileUploader`} onChange={this.upLoadChange}>
+                      {(this.state.fileUrl === '' ||
+                        typeof this.state.fileUrl === 'undefined' ||
+                        this.state.fileUrl === null) && (
+                        <Button>
+                          <Icon type="upload" /> 点击上传
+                        </Button>
+                      )}
+                    </Upload>
                   )}
-                </Upload>
+                </div>
               </div>
-            </div>
+            )}
 
             <Form.Item label="是否立即发布" labelCol={{ span: 5 }} wrapperCol={{ span: 16 }}>
-              {getFieldDecorator('paymentObject', {
+              {getFieldDecorator('state', {
                 rules: [
                   {
                     required: true,
@@ -220,9 +302,9 @@ class NoticeAdd extends React.Component {
                   },
                 ],
               })(
-                <Radio.Group disabled={this.props.id > 0}>
-                  <Radio value={0}>是</Radio>
-                  <Radio value={1}>否</Radio>
+                <Radio.Group>
+                  <Radio value={0}>否</Radio>
+                  <Radio value={1}>是</Radio>
                 </Radio.Group>
               )}
             </Form.Item>
