@@ -132,6 +132,10 @@ export default {
           path: '/payment',
           component: './payment/index',
         },
+        {
+          path: '/notice',
+          component: './notice/index',
+        },
       ],
     },
   ],
