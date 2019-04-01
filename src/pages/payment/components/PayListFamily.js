@@ -80,7 +80,7 @@ class PayListFamily extends React.Component {
         {
           title: '身份证号',
           width: '14%',
-          dataIndex: 'idNumber',
+          dataIndex: 'householderNumber',
         },
         {
           title: '手机号',
