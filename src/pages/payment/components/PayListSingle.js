@@ -1,39 +1,37 @@
 import React from 'react';
 import { postRequest } from '@/utils/api';
-import { ScreeningTag, OrdinaryTable, Search } from '@/components/BusinessComponent/BusCom';
+import { InfoTable } from '@/components/BusinessComponent/BusCom';
 
 import styles from './List.less';
 
 import { PAY_LIST_SINGLE, SYS_Dict } from '@/services/SysInterface';
 
-const search = {
-  ordinary: {
-    queryTitle: '姓名',
-    queryField: 'fullName',
-  },
-  senior: [
-    {
-      queryTitle: '身份证号',
-      queryField: 'idNumber',
-      component: 'Input',
-    },
-    {
-      queryTitle: '手机号',
-      queryField: 'phoneNumber',
-      component: 'Input',
-    },
-    {
-      queryTitle: '户主',
-      queryField: 'householderName',
-      component: 'Input',
-    },
-    {
-      queryTitle: '缴费标准',
-      queryField: 'paymentStandard',
-      component: 'Input',
-    },
-  ],
+const ordinary = {
+  queryTitle: '姓名',
+  queryField: 'fullName',
 };
+const senior = [
+  {
+    queryTitle: '身份证号',
+    queryField: 'idNumber',
+    component: 'Input',
+  },
+  {
+    queryTitle: '手机号',
+    queryField: 'phoneNumber',
+    component: 'Input',
+  },
+  {
+    queryTitle: '户主',
+    queryField: 'householderName',
+    component: 'Input',
+  },
+  {
+    queryTitle: '缴费标准',
+    queryField: 'paymentStandard',
+    component: 'Input',
+  },
+];
 
 class PayListSingle extends React.Component {
   constructor(props) {
@@ -112,21 +110,13 @@ class PayListSingle extends React.Component {
   render() {
     return (
       <div className={styles.ListWrap}>
-        <div className={styles.tableWrap}>
-          <div className={styles.screenTag}>
-            <Search ordinary={search.ordinary} senior={search.senior} />
-            <ScreeningTag />
-          </div>
-          <div>
-            <OrdinaryTable
-              scroll={{
-                x: 1000,
-              }}
-              listUrl={PAY_LIST_SINGLE}
-              columns={this.state.columns}
-            />
-          </div>
-        </div>
+        <InfoTable
+          columns={this.state.columns}
+          listUrl={PAY_LIST_SINGLE}
+          ordinary={ordinary}
+          senior={senior}
+          additionalData={{ paymentItemId: this.props.id }}
+        />
       </div>
     );
   }
