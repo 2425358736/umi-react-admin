@@ -2,8 +2,6 @@ import React from 'react';
 import { postRequest } from '@/utils/api';
 import { InfoTable } from '@/components/BusinessComponent/BusCom';
 
-import styles from './List.less';
-
 import { PAY_LIST_SINGLE, SYS_Dict } from '@/services/SysInterface';
 
 const ordinary = {
@@ -109,8 +107,9 @@ class PayListSingle extends React.Component {
 
   render() {
     return (
-      <div className={styles.ListWrap}>
+      <div>
         <InfoTable
+          scroll={{ x: 900 }}
           columns={this.state.columns}
           listUrl={PAY_LIST_SINGLE}
           ordinary={ordinary}
