@@ -8,6 +8,7 @@ import Up from '@/components/BusinessComponent/Up/Up';
 import Operation from '@/components/BusinessComponent/Operation/Operation';
 import Info from '@/components/BusinessComponent/Info/Info';
 import ScreeningTag from '@/components/BusinessComponent/ScreeningTags/ScreeningTag';
+import InfoTable from '@/components/BusinessComponent/Table/InfoTable';
 
 export {
   BaseTable,
@@ -20,4 +21,5 @@ export {
   Operation,
   Info,
   ScreeningTag,
+  InfoTable,
 };

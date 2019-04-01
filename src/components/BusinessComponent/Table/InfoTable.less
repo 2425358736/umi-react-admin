@@ -1,0 +1,66 @@
+.baseTableWrap {
+  height: calc(~'100vh - 152px');
+  overflow: auto;
+  .screenTag {
+    width: 100%;
+    margin-top: 20px;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 2px 4px 0 rgba(224, 224, 224, 0.5);
+  }
+  .tableWrap {
+    height: 100%;
+    box-sizing: border-box;
+    margin-top: 20px;
+    background-color: #fff;
+    overflow: hidden;
+    > .mostOpt {
+      width: 100%;
+      height: 52px;
+      line-height: 52px;
+      background: rgba(246, 251, 255, 1);
+    }
+  }
+}
+
+.searchWrap {
+  .highSearchBtn {
+    height: 32px;
+    line-height: 32px;
+    padding-left: 17px;
+    font-size: 14px;
+    color: rgba(26, 179, 147, 1);
+    cursor: pointer;
+  }
+  .highSearchWrap {
+    width: 100%;
+    > div {
+      float: left;
+      margin-top: 10px;
+      min-width: 30%;
+      > span {
+        display: inline-block;
+        width: 100px;
+        text-align: right;
+      }
+      .inputDom {
+        width: 266px;
+        margin: 0 10px;
+      }
+    }
+    > div:last-child {
+      margin-bottom: 10px;
+    }
+  }
+  .highSearchWrap:after {
+    display: block;
+    content: ' ';
+    height: 0;
+    clear: both;
+    overflow: hidden;
+    visibility: hidden;
+  }
+  .btnGroup {
+    float: right;
+  }
+}

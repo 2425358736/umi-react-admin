@@ -121,7 +121,8 @@ class PayDetail extends React.Component {
             <span />
             <span>缴费列表</span>
           </div>
-          {fetchData && fetchData.paymentObject === 0 ? <PayListSingle /> : <PayListFamily />}
+          {fetchData && fetchData.paymentObject === 0 && <PayListFamily id={this.props.id} />}
+          {fetchData && fetchData.paymentObject === 1 && <PayListSingle id={this.props.id} />}
         </div>
       </div>
     );
