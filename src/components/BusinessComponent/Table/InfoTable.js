@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign,no-restricted-globals,react/sort-comp */
 import React from 'react';
-import { connect } from 'dva';
 import { Input, DatePicker, Select, Icon, Tag, Table, notification } from 'antd';
 import moment from 'moment';
 import { postRequest, jsonString } from '@/utils/api';
@@ -8,9 +7,6 @@ import styles from './InfoTable.less';
 
 const SearchB = Input.Search;
 
-@connect(({ breadcrumb }) => ({
-  list: breadcrumb.list,
-}))
 class InfoTable extends React.Component {
   constructor(props) {
     super(props);
