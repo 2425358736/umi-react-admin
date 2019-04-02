@@ -173,4 +173,6 @@ export const NOTICE_ADD = '/announcement/addAnnouncement'; // 新闻公告添加
 
 export const SELECT_SENDER = '/household/MemberList'; // 新闻公告选择发送人列表
 
+export const RECEIVE_SENDER = '/announcement/noticeReceiveDetailsList'; // 接收人列表
+
 // ------------ 新闻公告 end ----------------

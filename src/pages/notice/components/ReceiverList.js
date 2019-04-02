@@ -2,11 +2,11 @@ import React from 'react';
 import { postRequest } from '@/utils/api';
 import { InfoTable } from '@/components/BusinessComponent/BusCom';
 
-import { SELECT_SENDER, SYS_Dict } from '@/services/SysInterface';
+import { RECEIVE_SENDER, SYS_Dict } from '@/services/SysInterface';
 
 const ordinary = {
-  queryTitle: '姓名',
-  queryField: 'fullName',
+  queryTitle: '手机号',
+  queryField: 'phoneNumber',
 };
 const senior = [
   {
@@ -15,19 +15,25 @@ const senior = [
     component: 'Input',
   },
   {
-    queryTitle: '手机号',
-    queryField: 'phoneNumber',
-    component: 'Input',
-  },
-  {
     queryTitle: '是否已读',
-    queryField: 'householderName',
-    component: 'Input',
+    queryField: 'state',
+    component: 'Select',
+    componentData: [
+      { value: '0', title: '未读' },
+      { value: '1', title: '已读' },
+      { value: '2', title: '未发布' },
+    ],
   },
   {
     queryTitle: '确定状态',
     queryField: 'confirmState',
-    component: 'Input',
+    component: 'Select',
+    componentData: [
+      { value: '0', title: '未确认' },
+      { value: '1', title: '确认' },
+      { value: '2', title: '待定' },
+      { value: '3', title: '否定' },
+    ],
   },
 ];
 
@@ -84,17 +90,17 @@ class ReceiverList extends React.Component {
         {
           title: '是否已读',
           width: '10%',
-          dataIndex: 'paymentStandard',
+          dataIndex: 'stateStr',
         },
         {
           title: '确定状态',
           width: '14%',
-          dataIndex: 'paymentDate',
+          dataIndex: 'confirmStateStr',
         },
         {
           title: '确定时间',
           width: '8%',
-          dataIndex: 'paymentMoney',
+          dataIndex: 'confirmDate',
         },
       ],
     });
@@ -106,10 +112,10 @@ class ReceiverList extends React.Component {
         <InfoTable
           scroll={{ x: 900 }}
           columns={this.state.columns}
-          listUrl={SELECT_SENDER}
+          listUrl={RECEIVE_SENDER}
           ordinary={ordinary}
           senior={senior}
-          additionalData={{ paymentItemId: this.props.id }}
+          additionalData={{ announcementId: this.props.id }}
         />
       </div>
     );

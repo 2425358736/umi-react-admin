@@ -38,8 +38,19 @@ class NoticeAdd extends React.Component {
           title: dataClone.title.toString(),
         });
         if (dataClone.type === 2) {
+          const arr = [];
+          dataClone.receiveIds.split(',').forEach(item => {
+            arr.push(parseInt(item, 10));
+          });
+          const arr1 = [];
+          dataClone.list.forEach(item => {
+            const cloneItem = item;
+            cloneItem.id = item.memberId;
+            arr1.push(cloneItem);
+          });
           this.setState({
-            idArr: dataClone.receiveIds.split(''),
+            idArr: arr,
+            objArr: arr1,
           });
         }
         if (dataClone.type === 1) {
@@ -196,7 +207,7 @@ class NoticeAdd extends React.Component {
                 <span>
                   <span style={{ color: 'f00' }}>*</span>发送人：
                 </span>
-                {this.state.idArr.length > 0 ? (
+                {Array.isArray(this.state.objArr) && this.state.objArr.length > 0 ? (
                   this.state.objArr.map(item => (
                     <Tag key={item.id} closable onClose={() => this.deleteMan(item.id)}>
                       {item.fullName}
@@ -224,7 +235,7 @@ class NoticeAdd extends React.Component {
                     message: '请输入标题',
                   },
                 ],
-              })(<Input disabled={this.props.id > 0} placeholder="请输入标题" />)}
+              })(<Input placeholder="请输入标题" />)}
             </Form.Item>
 
             <div className={styles.rowDom}>

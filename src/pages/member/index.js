@@ -139,7 +139,7 @@ class MemberList extends React.Component {
       columns: [
         {
           title: '序号',
-          width: '4%',
+          width: '5%',
           dataIndex: 'id',
           isIncrement: true,
         },
@@ -463,7 +463,7 @@ class MemberList extends React.Component {
             <div>
               <OrdinaryTable
                 scroll={{
-                  x: 1900,
+                  x: 2000,
                   y: 'calc(100vh - 218px)',
                 }}
                 listUrl={MEMBER_LIST}

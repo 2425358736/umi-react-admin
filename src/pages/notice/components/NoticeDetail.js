@@ -64,7 +64,7 @@ class NoticeDetail extends React.Component {
                 <Icon type="smile" className={styles.iconDom} />
                 确定人数
               </p>
-              <p className={styles.cardContent}>{fetchData.paymentObjectStr}</p>
+              <p className={styles.cardContent}>{fetchData.definiteNumber}</p>
             </div>
 
             <div className={styles.cardDom}>
@@ -72,7 +72,7 @@ class NoticeDetail extends React.Component {
                 <Icon type="frown" className={styles.iconDom} />
                 否定人数
               </p>
-              <p className={styles.cardContent}>{fetchData.paymentNumber}</p>
+              <p className={styles.cardContent}>{fetchData.negativeNumber}</p>
             </div>
 
             <div className={styles.cardDom}>
@@ -80,7 +80,7 @@ class NoticeDetail extends React.Component {
                 <Icon type="meh" className={styles.iconDom} />
                 待定人数
               </p>
-              <p className={styles.cardContent}>{fetchData.aggregateAmount}</p>
+              <p className={styles.cardContent}>{fetchData.undeterminedNumber}</p>
             </div>
           </div>
         </div>
@@ -91,7 +91,7 @@ class NoticeDetail extends React.Component {
               <span />
               <span>通知内容</span>
             </div>
-            <div className={styles.conWrap}>{fetchData.content}</div>
+            <div dangerouslySetInnerHTML={{ __html: fetchData.content }} />
             {fetchData.aa && (
               <div className={styles.midBottom}>
                 附件：
