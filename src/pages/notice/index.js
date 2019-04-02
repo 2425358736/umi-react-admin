@@ -12,12 +12,12 @@ import {
   ExportButton,
 } from '@/components/BusinessComponent/BusCom';
 
-import PayDetail from './components/NoticeDetail';
+import NoticeDetail from './components/NoticeDetail';
 import NoticeAdd from './components/NoticeAdd';
 
 import styles from './index.less';
 
-import { PAYMENT_LIST_HEADER, PAYMENT_LIST } from '@/services/SysInterface';
+import { NOTICE_LIST_HEADER, NOTICE_LIST } from '@/services/SysInterface';
 
 const topStatistics = {
   topJson: [
@@ -27,23 +27,23 @@ const topStatistics = {
     },
     {
       displayTitle: '新闻',
-      displayField: 'wfb',
+      displayField: 'xw',
       queryTitle: '类型',
-      queryField: 'releaseStatus',
+      queryField: 'type',
       queryValue: ['0'],
     },
     {
       displayTitle: '公告',
-      displayField: 'yfb',
+      displayField: 'gg',
       queryTitle: '类型',
-      queryField: 'releaseStatus',
+      queryField: 'type',
       queryValue: ['1'],
     },
     {
       displayTitle: '通知',
-      displayField: 'tjs',
+      displayField: 'tz',
       queryTitle: '类型',
-      queryField: 'releaseStatus',
+      queryField: 'type',
       queryValue: ['2'],
     },
   ],
@@ -52,7 +52,7 @@ const topStatistics = {
 const search = {
   ordinary: {
     queryTitle: '标题',
-    queryField: 'entryName',
+    queryField: 'title',
   },
   senior: [
     {
@@ -76,32 +76,32 @@ const exportButton = {
     },
     {
       title: '类型',
-      column: 'entryName',
+      column: 'typeStr',
     },
     {
       title: '标题',
-      column: 'releaseStatusStr',
+      column: 'title',
     },
     {
       title: '发布状态',
-      column: 'paymentObjectStr',
+      column: 'stateStr',
     },
     {
       title: '浏览次数',
-      column: 'administrators',
+      column: 'browseFrequency',
     },
     {
       title: '管理员',
-      column: 'createDate',
+      column: 'administrators',
     },
     {
       title: '创建时间',
-      column: 'paymentNumber',
+      column: 'createDate',
     },
   ],
 };
 
-class Payment extends React.Component {
+class Notice extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -121,8 +121,8 @@ class Payment extends React.Component {
         {
           title: '类型',
           width: '10%',
-          dataIndex: 'entryName',
-          column: 'paymentObjectStr',
+          dataIndex: 'type',
+          column: 'typeStr',
           filters: [
             {
               text: '新闻',
@@ -140,14 +140,14 @@ class Payment extends React.Component {
         },
         {
           title: '标题',
-          width: '10%',
-          dataIndex: 'administrators',
+          width: '16%',
+          dataIndex: 'title',
         },
         {
-          title: '状态',
+          title: '发布状态',
           width: '10%',
-          dataIndex: 'releaseStatus',
-          column: 'releaseStatusStr',
+          dataIndex: 'state',
+          column: 'stateStr',
           filters: [
             {
               text: '未发布',
@@ -160,24 +160,19 @@ class Payment extends React.Component {
           ],
         },
         {
-          title: '缴费对象',
+          title: '浏览次数',
           width: '10%',
-          dataIndex: 'paymentObject',
+          dataIndex: 'browseFrequency',
+        },
+        {
+          title: '管理员',
+          width: '10%',
+          dataIndex: 'administrators',
         },
         {
           title: '创建时间',
-          width: '12%',
+          width: '16%',
           dataIndex: 'createDate',
-        },
-        {
-          title: '参缴数',
-          width: '10%',
-          dataIndex: 'paymentNumber',
-        },
-        {
-          title: '总金额',
-          width: '10%',
-          dataIndex: 'aggregateAmount',
         },
         {
           title: '操作',
@@ -186,13 +181,11 @@ class Payment extends React.Component {
           render(text, record) {
             return (
               <div>
-                <Info title="通告详情" info={<PayDetail id={record.id} />}>
+                <Info title="通告详情" info={<NoticeDetail id={record.id} />}>
                   详情
                 </Info>
-                {record.releaseStatus !== 2 && <Divider type="vertical" />}
-                {record.releaseStatus !== 2 && (
-                  <Up id={record.id} width={800} title="编辑" component={NoticeAdd} />
-                )}
+                <Divider type="vertical" />
+                <Up id={record.id} width={800} title="编辑" component={NoticeAdd} />
               </div>
             );
           },
@@ -203,31 +196,29 @@ class Payment extends React.Component {
 
   render() {
     return (
-      <div className={styles.sysUserWrap}>
-        <div className={styles.baseTableWrap}>
-          <TopStatistics sourceUrl={PAYMENT_LIST_HEADER} topJson={topStatistics.topJson} />
-          <div className={styles.screenTag}>
-            <Search
-              ordinary={search.ordinary}
-              senior={search.senior}
-              operationBlock={[
-                <Add key="1" width={800} title="新建" component={NoticeAdd} />,
-                <ExportButton key="2" exportUrl={PAYMENT_LIST} columns={exportButton.columns} />,
-              ]}
+      <div className={styles.baseTableWrap}>
+        <TopStatistics sourceUrl={NOTICE_LIST_HEADER} topJson={topStatistics.topJson} />
+        <div className={styles.screenTag}>
+          <Search
+            ordinary={search.ordinary}
+            senior={search.senior}
+            operationBlock={[
+              <Add key="1" width={800} title="新建" component={NoticeAdd} />,
+              <ExportButton key="2" exportUrl={NOTICE_LIST} columns={exportButton.columns} />,
+            ]}
+          />
+          <ScreeningTag />
+        </div>
+        <div className={styles.tableWrap}>
+          <div>
+            <OrdinaryTable
+              scroll={{
+                x: 1350,
+                y: 'calc(100vh - 218px)',
+              }}
+              listUrl={NOTICE_LIST}
+              columns={this.state.columns}
             />
-            <ScreeningTag />
-          </div>
-          <div className={styles.tableWrap}>
-            <div>
-              <OrdinaryTable
-                scroll={{
-                  x: 1350,
-                  y: 'calc(100vh - 218px)',
-                }}
-                listUrl={PAYMENT_LIST}
-                columns={this.state.columns}
-              />
-            </div>
           </div>
         </div>
       </div>
@@ -235,4 +226,4 @@ class Payment extends React.Component {
   }
 }
 
-export default Payment;
+export default Notice;

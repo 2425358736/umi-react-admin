@@ -55,10 +55,9 @@ class PayDetail extends React.Component {
                 <Icon type="credit-card" className={styles.iconDom} />
                 创建时间
               </p>
-              <Tooltip title={fetchData.idNumber}>
+              <Tooltip title={fetchData.createDate}>
                 <p className={styles.cardContent}>{fetchData.createDate}</p>
               </Tooltip>
-              ,
             </div>
 
             <div className={styles.cardDom}>

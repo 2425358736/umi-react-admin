@@ -46,7 +46,7 @@ export default class SiderMenu extends PureComponent {
   };
 
   render() {
-    const { logo, collapsed, onCollapse, fixSiderbar, theme } = this.props;
+    const { collapsed, onCollapse, fixSiderbar, theme } = this.props;
     const { openKeys } = this.state;
     const defaultProps = collapsed ? {} : { openKeys };
 
@@ -67,8 +67,11 @@ export default class SiderMenu extends PureComponent {
       >
         <div className={styles.logo} id="logo">
           <Link to="/">
-            <img src={logo} alt="logo" />
-            <h1>智慧村务</h1>
+            <img
+              src="https://haifeng-1258278342.cos.ap-chengdu.myqcloud.com/village/village_PC_logo.png"
+              alt="logo"
+            />
+            <h1>智慧新村</h1>
           </Link>
         </div>
         <Suspense fallback={<PageLoading />}>

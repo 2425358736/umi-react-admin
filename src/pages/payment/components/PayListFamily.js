@@ -2,8 +2,6 @@ import React from 'react';
 import { postRequest } from '@/utils/api';
 import { InfoTable } from '@/components/BusinessComponent/BusCom';
 
-import styles from './List.less';
-
 import { PAY_LIST_FAMILY, SYS_Dict } from '@/services/SysInterface';
 
 const ordinary = {
@@ -56,7 +54,7 @@ class PayListFamily extends React.Component {
       columns: [
         {
           title: '序号',
-          width: '6%',
+          width: '7%',
           dataIndex: 'id',
           isIncrement: true,
         },
@@ -69,7 +67,7 @@ class PayListFamily extends React.Component {
         },
         {
           title: '编号',
-          width: '10%',
+          width: '8%',
           dataIndex: 'householdNumber',
         },
         {
@@ -113,7 +111,7 @@ class PayListFamily extends React.Component {
 
   render() {
     return (
-      <div className={styles.ListWrap}>
+      <div>
         <InfoTable
           columns={this.state.columns}
           listUrl={PAY_LIST_FAMILY}
