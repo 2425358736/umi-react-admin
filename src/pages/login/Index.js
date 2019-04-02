@@ -54,11 +54,7 @@ class Index extends React.Component {
             <i />
             <div>
               <p>村务系统平台</p>
-              <p>
-                <span>智慧村务</span>
-                <span>智慧村务</span>
-                <span>智慧村务</span>
-              </p>
+              <p />
             </div>
           </div>
           <Login onSubmit={this.onSubmit} className={styles.loginRight}>
