@@ -56,7 +56,7 @@ class Wysiwyg extends React.Component {
       xhr.send(data);
       xhr.addEventListener('load', () => {
         const response = JSON.parse(xhr.responseText);
-        resolve({ data: { link: `${http}/file/getImg?path=${response.data}` } });
+        resolve({ data: { link: `${response.data.filePath}` } });
       });
       xhr.addEventListener('error', () => {
         const error = JSON.parse(xhr.responseText);
@@ -76,6 +76,20 @@ class Wysiwyg extends React.Component {
           toolbarClassName={styles.editorBar}
           editorClassName={styles.editorCon}
           toolbar={{
+            options: [
+              'inline',
+              'blockType',
+              'fontSize',
+              'fontFamily',
+              'list',
+              'textAlign',
+              'colorPicker',
+              'link',
+              'embedded',
+              'image',
+              'remove',
+              'history',
+            ],
             image: {
               previewImage: true,
               uploadCallback: this.imageUploadCallBack,
