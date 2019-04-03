@@ -149,7 +149,15 @@ class InfoTable extends React.Component {
   };
 
   request = async () => {
-    const { listUrl, pagination, query, queryShow, orders, additionalData } = this.state;
+    const {
+      listUrl,
+      pagination,
+      query,
+      queryShow,
+      orders,
+      additionalData,
+      paginationTable,
+    } = this.state;
     if (listUrl) {
       this.setState({
         loading: true,
@@ -165,11 +173,11 @@ class InfoTable extends React.Component {
       jsonString(json.query);
       const data = await postRequest(listUrl, json);
       if (data.status === 200) {
-        pagination.total = data.data.total;
-        pagination.current = data.data.pageNum;
+        paginationTable.total = data.data.total;
+        paginationTable.current = data.data.pageNum;
         this.setState({
           dataSource: data.data.list,
-          pagination,
+          paginationTable,
         });
       } else {
         notification.error({ message: data.msg, description: data.subMsg });
