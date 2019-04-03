@@ -5,6 +5,7 @@ import { EXAMINE_LIST } from '@/services/SysInterface';
 import { Info, InfoTable } from '@/components/BusinessComponent/BusCom';
 import ExamineDetail from './examine/components/ExamineDetail';
 import ExamineInfo from './examine/components/ExamineInfo';
+import styles from './index.less';
 
 const RadioGroup = Radio.Group;
 
@@ -344,37 +345,39 @@ class Index extends React.Component {
 
   render() {
     return (
-      <div>
-        <div id="member" style={{ width: '360px', height: '450px' }} />
-        <div>
-          <RadioGroup
-            onChange={e => {
-              this.setPartyMemberData(e.target.value);
-            }}
-            value={this.state.value}
-          >
-            <Radio value={1}>党龄</Radio>
-            <Radio value={2}>年龄</Radio>
-          </RadioGroup>
-          <div id="partyMember" style={{ width: '360px', height: '450px' }} />
+      <div className={styles.sysUserWrap}>
+        <div className={styles.baseTableWrap}>
+          <div id="member" style={{ width: '360px', height: '450px' }} />
+          <div>
+            <RadioGroup
+              onChange={e => {
+                this.setPartyMemberData(e.target.value);
+              }}
+              value={this.state.value}
+            >
+              <Radio value={1}>党龄</Radio>
+              <Radio value={2}>年龄</Radio>
+            </RadioGroup>
+            <div id="partyMember" style={{ width: '360px', height: '450px' }} />
+          </div>
+          <div>
+            {this.state.brigade.map((json, i) => (
+              <div key={i.toString()}>
+                <span>{json.name}</span>
+                <span>男</span>
+                <span>{json.a}</span>
+                <span>{json.b}</span>
+                <span>女</span>
+                <div id={`brigade${i}`} style={{ width: '200px', height: '200px' }} />
+              </div>
+            ))}
+          </div>
+          <InfoTable
+            columns={this.state.columns}
+            listUrl={EXAMINE_LIST}
+            additionalData={{ auditStatus: '0' }}
+          />
         </div>
-        <div>
-          {this.state.brigade.map((json, i) => (
-            <div key={i.toString()}>
-              <span>{json.name}</span>
-              <span>男</span>
-              <span>{json.a}</span>
-              <span>{json.b}</span>
-              <span>女</span>
-              <div id={`brigade${i}`} style={{ width: '200px', height: '200px' }} />
-            </div>
-          ))}
-        </div>
-        <InfoTable
-          columns={this.state.columns}
-          listUrl={EXAMINE_LIST}
-          additionalData={{ auditStatus: '0' }}
-        />
       </div>
     );
   }
