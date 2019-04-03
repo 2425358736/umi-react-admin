@@ -17,11 +17,13 @@ let files = [];
 const jsFiles = glob.sync('src/**/*.js*', { ignore: ['**/node_modules/**', 'build/**'] });
 const tsFiles = glob.sync('src/**/*.less*', { ignore: ['**/node_modules/**', 'build/**'] });
 const configFiles = glob.sync('**/*.js*', { ignore: ['**/node_modules/**', 'build/**'] });
+const configFiles1 = glob.sync('**/*.less*', { ignore: ['**/node_modules/**', 'build/**'] });
 const eslintrc = glob.sync('.eslintrc.js', { ignore: ['**/node_modules/**', 'build/**'] });
 files = files.concat(jsFiles);
 files = files.concat(tsFiles);
 files = files.concat(configFiles);
 files = files.concat(eslintrc);
+files = files.concat(configFiles1);
 if (!files.length) {
   return;
 }

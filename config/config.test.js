@@ -128,6 +128,14 @@ export default {
           path: '/group',
           component: './group/index',
         },
+        {
+          path: '/payment',
+          component: './payment/index',
+        },
+        {
+          path: '/notice',
+          component: './notice/index',
+        },
       ],
     },
   ],

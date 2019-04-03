@@ -86,18 +86,22 @@ const exportButton = {
     {
       title: '序号',
       column: 'id',
+      export: true,
     },
     {
       title: '登录名',
       column: 'loginName',
+      export: true,
     },
     {
       title: '邮箱',
       column: 'email',
+      export: true,
     },
     {
       title: '手机',
       column: 'phone',
+      export: true,
     },
     {
       title: '创建日期',
