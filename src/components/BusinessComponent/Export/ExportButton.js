@@ -50,7 +50,7 @@ class ExportButton extends React.Component {
 
   render() {
     return (
-      <div>
+      <span>
         <Modal
           title="导出"
           visible={this.state.visible}
@@ -137,7 +137,7 @@ class ExportButton extends React.Component {
           />
           导出
         </span>
-      </div>
+      </span>
     );
   }
 }
