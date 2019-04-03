@@ -176,3 +176,8 @@ export const SELECT_SENDER = '/household/MemberList'; // 新闻公告选择发�
 export const RECEIVE_SENDER = '/announcement/noticeReceiveDetailsList'; // 接收人列表
 
 // ------------ 新闻公告 end ----------------
+
+// ------------ 首页 ------------
+export const HOME = '/household/getHomePageStatistics'; // 首页
+
+export const HOME2 = '/household/getHomePageTroops'; // 首页

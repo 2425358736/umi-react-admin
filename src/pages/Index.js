@@ -1,11 +1,13 @@
 import React from 'react';
-import { Radio } from 'antd';
+import { Radio, Progress } from 'antd';
 import Echarts from 'echarts';
-import { EXAMINE_LIST } from '@/services/SysInterface';
+import { EXAMINE_LIST, HOME, HOME2 } from '@/services/SysInterface';
 import { Info, InfoTable } from '@/components/BusinessComponent/BusCom';
 import ExamineDetail from './examine/components/ExamineDetail';
 import ExamineInfo from './examine/components/ExamineInfo';
 import styles from './index.less';
+
+import { postRequest } from '@/utils/api';
 
 const RadioGroup = Radio.Group;
 
@@ -16,10 +18,41 @@ class Index extends React.Component {
       value: 1,
       brigade: [],
       columns: [],
+      partyMemberData1: [],
+      partyMemberData2: [],
+      memberData: [],
+      membershipStatistics: {
+        woman: '100%',
+        allPeople: 0,
+        man: '100%',
+      },
+      partyMembers: {
+        womanParty: '100%',
+        manParty: '100%',
+        allPartyPeople: 0,
+      },
     };
   }
 
-  componentWillMount = async () => {
+  componentDidMount = async () => {
+    const data = await postRequest(HOME);
+    const data2 = await postRequest(HOME2);
+    if (data.status === 200) {
+      await this.setState({
+        partyMemberData1: data.data.partyPartyAgePieChart,
+        partyMemberData2: data.data.partyAgePieChart,
+        memberData: data.data.communityPieChart,
+        membershipStatistics: data.data.membershipStatistics,
+        partyMembers: data.data.partyMembers,
+      });
+    }
+
+    if (data2.status === 200) {
+      await this.setState({
+        brigade: data2.data,
+      });
+    }
+    this.setChart();
     this.setState({
       columns: [
         {
@@ -145,35 +178,13 @@ class Index extends React.Component {
     });
   };
 
-  componentDidMount = async () => {
+  setChart = () => {
     this.setMember();
     this.setPartyMemberData(1);
-    await this.setBrigade();
+    this.setBrigade();
   };
 
-  setBrigade = async () => {
-    await this.setState({
-      brigade: [
-        {
-          name: '1队',
-          a: '50%',
-          b: '50%',
-          data: [10, 52, 200, 334, 390, 330, 220, 44],
-        },
-        {
-          name: '2队',
-          a: '25%',
-          b: '75%',
-          data: [10, 22, 33, 44, 55, 66, 77, 55],
-        },
-        {
-          name: '3队',
-          a: '30%',
-          b: '70%',
-          data: [44, 66, 77, 22, 99, 33, 220, 66],
-        },
-      ],
-    });
+  setBrigade = () => {
     this.state.brigade.forEach((json, i) => {
       const myChart = Echarts.init(document.getElementById(`brigade${i}`));
       // 绘制图表
@@ -222,30 +233,16 @@ class Index extends React.Component {
     });
   };
 
-  setPartyMemberData = value => {
+  setPartyMemberData = async value => {
+    const { partyMemberData1, partyMemberData2 } = this.state;
     let partyMemberData = [];
     let legendData = [];
     if (value === 1) {
       legendData = ['5年以下', '5-15年', '15-25年', '25-35年', '35-45年', '45-55年', '55年以上'];
-      partyMemberData = [
-        { value: 1548, name: '5年以下' },
-        { value: 535, name: '5-15年' },
-        { value: 510, name: '15-25年' },
-        { value: 634, name: '25-35年' },
-        { value: 735, name: '35-45年' },
-        { value: 735, name: '45-55年' },
-        { value: 735, name: '55年以上' },
-      ];
+      partyMemberData = partyMemberData1;
     } else {
       legendData = ['18-30岁', '30-40岁', '40-50岁', '50-60岁', '60-70岁', '70岁以上'];
-      partyMemberData = [
-        { value: 50, name: '18-30岁' },
-        { value: 50, name: '30-40岁' },
-        { value: 50, name: '40-50岁' },
-        { value: 50, name: '50-60岁' },
-        { value: 50, name: '60-70岁' },
-        { value: 50, name: '70岁以上' },
-      ];
+      partyMemberData = partyMemberData2;
     }
 
     const myChart = Echarts.init(document.getElementById('partyMember'));
@@ -288,16 +285,7 @@ class Index extends React.Component {
   };
 
   setMember = () => {
-    const memberData = [
-      { value: 1548, name: '3岁以下' },
-      { value: 535, name: '3-6岁' },
-      { value: 634, name: '6-12岁' },
-      { value: 735, name: '12-18岁' },
-      { value: 735, name: '18-30岁' },
-      { value: 735, name: '30-50岁' },
-      { value: 735, name: '50-70岁' },
-      { value: 735, name: '70岁以上' },
-    ];
+    const { memberData } = this.state;
     const myChart = Echarts.init(document.getElementById('member'));
     // 绘制图表
     myChart.setOption({
@@ -347,7 +335,20 @@ class Index extends React.Component {
     return (
       <div className={styles.sysUserWrap}>
         <div className={styles.baseTableWrap}>
+          <div>
+            <span>社员总数:</span> <span>{this.state.membershipStatistics.allPeople}人</span>
+            <span>男：</span>
+            <Progress percent={this.state.membershipStatistics.man.toString().split('%')[0]} />
+            <span>女：</span>
+            <Progress percent={this.state.membershipStatistics.woman.toString().split('%')[0]} />
+          </div>
           <div id="member" style={{ width: '360px', height: '450px' }} />
+
+          <div>
+            党员总数: {this.state.partyMembers.allPartyPeople}人 男：
+            <Progress percent={this.state.partyMembers.manParty.toString().split('%')[0]} /> 女：
+            <Progress percent={this.state.partyMembers.womanParty.toString().split('%')[0]} />
+          </div>
           <div>
             <RadioGroup
               onChange={e => {
@@ -365,8 +366,8 @@ class Index extends React.Component {
               <div key={i.toString()}>
                 <span>{json.name}</span>
                 <span>男</span>
-                <span>{json.a}</span>
-                <span>{json.b}</span>
+                <span>{json.man}</span>
+                <span>{json.woman}</span>
                 <span>女</span>
                 <div id={`brigade${i}`} style={{ width: '200px', height: '200px' }} />
               </div>
