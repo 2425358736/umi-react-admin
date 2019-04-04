@@ -116,10 +116,12 @@ export default class GlobalHeaderRight extends PureComponent {
     const { currentUser, onMenuClick, theme } = this.props;
     const menu = (
       <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
-        {/* <Menu.Item key="userCenter"> */}
-        {/* <Icon type="user" /> */}
-        {/* <FormattedMessage id="menu.account.center" defaultMessage="account center" /> */}
-        {/* </Menu.Item> */}
+        <Menu.Item>
+          <Icon type="user" />
+          <Link to="/profile" style={{ display: 'inline-block' }}>
+            <span>个人中心</span>
+          </Link>
+        </Menu.Item>
         <Menu.Item key="insideMail">
           <Icon type="mail" />
           <Link to="/sys/insideMail" style={{ display: 'inline-block' }}>
