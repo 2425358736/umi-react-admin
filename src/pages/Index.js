@@ -36,7 +36,6 @@ class Index extends React.Component {
 
   componentDidMount = async () => {
     const data = await postRequest(HOME);
-    const data2 = await postRequest(HOME2);
     if (data.status === 200) {
       await this.setState({
         partyMemberData1: data.data.partyPartyAgePieChart,
@@ -46,13 +45,16 @@ class Index extends React.Component {
         partyMembers: data.data.partyMembers,
       });
     }
+    this.setMember();
+    this.setPartyMemberData(1);
+    const data2 = await postRequest(HOME2);
 
     if (data2.status === 200) {
       await this.setState({
         brigade: data2.data,
       });
     }
-    this.setChart();
+    this.setBrigade();
     this.setState({
       columns: [
         {
@@ -176,12 +178,6 @@ class Index extends React.Component {
         },
       ],
     });
-  };
-
-  setChart = () => {
-    this.setMember();
-    this.setPartyMemberData(1);
-    this.setBrigade();
   };
 
   setBrigade = () => {
@@ -343,25 +339,25 @@ class Index extends React.Component {
                 社员总数:
                 <span>{this.state.membershipStatistics.allPeople}人</span>
               </p>
-              <p>
+              <div>
                 男：
                 <Progress
-                  strokeWidth="30px"
+                  strokeWidth={30}
                   className={styles.lineDom}
                   percent={parseFloat(this.state.membershipStatistics.man.toString().split('%')[0])}
                 />
-              </p>
-              <p>
+              </div>
+              <div>
                 女：
                 <Progress
-                  strokeWidth="30px"
+                  strokeWidth={30}
                   strokeColor="#e43c59"
                   className={styles.lineDom}
                   percent={parseFloat(
                     this.state.membershipStatistics.woman.toString().split('%')[0]
                   )}
                 />
-              </p>
+              </div>
             </div>
             <div id="member" style={{ height: '300px' }} />
           </div>
@@ -372,23 +368,23 @@ class Index extends React.Component {
                 党员总数:
                 <span>{this.state.partyMembers.allPartyPeople}人</span>
               </p>
-              <p>
+              <div>
                 男：
                 <Progress
-                  strokeWidth="30px"
+                  strokeWidth={30}
                   className={styles.lineDom}
                   percent={parseFloat(this.state.partyMembers.manParty.toString().split('%')[0])}
                 />
-              </p>
-              <p>
+              </div>
+              <div>
                 女：
                 <Progress
-                  strokeWidth="30px"
+                  strokeWidth={30}
                   strokeColor="#e43c59"
                   className={styles.lineDom}
                   percent={parseFloat(this.state.partyMembers.womanParty.toString().split('%')[0])}
                 />
-              </p>
+              </div>
             </div>
 
             <div className={styles.partyPieWrap}>
@@ -417,8 +413,10 @@ class Index extends React.Component {
               </p>
               <div>
                 <span>男</span>
-                <span className={styles.perSpan}>{json.man}</span>
-                <span className={styles.perSpan}>{json.woman}</span>
+                <div style={{ display: 'inline-block', width: '30px' }}>
+                  <span className={styles.perSpan}>{json.man}</span>
+                  <span className={styles.perSpan}>{json.woman}</span>
+                </div>
                 <span>女</span>
               </div>
               <div id={`brigade${i}`} style={{ width: '200px', height: '200px' }} />
