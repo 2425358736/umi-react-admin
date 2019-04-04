@@ -140,6 +140,10 @@ export default {
           path: '/policyGuide',
           component: './policyGuide/index',
         },
+        {
+          path: '/profile',
+          component: './profile/index',
+        },
       ],
     },
   ],

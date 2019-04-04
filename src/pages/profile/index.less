@@ -1,0 +1,37 @@
+.profileDiv {
+  font-family: 'Microsoft YaHei', serif;
+  height: calc(~'100vh - 152px');
+  background-color: #fff;
+  box-shadow: 1px 3px 3px 0 rgba(212, 212, 212, 0.5);
+  border-radius: 6px;
+  padding: 20px 30px;
+  overflow: auto;
+  .editBtn {
+    float: right;
+    right: 20px;
+    top: 24px;
+  }
+  ul {
+    font-size: 16px;
+    list-style: none;
+    > li {
+      display: flex;
+      align-items: center;
+      height: 62px;
+      line-height: 62px;
+      border-bottom: 1px solid #cecece;
+      > span:first-child {
+        flex: 1;
+        max-width: 200px;
+      }
+      > span:last-child {
+        flex: 4;
+        font-size: 14px;
+        color: #ff7f24;
+        .psBtn {
+          margin-left: 30px;
+        }
+      }
+    }
+  }
+}
