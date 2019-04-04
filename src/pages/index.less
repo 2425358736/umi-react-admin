@@ -1,38 +1,104 @@
-.sysUserWrap {
-  .addBtn {
-    .iconDom {
-      display: inline-block;
-      margin-right: 6px;
-      font-size: 14px;
-      color: #999;
-    }
-    vertical-align: middle;
-    font-size: 16px;
-    color: rgba(26, 179, 147, 1);
-  }
-}
-
-.baseTableWrap {
+.homeWrap {
+  width: 100%;
   height: calc(~'100vh - 152px');
   overflow: auto;
-  .screenTag {
+  .headerWrap {
+    display: flex;
     width: 100%;
-    margin-top: 20px;
+    margin-bottom: 20px;
+    .homeHeader:first-child {
+      margin-right: 20px;
+    }
+    .homeHeader {
+      display: flex;
+      flex: 1;
+      box-sizing: border-box;
+      padding: 20px;
+      background: #fff;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px 0 rgba(224, 224, 224, 0.5);
+      > div:first-child {
+        flex: 1;
+      }
+      > div:last-child {
+        flex: 3;
+      }
+      .progressWrap {
+        box-sizing: border-box;
+        padding-top: 20px;
+        .totalDom {
+          height: 30px;
+          line-height: 30px;
+          font-size: 20px;
+          color: #999;
+          margin-bottom: 66px;
+          > span {
+            margin-left: 8px;
+            font-size: 22px;
+            color: #333;
+          }
+        }
+        .lineDom {
+          display: inline-block;
+          width: 100%;
+        }
+        > p:last-child {
+          margin: 0;
+        }
+      }
+      .partyPieWrap {
+        position: relative;
+        .radioWrap {
+          position: absolute;
+          top: 0;
+          left: 40%;
+        }
+      }
+    }
+  }
+  .homeMid {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
     padding: 20px;
     background: #fff;
+    border-radius: 4px;
     box-shadow: 0 2px 4px 0 rgba(224, 224, 224, 0.5);
+    margin-bottom: 20px;
+    .chartsDom {
+      flex: 1;
+      > p {
+        text-align: center;
+        font-size: 16px;
+        color: #333;
+        > span {
+          margin-left: 6px;
+        }
+      }
+      > div {
+        text-align: center;
+        font-size: 14px;
+        color: #999;
+        .perSpan {
+          padding: 0 4px;
+          margin-left: 6px;
+          color: #fff;
+          text-align: center;
+          background-color: #1890ff;
+        }
+        .perSpan:nth-of-type(3) {
+          margin: 0 6px 0 0;
+          background-color: #e43c59;
+        }
+      }
+    }
   }
   .tableWrap {
-    height: 100%;
+    width: 100%;
     box-sizing: border-box;
-    margin-top: 20px;
-    background-color: #fff;
-    overflow: hidden;
-    > .mostOpt {
-      width: 100%;
-      height: 52px;
-      line-height: 52px;
-      background: rgba(246, 251, 255, 1);
-    }
+    padding: 20px;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px 0 rgba(224, 224, 224, 0.5);
   }
 }
