@@ -258,15 +258,16 @@ class Index extends React.Component {
         formatter: '{b} : {c} ({d}%)',
       },
       legend: {
-        bottom: 10,
-        left: 'center',
+        orient: 'vertical',
+        right: 0,
+        top: 20,
         data: legendData,
       },
       series: [
         {
           type: 'pie',
           radius: '65%',
-          center: ['50%', '50%'],
+          center: ['42%', '50%'],
           selectedMode: 'single',
           data: partyMemberData,
           itemStyle: {
@@ -299,8 +300,9 @@ class Index extends React.Component {
         formatter: '{b} : {c} ({d}%)',
       },
       legend: {
-        bottom: 10,
-        left: 'center',
+        orient: 'vertical',
+        right: 0,
+        top: 20,
         data: [
           '3岁以下',
           '3-6岁',
@@ -316,7 +318,7 @@ class Index extends React.Component {
         {
           type: 'pie',
           radius: '65%',
-          center: ['50%', '50%'],
+          center: ['40%', '50%'],
           selectedMode: 'single',
           data: memberData,
           itemStyle: {
@@ -333,46 +335,98 @@ class Index extends React.Component {
 
   render() {
     return (
-      <div className={styles.sysUserWrap}>
-        <div className={styles.baseTableWrap}>
-          <div>
-            <span>社员总数:</span> <span>{this.state.membershipStatistics.allPeople}人</span>
-            <span>男：</span>
-            <Progress percent={this.state.membershipStatistics.man.toString().split('%')[0]} />
-            <span>女：</span>
-            <Progress percent={this.state.membershipStatistics.woman.toString().split('%')[0]} />
+      <div className={styles.homeWrap}>
+        <div className={styles.headerWrap}>
+          <div className={styles.homeHeader}>
+            <div className={styles.progressWrap}>
+              <p className={styles.totalDom}>
+                社员总数:
+                <span>{this.state.membershipStatistics.allPeople}人</span>
+              </p>
+              <p>
+                男：
+                <Progress
+                  strokeWidth="30px"
+                  className={styles.lineDom}
+                  percent={parseFloat(this.state.membershipStatistics.man.toString().split('%')[0])}
+                />
+              </p>
+              <p>
+                女：
+                <Progress
+                  strokeWidth="30px"
+                  strokeColor="#e43c59"
+                  className={styles.lineDom}
+                  percent={parseFloat(
+                    this.state.membershipStatistics.woman.toString().split('%')[0]
+                  )}
+                />
+              </p>
+            </div>
+            <div id="member" style={{ height: '300px' }} />
           </div>
-          <div id="member" style={{ width: '360px', height: '450px' }} />
 
-          <div>
-            党员总数: {this.state.partyMembers.allPartyPeople}人 男：
-            <Progress percent={this.state.partyMembers.manParty.toString().split('%')[0]} /> 女：
-            <Progress percent={this.state.partyMembers.womanParty.toString().split('%')[0]} />
-          </div>
-          <div>
-            <RadioGroup
-              onChange={e => {
-                this.setPartyMemberData(e.target.value);
-              }}
-              value={this.state.value}
-            >
-              <Radio value={1}>党龄</Radio>
-              <Radio value={2}>年龄</Radio>
-            </RadioGroup>
-            <div id="partyMember" style={{ width: '360px', height: '450px' }} />
-          </div>
-          <div>
-            {this.state.brigade.map((json, i) => (
-              <div key={i.toString()}>
-                <span>{json.name}</span>
-                <span>男</span>
-                <span>{json.man}</span>
-                <span>{json.woman}</span>
-                <span>女</span>
-                <div id={`brigade${i}`} style={{ width: '200px', height: '200px' }} />
+          <div className={styles.homeHeader}>
+            <div className={styles.progressWrap}>
+              <p className={styles.totalDom}>
+                党员总数:
+                <span>{this.state.partyMembers.allPartyPeople}人</span>
+              </p>
+              <p>
+                男：
+                <Progress
+                  strokeWidth="30px"
+                  className={styles.lineDom}
+                  percent={parseFloat(this.state.partyMembers.manParty.toString().split('%')[0])}
+                />
+              </p>
+              <p>
+                女：
+                <Progress
+                  strokeWidth="30px"
+                  strokeColor="#e43c59"
+                  className={styles.lineDom}
+                  percent={parseFloat(this.state.partyMembers.womanParty.toString().split('%')[0])}
+                />
+              </p>
+            </div>
+
+            <div className={styles.partyPieWrap}>
+              <div id="partyMember" style={{ height: '300px' }} />
+              <div className={styles.radioWrap}>
+                <RadioGroup
+                  onChange={e => {
+                    this.setPartyMemberData(e.target.value);
+                  }}
+                  value={this.state.value}
+                >
+                  <Radio value={1}>党龄</Radio>
+                  <Radio value={2}>年龄</Radio>
+                </RadioGroup>
               </div>
-            ))}
+            </div>
           </div>
+        </div>
+
+        <div className={styles.homeMid}>
+          {this.state.brigade.map((json, i) => (
+            <div className={styles.chartsDom} key={i.toString()}>
+              <p>
+                {json.name}
+                <span>{json.troopNum}</span>
+              </p>
+              <div>
+                <span>男</span>
+                <span className={styles.perSpan}>{json.man}</span>
+                <span className={styles.perSpan}>{json.woman}</span>
+                <span>女</span>
+              </div>
+              <div id={`brigade${i}`} style={{ width: '200px', height: '200px' }} />
+            </div>
+          ))}
+        </div>
+
+        <div className={styles.tableWrap}>
           <InfoTable
             columns={this.state.columns}
             listUrl={EXAMINE_LIST}
