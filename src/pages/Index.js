@@ -411,11 +411,11 @@ class Index extends React.Component {
                 {json.name}
                 <span>{json.troopNum}</span>
               </p>
-              <div>
+              <div className={styles.genderWrap}>
                 <span>男</span>
-                <div style={{ display: 'inline-block', width: '30px' }}>
-                  <span className={styles.perSpan}>{json.man}</span>
-                  <span className={styles.perSpan}>{json.woman}</span>
+                <div>
+                  <span style={{ width: json.man.toString() }}>{json.man}</span>
+                  <span style={{ width: json.woman.toString() }}>{json.woman}</span>
                 </div>
                 <span>女</span>
               </div>

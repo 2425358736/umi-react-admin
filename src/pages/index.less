@@ -51,7 +51,7 @@
         .radioWrap {
           position: absolute;
           top: 0;
-          left: 40%;
+          left: 28%;
         }
       }
     }
@@ -75,20 +75,25 @@
           margin-left: 6px;
         }
       }
-      > div {
+      .genderWrap {
         text-align: center;
         font-size: 14px;
         color: #999;
-        .perSpan {
-          padding: 0 4px;
-          margin-left: 6px;
-          color: #fff;
-          text-align: center;
-          background-color: #1890ff;
-        }
-        .perSpan:nth-of-type(3) {
-          margin: 0 6px 0 0;
-          background-color: #e43c59;
+        > div {
+          display: inline-block;
+          width: 120px;
+          margin: 0 4px;
+          > span {
+            display: inline-block;
+            box-sizing: border-box;
+            padding: 0 4px;
+            color: #fff;
+            text-align: center;
+            background-color: #1890ff;
+          }
+          > span:last-child {
+            background-color: #e43c59;
+          }
         }
       }
     }
