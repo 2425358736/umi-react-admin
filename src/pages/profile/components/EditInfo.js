@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Input, Form, Row, Col, message } from 'antd';
+import { Button, Input, Form, Row, Col, notification } from 'antd';
 import { postRequest, jsonString } from '@/utils/api';
 import styles from './EditInfo.less';
 
@@ -18,16 +18,12 @@ class EditInfo extends React.Component {
   initialization = async () => {
     this.props.form.resetFields();
     if (this.props.id > 0) {
-      const data = await postRequest('/system/getUserDetailedId', { id: this.props.id });
+      const data = await postRequest('/sys/getUserInfoDetailed', { id: this.props.id });
       const formData = data.data;
       this.props.form.setFieldsValue({
-        name: formData.name,
-        gender: formData.gender,
-        idNumber: formData.idNumber,
-        qqNumber: formData.qqNumber,
+        realName: formData.realName,
         phone: formData.phone,
         email: formData.email,
-        address: formData.address,
       });
     }
   };
@@ -45,11 +41,9 @@ class EditInfo extends React.Component {
       jsonString(json);
       if (this.props.id > 0) {
         json.id = this.props.id;
-        const data = await postRequest('/system/upUserBasicInfor', json);
-        message.success(`${data.message}`);
-        if (data.code !== 140) {
-          this.props.callback({ type: 'submit' });
-        }
+        const data = await postRequest('/sys/updateSysUser', json);
+        notification.success({ message: data.msg });
+        this.props.callback({ type: 'submit' });
       }
       this.setState({
         buttonLoading: false,
@@ -69,7 +63,7 @@ class EditInfo extends React.Component {
           <Row gutter={24}>
             <Col span={12}>
               <Form.Item label="真实姓名" labelCol={{ span: 7 }} wrapperCol={{ span: 16 }}>
-                {getFieldDecorator('roleNames', {})(<Input placeholder="请输入姓名" />)}
+                {getFieldDecorator('realName', {})(<Input placeholder="请输入姓名" />)}
               </Form.Item>
             </Col>
             <Col span={12}>
