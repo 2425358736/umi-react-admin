@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button, Form, Input, message } from 'antd';
+import { Modal, Button, Form, Input, notification } from 'antd';
 import { postRequest, jsonString } from '../../utils/api';
 import EditInfo from './components/EditInfo';
 import styles from './index.less';
@@ -23,7 +23,7 @@ class Profile extends React.Component {
    * 获取数据
    */
   fetchApi = async () => {
-    const data = await postRequest('/system/getUserInfo');
+    const data = await postRequest('/sys/getUserInfoDetailed');
     this.setState({
       fetchData: data.data,
       psOpen: false,
@@ -76,15 +76,15 @@ class Profile extends React.Component {
       const json = this.props.form.getFieldsValue();
       jsonString(json);
       if (json.newPassword !== json.confirmPassword) {
-        message.error('两次输入的密码不一致');
+        notification.error({ message: '两次输入的密码不一致', description: data.subMsg });
       }
       json.id = this.state.fetchData.id;
-      const data = await postRequest('/system/upPassword', json);
-      if (data.code === 0) {
-        message.success(`${data.message}`);
+      const data = await postRequest('/sys/upPassword', json);
+      if (data.status === 200) {
+        notification.success({ message: data.msg });
         this.fetchApi();
       } else {
-        message.error(`${data.message}`);
+        notification.error({ message: data.msg, description: data.subMsg });
       }
     }
     this.setState({
