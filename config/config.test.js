@@ -136,6 +136,10 @@ export default {
           path: '/notice',
           component: './notice/index',
         },
+        {
+          path: '/policyGuide',
+          component: './policyGuide/index',
+        },
       ],
     },
   ],

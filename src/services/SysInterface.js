@@ -181,3 +181,13 @@ export const RECEIVE_SENDER = '/announcement/noticeReceiveDetailsList'; // 接�
 export const HOME = '/household/getHomePageStatistics'; // 首页
 
 export const HOME2 = '/household/getHomePageTroops'; // 首页
+
+// ----------政策指南 ------------
+
+export const POLICYGUIDELIST = '/announcement/getPolicyGuideList'; // 政策指南列表
+
+export const ADDPOLICYGUIDE = '/announcement/addPolicyGuide'; // 添加政策指南
+
+export const POLICYGUIDEMSG = '/announcement/getPolicyGuideMsg'; // 详情
+
+export const UPDATEPOLICYGUIDE = '/announcement/updatePolicyGuide'; // 修改政策指南
