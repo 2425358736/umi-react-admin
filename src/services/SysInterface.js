@@ -191,3 +191,5 @@ export const ADDPOLICYGUIDE = '/announcement/addPolicyGuide'; // 添加政策指
 export const POLICYGUIDEMSG = '/announcement/getPolicyGuideMsg'; // 详情
 
 export const UPDATEPOLICYGUIDE = '/announcement/updatePolicyGuide'; // 修改政策指南
+
+export const POLICYGUIDEHEAD = '/announcement/getPolicyGuideHead'; // 政策指南头部

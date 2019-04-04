@@ -17,45 +17,45 @@ import NoticeAdd from './components/NoticeAdd';
 
 import styles from './index.less';
 
-import { NOTICE_LIST_HEADER, POLICYGUIDELIST } from '@/services/SysInterface';
+import { POLICYGUIDEHEAD, POLICYGUIDELIST } from '@/services/SysInterface';
 
 const topStatistics = {
   topJson: [
     {
       displayTitle: '总共',
-      displayField: 'zg',
+      displayField: 'allNum',
     },
     {
       displayTitle: '户籍',
-      displayField: 'xw',
-      queryTitle: '类型',
+      displayField: 'hjNum',
+      queryTitle: '服务类型',
       queryField: 'type',
       queryValue: ['0'],
     },
     {
       displayTitle: '教育',
-      displayField: 'gg',
-      queryTitle: '类型',
+      displayField: 'jyNum',
+      queryTitle: '服务类型',
       queryField: 'type',
       queryValue: ['1'],
     },
     {
       displayTitle: '养老保险',
-      displayField: 'tz',
-      queryTitle: '类型',
+      displayField: 'ylbxNum',
+      queryTitle: '服务类型',
       queryField: 'type',
       queryValue: ['2'],
     },
     {
       displayTitle: '医疗保险',
-      displayField: 'tz',
-      queryTitle: '类型',
+      displayField: 'ylNum',
+      queryTitle: '服务类型',
       queryField: 'type',
       queryValue: ['3'],
     },
     {
       displayTitle: '五保户',
-      displayField: 'tz',
+      displayField: 'wbhNum',
       queryTitle: '类型',
       queryField: 'type',
       queryValue: ['4'],
@@ -239,7 +239,7 @@ class Notice extends React.Component {
   render() {
     return (
       <div className={styles.baseTableWrap}>
-        <TopStatistics sourceUrl={NOTICE_LIST_HEADER} topJson={topStatistics.topJson} />
+        <TopStatistics sourceUrl={POLICYGUIDEHEAD} topJson={topStatistics.topJson} />
         <div className={styles.screenTag}>
           <Search
             ordinary={search.ordinary}
