@@ -106,7 +106,7 @@ class MemberDetail extends React.Component {
               </div>
               <div className={styles.itemDom}>
                 <span>微信手机号：</span>
-                <span>{fetchData.wxPhoneNumber}</span>
+                <span>{fetchData.phoneNumber}</span>
               </div>
             </div>
           </div>

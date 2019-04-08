@@ -6,14 +6,14 @@ import styles from '../index.less';
 
 import { SYS_Dict } from '@/services/SysInterface';
 
-class MemList extends React.Component {
+class NewMemList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       dataSource: [
         {
           id: 0,
-          relationship: 169,
+          relationship: null,
           fullName: '',
           sex: 0,
           nationalities: null,
@@ -112,7 +112,7 @@ class MemList extends React.Component {
         },
         {
           title: '性别',
-          width: '14%',
+          width: '12%',
           dataIndex: 'sex',
           render(text, record, index) {
             return (
@@ -162,12 +162,12 @@ class MemList extends React.Component {
         },
         {
           title: '身份证号',
-          width: '14%',
+          width: '18%',
           dataIndex: 'idNumber',
           render(text, record, index) {
             return (
               <Input
-                style={{ width: '100px' }}
+                style={{ width: '160px' }}
                 placeholder="请输入身份证号"
                 value={record.idNumber}
                 onChange={e => {
@@ -257,7 +257,7 @@ class MemList extends React.Component {
             </span>
           )}
           <Table
-            scroll={{ x: 880 }}
+            scroll={{ x: 1000 }}
             rowKey="id"
             pagination={false}
             columns={this.state.columns}
@@ -269,4 +269,4 @@ class MemList extends React.Component {
   }
 }
 
-export default MemList;
+export default NewMemList;

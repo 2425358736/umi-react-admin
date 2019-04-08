@@ -58,6 +58,11 @@ class AddMemberApply extends React.Component {
     let flag = true;
     const list = [...this.state.list];
     for (let i = 0, len = list.length; i < len; i += 1) {
+      if (!verVal(list[i].relationship)) {
+        notification.error({ message: `请选择与户主关系` });
+        flag = false;
+        return;
+      }
       if (!verVal(list[i].fullName)) {
         notification.error({ message: `请输入姓名` });
         flag = false;
