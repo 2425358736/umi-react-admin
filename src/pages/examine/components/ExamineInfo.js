@@ -88,7 +88,12 @@ class ExamineInfo extends React.Component {
           </div>
         </div>
 
-        <div className={styles.midWrap}>
+        <div
+          className={styles.midWrap}
+          style={{
+            display: fetchData.changeType === 0 && fetchData.auditStatus !== 2 ? 'none' : 'block',
+          }}
+        >
           <div className={styles.titleDom}>
             <span />
             {(fetchData.changeType === 1 || fetchData.changeType === 2) && (
