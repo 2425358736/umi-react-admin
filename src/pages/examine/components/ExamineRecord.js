@@ -42,7 +42,7 @@ class ExamineRecord extends React.Component {
           dataIndex: 'operationContent',
           render(text) {
             return text === 0
-              ? '迁入'
+              ? '录入'
               : text === 1
               ? '审核通过'
               : text === 2

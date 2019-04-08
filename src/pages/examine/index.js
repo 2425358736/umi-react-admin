@@ -263,7 +263,7 @@ class Examine extends React.Component {
               <OrdinaryTable
                 scroll={{
                   x: 1400,
-                  y: 'calc(100vh - 218px)',
+                  y: 'calc(100vh - 252px)',
                 }}
                 listUrl={EXAMINE_LIST}
                 columns={this.state.columns}

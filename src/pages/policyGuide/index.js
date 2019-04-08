@@ -256,7 +256,7 @@ class Notice extends React.Component {
             <OrdinaryTable
               scroll={{
                 x: 1350,
-                y: 'calc(100vh - 218px)',
+                y: 'calc(100vh - 252px)',
               }}
               listUrl={POLICYGUIDELIST}
               columns={this.state.columns}

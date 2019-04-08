@@ -260,7 +260,7 @@ class Household extends React.Component {
               <OrdinaryTable
                 scroll={{
                   x: 1200,
-                  y: 'calc(100vh - 218px)',
+                  y: 'calc(100vh - 252px)',
                 }}
                 listUrl={HOUSEHOLD_LIST}
                 columns={this.state.columns}

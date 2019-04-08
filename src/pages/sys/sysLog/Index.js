@@ -157,7 +157,7 @@ class Index extends React.Component {
             <OrdinaryTable
               scroll={{
                 x: 1600,
-                y: 'calc(100vh - 218px)',
+                y: 'calc(100vh - 252px)',
               }}
               listUrl={SYS_LOG_LIST}
               // isExport

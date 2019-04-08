@@ -105,7 +105,6 @@ class AddMemberApply extends React.Component {
       this.props.callback(true);
     } else {
       notification.error({ message: data.msg, description: data.subMsg });
-      this.props.callback(false);
     }
   };
 
