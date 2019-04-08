@@ -1,5 +1,6 @@
 import React from 'react';
-import { Divider } from 'antd';
+import { Menu, Dropdown, Divider, Icon, notification } from 'antd';
+import { deleteRequest } from '@/utils/api';
 
 import {
   ScreeningTag,
@@ -10,6 +11,7 @@ import {
   Add,
   Up,
   ExportButton,
+  Operation,
 } from '@/components/BusinessComponent/BusCom';
 
 import PayDetail from './components/PayDetail';
@@ -17,7 +19,7 @@ import PayAdd from './components/PayAdd';
 
 import styles from './index.less';
 
-import { PAYMENT_LIST_HEADER, PAYMENT_LIST } from '@/services/SysInterface';
+import { PAYMENT_LIST_HEADER, PAYMENT_LIST, PAYMENT_DELETE } from '@/services/SysInterface';
 
 const topStatistics = {
   topJson: [
@@ -114,6 +116,7 @@ class Payment extends React.Component {
   }
 
   componentDidMount = async () => {
+    const that = this;
     this.setState({
       columns: [
         {
@@ -188,6 +191,22 @@ class Payment extends React.Component {
           width: '12%',
           dataIndex: 'opt',
           render(text, record) {
+            const opRecord = (
+              <Menu>
+                <Menu.Item>
+                  <div>
+                    <Operation
+                      title="删除"
+                      mode={0}
+                      reminder="确认删除吗？"
+                      onClick={async () => {
+                        await that.deleteRow(record.id);
+                      }}
+                    />
+                  </div>
+                </Menu.Item>
+              </Menu>
+            );
             return (
               <div>
                 <Info title="缴费项目详情" info={<PayDetail id={record.id} />}>
@@ -197,12 +216,31 @@ class Payment extends React.Component {
                 {record.releaseStatus !== 2 && (
                   <Up id={record.id} width={800} title="编辑" component={PayAdd} />
                 )}
+                <Divider type="vertical" />
+                <Dropdown overlay={opRecord} placement="bottomLeft">
+                  <Icon
+                    type="ellipsis"
+                    style={{ paddingTop: '10px', fontSize: 14, color: '#1ab393' }}
+                  />
+                </Dropdown>
               </div>
             );
           },
         },
       ],
     });
+  };
+
+  /**
+   * 删除
+   */
+  deleteRow = async id => {
+    const data = await deleteRequest(`${PAYMENT_DELETE}?id=${id}`);
+    if (data.status === 200) {
+      notification.success({ message: data.msg });
+    } else {
+      notification.error({ message: data.msg, description: data.subMsg });
+    }
   };
 
   render() {

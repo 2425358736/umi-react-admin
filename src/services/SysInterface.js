@@ -157,6 +157,8 @@ export const PAYMENT_EDIT = '/payment/upPaymentItem'; // 缴费修改
 
 export const PAYMENT_ADD = '/payment/addPaymentItem'; // 缴费添加
 
+export const PAYMENT_DELETE = '/payment/delPaymentItem'; // 缴费删除
+
 // ------------ 缴费 end ----------------
 
 // ------------ 新闻公告 start ----------------
