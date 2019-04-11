@@ -91,7 +91,7 @@ class ExamineInfo extends React.Component {
         <div
           className={styles.midWrap}
           style={{
-            display: fetchData.changeType === 0 && fetchData.auditStatus !== 2 ? 'none' : 'block',
+            display: fetchData.auditStatus !== 2 ? 'block' : 'none',
           }}
         >
           <div className={styles.titleDom}>
@@ -106,13 +106,7 @@ class ExamineInfo extends React.Component {
             <span>成员列表</span>
           </div>
           <div>
-            {fetchData && fetchData.householdId && (
-              <InfoMemList
-                type={fetchData.changeType}
-                id={fetchData.householdId}
-                list={fetchData.list}
-              />
-            )}
+            {fetchData && fetchData.id && <InfoMemList list={fetchData.list} />}
             <div className={styles.conWrap}>
               {fetchData.changeType === 2 && (
                 <div className={styles.subPicWrap}>

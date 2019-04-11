@@ -3,7 +3,7 @@ import { Table } from 'antd';
 import { Info } from '@/components/BusinessComponent/BusCom';
 import MemberDetail from '../../member/components/MemberDetail';
 
-class MemList extends React.Component {
+class InfoMemList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -105,4 +105,4 @@ class MemList extends React.Component {
   }
 }
 
-export default MemList;
+export default InfoMemList;
