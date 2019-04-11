@@ -173,6 +173,8 @@ export const NOTICE_EDIT = '/announcement/upAnnouncement'; // 新闻公告修改
 
 export const NOTICE_ADD = '/announcement/addAnnouncement'; // 新闻公告添加
 
+export const NOTICE_DELETE = '/announcement/deleteAnnouncement'; // 新闻公告删除
+
 export const SELECT_SENDER = '/household/MemberList'; // 新闻公告选择发送人列表
 
 export const RECEIVE_SENDER = '/announcement/noticeReceiveDetailsList'; // 接收人列表

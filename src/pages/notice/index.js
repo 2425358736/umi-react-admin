@@ -1,5 +1,5 @@
 import React from 'react';
-import { Divider } from 'antd';
+import { Menu, Dropdown, Icon, Divider, notification } from 'antd';
 
 import {
   ScreeningTag,
@@ -10,14 +10,15 @@ import {
   Add,
   Up,
   ExportButton,
+  Operation,
 } from '@/components/BusinessComponent/BusCom';
 
 import NoticeDetail from './components/NoticeDetail';
 import NoticeAdd from './components/NoticeAdd';
-
+import { deleteRequest } from '@/utils/api';
 import styles from './index.less';
 
-import { NOTICE_LIST_HEADER, NOTICE_LIST } from '@/services/SysInterface';
+import { NOTICE_LIST_HEADER, NOTICE_LIST, NOTICE_DELETE } from '@/services/SysInterface';
 
 const topStatistics = {
   topJson: [
@@ -110,6 +111,7 @@ class Notice extends React.Component {
   }
 
   componentDidMount = async () => {
+    const that = this;
     this.setState({
       columns: [
         {
@@ -179,19 +181,53 @@ class Notice extends React.Component {
           width: '12%',
           dataIndex: 'opt',
           render(text, record) {
+            const opRecord = (
+              <Menu>
+                <Menu.Item>
+                  <Up id={record.id} width={800} title="编辑" component={NoticeAdd} />
+                </Menu.Item>
+                <Menu.Item>
+                  <Operation
+                    title="删除"
+                    mode={0}
+                    reminder="确认删除吗？"
+                    onClick={async () => {
+                      await that.deleteRow(record.id);
+                    }}
+                  />
+                </Menu.Item>
+              </Menu>
+            );
             return (
               <div>
                 <Info title="通告详情" info={<NoticeDetail id={record.id} />}>
                   详情
                 </Info>
                 <Divider type="vertical" />
-                <Up id={record.id} width={800} title="编辑" component={NoticeAdd} />
+                <Dropdown overlay={opRecord} placement="bottomLeft">
+                  <Icon
+                    type="ellipsis"
+                    style={{ paddingTop: '10px', fontSize: 14, color: '#1ab393' }}
+                  />
+                </Dropdown>
               </div>
             );
           },
         },
       ],
     });
+  };
+
+  /**
+   * 删除
+   */
+  deleteRow = async id => {
+    const data = await deleteRequest(`${NOTICE_DELETE}?id=${id}`);
+    if (data.status === 200) {
+      notification.success({ message: data.msg });
+    } else {
+      notification.error({ message: data.msg, description: data.subMsg });
+    }
   };
 
   render() {
