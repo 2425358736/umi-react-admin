@@ -1,14 +1,14 @@
 import React, { PureComponent } from 'react';
 import { FormattedMessage, formatMessage } from 'umi/locale';
-import { Spin, Tag, Menu, Icon, Avatar, Tooltip, notification } from 'antd';
+import { Spin, Tag, Menu, Icon, Avatar, notification } from 'antd';
 import moment from 'moment';
 import groupBy from 'lodash/groupBy';
 import { NoticeIcon } from 'ant-design-pro';
 import Link from 'umi/link';
 import Websocket from 'react-websocket';
-import HeaderSearch from '../HeaderSearch';
+// import HeaderSearch from '../HeaderSearch';
 import HeaderDropdown from '../HeaderDropdown';
-import SelectLang from '../SelectLang';
+// import SelectLang from '../SelectLang';
 import styles from './index.less';
 import { postRequest, ws } from '@/utils/api';
 
@@ -166,31 +166,31 @@ export default class GlobalHeaderRight extends PureComponent {
             }}
           />
         )}
-        <HeaderSearch
-          className={`${styles.action} ${styles.search}`}
-          placeholder={formatMessage({ id: 'component.globalHeader.search' })}
-          dataSource={[
-            formatMessage({ id: 'component.globalHeader.search.example1' }),
-            formatMessage({ id: 'component.globalHeader.search.example2' }),
-            formatMessage({ id: 'component.globalHeader.search.example3' }),
-          ]}
-          onSearch={value => {
-            console.log('input', value); // eslint-disable-line
-          }}
-          onPressEnter={value => {
-            console.log('enter', value); // eslint-disable-line
-          }}
-        />
-        <Tooltip title={formatMessage({ id: 'component.globalHeader.help' })}>
-          <a
-            target="_blank"
-            href="https://pro.ant.design/docs/getting-started"
-            rel="noopener noreferrer"
-            className={styles.action}
-          >
-            <Icon type="question-circle-o" />
-          </a>
-        </Tooltip>
+        {/* <HeaderSearch */}
+        {/* className={`${styles.action} ${styles.search}`} */}
+        {/* placeholder={formatMessage({ id: 'component.globalHeader.search' })} */}
+        {/* dataSource={[ */}
+        {/* formatMessage({ id: 'component.globalHeader.search.example1' }), */}
+        {/* formatMessage({ id: 'component.globalHeader.search.example2' }), */}
+        {/* formatMessage({ id: 'component.globalHeader.search.example3' }), */}
+        {/* ]} */}
+        {/* onSearch={value => { */}
+        {/* console.log('input', value); // eslint-disable-line */}
+        {/* }} */}
+        {/* onPressEnter={value => { */}
+        {/* console.log('enter', value); // eslint-disable-line */}
+        {/* }} */}
+        {/* /> */}
+        {/* <Tooltip title={formatMessage({ id: 'component.globalHeader.help' })}> */}
+        {/* <a */}
+        {/* target="_blank" */}
+        {/* href="https://pro.ant.design/docs/getting-started" */}
+        {/* rel="noopener noreferrer" */}
+        {/* className={styles.action} */}
+        {/* > */}
+        {/* <Icon type="question-circle-o" /> */}
+        {/* </a> */}
+        {/* </Tooltip> */}
         <NoticeIcon
           className={styles.action}
           count={this.state.notices.length}
@@ -249,7 +249,7 @@ export default class GlobalHeaderRight extends PureComponent {
         ) : (
           <Spin size="small" style={{ marginLeft: 8, marginRight: 8 }} />
         )}
-        <SelectLang className={styles.action} />
+        {/* <SelectLang className={styles.action} /> */}
       </div>
     );
   }
