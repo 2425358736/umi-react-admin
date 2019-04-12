@@ -17,7 +17,7 @@ class ExportButton extends React.Component {
     const plainOptions = [];
     this.props.columns.forEach(json => {
       plainOptions.push(json.title);
-      if (json.export) {
+      if (!json.export) {
         checkedList.push(json.title);
       }
     });
