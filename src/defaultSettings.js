@@ -9,7 +9,7 @@ module.exports = {
   menu: {
     disableLocal: false,
   },
-  title: 'Ant Design Pro',
+  title: '智慧新村',
   pwa: true,
   iconfontUrl: '',
   collapse: true,
