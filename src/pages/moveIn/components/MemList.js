@@ -90,7 +90,7 @@ class MemList extends React.Component {
               ) : (
                 <Select
                   showSearch
-                  style={{ width: '150px' }}
+                  style={{ width: '100px' }}
                   placeholder="请选择与户主关系"
                   optionFilterProp="children"
                   value={record.relationship}
@@ -124,6 +124,7 @@ class MemList extends React.Component {
                 <span>{record.fullName}</span>
               ) : (
                 <Input
+                  style={{ width: '100px' }}
                   placeholder="请输入姓名"
                   value={record.fullName}
                   onChange={e => {
@@ -211,6 +212,7 @@ class MemList extends React.Component {
                 <span>{text}</span>
               ) : (
                 <Input
+                  style={{ width: '180px' }}
                   placeholder="请输入身份证号"
                   value={record.idNumber}
                   onChange={e => {

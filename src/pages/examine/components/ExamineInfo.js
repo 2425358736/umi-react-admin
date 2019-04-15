@@ -88,12 +88,7 @@ class ExamineInfo extends React.Component {
           </div>
         </div>
 
-        <div
-          className={styles.midWrap}
-          style={{
-            display: fetchData.changeType === 0 && fetchData.auditStatus !== 2 ? 'none' : 'block',
-          }}
-        >
+        <div className={styles.midWrap}>
           <div className={styles.titleDom}>
             <span />
             {(fetchData.changeType === 1 || fetchData.changeType === 2) && (
@@ -106,22 +101,8 @@ class ExamineInfo extends React.Component {
             <span>成员列表</span>
           </div>
           <div>
-            {fetchData && fetchData.householdId && (
-              <InfoMemList
-                type={fetchData.changeType}
-                id={fetchData.householdId}
-                list={fetchData.list}
-              />
-            )}
+            {fetchData && fetchData.id && <InfoMemList list={fetchData.list} />}
             <div className={styles.conWrap}>
-              {fetchData.changeType === 2 && (
-                <div className={styles.subPicWrap}>
-                  <div className={styles.imgWrap}>
-                    <img src={fetchData.homePicture} alt="" />
-                  </div>
-                  <p>户主页</p>
-                </div>
-              )}
               <ul className={styles.historyUl}>
                 <li>
                   <div className={styles.historyImgWrap}>
