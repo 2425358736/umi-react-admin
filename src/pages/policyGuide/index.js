@@ -60,6 +60,13 @@ const topStatistics = {
       queryField: 'type',
       queryValue: ['4'],
     },
+    {
+      displayTitle: '计划生育',
+      displayField: 'jhNum',
+      queryTitle: '类型',
+      queryField: 'type',
+      queryValue: ['5'],
+    },
   ],
 };
 
@@ -156,6 +163,10 @@ class Notice extends React.Component {
             },
             {
               text: '五保户',
+              value: '4',
+            },
+            {
+              text: '计划生育',
               value: '4',
             },
           ],

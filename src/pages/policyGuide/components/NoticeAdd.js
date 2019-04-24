@@ -161,6 +161,7 @@ class NoticeAdd extends React.Component {
                   <Radio value="2">养老保险</Radio>
                   <Radio value="3">医疗保险</Radio>
                   <Radio value="4">五保户</Radio>
+                  <Radio value="5">计划生育</Radio>
                 </Radio.Group>
               )}
             </Form.Item>
