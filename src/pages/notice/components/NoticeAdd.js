@@ -111,6 +111,12 @@ class NoticeAdd extends React.Component {
       adopt = !err;
     });
     if (adopt) {
+      if (this.props.form.getFieldValue('type') === 2) {
+        if (Array.isArray(this.state.idArr) && this.state.idArr.length === 0) {
+          notification.error({ message: '请选择接收人' });
+          return;
+        }
+      }
       this.setState({
         buttonLoading: true,
       });
@@ -205,7 +211,7 @@ class NoticeAdd extends React.Component {
             {selectType === 2 && (
               <div className={styles.rowDom}>
                 <span>
-                  <span style={{ color: 'f00' }}>*</span>发送人：
+                  <span style={{ color: 'f00' }}>*</span>接收人：
                 </span>
                 {Array.isArray(this.state.objArr) && this.state.objArr.length > 0 ? (
                   this.state.objArr.map(item => (
