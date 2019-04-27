@@ -1,4 +1,5 @@
 import React from 'react';
+import { Divider } from 'antd';
 import { postRequest } from '@/utils/api';
 
 import {
@@ -8,9 +9,12 @@ import {
   ScreeningTag,
   Info,
   ExportButton,
+  Up,
 } from '@/components/BusinessComponent/BusCom';
 
 import MemberDetail from './components/MemberDetail';
+
+import MemEdit from './components/MemEdit';
 
 import styles from './index.less';
 
@@ -288,20 +292,6 @@ class MemberList extends React.Component {
           width: '4%',
           dataIndex: 'moveOutTypeName',
         },
-        {
-          title: '操作',
-          width: '6%',
-          dataIndex: 'opt',
-          render(text, record) {
-            return (
-              <div>
-                <Info title="社员详情" info={<MemberDetail id={record.id} />}>
-                  详情
-                </Info>
-              </div>
-            );
-          },
-        },
       ],
     };
   }
@@ -503,6 +493,8 @@ class MemberList extends React.Component {
           render(text, record) {
             return (
               <div>
+                <Up id={record.id} width={800} title="编辑" component={MemEdit} />
+                <Divider type="vertical" />
                 <Info title="社员详情" info={<MemberDetail id={record.id} />}>
                   详情
                 </Info>

@@ -125,6 +125,8 @@ export const SUB_MEMBER = '/household/abatementMember'; // 减员申请
 
 export const DELETE_MEMBER = '/household/cancellation'; // 注销申请
 
+export const EDIT_MEMBER = '/household/updateHouseholdMember'; // 编辑成员
+
 // ------------ 成员 end ----------------
 
 // ------------ 党建 start ----------------
