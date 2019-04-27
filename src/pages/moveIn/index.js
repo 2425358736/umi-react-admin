@@ -2,7 +2,7 @@ import React from 'react';
 import { Spin, Button, Input, Form, Select, notification } from 'antd';
 import UploadImg from '../../components/UpLoad/UploadImage';
 import MemList from './components/MemList';
-import { postRequest, jsonString, verVal, IdentityCodeValid } from '@/utils/api';
+import { postRequest, verVal, IdentityCodeValid } from '@/utils/api';
 
 import { SYS_Dict, MOVE_IN } from '@/services/SysInterface';
 
@@ -17,6 +17,7 @@ class MoveIn extends React.Component {
     super(props);
     this.state = {
       queueArr: [],
+      moveInTypeArr: [],
       buttonLoading: false,
       loading: false,
       getList: false,
@@ -37,6 +38,11 @@ class MoveIn extends React.Component {
     const queueArr = await postRequest(`${SYS_Dict}/6`);
     if (queueArr.status === 200) {
       this.setState({ queueArr: queueArr.data });
+    }
+    // 迁入类型列表
+    const moveInTypeArr = await postRequest(`${SYS_Dict}/11`);
+    if (moveInTypeArr.status === 200) {
+      this.setState({ moveInTypeArr: moveInTypeArr.data });
     }
 
     this.setState({ loading: false });
@@ -115,7 +121,6 @@ class MoveIn extends React.Component {
         buttonLoading: true,
       });
       let json = this.props.form.getFieldsValue();
-      jsonString(json);
       json = {
         ...json,
         list: this.state.list,
@@ -226,6 +231,44 @@ class MoveIn extends React.Component {
                   },
                 ],
               })(<Input placeholder="请输入住址" />)}
+            </Form.Item>
+            <Form.Item
+              className={styles.inputDom}
+              label="迁入日期"
+              labelCol={{ span: 6 }}
+              wrapperCol={{ span: 16 }}
+            >
+              {getFieldDecorator('moveInDate', {
+                rules: [
+                  {
+                    required: false,
+                    message: '请输入迁入日期',
+                  },
+                ],
+              })(<Input placeholder="请输入迁入日期" />)}
+            </Form.Item>
+            <Form.Item
+              className={styles.inputDom}
+              label="迁入类型"
+              labelCol={{ span: 6 }}
+              wrapperCol={{ span: 16 }}
+            >
+              {getFieldDecorator('moveInType', {
+                rules: [
+                  {
+                    required: false,
+                    message: '请选择迁入类型',
+                  },
+                ],
+              })(
+                <Select showSearch placeholder="请选择迁入类型" optionFilterProp="children">
+                  {this.state.moveInTypeArr.map(item => (
+                    <Select.Option key={item.id} value={item.id}>
+                      {item.dataLabel}
+                    </Select.Option>
+                  ))}
+                </Select>
+              )}
             </Form.Item>
             <div className={styles.uploadWrap}>
               <h4>
