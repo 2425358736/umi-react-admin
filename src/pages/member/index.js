@@ -130,6 +130,26 @@ const exportButton = {
       title: '住址',
       column: 'homeAddress',
     },
+    {
+      title: '状态',
+      column: 'memState',
+    },
+    {
+      title: '迁入日期',
+      column: 'moveInDate',
+    },
+    {
+      title: '迁入类型',
+      column: 'moveInTypeName',
+    },
+    {
+      title: '迁出日期',
+      column: 'moveOutDate',
+    },
+    {
+      title: '迁出类型',
+      column: 'moveOutTypeName',
+    },
   ],
 };
 class MemberList extends React.Component {
@@ -139,18 +159,18 @@ class MemberList extends React.Component {
       columns: [
         {
           title: '序号',
-          width: '5%',
+          width: '3%',
           dataIndex: 'id',
           isIncrement: true,
         },
         {
           title: '姓名',
-          width: '6%',
+          width: '4%',
           dataIndex: 'fullName',
         },
         {
           title: '性别',
-          width: '6%',
+          width: '4%',
           dataIndex: 'sex',
           column: 'sex',
           filters: [
@@ -173,7 +193,7 @@ class MemberList extends React.Component {
         },
         {
           title: '民族',
-          width: '6%',
+          width: '4%',
           dataIndex: 'nationalities',
           column: 'nationalitiesStr',
           filters: [],
@@ -198,50 +218,75 @@ class MemberList extends React.Component {
         },
         {
           title: '出生日期',
-          width: '8%',
+          width: '6%',
           dataIndex: 'birthDate',
         },
         {
           title: '年龄',
-          width: '6%',
+          width: '4%',
           dataIndex: 'age',
         },
         {
           title: '户号',
-          width: '6%',
+          width: '4%',
           dataIndex: 'householdRegisterNumber',
         },
         {
           title: '编号',
-          width: '6%',
+          width: '4%',
           dataIndex: 'householdNumber',
         },
         {
           title: '户主',
-          width: '6%',
+          width: '5%',
           dataIndex: 'householderName',
         },
         {
           title: '与户主关系',
-          width: '8%',
+          width: '6%',
           dataIndex: 'relationship',
           column: 'relationshipStr',
           filters: [],
         },
         {
           title: '几队',
-          width: '6%',
+          width: '4%',
           dataIndex: 'troops',
           column: 'troopsStr',
           filters: [],
         },
         {
           title: '住址',
-          width: '8%',
+          width: '5%',
           dataIndex: 'homeAddress',
           render(text) {
             return <span style={{ wordBreak: 'break-all' }}>{text}</span>;
           },
+        },
+        {
+          title: '状态',
+          width: '4%',
+          dataIndex: 'memStateStr',
+        },
+        {
+          title: '迁入日期',
+          width: '4%',
+          dataIndex: 'moveInDate',
+        },
+        {
+          title: '迁入类型',
+          width: '4%',
+          dataIndex: 'moveInTypeName',
+        },
+        {
+          title: '迁出日期',
+          width: '4%',
+          dataIndex: 'moveOutDate',
+        },
+        {
+          title: '迁出类型',
+          width: '4%',
+          dataIndex: 'moveOutTypeName',
         },
         {
           title: '操作',
@@ -366,7 +411,7 @@ class MemberList extends React.Component {
         },
         {
           title: '身份证号',
-          width: '10%',
+          width: '6%',
           dataIndex: 'idNumber',
         },
         {
@@ -381,7 +426,7 @@ class MemberList extends React.Component {
         },
         {
           title: '出生日期',
-          width: '8%',
+          width: '6%',
           dataIndex: 'birthDate',
         },
         {
@@ -391,12 +436,12 @@ class MemberList extends React.Component {
         },
         {
           title: '户号',
-          width: '6%',
+          width: '4%',
           dataIndex: 'householdRegisterNumber',
         },
         {
           title: '编号',
-          width: '5%',
+          width: '4%',
           dataIndex: 'householdNumber',
         },
         {
@@ -406,25 +451,50 @@ class MemberList extends React.Component {
         },
         {
           title: '与户主关系',
-          width: '8%',
+          width: '6%',
           dataIndex: 'relationship',
           column: 'relationshipStr',
           filters: arr4,
         },
         {
           title: '几队',
-          width: '6%',
+          width: '4%',
           dataIndex: 'troops',
           column: 'troopsStr',
           filters: arr,
         },
         {
           title: '住址',
-          width: '8%',
+          width: '5%',
           dataIndex: 'homeAddress',
           render(text) {
             return <span style={{ wordBreak: 'break-all' }}>{text}</span>;
           },
+        },
+        {
+          title: '状态',
+          width: '4%',
+          dataIndex: 'memStateStr',
+        },
+        {
+          title: '迁入日期',
+          width: '4%',
+          dataIndex: 'moveInDate',
+        },
+        {
+          title: '迁入类型',
+          width: '4%',
+          dataIndex: 'moveInTypeName',
+        },
+        {
+          title: '迁出日期',
+          width: '4%',
+          dataIndex: 'moveOutDate',
+        },
+        {
+          title: '迁出类型',
+          width: '4%',
+          dataIndex: 'moveOutTypeName',
         },
         {
           title: '操作',
@@ -463,7 +533,7 @@ class MemberList extends React.Component {
             <div>
               <OrdinaryTable
                 scroll={{
-                  x: 2000,
+                  x: 2600,
                   y: 'calc(100vh - 252px)',
                 }}
                 listUrl={MEMBER_LIST}

@@ -91,6 +91,8 @@ export const EXAMINE_Detail = '/household/householdChangeInfo'; // 审批详情
 
 export const EXAMINE_RECORD = '/household/auditRecord'; // 审批记录
 
+export const EXAMINE_CONFIRM = '/household/confirm'; // 审核确认
+
 export const MOVEIN_CANCEL = '/household/cancel'; // 迁入作废
 
 export const MOVEIN_SUCCESS = '/household/auditSuccess'; // 迁入通过

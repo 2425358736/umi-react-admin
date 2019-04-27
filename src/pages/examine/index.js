@@ -1,9 +1,10 @@
 import React from 'react';
-
+import { Divider, notification } from 'antd';
 import {
   ScreeningTag,
   OrdinaryTable,
   TopStatistics,
+  Operation,
   Search,
   Info,
 } from '@/components/BusinessComponent/BusCom';
@@ -13,9 +14,14 @@ import ExamineInfo from './components/ExamineInfo';
 
 import styles from './index.less';
 
-import { postRequest } from '@/utils/api';
+import { getRequest, postRequest } from '@/utils/api';
 
-import { EXAMINE_LIST, EXAMINE_LIST_HEADER, SYS_Dict } from '@/services/SysInterface';
+import {
+  EXAMINE_LIST,
+  EXAMINE_LIST_HEADER,
+  SYS_Dict,
+  EXAMINE_CONFIRM,
+} from '@/services/SysInterface';
 
 const topStatistics = {
   topJson: [
@@ -92,6 +98,7 @@ class Examine extends React.Component {
   }
 
   componentWillMount = async () => {
+    const that = this;
     // 几队列表
     const arr = [];
     const queueArr = await postRequest(`${SYS_Dict}/6`);
@@ -241,12 +248,31 @@ class Examine extends React.Component {
                     详情
                   </Info>
                 )}
+                {record.auditStatus === 0 && <Divider type="vertical" />}
+                {record.auditStatus === 0 && (
+                  <Operation
+                    title="确认"
+                    mode={0}
+                    onClick={async () => {
+                      await that.confirmSubmit(record.id);
+                    }}
+                  />
+                )}
               </span>
             );
           },
         },
       ],
     });
+  };
+
+  confirmSubmit = async id => {
+    const data = await getRequest(`${EXAMINE_CONFIRM}?id=${id}`);
+    if (data.status === 200) {
+      notification.success({ message: data.msg });
+    } else {
+      notification.error({ message: data.msg, description: data.subMsg });
+    }
   };
 
   render() {
