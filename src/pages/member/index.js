@@ -70,6 +70,26 @@ const search = {
       queryField: 'birthEndDate',
       component: 'DatePicker',
     },
+    {
+      queryTitle: '迁入日期起',
+      queryField: 'inStartDate',
+      component: 'DatePicker',
+    },
+    {
+      queryTitle: '迁出日期止',
+      queryField: 'inEndDate',
+      component: 'DatePicker',
+    },
+    {
+      queryTitle: '迁出日期起',
+      queryField: 'outStartDate',
+      component: 'DatePicker',
+    },
+    {
+      queryTitle: '迁出日期止',
+      queryField: 'outEndDate',
+      component: 'DatePicker',
+    },
   ],
 };
 const exportButton = {
@@ -175,7 +195,18 @@ class MemberList extends React.Component {
         {
           title: '状态',
           width: '4%',
-          dataIndex: 'memStateStr',
+          dataIndex: 'memState',
+          column: 'memStateStr',
+          filters: [
+            {
+              text: '正常',
+              value: '0',
+            },
+            {
+              text: '注销',
+              value: '1',
+            },
+          ],
         },
         {
           title: '迁入日期',
@@ -185,7 +216,9 @@ class MemberList extends React.Component {
         {
           title: '迁入类型',
           width: '4%',
-          dataIndex: 'moveInTypeName',
+          dataIndex: 'moveInType',
+          column: 'moveInTypeName',
+          filters: [],
         },
         {
           title: '迁出日期',
@@ -195,7 +228,9 @@ class MemberList extends React.Component {
         {
           title: '迁出类型',
           width: '4%',
-          dataIndex: 'moveOutTypeName',
+          dataIndex: 'moveOutType',
+          column: 'moveOutTypeName',
+          filters: [],
         },
         {
           title: '性别',
@@ -264,6 +299,7 @@ class MemberList extends React.Component {
           title: '编号',
           width: '4%',
           dataIndex: 'householdNumber',
+          sorter: true,
         },
         {
           title: '户主',
@@ -355,10 +391,42 @@ class MemberList extends React.Component {
     return arr4;
   };
 
+  moveInTypeArr = async () => {
+    // 迁入类型
+    const arr5 = [];
+    const moveInTypeArr = await postRequest(`${SYS_Dict}/11`);
+    if (moveInTypeArr.status === 200) {
+      moveInTypeArr.data.forEach(item => {
+        arr5.push({
+          text: item.dataLabel,
+          value: item.id.toString(),
+        });
+      });
+    }
+    return arr5;
+  };
+
+  moveOutTypeArr = async () => {
+    // 迁入类型
+    const arr6 = [];
+    const moveOutTypeArr = await postRequest(`${SYS_Dict}/12`);
+    if (moveOutTypeArr.status === 200) {
+      moveOutTypeArr.data.forEach(item => {
+        arr6.push({
+          text: item.dataLabel,
+          value: item.id.toString(),
+        });
+      });
+    }
+    return arr6;
+  };
+
   componentWillMount = async () => {
     const arr = await this.queueArr();
     const arr3 = await this.nationArr();
     const arr4 = await this.withArr();
+    const arr5 = await this.moveInTypeArr();
+    const arr6 = await this.moveOutTypeArr();
     this.setState({
       columns: [
         {
@@ -401,7 +469,9 @@ class MemberList extends React.Component {
         {
           title: '迁入类型',
           width: '4%',
-          dataIndex: 'moveInTypeName',
+          dataIndex: 'moveInType',
+          column: 'moveInTypeName',
+          filters: arr5,
         },
         {
           title: '迁出日期',
@@ -411,7 +481,9 @@ class MemberList extends React.Component {
         {
           title: '迁出类型',
           width: '4%',
-          dataIndex: 'moveOutTypeName',
+          dataIndex: 'moveOutType',
+          column: 'moveOutTypeName',
+          filters: arr6,
         },
         {
           title: '性别',
@@ -474,6 +546,7 @@ class MemberList extends React.Component {
           title: '编号',
           width: '4%',
           dataIndex: 'householdNumber',
+          sorter: true,
         },
         {
           title: '户主',

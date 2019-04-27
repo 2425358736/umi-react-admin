@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { Spin, Button, Form, Select, Input, notification } from 'antd';
 import NowMemList from './components/NowMemList';
-import { getRequest, postRequest, deleteRequest, IdentityCodeValid } from '@/utils/api';
+import { getRequest, postRequest, deleteRequest, IdentityCodeValid, verVal } from '@/utils/api';
 
 import { HOUSEHOLD_DETAIL, DELETE_MEMBER, SYS_Dict } from '@/services/SysInterface';
 
@@ -60,8 +60,8 @@ class DeleteApply extends React.Component {
       }
     });
 
-    let moveOutDate = this.props.form.getFieldValue('moveOutDate');
-    const moveOutType = this.props.form.getFieldValue('moveOutType');
+    let moveOutDate = this.props.form.getFieldValue('moveOutDate') || null;
+    const moveOutType = this.props.form.getFieldValue('moveOutType') || null;
 
     if (moveOutDate) {
       moveOutDate = moment(moveOutDate, 'YYYYMMDD').format('YYYY-MM-DD');
@@ -79,9 +79,14 @@ class DeleteApply extends React.Component {
       buttonLoading: true,
     });
 
-    const data = await deleteRequest(
-      `${DELETE_MEMBER}?id=${this.props.id}&moveOutDate=${moveOutDate}&moveOutType=${moveOutType}`
-    );
+    let url = `${DELETE_MEMBER}?id=${this.props.id}`;
+    if (verVal(moveOutDate)) {
+      url += `&moveOutDate=${moveOutDate}`;
+    }
+    if (verVal(moveOutType)) {
+      url += `&moveOutType=${moveOutType}`;
+    }
+    const data = await deleteRequest(url);
     this.setState({
       buttonLoading: false,
     });
