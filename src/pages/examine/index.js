@@ -44,7 +44,7 @@ const topStatistics = {
       queryValue: ['1'],
     },
     {
-      displayTitle: '审核通过',
+      displayTitle: '确认通过',
       displayField: 'complete',
       queryTitle: '状态',
       queryField: 'auditStatus',
@@ -205,7 +205,7 @@ class Examine extends React.Component {
               value: '1',
             },
             {
-              text: '审核通过',
+              text: '确认通过',
               value: '2',
             },
             {
@@ -248,8 +248,8 @@ class Examine extends React.Component {
                     详情
                   </Info>
                 )}
-                {record.auditStatus === 2 && <Divider type="vertical" />}
-                {record.auditStatus === 2 && (
+                {record.auditStatus === 1 && <Divider type="vertical" />}
+                {record.auditStatus === 1 && (
                   <Operation
                     title="确认"
                     mode={0}
