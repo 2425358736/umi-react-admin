@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import { Spin, Button, Form, Select, Input, notification } from 'antd';
 import NowMemList from './components/NowMemList';
 import { getRequest, postRequest, deleteRequest, IdentityCodeValid } from '@/utils/api';
@@ -58,14 +59,26 @@ class DeleteApply extends React.Component {
         flag = false;
       }
     });
+
+    let moveOutDate = this.props.form.getFieldValue('moveOutDate');
+    const moveOutType = this.props.form.getFieldValue('moveOutType');
+
+    if (moveOutDate) {
+      moveOutDate = moment(moveOutDate, 'YYYYMMDD').format('YYYY-MM-DD');
+      if (moveOutDate === 'Invalid date') {
+        flag = false;
+        moveOutDate = null;
+        notification.error({ message: '迁出日期格式不正确，示例（2019年01月25日）：20190125' });
+      }
+    }
+
     if (!flag) {
       return;
     }
     this.setState({
       buttonLoading: true,
     });
-    const moveOutDate = this.props.form.getFieldValue('moveOutDate');
-    const moveOutType = this.props.form.getFieldValue('moveOutType');
+
     const data = await deleteRequest(
       `${DELETE_MEMBER}?id=${this.props.id}&moveOutDate=${moveOutDate}&moveOutType=${moveOutType}`
     );

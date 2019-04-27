@@ -1,5 +1,6 @@
 import React from 'react';
 import { Spin, Button, Input, Form, Select, notification } from 'antd';
+import moment from 'moment';
 import UploadImg from '../../components/UpLoad/UploadImage';
 import MemList from './components/MemList';
 import { postRequest, verVal, IdentityCodeValid } from '@/utils/api';
@@ -80,6 +81,16 @@ class MoveIn extends React.Component {
     this.props.form.validateFields(err => {
       adopt = !err;
     });
+    const obj = this.props.form.getFieldsValue();
+    let { moveInDate } = obj;
+    if (moveInDate) {
+      moveInDate = moment(moveInDate, 'YYYYMMDD').format('YYYY-MM-DD');
+      if (moveInDate === 'Invalid date') {
+        adopt = false;
+        moveInDate = null;
+        notification.error({ message: '迁入日期格式不正确，示例（2019年01月25日）：20190125' });
+      }
+    }
     if (adopt) {
       if (!verVal(this.homePicture)) {
         notification.error({ message: '请上传户主页' });
@@ -126,6 +137,7 @@ class MoveIn extends React.Component {
         list: this.state.list,
         homePicture: this.homePicture,
         indexPictures: this.indexPictures,
+        moveInDate,
       };
       const data = await postRequest(MOVE_IN, json);
       this.setState({
