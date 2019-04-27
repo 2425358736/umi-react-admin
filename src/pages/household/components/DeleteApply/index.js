@@ -1,9 +1,9 @@
 import React from 'react';
-import { Spin, Button, notification } from 'antd';
+import { Spin, Button, Form, Select, Input, notification } from 'antd';
 import NowMemList from './components/NowMemList';
-import { getRequest, deleteRequest, IdentityCodeValid } from '@/utils/api';
+import { getRequest, postRequest, deleteRequest, IdentityCodeValid } from '@/utils/api';
 
-import { HOUSEHOLD_DETAIL, DELETE_MEMBER } from '@/services/SysInterface';
+import { HOUSEHOLD_DETAIL, DELETE_MEMBER, SYS_Dict } from '@/services/SysInterface';
 
 const styles = require('./index.less');
 
@@ -14,6 +14,7 @@ class DeleteApply extends React.Component {
     super(props);
     this.state = {
       fetchData: {},
+      moveOutTypeArr: [],
       buttonLoading: false,
       loading: false,
       getList: false,
@@ -21,6 +22,11 @@ class DeleteApply extends React.Component {
   }
 
   componentDidMount = async () => {
+    // 迁出类型列表
+    const moveOutTypeArr = await postRequest(`${SYS_Dict}/12`);
+    if (moveOutTypeArr.status === 200) {
+      this.setState({ moveOutTypeArr: moveOutTypeArr.data });
+    }
     const data = await getRequest(`${HOUSEHOLD_DETAIL}?id=${this.props.id}`);
     if (data.status === 200) {
       this.indexPictures = data.data.indexPictures;
@@ -58,7 +64,11 @@ class DeleteApply extends React.Component {
     this.setState({
       buttonLoading: true,
     });
-    const data = await deleteRequest(`${DELETE_MEMBER}?id=${this.props.id}`);
+    const moveOutDate = this.props.form.getFieldValue('moveOutDate');
+    const moveOutType = this.props.form.getFieldValue('moveOutType');
+    const data = await deleteRequest(
+      `${DELETE_MEMBER}?id=${this.props.id}&moveOutDate=${moveOutDate}&moveOutType=${moveOutType}`
+    );
     this.setState({
       buttonLoading: false,
     });
@@ -79,6 +89,7 @@ class DeleteApply extends React.Component {
   };
 
   render() {
+    const { getFieldDecorator } = this.props.form;
     const { fetchData } = this.state;
     return (
       <Spin spinning={this.state.loading}>
@@ -127,6 +138,49 @@ class DeleteApply extends React.Component {
             </li>
           </ul>
 
+          <div className={styles.formWrap}>
+            <Form>
+              <Form.Item
+                className={styles.inputDom}
+                label="迁出日期"
+                labelCol={{ span: 6 }}
+                wrapperCol={{ span: 16 }}
+              >
+                {getFieldDecorator('moveOutDate', {
+                  rules: [
+                    {
+                      required: false,
+                      message: '请输入迁出日期',
+                    },
+                  ],
+                })(<Input placeholder="请输入迁出日期" />)}
+              </Form.Item>
+              <Form.Item
+                className={styles.inputDom}
+                label="迁出类型"
+                labelCol={{ span: 6 }}
+                wrapperCol={{ span: 16 }}
+              >
+                {getFieldDecorator('moveOutType', {
+                  rules: [
+                    {
+                      required: false,
+                      message: '请选择迁出类型',
+                    },
+                  ],
+                })(
+                  <Select showSearch placeholder="请选择迁出类型" optionFilterProp="children">
+                    {this.state.moveOutTypeArr.map(item => (
+                      <Select.Option key={item.id} value={item.id}>
+                        {item.dataLabel}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                )}
+              </Form.Item>
+            </Form>
+          </div>
+
           {/* 分割线 */}
 
           <div className={styles.titleDom}>
@@ -162,4 +216,5 @@ class DeleteApply extends React.Component {
   }
 }
 
-export default DeleteApply;
+const DeleteApplyComponent = Form.create()(DeleteApply);
+export default DeleteApplyComponent;
