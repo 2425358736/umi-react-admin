@@ -72,14 +72,6 @@ class MoveInExamine extends React.Component {
       adopt = !err;
     });
     if (adopt) {
-      if (!verVal(this.homePicture)) {
-        notification.error({ message: '请上传户主页' });
-        return;
-      }
-      if (!verVal(this.indexPictures)) {
-        notification.error({ message: '请上传索引页' });
-        return;
-      }
       if (this.state.fetchData.changeType === 0) {
         if (!verVal(this.props.form.getFieldValue('householdNumber'))) {
           notification.error({ message: '请输入该迁入户口的编号' });

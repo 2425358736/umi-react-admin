@@ -78,11 +78,6 @@ class AddMemberApply extends React.Component {
         flag = false;
         return;
       }
-      if (!verVal(list[i].memberPictures)) {
-        notification.error({ message: `请上传${list[i].fullName}的个人单页` });
-        flag = false;
-        return;
-      }
     }
     if (!flag) {
       return;
@@ -157,6 +152,9 @@ class AddMemberApply extends React.Component {
                 <li>
                   <div className={styles.imgWrap}>
                     {this.indexPictures && this.indexPictures !== '' && (
+                      <UploadImg fileList={this.indexPictures} callback={this.uploadCallback} />
+                    )}
+                    {!(this.indexPictures && this.indexPictures !== '') && (
                       <UploadImg fileList={this.indexPictures} callback={this.uploadCallback} />
                     )}
                   </div>

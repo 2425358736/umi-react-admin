@@ -92,14 +92,6 @@ class MoveIn extends React.Component {
       }
     }
     if (adopt) {
-      if (!verVal(this.homePicture)) {
-        notification.error({ message: '请上传户主页' });
-        return;
-      }
-      if (!verVal(this.indexPictures)) {
-        notification.error({ message: '请上传索引页' });
-        return;
-      }
       await this.setState({ getList: true });
       let flag = true;
       const list = [...this.state.list];
@@ -116,11 +108,6 @@ class MoveIn extends React.Component {
         }
         if (!verVal(list[i].idNumber) || !IdentityCodeValid(list[i].idNumber)) {
           notification.error({ message: `${list[i].idNumber}身份证号不正确` });
-          flag = false;
-          return;
-        }
-        if (!verVal(list[i].memberPictures)) {
-          notification.error({ message: `请上传${list[i].fullName}的个人单页` });
           flag = false;
           return;
         }
@@ -283,9 +270,7 @@ class MoveIn extends React.Component {
               )}
             </Form.Item>
             <div className={styles.uploadWrap}>
-              <h4>
-                <span className={styles.starDom}>*</span>证件上传：
-              </h4>
+              <h4>证件上传：</h4>
               <div className={styles.imgWrap}>
                 <UploadImg fileList={this.homePicture} callback={this.uploadCallback} />
                 <p>户主页</p>

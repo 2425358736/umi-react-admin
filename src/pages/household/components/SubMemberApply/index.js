@@ -127,6 +127,9 @@ class SubMemberApply extends React.Component {
                     {this.indexPictures && this.indexPictures !== '' && (
                       <UploadImg fileList={this.indexPictures} callback={this.uploadCallback} />
                     )}
+                    {!(this.indexPictures && this.indexPictures !== '') && (
+                      <UploadImg fileList={this.indexPictures} callback={this.uploadCallback} />
+                    )}
                   </div>
                   <p>索引页</p>
                 </li>
