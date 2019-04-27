@@ -100,7 +100,7 @@ class MemEdit extends React.Component {
                   {getFieldDecorator('moveInDate', {
                     rules: [
                       {
-                        required: true,
+                        required: false,
                         message: '请输入迁入日期',
                       },
                     ],
@@ -112,7 +112,7 @@ class MemEdit extends React.Component {
                   {getFieldDecorator('moveInType', {
                     rules: [
                       {
-                        required: true,
+                        required: false,
                         message: '请选择迁入类型',
                       },
                     ],
@@ -135,7 +135,7 @@ class MemEdit extends React.Component {
                   {getFieldDecorator('moveOutDate', {
                     rules: [
                       {
-                        required: true,
+                        required: false,
                         message: '请输入迁出日期',
                       },
                     ],
@@ -147,7 +147,7 @@ class MemEdit extends React.Component {
                   {getFieldDecorator('moveOutType', {
                     rules: [
                       {
-                        required: true,
+                        required: false,
                         message: '请选择迁出类型',
                       },
                     ],

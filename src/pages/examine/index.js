@@ -248,8 +248,8 @@ class Examine extends React.Component {
                     详情
                   </Info>
                 )}
-                {record.auditStatus === 0 && <Divider type="vertical" />}
-                {record.auditStatus === 0 && (
+                {record.auditStatus === 2 && <Divider type="vertical" />}
+                {record.auditStatus === 2 && (
                   <Operation
                     title="确认"
                     mode={0}
