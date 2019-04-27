@@ -3,7 +3,7 @@ import moment from 'moment';
 import request from './request';
 
 export const http = process.env.apiUrl;
-export const ws = `${process.env.apiUrl}/websocket`;
+export const ws = `${process.env.wsUrl}/websocket`;
 
 export function getRequest(url) {
   return new Promise((resolve, reject) => {
