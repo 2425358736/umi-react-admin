@@ -2,7 +2,7 @@ import router from 'umi/router';
 import moment from 'moment';
 import request from './request';
 
-export const http = `http://${process.env.apiUrl}`;
+export const http = process.env.apiUrl;
 export const ws = `ws://${process.env.apiUrl}/websocket`;
 
 export function getRequest(url) {
