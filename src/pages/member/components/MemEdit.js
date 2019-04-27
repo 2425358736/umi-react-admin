@@ -163,6 +163,26 @@ class MemEdit extends React.Component {
                 </Form.Item>
               </div>
             </div>
+
+            <div className={styles.rowDom}>
+              <div className={styles.colDom} style={{ maxWidth: '50%' }}>
+                <Form.Item label="成员状态" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
+                  {getFieldDecorator('delFlag', {
+                    rules: [
+                      {
+                        required: false,
+                        message: '请选择成员状态',
+                      },
+                    ],
+                  })(
+                    <Select showSearch placeholder="请选择成员状态" optionFilterProp="children">
+                      <Select.Option value={0}>正常</Select.Option>
+                      <Select.Option value={1}>注销</Select.Option>
+                    </Select>
+                  )}
+                </Form.Item>
+              </div>
+            </div>
           </Form>
           <div className={styles.btnGroup}>
             <Button

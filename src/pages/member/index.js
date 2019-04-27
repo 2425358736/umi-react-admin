@@ -83,6 +83,26 @@ const exportButton = {
       column: 'fullName',
     },
     {
+      title: '状态',
+      column: 'memState',
+    },
+    {
+      title: '迁入日期',
+      column: 'moveInDate',
+    },
+    {
+      title: '迁入类型',
+      column: 'moveInTypeName',
+    },
+    {
+      title: '迁出日期',
+      column: 'moveOutDate',
+    },
+    {
+      title: '迁出类型',
+      column: 'moveOutTypeName',
+    },
+    {
       title: '性别',
       column: 'sexStr',
     },
@@ -134,26 +154,6 @@ const exportButton = {
       title: '住址',
       column: 'homeAddress',
     },
-    {
-      title: '状态',
-      column: 'memState',
-    },
-    {
-      title: '迁入日期',
-      column: 'moveInDate',
-    },
-    {
-      title: '迁入类型',
-      column: 'moveInTypeName',
-    },
-    {
-      title: '迁出日期',
-      column: 'moveOutDate',
-    },
-    {
-      title: '迁出类型',
-      column: 'moveOutTypeName',
-    },
   ],
 };
 class MemberList extends React.Component {
@@ -171,6 +171,31 @@ class MemberList extends React.Component {
           title: '姓名',
           width: '4%',
           dataIndex: 'fullName',
+        },
+        {
+          title: '状态',
+          width: '4%',
+          dataIndex: 'memStateStr',
+        },
+        {
+          title: '迁入日期',
+          width: '4%',
+          dataIndex: 'moveInDate',
+        },
+        {
+          title: '迁入类型',
+          width: '4%',
+          dataIndex: 'moveInTypeName',
+        },
+        {
+          title: '迁出日期',
+          width: '4%',
+          dataIndex: 'moveOutDate',
+        },
+        {
+          title: '迁出类型',
+          width: '4%',
+          dataIndex: 'moveOutTypeName',
         },
         {
           title: '性别',
@@ -267,31 +292,6 @@ class MemberList extends React.Component {
             return <span style={{ wordBreak: 'break-all' }}>{text}</span>;
           },
         },
-        {
-          title: '状态',
-          width: '4%',
-          dataIndex: 'memStateStr',
-        },
-        {
-          title: '迁入日期',
-          width: '4%',
-          dataIndex: 'moveInDate',
-        },
-        {
-          title: '迁入类型',
-          width: '4%',
-          dataIndex: 'moveInTypeName',
-        },
-        {
-          title: '迁出日期',
-          width: '4%',
-          dataIndex: 'moveOutDate',
-        },
-        {
-          title: '迁出类型',
-          width: '4%',
-          dataIndex: 'moveOutTypeName',
-        },
       ],
     };
   }
@@ -371,6 +371,47 @@ class MemberList extends React.Component {
           title: '姓名',
           width: '4%',
           dataIndex: 'fullName',
+        },
+        {
+          title: '操作',
+          width: '6%',
+          dataIndex: 'opt',
+          render(text, record) {
+            return (
+              <div>
+                <Up id={record.id} width={800} title="编辑" component={MemEdit} />
+                <Divider type="vertical" />
+                <Info title="社员详情" info={<MemberDetail id={record.id} />}>
+                  详情
+                </Info>
+              </div>
+            );
+          },
+        },
+        {
+          title: '状态',
+          width: '4%',
+          dataIndex: 'memStateStr',
+        },
+        {
+          title: '迁入日期',
+          width: '4%',
+          dataIndex: 'moveInDate',
+        },
+        {
+          title: '迁入类型',
+          width: '4%',
+          dataIndex: 'moveInTypeName',
+        },
+        {
+          title: '迁出日期',
+          width: '4%',
+          dataIndex: 'moveOutDate',
+        },
+        {
+          title: '迁出类型',
+          width: '4%',
+          dataIndex: 'moveOutTypeName',
         },
         {
           title: '性别',
@@ -459,47 +500,6 @@ class MemberList extends React.Component {
           dataIndex: 'homeAddress',
           render(text) {
             return <span style={{ wordBreak: 'break-all' }}>{text}</span>;
-          },
-        },
-        {
-          title: '状态',
-          width: '4%',
-          dataIndex: 'memStateStr',
-        },
-        {
-          title: '迁入日期',
-          width: '4%',
-          dataIndex: 'moveInDate',
-        },
-        {
-          title: '迁入类型',
-          width: '4%',
-          dataIndex: 'moveInTypeName',
-        },
-        {
-          title: '迁出日期',
-          width: '4%',
-          dataIndex: 'moveOutDate',
-        },
-        {
-          title: '迁出类型',
-          width: '4%',
-          dataIndex: 'moveOutTypeName',
-        },
-        {
-          title: '操作',
-          width: '6%',
-          dataIndex: 'opt',
-          render(text, record) {
-            return (
-              <div>
-                <Up id={record.id} width={800} title="编辑" component={MemEdit} />
-                <Divider type="vertical" />
-                <Info title="社员详情" info={<MemberDetail id={record.id} />}>
-                  详情
-                </Info>
-              </div>
-            );
           },
         },
       ],
