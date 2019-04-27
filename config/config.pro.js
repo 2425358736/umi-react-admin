@@ -154,7 +154,8 @@ export default {
    */
   define: {
     APP_TYPE: process.env.APP_TYPE || '',
-    'process.env.apiUrl': '117.73.3.124:8091',
+    'process.env.apiUrl': 'https://www.shuzhida.cn',
+    'process.env.wsUrl': 'wss://www.shuzhida.cn',
   },
   // Theme for antd
   // https://ant.design/docs/react/customize-theme-cn
