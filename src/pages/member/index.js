@@ -459,7 +459,18 @@ class MemberList extends React.Component {
         {
           title: '状态',
           width: '4%',
-          dataIndex: 'memStateStr',
+          dataIndex: 'memState',
+          column: 'memStateStr',
+          filters: [
+            {
+              text: '正常',
+              value: '0',
+            },
+            {
+              text: '注销',
+              value: '1',
+            },
+          ],
         },
         {
           title: '迁入日期',
