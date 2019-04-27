@@ -128,6 +128,22 @@ export default {
           path: '/group',
           component: './group/index',
         },
+        {
+          path: '/payment',
+          component: './payment/index',
+        },
+        {
+          path: '/notice',
+          component: './notice/index',
+        },
+        {
+          path: '/policyGuide',
+          component: './policyGuide/index',
+        },
+        {
+          path: '/profile',
+          component: './profile/index',
+        },
       ],
     },
   ],
@@ -138,7 +154,7 @@ export default {
    */
   define: {
     APP_TYPE: process.env.APP_TYPE || '',
-    'process.env.apiUrl': '117.73.3.124:8090',
+    'process.env.apiUrl': '117.73.3.124:8091',
   },
   // Theme for antd
   // https://ant.design/docs/react/customize-theme-cn

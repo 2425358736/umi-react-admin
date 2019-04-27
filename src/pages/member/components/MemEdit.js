@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import { Spin, Button, Input, Form, Select, notification } from 'antd';
 import { getRequest, postRequest } from '@/utils/api';
 
@@ -57,11 +58,37 @@ class MemEdit extends React.Component {
     this.props.form.validateFields(err => {
       adopt = !err;
     });
+    const obj = this.props.form.getFieldsValue();
+    let { moveOutDate, moveInDate } = obj;
+    if (moveOutDate) {
+      moveOutDate = moment(moveOutDate, 'YYYYMMDD').format('YYYY-MM-DD');
+      if (moveOutDate === 'Invalid date') {
+        adopt = false;
+        moveOutDate = null;
+        notification.error({ message: '迁出日期格式不正确，示例（2019年01月25日）：20190125' });
+      }
+    }
+
+    if (moveInDate) {
+      moveInDate = moment(moveInDate, 'YYYYMMDD').format('YYYY-MM-DD');
+      if (moveInDate === 'Invalid date') {
+        adopt = false;
+        moveInDate = null;
+        notification.error({ message: '迁入日期格式不正确，示例（2019年01月25日）：20190125' });
+      }
+    }
+
     if (adopt) {
       this.setState({
         buttonLoading: true,
       });
       const json = this.props.form.getFieldsValue();
+      if (moveInDate) {
+        json.moveInDate = moveInDate;
+      }
+      if (moveOutDate) {
+        json.moveOutDate = moveOutDate;
+      }
       json.id = this.props.id;
       const data = await postRequest(EDIT_MEMBER, json);
       this.setState({
