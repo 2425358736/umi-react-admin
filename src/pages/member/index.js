@@ -188,6 +188,17 @@ class MemberList extends React.Component {
           isIncrement: true,
         },
         {
+          title: '编号',
+          width: '4%',
+          dataIndex: 'householdNumber',
+          sorter: true,
+        },
+        {
+          title: '户主',
+          width: '5%',
+          dataIndex: 'householderName',
+        },
+        {
           title: '姓名',
           width: '4%',
           dataIndex: 'fullName',
@@ -294,17 +305,6 @@ class MemberList extends React.Component {
           title: '户号',
           width: '4%',
           dataIndex: 'householdRegisterNumber',
-        },
-        {
-          title: '编号',
-          width: '4%',
-          dataIndex: 'householdNumber',
-          sorter: true,
-        },
-        {
-          title: '户主',
-          width: '5%',
-          dataIndex: 'householderName',
         },
         {
           title: '与户主关系',
@@ -436,6 +436,17 @@ class MemberList extends React.Component {
           isIncrement: true,
         },
         {
+          title: '编号',
+          width: '4%',
+          dataIndex: 'householdNumber',
+          sorter: true,
+        },
+        {
+          title: '户主',
+          width: '5%',
+          dataIndex: 'householderName',
+        },
+        {
           title: '姓名',
           width: '4%',
           dataIndex: 'fullName',
@@ -552,17 +563,6 @@ class MemberList extends React.Component {
           title: '户号',
           width: '4%',
           dataIndex: 'householdRegisterNumber',
-        },
-        {
-          title: '编号',
-          width: '4%',
-          dataIndex: 'householdNumber',
-          sorter: true,
-        },
-        {
-          title: '户主',
-          width: '5%',
-          dataIndex: 'householderName',
         },
         {
           title: '与户主关系',
