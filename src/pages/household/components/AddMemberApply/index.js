@@ -1,5 +1,6 @@
 import React from 'react';
 import { Spin, Modal, Button, notification } from 'antd';
+import moment from 'moment';
 import NowMemList from './components/NowMemList';
 import NewMemList from './components/NewMemList';
 import UploadImg from '../../../../components/UpLoad/UploadImage';
@@ -78,10 +79,18 @@ class AddMemberApply extends React.Component {
         flag = false;
         return;
       }
-      if (!verVal(list[i].memberPictures)) {
-        notification.error({ message: `请上传${list[i].fullName}的个人单页` });
-        flag = false;
-        return;
+      let moveInDate = list[i].moveInDate || null;
+
+      if (moveInDate) {
+        moveInDate = moment(moveInDate, 'YYYYMMDD').format('YYYY-MM-DD');
+        if (moveInDate === 'Invalid date') {
+          flag = false;
+          moveInDate = null;
+          notification.error({ message: '迁入日期格式不正确，示例（2019年01月25日）：20190125' });
+          flag = false;
+          return;
+        }
+        list[i].moveInDate = moveInDate;
       }
     }
     if (!flag) {
@@ -157,6 +166,9 @@ class AddMemberApply extends React.Component {
                 <li>
                   <div className={styles.imgWrap}>
                     {this.indexPictures && this.indexPictures !== '' && (
+                      <UploadImg fileList={this.indexPictures} callback={this.uploadCallback} />
+                    )}
+                    {!(this.indexPictures && this.indexPictures !== '') && (
                       <UploadImg fileList={this.indexPictures} callback={this.uploadCallback} />
                     )}
                   </div>

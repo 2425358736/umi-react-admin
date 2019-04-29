@@ -1,5 +1,6 @@
 import React from 'react';
 import { Spin, Modal, Button, notification } from 'antd';
+import moment from 'moment';
 import NowMemList from './components/NowMemList';
 import UploadImg from '../../../../components/UpLoad/UploadImage';
 import { getRequest, postRequest } from '@/utils/api';
@@ -54,12 +55,34 @@ class SubMemberApply extends React.Component {
    */
   handleSubmit = async () => {
     await this.setState({ getList: true });
+    const { list } = this.state;
+    const arr = [];
+    let flag = true;
+    list.forEach(item => {
+      const itemClone = item;
+      let moveOutDate = itemClone.moveOutDate || null;
+      if (moveOutDate) {
+        moveOutDate = moment(moveOutDate, 'YYYYMMDD').format('YYYY-MM-DD');
+        if (moveOutDate === 'Invalid date') {
+          moveOutDate = null;
+          notification.error({ message: '迁出日期格式不正确，示例（2019年01月25日）：20190125' });
+          flag = false;
+        }
+      }
+      itemClone.moveOutDate = moveOutDate;
+      arr.push(itemClone);
+    });
+
+    if (!flag) {
+      return;
+    }
+
     this.setState({
       buttonLoading: true,
     });
     const json = {
       householdId: this.props.id,
-      list: this.state.list,
+      list: arr,
       homePicture: this.state.fetchData.homePicture,
       indexPictures: this.indexPictures,
     };
@@ -125,6 +148,9 @@ class SubMemberApply extends React.Component {
                 <li>
                   <div className={styles.imgWrap}>
                     {this.indexPictures && this.indexPictures !== '' && (
+                      <UploadImg fileList={this.indexPictures} callback={this.uploadCallback} />
+                    )}
+                    {!(this.indexPictures && this.indexPictures !== '') && (
                       <UploadImg fileList={this.indexPictures} callback={this.uploadCallback} />
                     )}
                   </div>

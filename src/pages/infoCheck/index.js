@@ -1,4 +1,5 @@
 import React from 'react';
+import { Divider } from 'antd';
 import { postRequest } from '@/utils/api';
 
 import {
@@ -8,9 +9,12 @@ import {
   ScreeningTag,
   Info,
   ExportButton,
+  Up,
 } from '@/components/BusinessComponent/BusCom';
 
-import MemberDetail from './components/MemberDetail';
+import InfoCheckDetail from './components/InfoCheckDetail';
+
+import InfoCheckEdit from './components/InfoCheckEdit';
 
 import styles from './index.less';
 
@@ -66,6 +70,26 @@ const search = {
       queryField: 'birthEndDate',
       component: 'DatePicker',
     },
+    {
+      queryTitle: '迁入日期起',
+      queryField: 'inStartDate',
+      component: 'DatePicker',
+    },
+    {
+      queryTitle: '迁出日期止',
+      queryField: 'inEndDate',
+      component: 'DatePicker',
+    },
+    {
+      queryTitle: '迁出日期起',
+      queryField: 'outStartDate',
+      component: 'DatePicker',
+    },
+    {
+      queryTitle: '迁出日期止',
+      queryField: 'outEndDate',
+      component: 'DatePicker',
+    },
   ],
 };
 const exportButton = {
@@ -77,6 +101,26 @@ const exportButton = {
     {
       title: '姓名',
       column: 'fullName',
+    },
+    {
+      title: '状态',
+      column: 'memState',
+    },
+    {
+      title: '迁入日期',
+      column: 'moveInDate',
+    },
+    {
+      title: '迁入类型',
+      column: 'moveInTypeName',
+    },
+    {
+      title: '迁出日期',
+      column: 'moveOutDate',
+    },
+    {
+      title: '迁出类型',
+      column: 'moveOutTypeName',
     },
     {
       title: '性别',
@@ -132,25 +176,76 @@ const exportButton = {
     },
   ],
 };
-class MemberList extends React.Component {
+class InfoCheck extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       columns: [
         {
           title: '序号',
-          width: '5%',
+          width: '3%',
           dataIndex: 'id',
           isIncrement: true,
         },
         {
+          title: '编号',
+          width: '4%',
+          dataIndex: 'householdNumber',
+          sorter: true,
+        },
+        {
+          title: '户主',
+          width: '5%',
+          dataIndex: 'householderName',
+        },
+        {
           title: '姓名',
-          width: '6%',
+          width: '4%',
           dataIndex: 'fullName',
         },
         {
+          title: '状态',
+          width: '4%',
+          dataIndex: 'memState',
+          column: 'memStateStr',
+          filters: [
+            {
+              text: '正常',
+              value: '0',
+            },
+            {
+              text: '注销',
+              value: '1',
+            },
+          ],
+        },
+        {
+          title: '迁入日期',
+          width: '4%',
+          dataIndex: 'moveInDate',
+        },
+        {
+          title: '迁入类型',
+          width: '4%',
+          dataIndex: 'moveInType',
+          column: 'moveInTypeName',
+          filters: [],
+        },
+        {
+          title: '迁出日期',
+          width: '4%',
+          dataIndex: 'moveOutDate',
+        },
+        {
+          title: '迁出类型',
+          width: '4%',
+          dataIndex: 'moveOutType',
+          column: 'moveOutTypeName',
+          filters: [],
+        },
+        {
           title: '性别',
-          width: '6%',
+          width: '4%',
           dataIndex: 'sex',
           column: 'sex',
           filters: [
@@ -173,7 +268,7 @@ class MemberList extends React.Component {
         },
         {
           title: '民族',
-          width: '6%',
+          width: '4%',
           dataIndex: 'nationalities',
           column: 'nationalitiesStr',
           filters: [],
@@ -198,63 +293,39 @@ class MemberList extends React.Component {
         },
         {
           title: '出生日期',
-          width: '8%',
+          width: '6%',
           dataIndex: 'birthDate',
         },
         {
           title: '年龄',
-          width: '6%',
+          width: '4%',
           dataIndex: 'age',
         },
         {
           title: '户号',
-          width: '6%',
+          width: '4%',
           dataIndex: 'householdRegisterNumber',
         },
         {
-          title: '编号',
-          width: '6%',
-          dataIndex: 'householdNumber',
-        },
-        {
-          title: '户主',
-          width: '6%',
-          dataIndex: 'householderName',
-        },
-        {
           title: '与户主关系',
-          width: '8%',
+          width: '6%',
           dataIndex: 'relationship',
           column: 'relationshipStr',
           filters: [],
         },
         {
           title: '几队',
-          width: '6%',
+          width: '4%',
           dataIndex: 'troops',
           column: 'troopsStr',
           filters: [],
         },
         {
           title: '住址',
-          width: '8%',
+          width: '5%',
           dataIndex: 'homeAddress',
           render(text) {
             return <span style={{ wordBreak: 'break-all' }}>{text}</span>;
-          },
-        },
-        {
-          title: '操作',
-          width: '6%',
-          dataIndex: 'opt',
-          render(text, record) {
-            return (
-              <div>
-                <Info title="社员详情" info={<MemberDetail id={record.id} />}>
-                  详情
-                </Info>
-              </div>
-            );
           },
         },
       ],
@@ -320,10 +391,42 @@ class MemberList extends React.Component {
     return arr4;
   };
 
+  moveInTypeArr = async () => {
+    // 迁入类型
+    const arr5 = [];
+    const moveInTypeArr = await postRequest(`${SYS_Dict}/11`);
+    if (moveInTypeArr.status === 200) {
+      moveInTypeArr.data.forEach(item => {
+        arr5.push({
+          text: item.dataLabel,
+          value: item.id.toString(),
+        });
+      });
+    }
+    return arr5;
+  };
+
+  moveOutTypeArr = async () => {
+    // 迁入类型
+    const arr6 = [];
+    const moveOutTypeArr = await postRequest(`${SYS_Dict}/12`);
+    if (moveOutTypeArr.status === 200) {
+      moveOutTypeArr.data.forEach(item => {
+        arr6.push({
+          text: item.dataLabel,
+          value: item.id.toString(),
+        });
+      });
+    }
+    return arr6;
+  };
+
   componentWillMount = async () => {
     const arr = await this.queueArr();
     const arr3 = await this.nationArr();
     const arr4 = await this.withArr();
+    const arr5 = await this.moveInTypeArr();
+    const arr6 = await this.moveOutTypeArr();
     this.setState({
       columns: [
         {
@@ -333,9 +436,76 @@ class MemberList extends React.Component {
           isIncrement: true,
         },
         {
+          title: '编号',
+          width: '4%',
+          dataIndex: 'householdNumber',
+          sorter: true,
+        },
+        {
+          title: '户主',
+          width: '5%',
+          dataIndex: 'householderName',
+        },
+        {
           title: '姓名',
           width: '4%',
           dataIndex: 'fullName',
+        },
+        {
+          title: '操作',
+          width: '6%',
+          dataIndex: 'opt',
+          render(text, record) {
+            return (
+              <div>
+                <Up id={record.id} width={800} title="编辑" component={InfoCheckEdit} />
+                <Divider type="vertical" />
+                <Info title="社员详情" info={<InfoCheckDetail id={record.id} />}>
+                  详情
+                </Info>
+              </div>
+            );
+          },
+        },
+        {
+          title: '状态',
+          width: '4%',
+          dataIndex: 'memState',
+          column: 'memStateStr',
+          filters: [
+            {
+              text: '正常',
+              value: '0',
+            },
+            {
+              text: '注销',
+              value: '1',
+            },
+          ],
+        },
+        {
+          title: '迁入日期',
+          width: '4%',
+          dataIndex: 'moveInDate',
+        },
+        {
+          title: '迁入类型',
+          width: '4%',
+          dataIndex: 'moveInType',
+          column: 'moveInTypeName',
+          filters: arr5,
+        },
+        {
+          title: '迁出日期',
+          width: '4%',
+          dataIndex: 'moveOutDate',
+        },
+        {
+          title: '迁出类型',
+          width: '4%',
+          dataIndex: 'moveOutType',
+          column: 'moveOutTypeName',
+          filters: arr6,
         },
         {
           title: '性别',
@@ -366,7 +536,7 @@ class MemberList extends React.Component {
         },
         {
           title: '身份证号',
-          width: '10%',
+          width: '6%',
           dataIndex: 'idNumber',
         },
         {
@@ -381,7 +551,7 @@ class MemberList extends React.Component {
         },
         {
           title: '出生日期',
-          width: '8%',
+          width: '6%',
           dataIndex: 'birthDate',
         },
         {
@@ -391,53 +561,29 @@ class MemberList extends React.Component {
         },
         {
           title: '户号',
-          width: '6%',
+          width: '4%',
           dataIndex: 'householdRegisterNumber',
         },
         {
-          title: '编号',
-          width: '5%',
-          dataIndex: 'householdNumber',
-        },
-        {
-          title: '户主',
-          width: '5%',
-          dataIndex: 'householderName',
-        },
-        {
           title: '与户主关系',
-          width: '8%',
+          width: '6%',
           dataIndex: 'relationship',
           column: 'relationshipStr',
           filters: arr4,
         },
         {
           title: '几队',
-          width: '6%',
+          width: '4%',
           dataIndex: 'troops',
           column: 'troopsStr',
           filters: arr,
         },
         {
           title: '住址',
-          width: '8%',
+          width: '5%',
           dataIndex: 'homeAddress',
           render(text) {
             return <span style={{ wordBreak: 'break-all' }}>{text}</span>;
-          },
-        },
-        {
-          title: '操作',
-          width: '6%',
-          dataIndex: 'opt',
-          render(text, record) {
-            return (
-              <div>
-                <Info title="社员详情" info={<MemberDetail id={record.id} />}>
-                  详情
-                </Info>
-              </div>
-            );
           },
         },
       ],
@@ -463,7 +609,7 @@ class MemberList extends React.Component {
             <div>
               <OrdinaryTable
                 scroll={{
-                  x: 2000,
+                  x: 2600,
                   y: 'calc(100vh - 252px)',
                 }}
                 listUrl={MEMBER_LIST}
@@ -477,4 +623,4 @@ class MemberList extends React.Component {
   }
 }
 
-export default MemberList;
+export default InfoCheck;

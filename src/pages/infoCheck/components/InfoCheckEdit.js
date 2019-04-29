@@ -5,7 +5,7 @@ import { getRequest, postRequest } from '@/utils/api';
 
 import { SYS_Dict, EDIT_MEMBER, MEMBER_DETAIL } from '@/services/SysInterface';
 
-const styles = require('./MemEdit.less');
+const styles = require('./InfoCheckEdit.less');
 
 class MemEdit extends React.Component {
   memberId = null;
@@ -185,6 +185,26 @@ class MemEdit extends React.Component {
                           {item.dataLabel}
                         </Select.Option>
                       ))}
+                    </Select>
+                  )}
+                </Form.Item>
+              </div>
+            </div>
+
+            <div className={styles.rowDom}>
+              <div className={styles.colDom} style={{ maxWidth: '50%' }}>
+                <Form.Item label="成员状态" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
+                  {getFieldDecorator('delFlag', {
+                    rules: [
+                      {
+                        required: false,
+                        message: '请选择成员状态',
+                      },
+                    ],
+                  })(
+                    <Select showSearch placeholder="请选择成员状态" optionFilterProp="children">
+                      <Select.Option value={0}>正常</Select.Option>
+                      <Select.Option value={1}>注销</Select.Option>
                     </Select>
                   )}
                 </Form.Item>

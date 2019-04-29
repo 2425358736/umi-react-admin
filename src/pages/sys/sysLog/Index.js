@@ -192,6 +192,11 @@ class Index extends React.Component {
                   dataIndex: 'methodStr',
                 },
                 {
+                  title: '访问时间',
+                  width: '12%',
+                  dataIndex: 'createDate',
+                },
+                {
                   title: '接口类型',
                   width: '10%',
                   dataIndex: 'interfaceTypeStr',

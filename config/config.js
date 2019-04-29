@@ -125,6 +125,10 @@ export default {
           component: './member/index',
         },
         {
+          path: '/infoCheck',
+          component: './infoCheck/index',
+        },
+        {
           path: '/group',
           component: './group/index',
         },
@@ -154,8 +158,8 @@ export default {
    */
   define: {
     APP_TYPE: process.env.APP_TYPE || '',
-    'process.env.apiUrl': 'http://192.168.2.136:8090',
-    'process.env.wsUrl': 'ws://192.168.2.136:8090',
+    'process.env.apiUrl': 'http://192.168.31.194:8090',
+    'process.env.wsUrl': 'ws://192.168.31.194:8090',
   },
   // Theme for antd
   // https://ant.design/docs/react/customize-theme-cn
