@@ -125,6 +125,10 @@ export default {
           component: './member/index',
         },
         {
+          path: '/infoCheck',
+          component: './infoCheck/index',
+        },
+        {
           path: '/group',
           component: './group/index',
         },

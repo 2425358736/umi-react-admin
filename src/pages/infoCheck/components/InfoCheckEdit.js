@@ -5,7 +5,7 @@ import { getRequest, postRequest } from '@/utils/api';
 
 import { SYS_Dict, EDIT_MEMBER, MEMBER_DETAIL } from '@/services/SysInterface';
 
-const styles = require('./MemEdit.less');
+const styles = require('./InfoCheckEdit.less');
 
 class MemEdit extends React.Component {
   memberId = null;
