@@ -73,8 +73,14 @@ class MoveInExamine extends React.Component {
     });
     if (adopt) {
       if (this.state.fetchData.changeType === 0) {
-        if (!verVal(this.props.form.getFieldValue('householdNumber'))) {
+        const householdNumber = this.props.form.getFieldValue('householdNumber');
+        if (!verVal(householdNumber)) {
           notification.error({ message: '请输入该迁入户口的编号' });
+          return;
+        }
+        const pattern = /^[0-9]{0,9}-[0-9]{0,9}$/;
+        if (!pattern.test(householdNumber)) {
+          notification.error({ message: '户口编号格式错误' });
           return;
         }
       }
