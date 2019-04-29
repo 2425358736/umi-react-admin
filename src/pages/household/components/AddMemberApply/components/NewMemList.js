@@ -19,11 +19,14 @@ class NewMemList extends React.Component {
           nationalities: null,
           idNumber: '',
           memberPictures: '',
+          moveInDate: null,
+          moveInType: '',
         },
       ],
       columns: [],
       withArr: [],
       nationArr: [],
+      moveInTypeArr: [],
     };
   }
 
@@ -38,6 +41,12 @@ class NewMemList extends React.Component {
     const nationArr = await postRequest(`${SYS_Dict}/8`);
     if (nationArr.status === 200) {
       await this.setState({ nationArr: nationArr.data });
+    }
+
+    // 迁入类型列表
+    const moveInTypeArr = await postRequest(`${SYS_Dict}/11`);
+    if (moveInTypeArr.status === 200) {
+      this.setState({ moveInTypeArr: moveInTypeArr.data });
     }
 
     if (this.props.list && this.props.list.length > 0) {
@@ -59,12 +68,12 @@ class NewMemList extends React.Component {
    */
   columnsUp = () => {
     const that = this;
-    const { withArr, nationArr } = this.state;
+    const { withArr, nationArr, moveInTypeArr } = this.state;
     this.setState({
       columns: [
         {
           title: '与户主关系',
-          width: '12%',
+          width: '8%',
           dataIndex: 'relationship',
           render(text, record, index) {
             return (
@@ -92,7 +101,7 @@ class NewMemList extends React.Component {
         },
         {
           title: '姓名',
-          width: '12%',
+          width: '8%',
           dataIndex: 'fullName',
           render(text, record, index) {
             return (
@@ -134,7 +143,7 @@ class NewMemList extends React.Component {
         },
         {
           title: '民族',
-          width: '12%',
+          width: '10%',
           dataIndex: 'nationalities',
           render(text, record, index) {
             return (
@@ -162,7 +171,7 @@ class NewMemList extends React.Component {
         },
         {
           title: '身份证号',
-          width: '18%',
+          width: '16%',
           dataIndex: 'idNumber',
           render(text, record, index) {
             return (
@@ -181,8 +190,56 @@ class NewMemList extends React.Component {
           },
         },
         {
+          title: '迁入日期',
+          width: '12%',
+          dataIndex: 'moveInDate',
+          render(text, record, index) {
+            return (
+              <Input
+                style={{ width: '100px' }}
+                placeholder="请输入迁入日期"
+                value={record.moveInDate}
+                onChange={e => {
+                  that.state.dataSource[index].moveInDate = e.target.value;
+                  that.setState({
+                    dataSource: that.state.dataSource,
+                  });
+                }}
+              />
+            );
+          },
+        },
+        {
+          title: '迁入类型',
+          width: '10%',
+          dataIndex: 'moveInType',
+          render(text, record, index) {
+            return (
+              <Select
+                showSearch
+                style={{ width: '100px' }}
+                placeholder="请选择迁入类型"
+                optionFilterProp="children"
+                value={record.moveInType}
+                onChange={value => {
+                  that.state.dataSource[index].moveInType = value;
+                  that.setState({
+                    dataSource: that.state.dataSource,
+                  });
+                }}
+              >
+                {moveInTypeArr.map(item => (
+                  <Select.Option disabled={item.id === 1} key={item.id} value={item.id}>
+                    {item.dataLabel}
+                  </Select.Option>
+                ))}
+              </Select>
+            );
+          },
+        },
+        {
           title: '个人单页',
-          width: '14%',
+          width: '12%',
           dataIndex: 'memberPictures',
           render(text, record, index) {
             return (
@@ -200,7 +257,7 @@ class NewMemList extends React.Component {
         },
         {
           title: '操作',
-          width: '14%',
+          width: '16%',
           dataIndex: 'opt',
           render(text, record, index) {
             if (index !== 0 && !that.props.list) {

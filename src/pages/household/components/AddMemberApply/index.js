@@ -1,5 +1,6 @@
 import React from 'react';
 import { Spin, Modal, Button, notification } from 'antd';
+import moment from 'moment';
 import NowMemList from './components/NowMemList';
 import NewMemList from './components/NewMemList';
 import UploadImg from '../../../../components/UpLoad/UploadImage';
@@ -77,6 +78,19 @@ class AddMemberApply extends React.Component {
         notification.error({ message: `${list[i].idNumber}身份证号不正确` });
         flag = false;
         return;
+      }
+      let moveInDate = list[i].moveInDate || null;
+
+      if (moveInDate) {
+        moveInDate = moment(moveInDate, 'YYYYMMDD').format('YYYY-MM-DD');
+        if (moveInDate === 'Invalid date') {
+          flag = false;
+          moveInDate = null;
+          notification.error({ message: '迁入日期格式不正确，示例（2019年01月25日）：20190125' });
+          flag = false;
+          return;
+        }
+        list[i].moveInDate = moveInDate;
       }
     }
     if (!flag) {
