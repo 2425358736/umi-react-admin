@@ -46,6 +46,9 @@ class MemEdit extends React.Component {
         moveInType: data.data.moveInType,
         moveOutDate: data.data.moveOutDate,
         moveOutType: data.data.moveOutType,
+        delFlag: data.data.delFlag,
+        deathType: data.data.deathType,
+        objectionType: data.data.objectionType,
       });
     }
   };
@@ -192,7 +195,7 @@ class MemEdit extends React.Component {
             </div>
 
             <div className={styles.rowDom}>
-              <div className={styles.colDom} style={{ maxWidth: '50%' }}>
+              <div className={styles.colDom}>
                 <Form.Item label="成员状态" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
                   {getFieldDecorator('delFlag', {
                     rules: [
@@ -205,6 +208,44 @@ class MemEdit extends React.Component {
                     <Select showSearch placeholder="请选择成员状态" optionFilterProp="children">
                       <Select.Option value={0}>正常</Select.Option>
                       <Select.Option value={1}>注销</Select.Option>
+                    </Select>
+                  )}
+                </Form.Item>
+              </div>
+              <div className={styles.colDom}>
+                <Form.Item label="死亡状态" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
+                  {getFieldDecorator('deathType', {
+                    rules: [
+                      {
+                        required: false,
+                        message: '请选择死亡状态',
+                      },
+                    ],
+                  })(
+                    <Select showSearch placeholder="请选择成员状态" optionFilterProp="children">
+                      <Select.Option value={0}>正常</Select.Option>
+                      <Select.Option value={1}>去世</Select.Option>
+                    </Select>
+                  )}
+                </Form.Item>
+              </div>
+            </div>
+
+            <div className={styles.rowDom}>
+              <div className={styles.colDom} style={{ maxWidth: '50%' }}>
+                <Form.Item label="核对状态" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
+                  {getFieldDecorator('objectionType', {
+                    rules: [
+                      {
+                        required: false,
+                        message: '请选择核对状态',
+                      },
+                    ],
+                  })(
+                    <Select showSearch placeholder="请选择核对状态" optionFilterProp="children">
+                      <Select.Option value={0}>无异议</Select.Option>
+                      <Select.Option value={1}>有异议</Select.Option>
+                      <Select.Option value={2}>已处理</Select.Option>
                     </Select>
                   )}
                 </Form.Item>

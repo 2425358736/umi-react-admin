@@ -108,6 +108,16 @@ class MemberDetail extends React.Component {
                 <span>微信手机号：</span>
                 <span>{fetchData.phoneNumber}</span>
               </div>
+              <div className={styles.itemDom}>
+                <span>异议描述：</span>
+                <span style={{ width: '200px', whiteSpace: 'inherit' }}>
+                  {fetchData.objectionDescribe}
+                </span>
+              </div>
+              <div className={styles.itemDom}>
+                <span>核对日期：</span>
+                <span>{fetchData.objectionDate}</span>
+              </div>
             </div>
           </div>
 

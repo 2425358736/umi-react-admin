@@ -437,13 +437,13 @@ class InfoCheck extends React.Component {
         },
         {
           title: '编号',
-          width: '4%',
+          width: '3%',
           dataIndex: 'householdNumber',
           sorter: true,
         },
         {
           title: '户主',
-          width: '5%',
+          width: '3%',
           dataIndex: 'householderName',
         },
         {
@@ -469,7 +469,7 @@ class InfoCheck extends React.Component {
         },
         {
           title: '状态',
-          width: '4%',
+          width: '3%',
           dataIndex: 'memState',
           column: 'memStateStr',
           filters: [
@@ -480,6 +480,42 @@ class InfoCheck extends React.Component {
             {
               text: '注销',
               value: '1',
+            },
+          ],
+        },
+        {
+          title: '死亡状态',
+          width: '3%',
+          dataIndex: 'deathType',
+          column: 'deathTypeStr',
+          filters: [
+            {
+              text: '正常',
+              value: '0',
+            },
+            {
+              text: '去世',
+              value: '1',
+            },
+          ],
+        },
+        {
+          title: '核对状态',
+          width: '3%',
+          dataIndex: 'objectionType',
+          column: 'objectionTypeStr',
+          filters: [
+            {
+              text: '无异议',
+              value: '0',
+            },
+            {
+              text: '有异议',
+              value: '1',
+            },
+            {
+              text: '已处理',
+              value: '2',
             },
           ],
         },
@@ -529,7 +565,7 @@ class InfoCheck extends React.Component {
         },
         {
           title: '民族',
-          width: '6%',
+          width: '4%',
           dataIndex: 'nationalities',
           column: 'nationalitiesStr',
           filters: arr3,
@@ -541,7 +577,7 @@ class InfoCheck extends React.Component {
         },
         {
           title: '政治面貌',
-          width: '6%',
+          width: '5%',
           dataIndex: 'politicsFaceStr',
         },
         {
