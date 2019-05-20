@@ -91,32 +91,34 @@ class MemberDetail extends React.Component {
           <div className={styles.midOneLeft}>
             <div className={styles.midOneTitle}>
               <span />
-              <span>个人信息</span>
+              <span>信息核对</span>
             </div>
             <div className={styles.conWrap}>
+              {/* <div className={styles.itemDom}> */}
+              {/* <span>微信头像：</span> */}
+              {/* <div className={styles.imgWrap}> */}
+              {/* <img src={fetchData.wxPortrait} alt="" /> */}
+              {/* </div> */}
+              {/* </div> */}
+              {/* <div className={styles.itemDom}> */}
+              {/* <span>微信昵称：</span> */}
+              {/* <span>{fetchData.wxNickname}</span> */}
+              {/* </div> */}
+              {/* <div className={styles.itemDom}> */}
+              {/* <span>微信手机号：</span> */}
+              {/* <span>{fetchData.phoneNumber}</span> */}
+              {/* </div> */}
               <div className={styles.itemDom}>
-                <span>微信头像：</span>
-                <div className={styles.imgWrap}>
-                  <img src={fetchData.wxPortrait} alt="" />
-                </div>
-              </div>
-              <div className={styles.itemDom}>
-                <span>微信昵称：</span>
-                <span>{fetchData.wxNickname}</span>
-              </div>
-              <div className={styles.itemDom}>
-                <span>微信手机号：</span>
-                <span>{fetchData.phoneNumber}</span>
-              </div>
-              <div className={styles.itemDom}>
-                <span>异议描述：</span>
-                <span style={{ width: '200px', whiteSpace: 'inherit' }}>
-                  {fetchData.objectionDescribe}
-                </span>
+                <span>状态：</span>
+                <span>{fetchData.objectionTypeStr}</span>
               </div>
               <div className={styles.itemDom}>
                 <span>核对日期：</span>
                 <span>{fetchData.objectionDate}</span>
+              </div>
+              <div className={styles.itemDom}>
+                <span>异议描述：</span>
+                <span>{fetchData.objectionDescribe}</span>
               </div>
             </div>
           </div>

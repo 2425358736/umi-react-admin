@@ -431,7 +431,7 @@ class InfoCheck extends React.Component {
       columns: [
         {
           title: '序号',
-          width: '3%',
+          width: '2%',
           dataIndex: 'id',
           isIncrement: true,
         },
@@ -448,12 +448,12 @@ class InfoCheck extends React.Component {
         },
         {
           title: '姓名',
-          width: '4%',
+          width: '3%',
           dataIndex: 'fullName',
         },
         {
           title: '操作',
-          width: '6%',
+          width: '4%',
           dataIndex: 'opt',
           render(text, record) {
             return (
@@ -484,24 +484,24 @@ class InfoCheck extends React.Component {
           ],
         },
         {
-          title: '死亡状态',
+          title: '是否去世',
           width: '3%',
           dataIndex: 'deathType',
           column: 'deathTypeStr',
           filters: [
             {
-              text: '正常',
+              text: '否',
               value: '0',
             },
             {
-              text: '去世',
+              text: '是',
               value: '1',
             },
           ],
         },
         {
           title: '核对状态',
-          width: '3%',
+          width: '4%',
           dataIndex: 'objectionType',
           column: 'objectionTypeStr',
           filters: [
@@ -572,12 +572,12 @@ class InfoCheck extends React.Component {
         },
         {
           title: '身份证号',
-          width: '6%',
+          width: '8%',
           dataIndex: 'idNumber',
         },
         {
           title: '政治面貌',
-          width: '5%',
+          width: '3%',
           dataIndex: 'politicsFaceStr',
         },
         {
@@ -592,7 +592,7 @@ class InfoCheck extends React.Component {
         },
         {
           title: '年龄',
-          width: '4%',
+          width: '3%',
           dataIndex: 'age',
         },
         {
@@ -602,21 +602,21 @@ class InfoCheck extends React.Component {
         },
         {
           title: '与户主关系',
-          width: '6%',
+          width: '4%',
           dataIndex: 'relationship',
           column: 'relationshipStr',
           filters: arr4,
         },
         {
           title: '几队',
-          width: '4%',
+          width: '3%',
           dataIndex: 'troops',
           column: 'troopsStr',
           filters: arr,
         },
         {
           title: '住址',
-          width: '5%',
+          width: '6%',
           dataIndex: 'homeAddress',
           render(text) {
             return <span style={{ wordBreak: 'break-all' }}>{text}</span>;
@@ -645,7 +645,7 @@ class InfoCheck extends React.Component {
             <div>
               <OrdinaryTable
                 scroll={{
-                  x: 2600,
+                  x: 3200,
                   y: 'calc(100vh - 252px)',
                 }}
                 listUrl={MEMBER_LIST}
