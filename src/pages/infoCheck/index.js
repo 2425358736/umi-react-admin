@@ -468,10 +468,10 @@ class InfoCheck extends React.Component {
           },
         },
         {
-          title: '状态',
+          title: '成员状态',
           width: '3%',
-          dataIndex: 'memState',
-          column: 'memStateStr',
+          dataIndex: 'deathType',
+          column: 'deathTypeStr',
           filters: [
             {
               text: '正常',
@@ -481,21 +481,13 @@ class InfoCheck extends React.Component {
               text: '注销',
               value: '1',
             },
-          ],
-        },
-        {
-          title: '是否去世',
-          width: '3%',
-          dataIndex: 'deathType',
-          column: 'deathTypeStr',
-          filters: [
             {
-              text: '否',
-              value: '0',
+              text: '减员',
+              value: '2',
             },
             {
-              text: '是',
-              value: '1',
+              text: '死亡',
+              value: '3',
             },
           ],
         },

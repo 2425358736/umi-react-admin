@@ -197,7 +197,7 @@ class MemEdit extends React.Component {
             <div className={styles.rowDom}>
               <div className={styles.colDom}>
                 <Form.Item label="成员状态" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
-                  {getFieldDecorator('delFlag', {
+                  {getFieldDecorator('deathType', {
                     rules: [
                       {
                         required: false,
@@ -208,31 +208,14 @@ class MemEdit extends React.Component {
                     <Select showSearch placeholder="请选择成员状态" optionFilterProp="children">
                       <Select.Option value={0}>正常</Select.Option>
                       <Select.Option value={1}>注销</Select.Option>
+                      <Select.Option value={2}>减员</Select.Option>
+                      <Select.Option value={3}>死亡</Select.Option>
                     </Select>
                   )}
                 </Form.Item>
               </div>
-              <div className={styles.colDom}>
-                <Form.Item label="死亡状态" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
-                  {getFieldDecorator('deathType', {
-                    rules: [
-                      {
-                        required: false,
-                        message: '请选择死亡状态',
-                      },
-                    ],
-                  })(
-                    <Select showSearch placeholder="请选择成员状态" optionFilterProp="children">
-                      <Select.Option value={0}>正常</Select.Option>
-                      <Select.Option value={1}>去世</Select.Option>
-                    </Select>
-                  )}
-                </Form.Item>
-              </div>
-            </div>
 
-            <div className={styles.rowDom}>
-              <div className={styles.colDom} style={{ maxWidth: '50%' }}>
+              <div className={styles.colDom}>
                 <Form.Item label="核对状态" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
                   {getFieldDecorator('objectionType', {
                     rules: [
