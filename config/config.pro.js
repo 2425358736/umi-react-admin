@@ -109,42 +109,6 @@ export default {
           component: './sys/sysDict/index',
         },
         {
-          path: '/moveIn',
-          component: './moveIn/index',
-        },
-        {
-          path: '/examine',
-          component: './examine/index',
-        },
-        {
-          path: '/household',
-          component: './household/index',
-        },
-        {
-          path: '/member',
-          component: './member/index',
-        },
-        {
-          path: '/infoCheck',
-          component: './infoCheck/index',
-        },
-        {
-          path: '/group',
-          component: './group/index',
-        },
-        {
-          path: '/payment',
-          component: './payment/index',
-        },
-        {
-          path: '/notice',
-          component: './notice/index',
-        },
-        {
-          path: '/policyGuide',
-          component: './policyGuide/index',
-        },
-        {
           path: '/profile',
           component: './profile/index',
         },
@@ -158,8 +122,8 @@ export default {
    */
   define: {
     APP_TYPE: process.env.APP_TYPE || '',
-    'process.env.apiUrl': 'https://www.shuzhida.cn',
-    'process.env.wsUrl': 'wss://www.shuzhida.cn',
+    'process.env.apiUrl': 'http://127.0.0.1:8090',
+    'process.env.wsUrl': 'ws://127.0.0.1:8090',
   },
   // Theme for antd
   // https://ant.design/docs/react/customize-theme-cn
