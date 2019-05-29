@@ -4,7 +4,7 @@ import { Divider } from 'antd';
 import { connect } from 'dva';
 import styles from './TopStatistics.less';
 
-import { postRequest } from '@/utils/api';
+import { getRequest } from '@/utils/api';
 
 @connect(({ screen }) => ({
   screen,
@@ -18,7 +18,7 @@ class TopStatistics extends React.Component {
   }
 
   request = async () => {
-    const data = await postRequest(this.props.sourceUrl);
+    const data = await getRequest(this.props.sourceUrl);
     if (data.status === 200) {
       this.setState({
         dataSource: data.data,
