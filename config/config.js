@@ -109,6 +109,10 @@ export default {
           component: './profile/index',
         },
         {
+          path: '/firstParty/firstPartyList',
+          component: './firstParty/firstPartyList/index',
+        },
+        {
           path: '/equipmentDealer',
           component: './equipmentDealer/equipmentDealer/Index',
         },
