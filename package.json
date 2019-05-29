@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "ant-design-pro": "^2.1.1",
-    "antd": "^3.10.9",
+    "antd": "^3.19.1",
     "classnames": "^2.2.6",
     "draft-js": "^0.10.5",
     "draftjs-to-html": "^0.8.4",

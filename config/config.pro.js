@@ -81,8 +81,8 @@ export default {
           component: './error/500/Index',
         },
         {
-          path: '/sys/sysUser',
-          component: './sys/sysUser/Index',
+          path: '/sys/equipmentDealer',
+          component: './sys/equipmentDealer/Index',
         },
         {
           path: '/sys/sysPermission',
