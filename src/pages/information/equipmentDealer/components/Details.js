@@ -1,10 +1,12 @@
 import React from 'react';
-import { Icon } from 'antd';
+import { Icon, notification } from 'antd';
 import HistoricalOrder from './HistoricalOrder';
+import CooperativeMechanic from './CooperativeMechanic';
+import ScoreRecord from './ScoreRecord';
 import styles from './Detail.less';
-import { getRequest } from '@/utils/api';
+import { getRequest, postRequest } from '@/utils/api';
 
-import { DealerInfo } from '@/services/EquipmentDealer';
+import { DealerInfo, CertificationAudit } from '@/services/EquipmentDealer';
 
 class NoticeDetail extends React.Component {
   constructor(props) {
@@ -20,6 +22,19 @@ class NoticeDetail extends React.Component {
       await this.setState({
         InfoData: data.data,
       });
+    }
+  };
+
+  attestation = async () => {
+    const data = await postRequest(CertificationAudit, {
+      id: this.state.InfoData.id,
+      attestationState: 1,
+    });
+    if (data.status === 200) {
+      notification.info({ message: data.msg, description: data.subMsg });
+      this.componentWillMount();
+    } else {
+      notification.error({ message: data.msg, description: data.subMsg });
     }
   };
 
@@ -79,7 +94,11 @@ class NoticeDetail extends React.Component {
         <div className={styles.midWrap}>
           <div className={styles.titleDom}>
             <span />
-            <span className={styles.btnWrap}>通过</span>
+            {InfoData.attestationState === 0 && (
+              <span onClick={this.attestation} className={styles.btnWrap}>
+                通过
+              </span>
+            )}
             <span>信息详情</span>
           </div>
 
@@ -87,14 +106,11 @@ class NoticeDetail extends React.Component {
             <div className={styles.midLeft}>
               <div className={styles.itemDom}>
                 <span>经营范围：</span>
-                <span>
-                  {fetchData.intoPartyDate}
-                  阿打算打算的111111111111111111111111111111111111111111111111111111111111111111111111111111
-                </span>
+                <span>{fetchData.businessDescription}</span>
               </div>
               <div className={styles.itemDom}>
                 <span>营业执照：</span>
-                <img src="http://pic37.nipic.com/20140113/8800276_184927469000_2.png" alt="" />
+                <img src={fetchData.businessLicense} alt="" />
               </div>
             </div>
 
@@ -102,26 +118,26 @@ class NoticeDetail extends React.Component {
               <div>
                 <div className={styles.itemDom}>
                   <span>负责人姓名</span>
-                  <p>{fetchData.intoBranchName}刘志强</p>
+                  <p>{fetchData.leadingCadreName}</p>
                 </div>
                 <div className={styles.itemDom}>
                   <span>负责人身份证号</span>
-                  <p>{fetchData.branchSecretary}12312334254234</p>
+                  <p>{fetchData.leadingCadreIdNumber}</p>
                 </div>
                 <div className={styles.itemDom}>
                   <span>负责人手机号</span>
-                  <p>{fetchData.contactTelephone}123132142</p>
+                  <p>{fetchData.leadingCadrePhone}</p>
                 </div>
               </div>
 
               <div>
                 <div className={styles.itemDom}>
-                  <span>营业执照：</span>
-                  <img src="http://pic37.nipic.com/20140113/8800276_184927469000_2.png" alt="" />
+                  <span>证件照正面：</span>
+                  <img src={fetchData.idPhotoJust} alt="" />
                 </div>
                 <div className={styles.itemDom}>
                   <span>营业执照：</span>
-                  <img src="http://pic37.nipic.com/20140113/8800276_184927469000_2.png" alt="" />
+                  <img src={fetchData.idPhotoBack} alt="" />
                 </div>
               </div>
             </div>
@@ -131,10 +147,32 @@ class NoticeDetail extends React.Component {
         <div className={styles.bottomWrap}>
           <div className={styles.titleDom}>
             <span />
-            <span>列表</span>
+            <span>历史订单</span>
           </div>
-          <HistoricalOrder />
+          <HistoricalOrder id={this.props.id} />
         </div>
+
+        <div className={styles.bottomWrap}>
+          <div className={styles.titleDom}>
+            <span />
+            <span>合作技工</span>
+          </div>
+          <CooperativeMechanic id={this.props.id} />
+        </div>
+
+        {InfoData.wxId > 0 && (
+          <div className={styles.bottomWrap}>
+            <div className={styles.titleDom}>
+              <span />
+              <span>评分记录</span>
+            </div>
+            <ScoreRecord
+              callback={this.componentWillMount}
+              id={InfoData.wxId}
+              historicalScore={InfoData.currentScore}
+            />
+          </div>
+        )}
       </div>
     );
   }

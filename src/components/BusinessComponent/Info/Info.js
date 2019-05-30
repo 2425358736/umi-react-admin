@@ -67,6 +67,7 @@ class Info extends React.Component {
   render() {
     const { dispatch, list, children, title, id, collapsed } = this.props;
     const { identifying } = this.state;
+    console.log(collapsed);
     return (
       <div style={{ display: 'inline-block' }}>
         <div
@@ -102,13 +103,12 @@ class Info extends React.Component {
         </div>
         <Drawer
           className={style.breadDom}
-          style={{
-            right: collapsed ? '-80px' : '-170px',
-          }}
           maskStyle={{
+            // transition: 'right 0.2s',
             position: 'absolute',
             height: 'calc(100vh - 112px)',
             overflow: 'auto',
+            // left: collapsed ? '80px' : '170px',
           }}
           title={this.props.title || this.state.title}
           placement="right"
