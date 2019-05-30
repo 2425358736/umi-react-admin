@@ -73,6 +73,10 @@ class Index extends React.Component {
                       column: 'factoryName',
                     },
                     {
+                      title: '名称首字母',
+                      column: 'factoryInitials',
+                    },
+                    {
                       title: '经度',
                       column: 'longitude',
                     },
@@ -114,6 +118,11 @@ class Index extends React.Component {
                   dataIndex: 'factoryName',
                 },
                 {
+                  title: '名称首字母',
+                  width: '10%',
+                  dataIndex: 'factoryInitials',
+                },
+                {
                   title: '经度',
                   width: '10%',
                   dataIndex: 'longitude',
@@ -125,7 +134,7 @@ class Index extends React.Component {
                 },
                 {
                   title: '地址',
-                  width: '30%',
+                  width: '25%',
                   dataIndex: 'specificLocation',
                 },
                 {
@@ -135,7 +144,7 @@ class Index extends React.Component {
                 },
                 {
                   title: '操作',
-                  width: '10%',
+                  width: '5%',
                   dataIndex: 'opt',
                   render(text, record) {
                     const opRecord = (
