@@ -1,8 +1,7 @@
-/* eslint-disable no-plusplus */
 // 系统设置 - 部门管理
 import React from 'react';
 import { connect } from 'dva';
-import { Tree, Tag, Icon, Divider, Modal, Popconfirm, notification } from 'antd';
+import { Tree, Tag, Icon, Divider, Modal, Popconfirm, notification, Spin } from 'antd';
 import AddUp from './components/AddUp';
 import Index from '../sysRole/Index';
 import { postRequest } from '@/utils/api';
@@ -20,6 +19,7 @@ class sysDepartment extends React.Component {
       info: null,
       open: false,
       type: null,
+      spinning: false,
     };
   }
 
@@ -28,6 +28,9 @@ class sysDepartment extends React.Component {
   }
 
   initialization = async () => {
+    this.setState({
+      spinning: true,
+    });
     let departmentList = await postRequest(SYS_D_TREE);
     departmentList = departmentList.data;
     this.setState({
@@ -39,10 +42,13 @@ class sysDepartment extends React.Component {
         info,
       });
     }
+    this.setState({
+      spinning: false,
+    });
   };
 
   getInfo = arr => {
-    for (let i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i += 1) {
       const json = arr[i];
       if (json.id === this.state.info.id) {
         return json;
@@ -123,31 +129,34 @@ class sysDepartment extends React.Component {
         </Modal>
 
         <div className={styles.menuCon}>
-          <div className={styles.menuLeft}>
-            <Tree showLine defaultExpandAll>
-              <Tree.TreeNode
-                title={
-                  <Tag
-                    className={styles.treeNode}
-                    onClick={() => {
-                      this.setState({
-                        info: {
-                          id: 0,
-                          departmentName: '部门结构',
-                        },
-                      });
-                    }}
-                  >
-                    <Icon type="folder" />
-                    &nbsp;&nbsp;部门结构
-                  </Tag>
-                }
-                key="0"
-              >
-                {this.recursion(departmentList, 0)}
-              </Tree.TreeNode>
-            </Tree>
-          </div>
+          <Spin spinning={this.state.spinning}>
+            <div className={styles.menuLeft}>
+              <Tree showLine defaultExpandAll>
+                <Tree.TreeNode
+                  title={
+                    <Tag
+                      className={styles.treeNode}
+                      onClick={() => {
+                        this.setState({
+                          info: {
+                            id: 0,
+                            departmentName: '部门结构',
+                          },
+                        });
+                      }}
+                    >
+                      <Icon type="folder" />
+                      &nbsp;&nbsp;部门结构
+                    </Tag>
+                  }
+                  key="0"
+                >
+                  {this.recursion(departmentList, 0)}
+                </Tree.TreeNode>
+              </Tree>
+            </div>
+          </Spin>
+
           <Divider type="vertical" style={{ height: '36em' }} />
           <div className={styles.menuRight}>
             {info && (

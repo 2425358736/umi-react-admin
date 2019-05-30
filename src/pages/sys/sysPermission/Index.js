@@ -1,7 +1,7 @@
 /* eslint-disable no-plusplus */
 // 系统设置 - 菜单管理
 import React from 'react';
-import { Tag, Tree, Icon, Divider, Modal, Popconfirm, notification } from 'antd';
+import { Tag, Tree, Icon, Divider, Modal, Popconfirm, notification, Spin } from 'antd';
 import AddUp from './components/AddUp';
 import { postRequest } from '@/utils/api';
 import { SYS_PER_TREE, SYS_DEL_PER } from '@/services/SysInterface';
@@ -15,6 +15,7 @@ class SysPermission extends React.Component {
       info: null,
       open: false,
       type: null,
+      spinning: false,
     };
   }
 
@@ -23,6 +24,9 @@ class SysPermission extends React.Component {
   }
 
   initialization = async () => {
+    this.setState({
+      spinning: true,
+    });
     let perList = await postRequest(SYS_PER_TREE);
     perList = perList.data;
     this.setState({
@@ -34,6 +38,9 @@ class SysPermission extends React.Component {
         info,
       });
     }
+    this.setState({
+      spinning: false,
+    });
   };
 
   getInfo = arr => {
@@ -130,31 +137,33 @@ class SysPermission extends React.Component {
         </Modal>
 
         <div className={styles.menuCon}>
-          <div className={styles.menuLeft}>
-            <Tree showLine defaultExpandAll>
-              <Tree.TreeNode
-                title={
-                  <Tag
-                    className={styles.treeNode}
-                    onClick={() => {
-                      this.setState({
-                        info: {
-                          id: 0,
-                          perName: '菜单结构',
-                        },
-                      });
-                    }}
-                  >
-                    <Icon type="folder" />
-                    &nbsp;&nbsp;菜单结构
-                  </Tag>
-                }
-                key="0"
-              >
-                {this.recursion(perList, 0)}
-              </Tree.TreeNode>
-            </Tree>
-          </div>
+          <Spin spinning={this.state.spinning}>
+            <div className={styles.menuLeft}>
+              <Tree showLine defaultExpandAll>
+                <Tree.TreeNode
+                  title={
+                    <Tag
+                      className={styles.treeNode}
+                      onClick={() => {
+                        this.setState({
+                          info: {
+                            id: 0,
+                            perName: '菜单结构',
+                          },
+                        });
+                      }}
+                    >
+                      <Icon type="folder" />
+                      &nbsp;&nbsp;菜单结构
+                    </Tag>
+                  }
+                  key="0"
+                >
+                  {this.recursion(perList, 0)}
+                </Tree.TreeNode>
+              </Tree>
+            </div>
+          </Spin>
           <Divider type="vertical" style={{ height: '36em' }} />
           <div className={styles.menuRight}>
             {info && (
