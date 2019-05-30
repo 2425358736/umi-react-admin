@@ -114,7 +114,7 @@ class Index extends React.Component {
                 },
                 {
                   title: '甲方名称',
-                  width: '20%',
+                  width: '15%',
                   dataIndex: 'factoryName',
                 },
                 {
@@ -144,7 +144,7 @@ class Index extends React.Component {
                 },
                 {
                   title: '操作',
-                  width: '5%',
+                  width: '10%',
                   dataIndex: 'opt',
                   render(text, record) {
                     const opRecord = (
