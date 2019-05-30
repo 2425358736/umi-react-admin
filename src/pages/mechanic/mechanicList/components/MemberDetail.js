@@ -1,20 +1,18 @@
 import React from 'react';
-import { Tooltip, Icon } from 'antd';
+import { Tooltip, Icon, notification } from 'antd';
 import TableList from './TableList';
+import MechanicOrderList from './MechanicOrderList';
 import styles from './components.less';
 import { postRequest } from '@/utils/api';
 
-import { MECHANIC_MSG } from '@/services/FirstPartyInterface';
+import { MECHANIC_MSG, MECHANIC_UPDATE } from '@/services/FirstPartyInterface';
 
 class MemberDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      fetchData: {
-        householdRegisterVo: {
-          listMember: [],
-        },
-      },
+      fetchData: {},
+      mechanicCertificateList: [],
     };
   }
 
@@ -23,7 +21,21 @@ class MemberDetail extends React.Component {
     if (data.status === 200) {
       await this.setState({
         fetchData: data.data,
+        mechanicCertificateList: data.data.mechanicCertificateList,
       });
+    }
+  };
+
+  attestation = async () => {
+    const data = await postRequest(MECHANIC_UPDATE, {
+      id: this.state.fetchData.id,
+      attestationState: 2,
+    });
+    if (data.status === 200) {
+      notification.info({ message: data.msg, description: data.subMsg });
+      this.componentWillMount();
+    } else {
+      notification.error({ message: data.msg, description: data.subMsg });
     }
   };
 
@@ -102,15 +114,18 @@ class MemberDetail extends React.Component {
             <div className={styles.conWrap}>
               <div className={styles.itemDom}>
                 <span>头像面</span>
-                <img src="http://pic37.nipic.com/20140113/8800276_184927469000_2.png" alt="" />
+                <img src={fetchData.idPhotoJust} alt="" />
               </div>
               <div className={styles.itemDom}>
                 <span>国徽面</span>
-                <img src="http://pic37.nipic.com/20140113/8800276_184927469000_2.png" alt="" />
+                <img src={fetchData.idPhotoBack} alt="" />
               </div>
               <div className={styles.btnWrap}>
-                <span className={styles.btnDom}>通过</span>
-                <span className={styles.btnDom}>不通过</span>
+                {fetchData.attestationState === 1 && (
+                  <span onClick={this.attestation} className={styles.btnDom}>
+                    通过
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -121,15 +136,19 @@ class MemberDetail extends React.Component {
               <span>证书信息</span>
             </div>
             <div className={styles.conWrap}>
-              {/* 循环以下 div */}
-              <div className={styles.itemDom}>
-                <p>
-                  <span>证书名称：</span>
-                  <span>XX证书</span>
-                </p>
-                <img src="http://pic37.nipic.com/20140113/8800276_184927469000_2.png" alt="" />
-                <img src="http://pic37.nipic.com/20140113/8800276_184927469000_2.png" alt="" />
-              </div>
+              {this.state.mechanicCertificateList.map(listItem => (
+                <div className={styles.itemDom} key={listItem.id}>
+                  <p>
+                    <span>证书名称：</span>
+                    <span>{listItem.certificateName}</span>
+                  </p>
+                  {listItem.certificatePhoto.split('#').map(url => (
+                    <div style={{ display: 'inline-block' }}>
+                      <img src={url} alt="" />
+                    </div>
+                  ))}
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -139,23 +158,29 @@ class MemberDetail extends React.Component {
             <span />
             <span>团队管理</span>
           </div>
-          <TableList />
+          {fetchData.teamId && <TableList id={fetchData.teamId} />}
         </div>
 
         <div className={styles.bottomWrap}>
           <div className={styles.titleDom}>
             <span />
-            <span>团队管理</span>
+            <span>历史订单</span>
           </div>
-          <TableList />
+          {fetchData.id && <MechanicOrderList id={fetchData.id} />}
         </div>
 
         <div className={styles.bottomWrap}>
           <div className={styles.titleDom}>
             <span />
-            <span>团队管理</span>
+            <span>合作过的设备商</span>
           </div>
-          <TableList />
+        </div>
+
+        <div className={styles.bottomWrap}>
+          <div className={styles.titleDom}>
+            <span />
+            <span>评分记录</span>
+          </div>
         </div>
       </div>
     );

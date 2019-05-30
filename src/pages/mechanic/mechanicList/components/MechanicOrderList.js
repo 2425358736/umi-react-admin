@@ -1,8 +1,7 @@
 import React from 'react';
 import { InfoTable, Info } from '@/components/BusinessComponent/BusCom';
-import Details from '@/pages/mechanic/mechanicList/components/MemberDetail';
 
-import { MECHANIC_TEAM } from '@/services/FirstPartyInterface';
+import { MECHANIC_ORDER_LIST } from '@/services/FirstPartyInterface';
 
 class HistoricalOrder extends React.Component {
   constructor(props) {
@@ -22,35 +21,38 @@ class HistoricalOrder extends React.Component {
           isIncrement: true,
         },
         {
-          title: '姓名',
-          width: '7%',
+          title: '甲方',
+          width: '40%',
+          dataIndex: 'factoryName',
+        },
+        {
+          title: '人员要求',
+          width: '15%',
+          dataIndex: 'orderRequirementStr',
+        },
+        {
+          title: '接单人',
+          width: '10%',
           dataIndex: 'realName',
         },
         {
-          title: '身份证号',
-          width: '13%',
-          dataIndex: 'idNumber',
+          title: '订单金额',
+          width: '10%',
+          dataIndex: 'orderAmount',
         },
         {
-          title: '手机号',
-          width: '7%',
-          dataIndex: 'attestationPhone',
-        },
-        {
-          title: '标签',
-          width: '7%',
-          dataIndex: 'labelName',
+          title: '订单状态',
+          width: '10%',
+          dataIndex: 'orderStatusStr',
         },
         {
           title: '操作',
-          width: '5%',
+          width: '10%',
           dataIndex: 'opt',
-          render(text, record) {
+          render() {
             return (
               <div>
-                <Info title="订单详情" info={<Details id={record.mechanicId} />}>
-                  详情
-                </Info>
+                <Info title="订单详情">详情</Info>
               </div>
             );
           },
@@ -65,8 +67,8 @@ class HistoricalOrder extends React.Component {
         <InfoTable
           scroll={{ x: 900 }}
           columns={this.state.columns}
-          listUrl={MECHANIC_TEAM}
-          additionalData={{ teamId: this.props.id }}
+          listUrl={MECHANIC_ORDER_LIST}
+          additionalData={{ mechanicId: this.props.id }}
         />
       </div>
     );

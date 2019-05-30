@@ -8,5 +8,9 @@ export const FIRST_PARTY_HEAD = '/firstParty/getFactoryCount'; // 获取头部�
 export const MECHANIC_LIST = '/mechanic/getMechanicList'; // 获取技工列表
 export const MECHANIC_HEAD = '/mechanic/getHeadTotal'; // 技工列表头部
 export const MECHANIC_MSG = '/mechanic/getMechanicMsg'; // 技工列表详情
+export const MECHANIC_UPDATE = '/mechanic/updateMechanic'; // 审核技工
+export const MECHANIC_TEAM = '/mechanic/getMechanicTeamMember'; // 技工团队
+
+export const MECHANIC_ORDER_LIST = '/mechanic/getMechanicOrderInfo'; // 技工历史订单
 
 export const ManufacturerMechanicList = '/mechanic/manufacturerMechanicList'; // 合作技工
