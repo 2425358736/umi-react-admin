@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign,no-restricted-globals,react/sort-comp */
 import React from 'react';
 import { Input, DatePicker, Select, Icon, Tag, Table, notification } from 'antd';
 import moment from 'moment';
@@ -52,19 +51,19 @@ class InfoTable extends React.Component {
     const { pagination, query, orders, columns } = this.state;
     const arr = columns;
 
-    arr.forEach(json => {
+    arr.forEach((json, i) => {
       if (json.filters) {
-        json.filteredValue = query[json.dataIndex] ? query[json.dataIndex] : null;
+        arr[i].filteredValue = query[json.dataIndex] ? query[json.dataIndex] : null;
       }
       if (json.column) {
         if (!json.render) {
-          json.render = (text, record) => record[json.column];
+          arr[i].render = (text, record) => record[json.column];
         }
       } else {
-        json.column = json.dataIndex;
+        arr[i].column = json.dataIndex;
       }
       if (json.isIncrement) {
-        json.render = (text, record, index) => {
+        arr[i].render = (text, record, index) => {
           let page = (pagination.current - 1) * pagination.pageSize;
           if (isNaN(page)) {
             page = 0;
@@ -74,7 +73,7 @@ class InfoTable extends React.Component {
       }
 
       if (json.sorter) {
-        json.sortOrder = json.dataIndex === orders.name && `${orders.type}end`;
+        arr[i].sortOrder = json.dataIndex === orders.name && `${orders.type}end`;
       }
     });
     this.setState({
