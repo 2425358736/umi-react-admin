@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tooltip, Icon } from 'antd';
-// import HouseholdMemberList from './HouseholdMemberList';
+import TableList from './TableList';
 import styles from './components.less';
 import { postRequest } from '@/utils/api';
 
@@ -32,7 +32,7 @@ class MemberDetail extends React.Component {
     return (
       <div>
         <div className={styles.topWrap}>
-          <div className={styles.topTitle}>
+          <div className={styles.titleDom}>
             <span />
             <span>姓名：{fetchData.realName}</span>
           </div>
@@ -93,28 +93,69 @@ class MemberDetail extends React.Component {
           </div>
         </div>
 
-        <div className={styles.midOneWrap}>
-          <div className={styles.midOneLeft}>
-            <div className={styles.midOneTitle}>
+        <div className={styles.midWrap}>
+          <div className={styles.midLeft}>
+            <div className={styles.titleDom}>
               <span />
               <span>技工认证信息</span>
             </div>
-            <div className={styles.conWrap} />
+            <div className={styles.conWrap}>
+              <div className={styles.itemDom}>
+                <span>头像面</span>
+                <img src="http://pic37.nipic.com/20140113/8800276_184927469000_2.png" alt="" />
+              </div>
+              <div className={styles.itemDom}>
+                <span>国徽面</span>
+                <img src="http://pic37.nipic.com/20140113/8800276_184927469000_2.png" alt="" />
+              </div>
+              <div className={styles.btnWrap}>
+                <span className={styles.btnDom}>通过</span>
+                <span className={styles.btnDom}>不通过</span>
+              </div>
+            </div>
           </div>
 
-          <div className={styles.midOneRight}>
-            <div className={styles.midOneTitle}>
+          <div className={styles.midRight}>
+            <div className={styles.titleDom}>
               <span />
               <span>证书信息</span>
+            </div>
+            <div className={styles.conWrap}>
+              {/* 循环以下 div */}
+              <div className={styles.itemDom}>
+                <p>
+                  <span>证书名称：</span>
+                  <span>XX证书</span>
+                </p>
+                <img src="http://pic37.nipic.com/20140113/8800276_184927469000_2.png" alt="" />
+                <img src="http://pic37.nipic.com/20140113/8800276_184927469000_2.png" alt="" />
+              </div>
             </div>
           </div>
         </div>
 
         <div className={styles.bottomWrap}>
-          <div className={styles.bottomTitle}>
+          <div className={styles.titleDom}>
             <span />
             <span>团队管理</span>
           </div>
+          <TableList />
+        </div>
+
+        <div className={styles.bottomWrap}>
+          <div className={styles.titleDom}>
+            <span />
+            <span>团队管理</span>
+          </div>
+          <TableList />
+        </div>
+
+        <div className={styles.bottomWrap}>
+          <div className={styles.titleDom}>
+            <span />
+            <span>团队管理</span>
+          </div>
+          <TableList />
         </div>
       </div>
     );
