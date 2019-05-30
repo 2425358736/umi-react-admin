@@ -110,34 +110,48 @@ const exportButton = {
     {
       title: '序号',
       column: 'id',
-      export: true,
     },
     {
-      title: '登录名',
-      column: 'loginName',
-      export: true,
+      title: '订单编号',
+      column: 'orderNumber',
     },
     {
-      title: '邮箱',
-      column: 'email',
-      export: true,
+      title: '订单名称',
+      column: 'orderName',
     },
     {
-      title: '手机',
-      column: 'phone',
-      export: true,
+      title: '订单总金额',
+      column: 'totalOrderAmount',
     },
     {
-      title: '创建日期',
+      title: '已支付金额',
+      column: 'paidAmount',
+      export: false,
+    },
+    {
+      title: '首付比例（%）',
+      column: 'downPaymentRatio',
+      export: false,
+    },
+    {
+      title: '人员要求',
+      column: 'orderRequirementStr',
+    },
+    {
+      title: '订单状态',
+      column: 'orderStatusStr',
+    },
+    {
+      title: '订单工作类型',
+      column: 'orderTypeStr',
+    },
+    {
+      title: '负责人名称',
+      column: 'leadingCadreName',
+    },
+    {
+      title: '发布日期',
       column: 'createDate',
-    },
-    {
-      title: '修改日期',
-      column: 'updateDate',
-    },
-    {
-      title: '冻结状态',
-      column: 'freezeStateStr',
     },
   ],
 };
@@ -159,7 +173,7 @@ class Index extends React.Component {
       columns: [
         {
           title: '序号',
-          width: '10%',
+          width: '5%',
           dataIndex: 'id',
           isIncrement: true,
         },
@@ -230,22 +244,22 @@ class Index extends React.Component {
         },
         {
           title: '负责人名称',
-          width: '15%',
+          width: '10%',
           dataIndex: 'leadingCadreName',
         },
         {
           title: '发布日期',
-          width: '15%',
+          width: '10%',
           dataIndex: 'createDate',
         },
         {
           title: '操作',
-          width: '10%',
+          width: '15%',
           dataIndex: 'opt',
           render(text, record) {
             return (
               <div>
-                <Info title="设备商" info={<Details id={record.id} />}>
+                <Info title="订单详情" info={<Details id={record.id} />}>
                   详情
                 </Info>
                 <Divider type="vertical" />

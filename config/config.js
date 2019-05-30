@@ -117,8 +117,8 @@ export default {
           component: './firstParty/firstPartyList/index',
         },
         {
-          path: '/equipmentDealer',
-          component: './equipmentDealer/equipmentDealer/Index',
+          path: '/information/equipmentDealer',
+          component: './information/equipmentDealer/Index',
         },
         {
           path: '/order/orderList',

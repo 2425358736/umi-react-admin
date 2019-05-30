@@ -1,10 +1,12 @@
 import React from 'react';
 import { Drawer } from 'antd';
 import { connect } from 'dva';
+import style from './Info.less';
 
-@connect(({ breadcrumb }) => ({
+@connect(({ breadcrumb, global }) => ({
   breadcrumb,
   list: breadcrumb.list,
+  collapsed: global.collapsed,
 }))
 class Info extends React.Component {
   constructor(props) {
@@ -63,7 +65,7 @@ class Info extends React.Component {
   };
 
   render() {
-    const { dispatch, list, children, title, id } = this.props;
+    const { dispatch, list, children, title, id, collapsed } = this.props;
     const { identifying } = this.state;
     return (
       <div style={{ display: 'inline-block' }}>
@@ -99,9 +101,12 @@ class Info extends React.Component {
           {children}
         </div>
         <Drawer
+          className={style.breadDom}
           style={{
+            right: collapsed ? '-80px' : '-170px',
+          }}
+          maskStyle={{
             position: 'absolute',
-            top: '112px',
             height: 'calc(100vh - 112px)',
             overflow: 'auto',
           }}

@@ -155,7 +155,7 @@ class SysPermission extends React.Component {
               </Tree.TreeNode>
             </Tree>
           </div>
-          <Divider type="vertical" style={{ height: '38em' }} />
+          <Divider type="vertical" style={{ height: '36em' }} />
           <div className={styles.menuRight}>
             {info && (
               <div>
