@@ -181,6 +181,11 @@ class BasicLayout extends React.PureComponent {
     obj.fun();
   };
 
+  getHeadWidth = () => {
+    const { collapsed } = this.props;
+    return collapsed ? 'calc(100% - 80px)' : 'calc(100% - 170px)';
+  };
+
   render() {
     const {
       navTheme,
@@ -197,6 +202,7 @@ class BasicLayout extends React.PureComponent {
     const isTop = PropsLayout === 'topmenu';
     const routerConfig = this.getRouterAuthority(pathname, routes);
     const contentStyle = !fixedHeader ? { paddingTop: 0 } : {};
+    const width = this.getHeadWidth();
     const layout = (
       <Layout>
         {isTop && !isMobile ? null : (
@@ -224,7 +230,7 @@ class BasicLayout extends React.PureComponent {
             isMobile={isMobile}
             {...this.props}
           />
-          <Breadcrumb className={styles.breadDom}>
+          <Breadcrumb style={{ width }} className={styles.breadDom}>
             {list.map((obj, i) => (
               <Breadcrumb.Item key={i.toString()}>
                 <a

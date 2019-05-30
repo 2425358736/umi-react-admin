@@ -101,6 +101,10 @@ export default {
           component: './userCenter/insideMail/Index',
         },
         {
+          path: '/sys/sysUser',
+          component: './sys/sysUser/Index',
+        },
+        {
           path: '/sys/sysDict',
           component: './sys/sysDict/index',
         },
@@ -115,6 +119,10 @@ export default {
         {
           path: '/equipmentDealer',
           component: './equipmentDealer/equipmentDealer/Index',
+        },
+        {
+          path: '/order/orderList',
+          component: './order/orderInfo/Index',
         },
       ],
     },
