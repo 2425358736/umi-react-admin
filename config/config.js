@@ -113,8 +113,12 @@ export default {
           component: './profile/index',
         },
         {
-          path: '/firstParty/firstPartyList',
+          path: '/information/firstPartyList',
           component: './firstParty/firstPartyList/index',
+        },
+        {
+          path: '/information/mechanicList',
+          component: './mechanic/mechanicList/index',
         },
         {
           path: '/information/equipmentDealer',
