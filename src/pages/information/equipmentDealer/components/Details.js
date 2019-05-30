@@ -29,7 +29,7 @@ class NoticeDetail extends React.Component {
     return (
       <div>
         <div className={styles.topWrap}>
-          <div className={styles.topTitle}>
+          <div className={styles.titleDom}>
             <span />
             <span>设备厂商名称：{InfoData.equipmentDealerCompany}</span>
           </div>
@@ -76,151 +76,65 @@ class NoticeDetail extends React.Component {
           </div>
         </div>
 
-        <div className={styles.OneWrap}>
-          <div className={styles.midOneRight}>
-            <div className={styles.midOneTitle}>
-              <span />
-              <span>党员信息</span>
-            </div>
-
-            <div className={styles.conWrap}>
-              <div className={styles.itemDom}>
-                <span>入党日期</span>
-                <p>{fetchData.intoPartyDate}</p>
-              </div>
-              <div className={styles.itemDom}>
-                <span>当前支部</span>
-                <p>{fetchData.currentBranchName}</p>
-              </div>
-              <div className={styles.itemDom}>
-                <span>支部联系人</span>
-                <p>{fetchData.branchContacts}</p>
-              </div>
-            </div>
-
-            <div className={styles.conWrap}>
-              <div className={styles.itemDom}>
-                <span>入党支部</span>
-                <p>{fetchData.intoBranchName}</p>
-              </div>
-              <div className={styles.itemDom}>
-                <span>支部书记</span>
-                <p>{fetchData.branchSecretary}</p>
-              </div>
-              <div className={styles.itemDom}>
-                <span>联系人电话</span>
-                <p>{fetchData.contactTelephone}</p>
-              </div>
-            </div>
-
-            <div className={styles.remarkWrap}>
-              <span>备注</span>
-              <p>{fetchData.remarks}</p>
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.midOneWrap}>
-          <div className={styles.midOneLeft}>
-            <div className={styles.midOneTitle}>
-              <span />
-              <span>个人信息</span>
-            </div>
-            <div className={styles.conWrap}>
-              <div className={styles.itemDom}>
-                <span>户口簿版本号</span>
-                <p>{}</p>
-              </div>
-              <div className={styles.itemDom}>
-                <span>编号</span>
-                <p>{}</p>
-              </div>
-            </div>
-            <div className={styles.conWrap}>
-              <div className={styles.itemDom}>
-                <span>户号</span>
-                <p>{}</p>
-              </div>
-              <div className={styles.itemDom}>
-                <span>户主</span>
-                <p>{}</p>
-              </div>
-            </div>
-            <div className={styles.conWrap}>
-              <div className={styles.itemDom}>
-                <span>户别</span>
-                <p>{}</p>
-              </div>
-              <div className={styles.itemDom}>
-                <span>住址</span>
-                <p>{}</p>
-              </div>
-            </div>
+        <div className={styles.midWrap}>
+          <div className={styles.titleDom}>
+            <span />
+            <span className={styles.btnWrap}>通过</span>
+            <span>信息详情</span>
           </div>
 
-          <div className={styles.midOneRight}>
-            <div className={styles.midOneTitle}>
-              <span />
-              <span>个人信息</span>
-            </div>
-            <div className={styles.conWrap}>
+          <div className={styles.midCon}>
+            <div className={styles.midLeft}>
               <div className={styles.itemDom}>
-                <span>户口簿版本号</span>
-                <p>{}</p>
+                <span>经营范围：</span>
+                <span>
+                  {fetchData.intoPartyDate}
+                  阿打算打算的111111111111111111111111111111111111111111111111111111111111111111111111111111
+                </span>
               </div>
               <div className={styles.itemDom}>
-                <span>编号</span>
-                <p>{}</p>
-              </div>
-            </div>
-            <div className={styles.conWrap}>
-              <div className={styles.itemDom}>
-                <span>户号</span>
-                <p>{}</p>
-              </div>
-              <div className={styles.itemDom}>
-                <span>户主</span>
-                <p>{}</p>
+                <span>营业执照：</span>
+                <img src="http://pic37.nipic.com/20140113/8800276_184927469000_2.png" alt="" />
               </div>
             </div>
-            <div className={styles.conWrap}>
-              <div className={styles.itemDom}>
-                <span>户别</span>
-                <p>{}</p>
+
+            <div className={styles.midRight}>
+              <div>
+                <div className={styles.itemDom}>
+                  <span>负责人姓名</span>
+                  <p>{fetchData.intoBranchName}刘志强</p>
+                </div>
+                <div className={styles.itemDom}>
+                  <span>负责人身份证号</span>
+                  <p>{fetchData.branchSecretary}12312334254234</p>
+                </div>
+                <div className={styles.itemDom}>
+                  <span>负责人手机号</span>
+                  <p>{fetchData.contactTelephone}123132142</p>
+                </div>
               </div>
-              <div className={styles.itemDom}>
-                <span>住址</span>
-                <p>{}</p>
+
+              <div>
+                <div className={styles.itemDom}>
+                  <span>营业执照：</span>
+                  <img src="http://pic37.nipic.com/20140113/8800276_184927469000_2.png" alt="" />
+                </div>
+                <div className={styles.itemDom}>
+                  <span>营业执照：</span>
+                  <img src="http://pic37.nipic.com/20140113/8800276_184927469000_2.png" alt="" />
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className={styles.midOneWrap}>
-          <div className={styles.midOneRight}>
-            <div className={styles.midOneTitle}>
-              <span />
-              <span>个人信息</span>
-            </div>
-            <div dangerouslySetInnerHTML={{ __html: fetchData.content }} />
-            {fetchData.aa && (
-              <div className={styles.midBottom}>
-                附件：
-                <a href={fetchData.aa}>{fetchData.enclosure}</a>
-              </div>
-            )}
+        <div className={styles.bottomWrap}>
+          <div className={styles.titleDom}>
+            <span />
+            <span>列表</span>
           </div>
+          <HistoricalOrder />
         </div>
-
-        {fetchData && fetchData.type === 2 && (
-          <div className={styles.bottomWrap}>
-            <div className={styles.titleDom}>
-              <span />
-              <span>接收人列表</span>
-            </div>
-            <HistoricalOrder />
-          </div>
-        )}
       </div>
     );
   }
