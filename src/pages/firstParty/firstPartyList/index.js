@@ -44,7 +44,7 @@ class Index extends React.Component {
               senior={[
                 {
                   queryTitle: '创建日期',
-                  queryField: 'updateDate',
+                  queryField: 'createDate',
                   component: 'RangePicker',
                 },
                 {

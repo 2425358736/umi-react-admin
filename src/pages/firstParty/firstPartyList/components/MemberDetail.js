@@ -1,18 +1,18 @@
 import React from 'react';
 import { Tooltip, Icon } from 'antd';
 import styles from './components.less';
-import ReactQMap from 'react-qmap';
 import { postRequest } from '@/utils/api';
 
 import { FIRST_PARTY_MSG } from '@/services/FirstPartyInterface';
+import SetMap from '../../../../components/Map/SetMap';
 
 class MemberDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       fetchData: {
-        longitude: 0,
-        latitude: 0,
+        longitude: null,
+        latitude: null,
       },
     };
   }
@@ -95,12 +95,19 @@ class MemberDetail extends React.Component {
               <span>地图</span>
             </div>
             <div className={styles.conWrap}>
-              <ReactQMap
-                center={{ latitude: this.state.latitude, longitude: this.state.longitude }}
-                initialOptions={{ zoomControl: true, mapTypeControl: true }}
-                apiKey="7Y5BZ-7DTC3-FVN3J-3Z4X2-ROLLJ-N6B7Q"
-                style={{ height: 300 }} // 高度和宽度默认占父元素的100%
-              />
+              {this.state.latitude !== undefined && this.state.longitude !== undefined && (
+                <SetMap
+                  lat={this.state.latitude}
+                  lng={this.state.longitude}
+                  callback={location => {
+                    console.log(location);
+                    this.setState({
+                      latitude: location.lat,
+                      longitude: location.lng,
+                    });
+                  }}
+                />
+              )}
             </div>
           </div>
         </div>
