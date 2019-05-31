@@ -3,7 +3,7 @@ import { InfoTable, Info } from '@/components/BusinessComponent/BusCom';
 
 import { ManufacturerMechanicList } from '@/services/FirstPartyInterface';
 
-import Details from '@/pages/order/orderInfo/components/Details';
+import MemberDetail from '@/pages/mechanic/mechanicList/components/MemberDetail';
 
 class CooperativeMechanic extends React.Component {
   constructor(props) {
@@ -18,38 +18,38 @@ class CooperativeMechanic extends React.Component {
       columns: [
         {
           title: '序号',
-          width: '6%',
+          width: '10%',
           dataIndex: 'id',
           isIncrement: true,
         },
         {
           title: '姓名',
-          width: '8%',
+          width: '10%',
           dataIndex: 'realName',
         },
         {
           title: '电话',
-          width: '8%',
+          width: '20%',
           dataIndex: 'attestationPhone',
         },
         {
           title: '身份证',
-          width: '14%',
+          width: '20%',
           dataIndex: 'idNumber',
         },
         {
           title: '签约日期',
-          width: '8%',
+          width: '20%',
           dataIndex: 'contractDate',
         },
         {
           title: '操作',
-          width: '10%',
+          width: '20%',
           dataIndex: 'opt',
           render(text, record) {
             return (
               <div>
-                <Info title="技工详情" info={<Details id={record.id} />}>
+                <Info title="技工详情" info={<MemberDetail id={record.id} />}>
                   详情
                 </Info>
               </div>
@@ -67,7 +67,7 @@ class CooperativeMechanic extends React.Component {
           scroll={{ x: 900 }}
           columns={this.state.columns}
           listUrl={ManufacturerMechanicList}
-          additionalData={{ equipmentDealerId: this.props.id }}
+          additionalData={{ equipmentDealerId: this.props.id, confirmState: 1 }}
         />
       </div>
     );

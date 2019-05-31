@@ -208,7 +208,7 @@ class Index extends React.Component {
                 },
                 {
                   title: '接口所在服务端',
-                  width: '10%',
+                  width: '15%',
                   dataIndex: 'serverSide',
                   column: 'serverSideStr',
                   filters: [
