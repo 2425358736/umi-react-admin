@@ -40,6 +40,7 @@ class HistoricalOrder extends React.Component {
           title: '标签',
           width: '7%',
           dataIndex: 'labelName',
+          filters: this.props.label,
         },
         {
           title: '操作',

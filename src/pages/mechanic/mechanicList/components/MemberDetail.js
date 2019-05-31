@@ -7,6 +7,7 @@ import { postRequest } from '@/utils/api';
 
 import { MECHANIC_MSG, MECHANIC_UPDATE } from '@/services/FirstPartyInterface';
 import MechanicEquipmentList from './MechanicEquipmentList';
+import ScoreRecord from '../../../information/equipmentDealer/components/ScoreRecord';
 
 class MemberDetail extends React.Component {
   constructor(props) {
@@ -159,7 +160,7 @@ class MemberDetail extends React.Component {
             <span />
             <span>团队管理</span>
           </div>
-          {fetchData.teamId && <TableList id={fetchData.teamId} />}
+          {fetchData.teamId && <TableList id={fetchData.teamId} label={fetchData.list} />}
         </div>
 
         <div className={styles.bottomWrap}>
@@ -178,12 +179,19 @@ class MemberDetail extends React.Component {
           {fetchData.id && <MechanicEquipmentList id={fetchData.id} />}
         </div>
 
-        <div className={styles.bottomWrap}>
-          <div className={styles.titleDom}>
-            <span />
-            <span>评分记录</span>
+        {fetchData.wxId > 0 && (
+          <div className={styles.bottomWrap}>
+            <div className={styles.titleDom}>
+              <span />
+              <span>评分记录</span>
+            </div>
+            <ScoreRecord
+              callback={this.componentWillMount}
+              id={fetchData.wxId}
+              historicalScore={fetchData.currentScore}
+            />
           </div>
-        </div>
+        )}
       </div>
     );
   }
