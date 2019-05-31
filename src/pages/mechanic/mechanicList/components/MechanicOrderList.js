@@ -1,6 +1,6 @@
 import React from 'react';
 import { InfoTable, Info } from '@/components/BusinessComponent/BusCom';
-
+import Details from '@/pages/order/orderInfo/components/Details';
 import { MECHANIC_ORDER_LIST } from '@/services/FirstPartyInterface';
 
 class HistoricalOrder extends React.Component {
@@ -93,10 +93,12 @@ class HistoricalOrder extends React.Component {
           title: '操作',
           width: '10%',
           dataIndex: 'opt',
-          render() {
+          render(text, record) {
             return (
               <div>
-                <Info title="订单详情">详情</Info>
+                <Info title="订单详情" info={<Details id={record.id} />}>
+                  详情
+                </Info>
               </div>
             );
           },
