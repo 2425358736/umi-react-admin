@@ -29,6 +29,16 @@ class HistoricalOrder extends React.Component {
           title: '人员要求',
           width: '15%',
           dataIndex: 'orderRequirementStr',
+          filters: [
+            {
+              text: '个人',
+              value: '0',
+            },
+            {
+              text: '团队',
+              value: '1',
+            },
+          ],
         },
         {
           title: '接单人',
@@ -44,6 +54,40 @@ class HistoricalOrder extends React.Component {
           title: '订单状态',
           width: '10%',
           dataIndex: 'orderStatusStr',
+          filters: [
+            {
+              text: '待审核',
+              value: '0',
+            },
+            {
+              text: '待签约',
+              value: '1',
+            },
+            {
+              text: '执行中',
+              value: '2',
+            },
+            {
+              text: '待验收',
+              value: '3',
+            },
+            {
+              text: '待结清',
+              value: '4',
+            },
+            {
+              text: '待评价',
+              value: '5',
+            },
+            {
+              text: '已结束',
+              value: '6',
+            },
+            {
+              text: '已作废',
+              value: '7',
+            },
+          ],
         },
         {
           title: '操作',
