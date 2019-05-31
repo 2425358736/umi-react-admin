@@ -1,23 +1,26 @@
 import React from 'react';
 import { Spin, Button, Input, Form, notification } from 'antd';
 import { postRequest, jsonString } from '@/utils/api';
-
 import {
   FIRST_PARTY_MSG,
   FIRST_PARTY_UPDATE,
   FIRST_PARTY_ADD,
 } from '@/services/FirstPartyInterface';
+import SetMap from '../../../../components/Map/SetMap';
 
 const styles = require('./AddUp.less');
 
 const FormItem = Form.Item;
-
+const { Search } = Input;
 class AddUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       buttonLoading: false,
       loading: false,
+      longitude: 0,
+      latitude: 0,
+      address: '',
     };
   }
 
@@ -38,8 +41,25 @@ class AddUp extends React.Component {
         latitude: firstPartyInfo.latitude,
         labels: firstPartyInfo.labels,
       });
-      this.setState({ loading: false });
+      this.setState({
+        loading: false,
+        longitude: firstPartyInfo.longitude,
+        latitude: firstPartyInfo.latitude,
+      });
     }
+  };
+
+  fillLonLat = location => {
+    this.props.form.setFieldsValue({
+      longitude: location.lng,
+      latitude: location.lat,
+    });
+  };
+
+  fillAddress = str => {
+    this.setState({
+      address: str,
+    });
   };
 
   handleSubmit = async () => {
@@ -108,7 +128,13 @@ class AddUp extends React.Component {
                         message: '请输入甲方地址',
                       },
                     ],
-                  })(<Input placeholder="请输入甲方地址" />)}
+                  })(
+                    <Search
+                      placeholder="请输入甲方地址"
+                      onSearch={value => this.fillAddress(value)}
+                      enterButton
+                    />
+                  )}
                 </FormItem>
               </div>
             </div>
@@ -146,13 +172,35 @@ class AddUp extends React.Component {
               <span />
               <span>其他</span>
             </div>
-            <div className={styles.rowDom} style={{ width: '50%' }}>
+            <div className={styles.rowDom}>
               <div className={styles.colDom}>
                 <FormItem label="标签" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
                   {getFieldDecorator('labels')(
                     <Input.TextArea autosize={{ minRows: 7 }} placeholder="多个请用，分隔" />
                   )}
                 </FormItem>
+              </div>
+              <div className={styles.colDom}>
+                {this.state.latitude !== 0 && this.state.longitude !== 0 && (
+                  <SetMap
+                    lat={this.state.latitude}
+                    lng={this.state.longitude}
+                    callback={location => {
+                      this.fillLonLat(location);
+                    }}
+                  />
+                )}
+                {this.state.latitude === 0 && this.state.longitude === 0 && (
+                  <SetMap
+                    specificLocation={this.state.address}
+                    callback={location => {
+                      this.fillLonLat(location);
+                      this.setState({
+                        address: '',
+                      });
+                    }}
+                  />
+                )}
               </div>
             </div>
           </Form>
