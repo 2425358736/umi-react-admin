@@ -40,7 +40,6 @@ class NoticeDetail extends React.Component {
 
   render() {
     const { InfoData } = this.state;
-    const fetchData = {};
     return (
       <div>
         <div className={styles.topWrap}>
@@ -106,11 +105,11 @@ class NoticeDetail extends React.Component {
             <div className={styles.midLeft}>
               <div className={styles.itemDom}>
                 <span>经营范围：</span>
-                <span>{fetchData.businessDescription}</span>
+                <span>{InfoData.businessDescription}</span>
               </div>
               <div className={styles.itemDom}>
                 <span>营业执照：</span>
-                <img src={fetchData.businessLicense} alt="" />
+                <img src={InfoData.businessLicense} alt="" />
               </div>
             </div>
 
@@ -118,26 +117,26 @@ class NoticeDetail extends React.Component {
               <div>
                 <div className={styles.itemDom}>
                   <span>负责人姓名</span>
-                  <p>{fetchData.leadingCadreName}</p>
+                  <p>{InfoData.leadingCadreName}</p>
                 </div>
                 <div className={styles.itemDom}>
                   <span>负责人身份证号</span>
-                  <p>{fetchData.leadingCadreIdNumber}</p>
+                  <p>{InfoData.leadingCadreIdNumber}</p>
                 </div>
                 <div className={styles.itemDom}>
                   <span>负责人手机号</span>
-                  <p>{fetchData.leadingCadrePhone}</p>
+                  <p>{InfoData.leadingCadrePhone}</p>
                 </div>
               </div>
 
               <div>
                 <div className={styles.itemDom}>
                   <span>证件照正面：</span>
-                  <img src={fetchData.idPhotoJust} alt="" />
+                  <img src={InfoData.idPhotoJust} alt="" />
                 </div>
                 <div className={styles.itemDom}>
                   <span>营业执照：</span>
-                  <img src={fetchData.idPhotoBack} alt="" />
+                  <img src={InfoData.idPhotoBack} alt="" />
                 </div>
               </div>
             </div>
