@@ -81,10 +81,6 @@ export default {
           component: './error/500/Index',
         },
         {
-          path: '/sys/equipmentDealer',
-          component: './sys/equipmentDealer/Index',
-        },
-        {
           path: '/sys/sysPermission',
           component: './sys/sysPermission/Index',
         },
@@ -105,12 +101,32 @@ export default {
           component: './userCenter/insideMail/Index',
         },
         {
+          path: '/sys/sysUser',
+          component: './sys/sysUser/Index',
+        },
+        {
           path: '/sys/sysDict',
           component: './sys/sysDict/index',
         },
         {
           path: '/profile',
           component: './profile/index',
+        },
+        {
+          path: '/information/firstPartyList',
+          component: './firstParty/firstPartyList/index',
+        },
+        {
+          path: '/information/mechanicList',
+          component: './mechanic/mechanicList/index',
+        },
+        {
+          path: '/information/equipmentDealer',
+          component: './information/equipmentDealer/Index',
+        },
+        {
+          path: '/order/orderList',
+          component: './order/orderInfo/Index',
         },
       ],
     },
@@ -122,8 +138,8 @@ export default {
    */
   define: {
     APP_TYPE: process.env.APP_TYPE || '',
-    'process.env.apiUrl': 'http://127.0.0.1:8090',
-    'process.env.wsUrl': 'ws://127.0.0.1:8090',
+    'process.env.apiUrl': 'http://127.0.0.1:8091',
+    'process.env.wsUrl': 'ws://127.0.0.1:8091',
   },
   // Theme for antd
   // https://ant.design/docs/react/customize-theme-cn
