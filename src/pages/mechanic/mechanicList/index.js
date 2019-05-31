@@ -32,15 +32,15 @@ class Index extends React.Component {
                   displayTitle: '未审核',
                   displayField: 'wei',
                   queryTitle: '审核状态',
-                  queryField: 'method',
-                  queryValue: '1',
+                  queryField: 'attestationStateStr',
+                  queryValue: ['1'],
                 },
                 {
                   displayTitle: '已审核',
                   displayField: 'yi',
                   queryTitle: '审核状态',
-                  queryField: 'method',
-                  queryValue: '2',
+                  queryField: 'attestationStateStr',
+                  queryValue: ['2'],
                 },
               ]}
             />

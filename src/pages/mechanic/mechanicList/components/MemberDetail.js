@@ -6,6 +6,7 @@ import styles from './components.less';
 import { postRequest } from '@/utils/api';
 
 import { MECHANIC_MSG, MECHANIC_UPDATE } from '@/services/FirstPartyInterface';
+import MechanicEquipmentList from './MechanicEquipmentList';
 
 class MemberDetail extends React.Component {
   constructor(props) {
@@ -174,6 +175,7 @@ class MemberDetail extends React.Component {
             <span />
             <span>合作过的设备商</span>
           </div>
+          {fetchData.id && <MechanicEquipmentList id={fetchData.id} />}
         </div>
 
         <div className={styles.bottomWrap}>
