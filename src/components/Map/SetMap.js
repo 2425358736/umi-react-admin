@@ -7,9 +7,10 @@ let marker = null;
 class SetMap extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props.lat);
     this.state = {
-      latitude: props.lat ? props.lat : 30.53786,
-      longitude: props.lng ? props.lng : 104.07265,
+      latitude: props.lat ? props.lat : 39.908823,
+      longitude: props.lng ? props.lng : 116.39747,
       bool: false,
     };
   }
