@@ -15,3 +15,5 @@ export const MECHANIC_ORDER_LIST = '/mechanic/getMechanicOrderInfo'; // 技工�
 export const MECHANIC_EQUIPMENT_LIST = '/mechanic/getMechanicEquipmentDealerList'; // 技工合作过的设备商
 
 export const ManufacturerMechanicList = '/mechanic/manufacturerMechanicList'; // 合作技工
+
+export const OrderMechanicList = '/mechanic/getOrderMechanicList'; // 订单签约人或团队
