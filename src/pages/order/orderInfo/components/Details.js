@@ -167,26 +167,23 @@ class NoticeDetail extends React.Component {
             <span>开工延时申请</span>
           </div>
 
-          <div className={styles.midCon}>
+          <div className={styles.midCon} style={{ height: '300px', overflow: 'auto' }}>
             <ul className={styles.midList}>
-              <li className={styles.itemDom}>
+              <li className={styles.itemDom} style={{ border: 'none' }}>
                 <span>内容描述</span>
                 <p>
                   {fetchData.businessDescription}现场联系人现场联系人现场联系人现场联系人现场联系人
                 </p>
               </li>
-              <li className={styles.itemDom}>
+              <li className={styles.itemDom} style={{ border: 'none' }}>
                 <span>延时开工日期</span>
                 <p>{fetchData.businessDescription}现场联系人</p>
               </li>
-              <li className={styles.itemDom}>
+              <li className={styles.itemDom} style={{ border: 'none' }}>
                 <span>延时结工日期</span>
                 <p>{fetchData.businessDescription}现场联系人</p>
               </li>
-            </ul>
-
-            <ul className={styles.midList}>
-              <li className={styles.itemDom}>
+              <li className={styles.itemDom} style={{ border: 'none' }}>
                 <p>图片</p>
                 <img src={fetchData.idPhotoJust} alt="" />
                 <img src={fetchData.idPhotoJust} alt="" />
@@ -210,13 +207,13 @@ class NoticeDetail extends React.Component {
 
           <div className={styles.midCon} style={{ height: '300px', overflow: 'auto' }}>
             <ul className={styles.midList}>
-              <li className={styles.itemDom}>
+              <li className={styles.itemDom} style={{ border: 'none' }}>
                 <span>完工情况</span>
                 <p>
                   {fetchData.businessDescription}现场联系人现场联系人现场联系人现场联系人现场联系人
                 </p>
               </li>
-              <li className={styles.itemDom}>
+              <li className={styles.itemDom} style={{ border: 'none' }}>
                 <p>图片</p>
                 <img src={fetchData.idPhotoJust} alt="" />
                 <img src={fetchData.idPhotoJust} alt="" />
@@ -236,13 +233,13 @@ class NoticeDetail extends React.Component {
                 <img src={fetchData.idPhotoJust} alt="" />
                 <img src={fetchData.idPhotoJust} alt="" />
               </li>
-              <li className={styles.itemDom}>
+              <li className={styles.itemDom} style={{ border: 'none' }}>
                 <span>验收反馈</span>
                 <p>
                   {fetchData.businessDescription}现场联系人现场联系人现场联系人现场联系人现场联系人
                 </p>
               </li>
-              <li className={styles.itemDom}>
+              <li className={styles.itemDom} style={{ border: 'none' }}>
                 <p>图片</p>
                 <img src={fetchData.idPhotoJust} alt="" />
                 <img src={fetchData.idPhotoJust} alt="" />
