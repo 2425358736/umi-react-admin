@@ -154,15 +154,15 @@ class MemberDetail extends React.Component {
             </div>
           </div>
         </div>
-
-        <div className={styles.bottomWrap}>
-          <div className={styles.titleDom}>
-            <span />
-            <span>团队管理</span>
+        {fetchData.teamId && (
+          <div className={styles.bottomWrap}>
+            <div className={styles.titleDom}>
+              <span />
+              <span>团队管理</span>
+            </div>
+            <TableList id={fetchData.teamId} label={fetchData.list} />
           </div>
-          {fetchData.teamId && <TableList id={fetchData.teamId} label={fetchData.list} />}
-        </div>
-
+        )}
         <div className={styles.bottomWrap}>
           <div className={styles.titleDom}>
             <span />
