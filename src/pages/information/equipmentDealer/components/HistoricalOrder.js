@@ -18,28 +18,28 @@ class HistoricalOrder extends React.Component {
       columns: [
         {
           title: '序号',
-          width: '6%',
+          width: '5%',
           dataIndex: 'id',
           isIncrement: true,
         },
         {
           title: '甲方',
-          width: '8%',
+          width: '20%',
           dataIndex: 'factoryName',
         },
         {
           title: '人员要求',
-          width: '8%',
+          width: '10%',
           dataIndex: 'orderRequirementStr',
         },
         {
           title: '接单人',
-          width: '14%',
-          dataIndex: 'idNumber',
+          width: '15%',
+          dataIndex: 'mechanicRealName',
         },
         {
           title: '总金额',
-          width: '8%',
+          width: '10%',
           dataIndex: 'totalOrderAmount',
         },
         {
@@ -84,7 +84,7 @@ class HistoricalOrder extends React.Component {
         },
         {
           title: '发布日期',
-          width: '14%',
+          width: '20%',
           dataIndex: 'createDate',
         },
         {

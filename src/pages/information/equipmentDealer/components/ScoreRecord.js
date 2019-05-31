@@ -20,28 +20,28 @@ class ScoreRecord extends React.Component {
       columns: [
         {
           title: '序号',
-          width: '6%',
+          width: '10%',
           dataIndex: 'id',
           isIncrement: true,
         },
         {
           title: '描述',
-          width: '8%',
+          width: '50%',
           dataIndex: 'scoringDescription',
         },
         {
           title: '历史分数',
-          width: '8%',
+          width: '10%',
           dataIndex: 'historicalScore',
         },
         {
           title: '变更分数',
-          width: '14%',
+          width: '10%',
           dataIndex: 'operationScore',
         },
         {
           title: '变更日期',
-          width: '8%',
+          width: '20%',
           dataIndex: 'createDate',
         },
       ],

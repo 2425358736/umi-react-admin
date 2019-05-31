@@ -80,31 +80,28 @@ const exportButton = {
       export: true,
     },
     {
-      title: '登录名',
-      column: 'loginName',
-      export: true,
+      title: '设备厂商名称',
+      column: 'equipmentDealerCompany',
     },
     {
-      title: '邮箱',
-      column: 'email',
-      export: true,
+      title: '法人姓名',
+      column: 'legalPersonName',
     },
     {
-      title: '手机',
-      column: 'phone',
-      export: true,
+      title: '负责人姓名',
+      column: 'leadingCadreName',
     },
     {
-      title: '创建日期',
-      column: 'createDate',
+      title: '审核状态',
+      column: 'attestationStateStr',
     },
     {
-      title: '修改日期',
-      column: 'updateDate',
+      title: '信用分数',
+      column: 'currentScore',
     },
     {
-      title: '冻结状态',
-      column: 'freezeStateStr',
+      title: '认证日期',
+      column: 'attestationDate',
     },
   ],
 };

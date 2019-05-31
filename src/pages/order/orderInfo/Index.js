@@ -173,33 +173,36 @@ class Index extends React.Component {
       columns: [
         {
           title: '序号',
-          width: '5%',
+          width: 70,
           dataIndex: 'id',
           isIncrement: true,
+          fixed: 'left',
         },
         {
           title: '订单编号',
-          width: '10%',
+          width: 140,
           dataIndex: 'orderNumber',
+          fixed: 'left',
         },
         {
           title: '订单名称',
-          width: '10%',
+          width: 140,
           dataIndex: 'orderName',
+          fixed: 'left',
         },
         {
           title: '订单总金额',
-          width: '10%',
+          width: 140,
           dataIndex: 'totalOrderAmount',
         },
         {
           title: '人员要求',
-          width: '10%',
+          width: 140,
           dataIndex: 'orderRequirementStr',
         },
         {
           title: '订单状态',
-          width: '10%',
+          width: 140,
           dataIndex: 'orderStatus',
           column: 'orderStatusStr',
           filters: [
@@ -239,22 +242,23 @@ class Index extends React.Component {
         },
         {
           title: '订单工作类型',
-          width: '10%',
+          width: 140,
           dataIndex: 'orderTypeStr',
         },
         {
           title: '负责人名称',
-          width: '10%',
+          width: 140,
           dataIndex: 'leadingCadreName',
         },
         {
           title: '发布日期',
-          width: '10%',
+          width: 210,
           dataIndex: 'createDate',
         },
         {
           title: '操作',
-          width: '15%',
+          width: 140,
+          fixed: 'right',
           dataIndex: 'opt',
           render(text, record) {
             return (
@@ -296,7 +300,14 @@ class Index extends React.Component {
           </div>
           <div className={styles.tableWrap}>
             <div>
-              <OrdinaryTable listUrl={OrderList} columns={this.state.columns} />
+              <OrdinaryTable
+                scroll={{
+                  x: 1400,
+                  y: 'calc(100vh - 252px)',
+                }}
+                listUrl={OrderList}
+                columns={this.state.columns}
+              />
             </div>
           </div>
         </div>
