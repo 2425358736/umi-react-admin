@@ -100,7 +100,7 @@ class Index extends React.Component {
           table={
             <OrdinaryTable
               scroll={{
-                x: 1000,
+                x: 1600,
                 y: 'calc(100vh - 252px)',
               }}
               listUrl={FIRST_PARTY_LIST}
@@ -138,11 +138,6 @@ class Index extends React.Component {
                   dataIndex: 'specificLocation',
                 },
                 {
-                  title: '创建时间',
-                  width: '15%',
-                  dataIndex: 'createDate',
-                },
-                {
                   title: '操作',
                   width: '10%',
                   dataIndex: 'opt',
@@ -170,6 +165,11 @@ class Index extends React.Component {
                       </div>
                     );
                   },
+                },
+                {
+                  title: '创建时间',
+                  width: '15%',
+                  dataIndex: 'createDate',
                 },
               ]}
             />
