@@ -9,9 +9,13 @@ import {
   ScreeningTag,
 } from '@/components/BusinessComponent/BusCom';
 
+import { Divider } from 'antd';
+
 import styles from './index.less';
 
 import Details from './components/Details';
+
+import AccountDetails from './components/AccountDetails';
 
 import { DealerList, DealerListTop } from '@/services/EquipmentDealer';
 
@@ -123,7 +127,7 @@ class Index extends React.Component {
       columns: [
         {
           title: '序号',
-          width: '10%',
+          width: '5%',
           dataIndex: 'id',
           isIncrement: true,
         },
@@ -175,13 +179,17 @@ class Index extends React.Component {
         },
         {
           title: '操作',
-          width: '10%',
+          width: '15%',
           dataIndex: 'opt',
           render(text, record) {
             return (
               <div>
                 <Info title="设备商" info={<Details id={record.id} />}>
                   详情
+                </Info>
+                <Divider type="vertical" />
+                <Info title="账户详情" info={<AccountDetails id={record.id} />}>
+                  账户详情
                 </Info>
               </div>
             );

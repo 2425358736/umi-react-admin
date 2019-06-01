@@ -72,13 +72,13 @@ class NoticeDetail extends React.Component {
               <p className={styles.cardContent}>{InfoData.currentScore}</p>
             </div>
 
-            <div className={styles.cardDom}>
-              <p className={styles.cardTitle}>
-                <Icon type="tags" className={styles.iconDom} />
-                当前余额
-              </p>
-              <p className={styles.cardContent}>{InfoData.balanceAmount}</p>
-            </div>
+            {/* <div className={styles.cardDom}> */}
+            {/* <p className={styles.cardTitle}> */}
+            {/* <Icon type="tags" className={styles.iconDom} /> */}
+            {/* 当前余额 */}
+            {/* </p> */}
+            {/* <p className={styles.cardContent}>{InfoData.balanceAmount}</p> */}
+            {/* </div> */}
 
             <div className={styles.cardDom}>
               <p className={styles.cardTitle}>
