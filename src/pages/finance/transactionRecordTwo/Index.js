@@ -203,7 +203,7 @@ class Index extends React.Component {
                   title="补单"
                   mode={0}
                   reminder="确认补单吗？"
-                  onClick={async () => {
+                  onClick={() => {
                     that.delete(record.id);
                   }}
                 />
