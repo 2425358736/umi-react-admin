@@ -5,3 +5,5 @@ export const DealerListTop = '/equipmentDealer/equipmentDealerListTop'; // 设�
 export const DealerInfo = '/equipmentDealer/equipmentDealerInfo'; // 设备商详细信息
 
 export const CertificationAudit = '/equipmentDealer/certificationAudit'; // 设备商认证
+
+export const UpdateEquipmentDealer = '/equipmentDealer/updateEquipmentDealer'; // 修改积分
