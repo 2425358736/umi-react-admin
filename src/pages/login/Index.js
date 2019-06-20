@@ -53,7 +53,7 @@ class Index extends React.Component {
           <div className={styles.loginLeft}>
             <i />
             <div>
-              <p>劳务系统平台</p>
+              <p>劳务平台</p>
               <p />
             </div>
           </div>
