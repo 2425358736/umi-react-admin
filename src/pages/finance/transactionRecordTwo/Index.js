@@ -5,9 +5,10 @@ import {
   Search,
   ExportButton,
   ScreeningTag,
+  Operation,
 } from '@/components/BusinessComponent/BusCom';
 
-import { Popconfirm, notification } from 'antd';
+import { notification } from 'antd';
 
 import { postRequest } from '@/utils/api';
 
@@ -198,14 +199,14 @@ class Index extends React.Component {
           render(text, record) {
             return (
               <div>
-                <Popconfirm
-                  title="确定补单吗?"
-                  onConfirm={() => {
+                <Operation
+                  title="补单"
+                  mode={0}
+                  reminder="确认补单吗？"
+                  onClick={async () => {
                     that.delete(record.id);
                   }}
-                >
-                  <a>补单</a>
-                </Popconfirm>
+                />
               </div>
             );
           },
