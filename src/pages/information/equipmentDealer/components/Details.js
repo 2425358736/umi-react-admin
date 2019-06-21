@@ -107,7 +107,11 @@ class NoticeDetail extends React.Component {
               <p className={styles.cardTitle}>
                 <Icon type="user" className={styles.iconDom} />
                 信用分数
-                <Icon onClick={() => this.edit(InfoData.id)} type="edit" />
+                <Icon
+                  onClick={() => this.edit(InfoData.id)}
+                  type="edit"
+                  style={{ float: 'right', paddingTop: '4px' }}
+                />
               </p>
               <p className={styles.cardContent}>{InfoData.currentScore}</p>
             </div>
