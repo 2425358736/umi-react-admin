@@ -182,7 +182,7 @@ class NoticeDetail extends React.Component {
             <ul className={styles.midList}>
               <li className={styles.itemDom}>
                 <span>设备商</span>
-                <p>{InfoData.leadingCadreName}</p>
+                <p>{InfoData.equipmentDealerCompany}</p>
               </li>
               <li className={styles.itemDom}>
                 <span>负责人</span>
