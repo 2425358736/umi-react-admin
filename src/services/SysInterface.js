@@ -75,3 +75,5 @@ export const SYS_MAIL_INFO = '/sys/sysMailInfo'; // 站内信详情
 export const SYS_NOTICE = '/sys/sysNoticeList'; // 未读站内信
 
 export const SYS_READ_ALL = '/sys/readAll'; // 批量已读
+
+export const HOME = '/homePage/getHomePageObj'; // 首页one
