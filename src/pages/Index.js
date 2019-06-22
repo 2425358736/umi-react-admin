@@ -65,7 +65,7 @@ class Index extends React.Component {
         orient: 'vertical',
         right: 0,
         top: 20,
-        data: ['设备商', '技工'],
+        data: ['技工', '设备商'],
       },
       series: [
         {
