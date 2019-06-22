@@ -2,6 +2,7 @@ import React from 'react';
 import { Progress } from 'antd';
 import Echarts from 'echarts';
 import { HOME, SYS_Dict } from '@/services/SysInterface';
+import { formatter } from '../utils/utils';
 import styles from './index.less';
 
 import { getRequest, postRequest } from '@/utils/api';
@@ -12,6 +13,7 @@ class Index extends React.Component {
     this.state = {
       orderData1: [],
       memberData: [],
+      deviceData: [],
       membershipStatistics: {
         woman: '100%',
         allPeople: 0,
@@ -32,8 +34,16 @@ class Index extends React.Component {
         orderType: dataTwo.data,
       });
     }
+    const deviceData = await getRequest('/homePage/getHomePageObjTwo');
+    if (deviceData.status === 200) {
+      this.setState({ deviceData: deviceData.data });
+    }
     this.setMember();
     this.setOrderData();
+    this.setDeviceCheckData();
+    this.setDevicePayData();
+    this.setMechanicCheckData();
+    this.setMechanicPayData();
   };
 
   /**
@@ -118,8 +128,221 @@ class Index extends React.Component {
         },
       ],
     });
-    this.setState({
-      // value,
+  };
+
+  /**
+   * 设备商月验收数量排名
+   */
+  setDeviceCheckData = async () => {
+    const { deviceData } = this.state;
+    const myChart = Echarts.init(document.getElementById('deviceCheck'));
+    // 绘制图表
+    myChart.setOption({
+      color: ['#3398DB'],
+      title: {
+        text: '设备商月验收数量排名',
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          // 坐标轴指示器，坐标轴触发有效
+          type: 'shadow', // 默认为直线，可选为：'line' | 'shadow'
+        },
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true,
+      },
+      xAxis: [
+        {
+          type: 'category',
+          data: deviceData && deviceData.yueYanShouName,
+          axisTick: {
+            alignWithLabel: true,
+          },
+          axisLabel: {
+            formatter,
+          },
+        },
+      ],
+      yAxis: [
+        {
+          type: 'value',
+        },
+      ],
+      series: [
+        {
+          name: '验收数量',
+          type: 'bar',
+          barWidth: '60%',
+          data: deviceData && deviceData.yueYanShouValue,
+        },
+      ],
+    });
+  };
+
+  /**
+   * 设备商月付款额排名
+   */
+  setDevicePayData = async () => {
+    const { deviceData } = this.state;
+
+    const myChart = Echarts.init(document.getElementById('devicePay'));
+    // 绘制图表
+    myChart.setOption({
+      color: ['#ff9933'],
+      title: {
+        text: '设备商月付款额排名',
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          // 坐标轴指示器，坐标轴触发有效
+          type: 'shadow', // 默认为直线，可选为：'line' | 'shadow'
+        },
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true,
+      },
+      xAxis: [
+        {
+          type: 'category',
+          data: deviceData && deviceData.yueDaKuanName,
+          axisTick: {
+            alignWithLabel: true,
+          },
+          axisLabel: {
+            formatter,
+          },
+        },
+      ],
+      yAxis: [
+        {
+          type: 'value',
+        },
+      ],
+      series: [
+        {
+          name: '付款金额',
+          type: 'bar',
+          barWidth: '60%',
+          data: deviceData && deviceData.yueDaKuanValue,
+        },
+      ],
+    });
+  };
+
+  /**
+   * 劳工月验收数量排名
+   */
+  setMechanicCheckData = async () => {
+    const { deviceData } = this.state;
+
+    const myChart = Echarts.init(document.getElementById('mechanicCheck'));
+    // 绘制图表
+    myChart.setOption({
+      color: ['#cc0033'],
+      title: {
+        text: '劳工月验收数量排名',
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          // 坐标轴指示器，坐标轴触发有效
+          type: 'shadow', // 默认为直线，可选为：'line' | 'shadow'
+        },
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true,
+      },
+      xAxis: [
+        {
+          type: 'category',
+          data: deviceData && deviceData.yanShouLaoGongName,
+          axisTick: {
+            alignWithLabel: true,
+          },
+          axisLabel: {
+            formatter,
+          },
+        },
+      ],
+      yAxis: [
+        {
+          type: 'value',
+        },
+      ],
+      series: [
+        {
+          name: '验收数量',
+          type: 'bar',
+          barWidth: '60%',
+          data: deviceData && deviceData.yanShouLaoGongValue,
+        },
+      ],
+    });
+  };
+
+  /**
+   * 劳工月收款额数量排名
+   */
+  setMechanicPayData = async () => {
+    const { deviceData } = this.state;
+
+    const myChart = Echarts.init(document.getElementById('mechanicPay'));
+    // 绘制图表
+    myChart.setOption({
+      color: ['#660099'],
+      title: {
+        text: '劳工月收款额数量排名',
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          // 坐标轴指示器，坐标轴触发有效
+          type: 'shadow', // 默认为直线，可选为：'line' | 'shadow'
+        },
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true,
+      },
+      xAxis: [
+        {
+          type: 'category',
+          data: deviceData && deviceData.jiGongShouRuName,
+          axisTick: {
+            alignWithLabel: true,
+          },
+          axisLabel: {
+            formatter,
+          },
+        },
+      ],
+      yAxis: [
+        {
+          type: 'value',
+        },
+      ],
+      series: [
+        {
+          name: '收款金额',
+          type: 'bar',
+          barWidth: '60%',
+          // 柱状图数据
+          data: deviceData && deviceData.jiGongShouRuValue,
+        },
+      ],
     });
   };
 
@@ -182,6 +405,21 @@ class Index extends React.Component {
             <div className={styles.partyPieWrap}>
               <div id="order" style={{ height: '300px' }} />
             </div>
+          </div>
+        </div>
+
+        <div className={styles.conWrap}>
+          <div className={styles.chartsDom}>
+            <div id="deviceCheck" style={{ height: '300px' }} />
+          </div>
+          <div className={styles.chartsDom}>
+            <div id="devicePay" style={{ height: '300px' }} />
+          </div>
+          <div className={styles.chartsDom}>
+            <div id="mechanicCheck" style={{ height: '300px' }} />
+          </div>
+          <div className={styles.chartsDom}>
+            <div id="mechanicPay" style={{ height: '300px' }} />
           </div>
         </div>
       </div>
