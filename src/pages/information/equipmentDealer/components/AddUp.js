@@ -78,10 +78,10 @@ class AddUp extends React.Component {
                     rules: [
                       {
                         required: true,
-                        message: '请输入甲方名称',
+                        message: '请输入信用积分',
                       },
                     ],
-                  })(<Input placeholder="请输入甲方名称" />)}
+                  })(<Input placeholder="请输入信用积分" />)}
                 </FormItem>
               </div>
             </div>
