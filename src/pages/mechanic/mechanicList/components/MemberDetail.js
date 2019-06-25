@@ -1,9 +1,10 @@
 import React from 'react';
-import { Tooltip, Icon, notification } from 'antd';
+import { Modal, Tooltip, Icon, notification } from 'antd';
 import TableList from './TableList';
 import MechanicOrderList from './MechanicOrderList';
 import styles from './components.less';
 import { postRequest } from '@/utils/api';
+import AddUp from './AddUpTwo';
 
 import { MECHANIC_MSG, MECHANIC_UPDATE } from '@/services/FirstPartyInterface';
 import MechanicEquipmentList from './MechanicEquipmentList';
@@ -15,6 +16,8 @@ class MemberDetail extends React.Component {
     this.state = {
       fetchData: {},
       mechanicCertificateList: [],
+      open: false,
+      id: 0,
     };
   }
 
@@ -41,10 +44,46 @@ class MemberDetail extends React.Component {
     }
   };
 
+  edit = id => {
+    this.setState({
+      open: true,
+      id,
+    });
+  };
+
   render() {
     const { fetchData } = this.state;
     return (
       <div>
+        <Modal
+          title="编辑信用积分"
+          style={{ top: 20 }}
+          width={800}
+          visible={this.state.open}
+          footer={null}
+          onCancel={() => {
+            this.setState({
+              open: false,
+              id: 0,
+            });
+          }}
+          destroyOnClose
+        >
+          <AddUp
+            callback={on => {
+              this.setState({
+                open: false,
+                id: 0,
+              });
+              if (on) {
+                this.componentWillMount();
+              }
+            }}
+            id={this.state.id}
+            currentScore={fetchData.currentScore}
+            departmentId={this.props.id}
+          />
+        </Modal>
         <div className={styles.topWrap}>
           <div className={styles.titleDom}>
             <span />
@@ -81,6 +120,11 @@ class MemberDetail extends React.Component {
               <p className={styles.cardTitle}>
                 <Icon type="user" className={styles.iconDom} />
                 信用分数
+                <Icon
+                  onClick={() => this.edit(fetchData.id)}
+                  type="edit"
+                  style={{ float: 'right', paddingTop: '4px' }}
+                />
               </p>
               <p className={styles.cardContent}>{fetchData.currentScore}</p>
             </div>
