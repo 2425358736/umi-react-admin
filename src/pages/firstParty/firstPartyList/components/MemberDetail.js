@@ -73,6 +73,16 @@ class MemberDetail extends React.Component {
                 <p className={styles.cardContent}>{fetchData.createDate}</p>
               </Tooltip>
             </div>
+
+            <div className={styles.cardDom}>
+              <p className={styles.cardTitle}>
+                <Icon type="tags" className={styles.iconDom} />
+                接单范围
+              </p>
+              <Tooltip title={fetchData.acceptanceRange}>
+                <p className={styles.cardContent}>{fetchData.acceptanceRange}米</p>
+              </Tooltip>
+            </div>
           </div>
         </div>
 
