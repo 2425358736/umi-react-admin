@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, notification } from 'antd';
+import { Modal, Icon, notification } from 'antd';
 import OrderTakerList from './OrderTakerList';
 import ContractList from './ContractList';
 import styles from './Detail.less';
@@ -23,6 +23,8 @@ class NoticeDetail extends React.Component {
       AecceptanceRecord: [],
       EquipmentDealerEvaluate: {},
       MechanicEvaluate: {},
+      isModalOpen: false,
+      previewImg: '',
     };
   }
 
@@ -89,6 +91,13 @@ class NoticeDetail extends React.Component {
     } else {
       notification.error({ message: data.msg, description: data.subMsg });
     }
+  };
+
+  handlePreview = str => {
+    this.setState({
+      isModalOpen: true,
+      previewImg: str,
+    });
   };
 
   render() {
@@ -182,7 +191,7 @@ class NoticeDetail extends React.Component {
             <ul className={styles.midList}>
               <li className={styles.itemDom}>
                 <span>设备商</span>
-                <p>{InfoData.leadingCadreName}</p>
+                <p>{InfoData.equipmentDealerCompany}</p>
               </li>
               <li className={styles.itemDom}>
                 <span>负责人</span>
@@ -215,14 +224,23 @@ class NoticeDetail extends React.Component {
                 {InfoData.orderPictures &&
                   InfoData.orderPictures
                     .split('#')
-                    .map((str, i) => <img key={i.toString()} src={str} alt="" />)}
+                    .map((str, i) => (
+                      <img
+                        key={i.toString()}
+                        src={str}
+                        alt=""
+                        onClick={this.handlePreview.bind(this, str)}
+                      />
+                    ))}
               </li>
               <li className={styles.itemDom}>
                 <p>设备文档</p>
                 {InfoData.orderDocument &&
-                  InfoData.orderDocument
-                    .split('#')
-                    .map((str, i) => <img key={i.toString()} src={str} alt="" />)}
+                  InfoData.orderDocument.split('#').map((str, i) => (
+                    <a key={i.toString()} href={str} alt="">
+                      点击下载
+                    </a>
+                  ))}
               </li>
             </ul>
           </div>
@@ -274,7 +292,14 @@ class NoticeDetail extends React.Component {
                   {json.extensionFile &&
                     json.extensionFile
                       .split('#')
-                      .map((obj, j) => <img key={j.toString()} src={obj} alt="" />)}
+                      .map((obj, j) => (
+                        <img
+                          key={j.toString()}
+                          src={obj}
+                          alt=""
+                          onClick={this.handlePreview.bind(this, obj)}
+                        />
+                      ))}
                 </li>
               </ul>
             </div>
@@ -299,7 +324,14 @@ class NoticeDetail extends React.Component {
                     {json.acceptanceDocument &&
                       json.acceptanceDocument
                         .split('#')
-                        .map((obj, j) => <img key={j.toString()} src={obj} alt="" />)}
+                        .map((obj, j) => (
+                          <img
+                            key={j.toString()}
+                            src={obj}
+                            alt=""
+                            onClick={this.handlePreview.bind(this, obj)}
+                          />
+                        ))}
                   </li>
                 </ul>
               ))}
@@ -340,6 +372,20 @@ class NoticeDetail extends React.Component {
             )}
           </div>
         </div>
+        <Modal
+          title="预览"
+          width={800}
+          visible={this.state.isModalOpen}
+          footer={null}
+          onCancel={() => {
+            this.setState({ isModalOpen: false });
+          }}
+          destroyOnClose
+        >
+          <div style={{ width: '100%' }}>
+            <img style={{ width: '100%' }} src={this.state.previewImg} alt="" />
+          </div>
+        </Modal>
       </div>
     );
   }

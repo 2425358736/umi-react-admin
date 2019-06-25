@@ -111,10 +111,10 @@ const exportButton = {
       title: '序号',
       column: 'id',
     },
-    {
-      title: '订单编号',
-      column: 'orderNumber',
-    },
+    // {
+    //   title: '订单编号',
+    //   column: 'orderNumber',
+    // },
     {
       title: '订单名称',
       column: 'orderName',
@@ -178,12 +178,12 @@ class Index extends React.Component {
           isIncrement: true,
           fixed: 'left',
         },
-        {
-          title: '订单编号',
-          width: 140,
-          dataIndex: 'orderNumber',
-          fixed: 'left',
-        },
+        // {
+        //   title: '订单编号',
+        //   width: 140,
+        //   dataIndex: 'orderNumber',
+        //   fixed: 'left',
+        // },
         {
           title: '订单名称',
           width: 140,

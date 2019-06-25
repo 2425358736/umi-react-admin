@@ -1,10 +1,11 @@
 import React from 'react';
-import { Icon, notification } from 'antd';
+import { Modal, Icon, notification } from 'antd';
 import HistoricalOrder from './HistoricalOrder';
 import CooperativeMechanic from './CooperativeMechanic';
 import ScoreRecord from './ScoreRecord';
 import styles from './Detail.less';
 import { getRequest, postRequest } from '@/utils/api';
+import AddUp from './AddUp';
 
 import { DealerInfo, CertificationAudit } from '@/services/EquipmentDealer';
 
@@ -13,6 +14,8 @@ class NoticeDetail extends React.Component {
     super(props);
     this.state = {
       InfoData: {},
+      open: false,
+      id: 0,
     };
   }
 
@@ -38,10 +41,46 @@ class NoticeDetail extends React.Component {
     }
   };
 
+  edit = id => {
+    this.setState({
+      open: true,
+      id,
+    });
+  };
+
   render() {
     const { InfoData } = this.state;
     return (
       <div>
+        <Modal
+          title="编辑信用积分"
+          style={{ top: 20 }}
+          width={800}
+          visible={this.state.open}
+          footer={null}
+          onCancel={() => {
+            this.setState({
+              open: false,
+              id: 0,
+            });
+          }}
+          destroyOnClose
+        >
+          <AddUp
+            callback={on => {
+              this.setState({
+                open: false,
+                id: 0,
+              });
+              if (on) {
+                this.componentWillMount();
+              }
+            }}
+            id={this.state.id}
+            currentScore={InfoData.currentScore}
+            departmentId={this.props.id}
+          />
+        </Modal>
         <div className={styles.topWrap}>
           <div className={styles.titleDom}>
             <span />
@@ -68,6 +107,11 @@ class NoticeDetail extends React.Component {
               <p className={styles.cardTitle}>
                 <Icon type="user" className={styles.iconDom} />
                 信用分数
+                <Icon
+                  onClick={() => this.edit(InfoData.id)}
+                  type="edit"
+                  style={{ float: 'right', paddingTop: '4px' }}
+                />
               </p>
               <p className={styles.cardContent}>{InfoData.currentScore}</p>
             </div>

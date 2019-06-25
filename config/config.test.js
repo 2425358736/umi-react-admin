@@ -128,6 +128,14 @@ export default {
           path: '/order/orderList',
           component: './order/orderInfo/Index',
         },
+        {
+          path: '/finance/transactionRecord',
+          component: './finance/transactionRecord/Index',
+        },
+        {
+          path: '/finance/transactionRecordTwo',
+          component: './finance/transactionRecordTwo/Index',
+        },
       ],
     },
   ],

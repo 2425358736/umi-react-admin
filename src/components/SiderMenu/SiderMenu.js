@@ -71,7 +71,7 @@ export default class SiderMenu extends PureComponent {
               src="https://haifeng-1258278342.cos.ap-chengdu.myqcloud.com/village/village_PC_logo.png"
               alt="logo"
             />
-            <h1>智慧新村</h1>
+            <h1>劳务平台</h1>
           </Link>
         </div>
         <Suspense fallback={<PageLoading />}>

@@ -5,6 +5,7 @@
   .headerWrap {
     display: flex;
     width: 100%;
+    min-width: 1100px;
     margin-bottom: 20px;
     .homeHeader:first-child {
       margin-right: 20px;
@@ -46,25 +47,18 @@
           margin: 0;
         }
       }
-      .partyPieWrap {
-        position: relative;
-        .radioWrap {
-          position: absolute;
-          top: 0;
-          left: 28%;
-        }
-      }
     }
   }
-  .homeMid {
+  .conWrap {
     display: flex;
+    justify-content: space-around;
     width: 100%;
+    min-width: 1100px;
     box-sizing: border-box;
     padding: 20px;
     background: #fff;
     border-radius: 4px;
     box-shadow: 0 2px 4px 0 rgba(224, 224, 224, 0.5);
-    margin-bottom: 20px;
     .chartsDom {
       flex: 1;
       > p {
@@ -75,35 +69,6 @@
           margin-left: 6px;
         }
       }
-      .genderWrap {
-        text-align: center;
-        font-size: 14px;
-        color: #999;
-        > div {
-          display: inline-block;
-          width: 120px;
-          margin: 0 4px;
-          > span {
-            display: inline-block;
-            box-sizing: border-box;
-            padding: 0 4px;
-            color: #fff;
-            text-align: center;
-            background-color: #1890ff;
-          }
-          > span:last-child {
-            background-color: #e43c59;
-          }
-        }
-      }
     }
-  }
-  .tableWrap {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 20px;
-    background: #fff;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px 0 rgba(224, 224, 224, 0.5);
   }
 }

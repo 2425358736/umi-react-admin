@@ -9,7 +9,7 @@ module.exports = {
   menu: {
     disableLocal: false,
   },
-  title: '智慧新村',
+  title: '劳务平台',
   pwa: true,
   iconfontUrl: '',
   collapse: true,

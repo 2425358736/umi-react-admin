@@ -133,6 +133,10 @@ export default {
           component: './finance/transactionRecord/Index',
         },
         {
+          path: '/finance/transactionRecordTwo',
+          component: './finance/transactionRecordTwo/Index',
+        },
+        {
           path: '/information/commission',
           component: './information/commission/Index',
         },
