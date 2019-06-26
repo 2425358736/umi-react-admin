@@ -1,4 +1,6 @@
 import React from 'react';
+import { Menu, Dropdown, Icon } from 'antd';
+import AddUp from './components/AddUp';
 import MemberDetail from './components/MemberDetail';
 import { MECHANIC_HEAD, MECHANIC_LIST } from '@/services/FirstPartyInterface';
 import {
@@ -6,6 +8,7 @@ import {
   OrdinaryTable,
   TopStatistics,
   Info,
+  Up,
   Search,
   ExportButton,
 } from '@/components/BusinessComponent/BusCom';
@@ -117,7 +120,7 @@ class Index extends React.Component {
           table={
             <OrdinaryTable
               scroll={{
-                x: 1000,
+                x: 1400,
                 y: 'calc(100vh - 252px)',
               }}
               listUrl={MECHANIC_LIST}
@@ -162,7 +165,7 @@ class Index extends React.Component {
                 },
                 {
                   title: '身份证号',
-                  width: '20%',
+                  width: '15%',
                   dataIndex: 'idNumber',
                 },
                 {
@@ -172,27 +175,47 @@ class Index extends React.Component {
                 },
                 {
                   title: '信用分数',
-                  width: '5%',
+                  width: '10%',
                   dataIndex: 'currentScore',
                 },
                 {
-                  title: '认证时间',
-                  width: '20%',
-                  dataIndex: 'createDate',
+                  title: '职务备注',
+                  width: '15',
+                  dataIndex: 'jobRemarks',
                 },
                 {
                   title: '操作',
-                  width: '10%',
+                  width: '5%',
                   dataIndex: 'opt',
                   render(text, record) {
+                    const opRecord = (
+                      <Menu>
+                        <Menu.Item>
+                          <Up width={800} id={record.id} component={AddUp} title="编辑职务备注" />
+                        </Menu.Item>
+                        <Menu.Item>
+                          <Info title="技工信息详情" info={<MemberDetail id={record.id} />}>
+                            详情
+                          </Info>
+                        </Menu.Item>
+                      </Menu>
+                    );
                     return (
                       <div>
-                        <Info title="技工信息详情" info={<MemberDetail id={record.id} />}>
-                          详情
-                        </Info>
+                        <Dropdown overlay={opRecord} placement="bottomLeft">
+                          <Icon
+                            type="ellipsis"
+                            style={{ paddingTop: '10px', fontSize: 14, color: '#1ab393' }}
+                          />
+                        </Dropdown>
                       </div>
                     );
                   },
+                },
+                {
+                  title: '认证时间',
+                  width: '10%',
+                  dataIndex: 'createDate',
                 },
               ]}
             />

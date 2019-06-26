@@ -40,6 +40,7 @@ class AddUp extends React.Component {
         longitude: firstPartyInfo.longitude,
         latitude: firstPartyInfo.latitude,
         labels: firstPartyInfo.labels,
+        acceptanceRange: firstPartyInfo.acceptanceRange,
       });
       this.setState({
         loading: false,
@@ -148,6 +149,11 @@ class AddUp extends React.Component {
                         required: true,
                         message: '请输入经度',
                       },
+                      {
+                        required: true,
+                        pattern: /^-?(0|[0-9][0-9]*)(\.[0-9]*)?$/,
+                        message: '请输入正确的经度',
+                      },
                     ],
                   })(<Input placeholder="请输入经度" />)}
                 </FormItem>
@@ -160,12 +166,37 @@ class AddUp extends React.Component {
                         required: true,
                         message: '请输入纬度',
                       },
+                      {
+                        required: true,
+                        pattern: /^-?(0|[0-9][0-9]*)(\.[0-9]*)?$/,
+                        message: '请输入正确的纬度',
+                      },
                     ],
                   })(<Input placeholder="请输入纬度" />)}
                 </FormItem>
               </div>
             </div>
+            <div className={styles.rowDom}>
+              <div className={styles.colDom}>
+                <FormItem label="接单范围(m)" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
+                  {getFieldDecorator('acceptanceRange', {
+                    rules: [
+                      {
+                        required: true,
+                        message: '请输入接单范围',
+                      },
+                      {
+                        required: true,
+                        pattern: /^-?(0|[0-9][0-9]*)(\.[0-9]*)?$/,
+                        message: '请输入正确的范围',
+                      },
+                    ],
+                  })(<Input placeholder="请输入接单范围eg:3000" />)}
+                </FormItem>
+              </div>
 
+              <div className={styles.colDom} />
+            </div>
             {/* 分割线 */}
 
             <div className={styles.titleDom}>

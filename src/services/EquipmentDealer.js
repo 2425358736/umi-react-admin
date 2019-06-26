@@ -7,3 +7,5 @@ export const DealerInfo = '/equipmentDealer/equipmentDealerInfo'; // 设备商�
 export const CertificationAudit = '/equipmentDealer/certificationAudit'; // 设备商认证
 
 export const UpdateEquipmentDealer = '/equipmentDealer/updateEquipmentDealer'; // 修改积分
+
+export const UpdateMechanic = '/equipmentDealer/updateMechanic'; // 修改积分

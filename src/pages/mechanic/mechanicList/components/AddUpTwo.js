@@ -1,7 +1,7 @@
 import React from 'react';
 import { Spin, Button, Input, Form, notification } from 'antd';
 import { postRequest, jsonString } from '@/utils/api';
-import { UpdateEquipmentDealer } from '@/services/EquipmentDealer';
+import { UpdateMechanic } from '@/services/EquipmentDealer';
 
 const styles = require('./AddUp.less');
 
@@ -44,7 +44,7 @@ class AddUp extends React.Component {
       const json = this.props.form.getFieldsValue();
       jsonString(json);
       json.id = this.props.id;
-      const data = await postRequest(UpdateEquipmentDealer, json);
+      const data = await postRequest(UpdateMechanic, json);
       this.setState({
         buttonLoading: false,
       });

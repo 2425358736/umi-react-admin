@@ -1,7 +1,7 @@
 import React from 'react';
 import { Spin, Button, Input, Form, notification } from 'antd';
 import { postRequest, jsonString } from '@/utils/api';
-import { UpdateEquipmentDealer } from '@/services/EquipmentDealer';
+import { MECHANIC_MSG, MECHANIC_UPDATE } from '@/services/FirstPartyInterface';
 
 const styles = require('./AddUp.less');
 
@@ -23,8 +23,9 @@ class AddUp extends React.Component {
     this.props.form.resetFields();
     if (this.props.id > 0) {
       this.setState({ loading: true });
+      const data = await postRequest(`${MECHANIC_MSG}/${this.props.id}`);
       this.props.form.setFieldsValue({
-        currentScore: this.props.currentScore,
+        jobRemarks: data.data.jobRemarks,
       });
       this.setState({
         loading: false,
@@ -44,7 +45,7 @@ class AddUp extends React.Component {
       const json = this.props.form.getFieldsValue();
       jsonString(json);
       json.id = this.props.id;
-      const data = await postRequest(UpdateEquipmentDealer, json);
+      const data = await postRequest(MECHANIC_UPDATE, json);
       this.setState({
         buttonLoading: false,
       });
@@ -69,22 +70,23 @@ class AddUp extends React.Component {
           <Form layout="horizontal">
             <div className={styles.titleDom}>
               <span />
-              <span>信用积分</span>
+              <span>职务备注</span>
             </div>
             <div className={styles.rowDom}>
               <div className={styles.colDom}>
-                <FormItem label="信用积分" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
-                  {getFieldDecorator('currentScore', {
+                <FormItem label="职务备注" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
+                  {getFieldDecorator('jobRemarks', {
                     rules: [
                       {
                         required: true,
-                        message: '请输入信用积分',
+                        message: '请输入职务备注',
                       },
                     ],
-                  })(<Input placeholder="请输入信用积分" />)}
+                  })(<Input placeholder="请输入职务备注" />)}
                 </FormItem>
               </div>
             </div>
+            {/* 分割线 */}
           </Form>
           <div className={styles.btnGroup}>
             <Button
