@@ -112,34 +112,6 @@ export default {
           path: '/profile',
           component: './profile/index',
         },
-        {
-          path: '/information/firstPartyList',
-          component: './firstParty/firstPartyList/index',
-        },
-        {
-          path: '/information/mechanicList',
-          component: './mechanic/mechanicList/index',
-        },
-        {
-          path: '/information/equipmentDealer',
-          component: './information/equipmentDealer/Index',
-        },
-        {
-          path: '/order/orderList',
-          component: './order/orderInfo/Index',
-        },
-        {
-          path: '/finance/transactionRecord',
-          component: './finance/transactionRecord/Index',
-        },
-        {
-          path: '/finance/transactionRecordTwo',
-          component: './finance/transactionRecordTwo/Index',
-        },
-        {
-          path: '/information/commission',
-          component: './information/commission/Index',
-        },
       ],
     },
   ],
