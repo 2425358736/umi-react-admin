@@ -159,6 +159,7 @@ class Index extends React.Component {
                 x: 1600,
                 y: 'calc(100vh - 252px)',
               }}
+              align="center"
               listUrl={SYS_LOG_LIST}
               // isExport
               columns={[

@@ -157,6 +157,7 @@ class InsideMail extends React.Component {
           }
           table={
             <OrdinaryTable
+              align="center"
               listUrl={SYS_LIST_MAIL}
               // isExport
               columns={[

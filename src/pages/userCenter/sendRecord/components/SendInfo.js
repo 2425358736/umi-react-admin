@@ -71,7 +71,7 @@ class SendInfo extends React.Component {
             <span />
             <span>内容</span>
           </div>
-          <div className={styles.conWrap}>{fetchData.createDate}</div>
+          <div className={styles.conWrap}>{fetchData.informationContent}</div>
         </div>
       </div>
     );

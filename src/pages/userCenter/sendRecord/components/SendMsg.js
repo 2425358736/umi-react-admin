@@ -22,6 +22,12 @@ class AddUp extends React.Component {
     this.init();
   };
 
+  componentDidMount = () => {
+    this.props.form.setFieldsValue({
+      informationChannel: '0',
+    });
+  };
+
   init = async () => {
     this.props.form.resetFields();
     const data = await postRequest(SYS_USER_LIST, { type: 1, query: {} });
@@ -85,7 +91,7 @@ class AddUp extends React.Component {
               <Select mode="multiple" optionFilterProp="title">
                 {this.state.sysUserList.map(json => (
                   <Option key={json.id} value={json.id} title={json.loginName}>
-                    {json.loginName}
+                    {`${json.loginName}(${json.realName})`}
                   </Option>
                 ))}
               </Select>

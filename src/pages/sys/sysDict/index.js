@@ -6,8 +6,12 @@ import styles from './index.less';
 class SysDict extends React.Component {
   constructor(props) {
     super(props);
+    /**
+     * dictTypeId 当前选中的数据字典类型id
+     * @type {{dictTypeId: number}}
+     */
     this.state = {
-      data: [],
+      dictTypeId: 0,
     };
   }
 
@@ -15,8 +19,10 @@ class SysDict extends React.Component {
    * 行点击事件
    * @param data
    */
-  onTypeCall = async data => {
-    this.setState({ data });
+  onTypeCall = async id => {
+    this.setState({
+      dictTypeId: id,
+    });
   };
 
   render() {
@@ -26,7 +32,7 @@ class SysDict extends React.Component {
           <DictType onTypeCall={this.onTypeCall} />
         </div>
         <div className={styles.menuRight}>
-          <DictList dataSource={this.state.data} />
+          <DictList dictTypeId={this.state.dictTypeId} />
         </div>
       </div>
     );

@@ -4,6 +4,8 @@ import { postRequest } from '@/utils/api';
 import AddList from './AddList';
 import styles from './Add.less';
 
+import { SYS_Dict } from '@/services/SysInterface';
+
 class DictList extends React.Component {
   constructor(props) {
     super(props);
@@ -21,17 +23,22 @@ class DictList extends React.Component {
   };
 
   componentWillReceiveProps = nextProps => {
+    this.getDataSource(nextProps.dictTypeId);
+  };
+
+  getDataSource = async dictTypeId => {
     this.setState({
       loading: true,
     });
-    if (nextProps.dataSource) {
-      this.setState({ dataSource: nextProps.dataSource });
+    const data = await postRequest(`${SYS_Dict}/${dictTypeId || this.props.dictTypeId}`);
+    if (data.status === 200) {
+      this.setState({ dataSource: data.data });
+    } else {
+      notification.success({ message: '数据获取失败' });
     }
-    setTimeout(() => {
-      this.setState({
-        loading: false,
-      });
-    }, 500);
+    this.setState({
+      loading: false,
+    });
   };
 
   /**
@@ -40,7 +47,11 @@ class DictList extends React.Component {
    */
   addDict = async record => {
     this.setState({
-      record,
+      record: record.dictTypeId
+        ? record
+        : this.props.dictTypeId
+        ? { dictTypeId: this.props.dictTypeId }
+        : {},
       isOpen: true,
     });
   };
@@ -55,8 +66,8 @@ class DictList extends React.Component {
       delFlag: 1,
     });
     if (data.status === 200) {
-      this.componentDidMount();
-      notification.success({ message: data.msg });
+      this.getDataSource();
+      notification.success({ message: '删除成功' });
     } else {
       notification.error({ message: data.msg, description: data.subMsg });
     }
@@ -69,7 +80,7 @@ class DictList extends React.Component {
   addCall = type => {
     this.setState({ isOpen: false });
     if (type === 'refresh') {
-      this.componentDidMount();
+      this.getDataSource();
     }
   };
 

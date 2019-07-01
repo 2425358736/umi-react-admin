@@ -25,6 +25,13 @@ class AddList extends React.Component {
     });
     this.props.form.resetFields();
     // 列表所传数据
+    if (this.props.record && this.props.record.dictTypeId > 0) {
+      const { record } = this.props;
+      this.props.form.setFieldsValue({
+        dictTypeId: record.dictTypeId.toString(),
+      });
+    }
+
     if (this.props.record && this.props.record.id > 0) {
       const { record } = this.props;
       this.props.form.setFieldsValue({

@@ -308,7 +308,7 @@ class Index extends React.Component {
             <div>
               <OrdinaryTable
                 scroll={{
-                  x: 1500,
+                  x: 1700,
                   y: 'calc(100vh - 252px)',
                 }}
                 align="center"

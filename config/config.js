@@ -89,6 +89,10 @@ export default {
           component: './sys/sysDepartment/Index',
         },
         {
+          path: '/sys/sysRole',
+          component: './sys/sysRoleTwo/Index',
+        },
+        {
           path: '/sys/sysLog',
           component: './sys/sysLog/Index',
         },
@@ -102,7 +106,7 @@ export default {
         },
         {
           path: '/sys/sysUser',
-          component: './sys/sysUser/Index',
+          component: './sys/sysUserTwo/Index',
         },
         {
           path: '/sys/sysDict',

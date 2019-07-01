@@ -104,6 +104,9 @@ class OrdinaryTable extends React.Component {
     const arr = props.columns;
 
     arr.forEach(json => {
+      if (props.align) {
+        json.align = props.align;
+      }
       if (json.filters) {
         json.filteredValue = query[json.dataIndex] ? query[json.dataIndex] : null;
       }

@@ -45,12 +45,7 @@ class DictType extends React.Component {
    * @param id
    */
   onRowClick = async id => {
-    const data = await postRequest(`/sys/sysDictListType/${id}`);
-    if (data.status === 200) {
-      this.props.onTypeCall(data.data);
-    } else {
-      notification.error({ message: data.msg, description: data.subMsg });
-    }
+    this.props.onTypeCall(id);
   };
 
   /**

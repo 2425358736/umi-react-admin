@@ -1,19 +1,12 @@
 import React from 'react';
-import { Spin, Checkbox, Button, Input, Form, notification, TreeSelect } from 'antd';
+import { Spin, Checkbox, Button, Input, Form, notification } from 'antd';
 import { postRequest, jsonString } from '@/utils/api';
 
-import {
-  SYS_INFO,
-  SYS_D_TREE,
-  SYS_D_ROLE,
-  SYS_UP_USER,
-  SYS_ADD_USER,
-} from '@/services/SysInterface';
+import { SYS_INFO, SYS_UP_USER, SYS_ADD_USER, SYS_ROLE_LIST } from '@/services/SysInterface';
 
 const styles = require('./AddUp.less');
 
 const FormItem = Form.Item;
-const { TreeNode } = TreeSelect;
 
 class AddUp extends React.Component {
   constructor(props) {
@@ -22,7 +15,6 @@ class AddUp extends React.Component {
       roles: [],
       buttonLoading: false,
       loading: false,
-      department: [],
     };
   }
 
@@ -31,20 +23,15 @@ class AddUp extends React.Component {
   }
 
   initialization = async () => {
-    const departmentList = await postRequest(SYS_D_TREE);
-
-    this.setState({
-      department: departmentList.data,
-    });
     this.props.form.resetFields();
+    const RoleList = await postRequest(`${SYS_ROLE_LIST}`, { type: 1, query: {} });
+    this.setState({
+      roles: RoleList.data.list,
+    });
     if (this.props.id > 0) {
       this.setState({ loading: true });
       let user = await postRequest(`${SYS_INFO}/${this.props.id}`);
       user = user.data;
-      const RoleList = await postRequest(`${SYS_D_ROLE}/${user.departmentIds || 0}`);
-      this.setState({
-        roles: RoleList.data,
-      });
       this.props.form.setFieldsValue({
         departmentIds: user.departmentIds.toString().split(','),
         realName: user.realName,
@@ -56,13 +43,6 @@ class AddUp extends React.Component {
       });
       this.setState({ loading: false });
     }
-  };
-
-  departmentId = async value => {
-    const RoleList = await postRequest(`${SYS_D_ROLE}/${value.length > 0 ? value.toString() : 0}`);
-    this.setState({
-      roles: RoleList.data,
-    });
   };
 
   handleSubmit = async () => {
@@ -97,20 +77,6 @@ class AddUp extends React.Component {
 
   handleCancel = () => {
     this.props.callback(false);
-  };
-
-  departmentNameTree = departmentArr => {
-    const arr = [];
-    if (departmentArr.length > 0) {
-      departmentArr.forEach((d, j) => {
-        arr[j] = (
-          <TreeNode value={d.id} title={d.departmentName} key={d.id}>
-            {this.departmentNameTree(d.children)}
-          </TreeNode>
-        );
-      });
-    }
-    return arr;
   };
 
   render() {
@@ -185,29 +151,6 @@ class AddUp extends React.Component {
             </div>
             <div className={styles.rowDom}>
               <div className={styles.colDom}>
-                <FormItem label="所属部门" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
-                  {getFieldDecorator('departmentIds', {
-                    rules: [
-                      {
-                        required: true,
-                        message: '请选择所属部门',
-                      },
-                    ],
-                  })(
-                    <TreeSelect
-                      showSearch
-                      placeholder="请选择所属部门"
-                      allowClear
-                      multiple
-                      treeDefaultExpandAll
-                      onChange={this.departmentId}
-                    >
-                      {this.departmentNameTree(this.state.department)}
-                    </TreeSelect>
-                  )}
-                </FormItem>
-              </div>
-              <div className={styles.colDom}>
                 <FormItem
                   label="所属角色"
                   labelCol={{ span: 6 }}
@@ -235,8 +178,6 @@ class AddUp extends React.Component {
                   )}
                 </FormItem>
               </div>
-            </div>
-            <div className={styles.rowDom} style={{ width: '50%' }}>
               <div className={styles.colDom}>
                 <FormItem label="备注" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
                   {getFieldDecorator('remarks')(<Input.TextArea autosize={{ minRows: 7 }} />)}
