@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React from 'react';
 import { Menu, Divider, Dropdown, Icon, notification } from 'antd';
 
@@ -24,6 +25,7 @@ import {
   SYS_DEL_USER,
   SYS_RESET_PASSWORD,
   SYS_ROLE_LIST,
+  FrozenSysUser,
 } from '@/services/SysInterface';
 
 const topStatistics = {
@@ -230,6 +232,20 @@ class Index extends React.Component {
                 </Menu.Item>
                 <Menu.Item>
                   <Operation
+                    title={record.freezeState === 0 ? '冻结' : '解冻'}
+                    mode={0}
+                    reminder={
+                      record.freezeState === 0
+                        ? '此操作将会将会冻结此用户，确认操作吗？'
+                        : '此操作将会将会解冻此用户，确认操作吗？'
+                    }
+                    onClick={async () => {
+                      await that.frozen(record);
+                    }}
+                  />
+                </Menu.Item>
+                <Menu.Item>
+                  <Operation
                     title="删除"
                     mode={0}
                     reminder="此操作将会将用户删除，确认操作吗？"
@@ -256,6 +272,24 @@ class Index extends React.Component {
         },
       ],
     });
+  };
+
+  frozen = async record => {
+    if (record.freezeState === 0) {
+      // 冻结
+      record.freezeState = 1;
+      const data = await postRequest(FrozenSysUser, record);
+      if (data.status === 200) {
+        notification.success({ message: '冻结成功' });
+      }
+    } else {
+      // 解冻
+      record.freezeState = 0;
+      const data = await postRequest(FrozenSysUser, record);
+      if (data.status === 200) {
+        notification.success({ message: '解冻成功' });
+      }
+    }
   };
 
   componentDidMount = async () => {

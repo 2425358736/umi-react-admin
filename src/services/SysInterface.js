@@ -20,6 +20,8 @@ export const SYS_D_ROLE = '/sys/roleListDepartments'; // 根究部门查询旗�
 
 export const SYS_UP_USER = '/sys/upSysUser'; // 更新系统用户
 
+export const FrozenSysUser = '/sys/frozenSysUser'; // 更新系统用户
+
 export const SYS_ADD_USER = '/sys/addSysUser'; // 添加系统用户
 
 export const SYS_DEL_USER = '/sys/deleteSysUser'; // 根据id删除用户
