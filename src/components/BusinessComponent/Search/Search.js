@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Input, DatePicker, Select } from 'antd';
+import { Input, DatePicker, Select, Cascader } from 'antd';
 import moment from 'moment';
 import styles from './Search.less';
 
@@ -127,6 +127,45 @@ class Search extends React.Component {
                       </div>
                     );
                   }
+                  if (json.component === 'Cascader' || !json.component) {
+                    return (
+                      <div key={j}>
+                        <span>{json.queryTitle}:</span>
+                        <Cascader
+                          style={{ textAlign: '-webkit-auto' }}
+                          className={styles.inputDom}
+                          value={
+                            this.state.data[json.queryField] ? this.state.data[json.queryField] : []
+                          }
+                          options={json.componentData || []}
+                          placeholder={`请选择${json.queryTitle}`}
+                          changeOnSelect
+                          onChange={(value, selectedOptions) => {
+                            const { data, dataShow } = this.state;
+                            const text = [];
+                            selectedOptions.forEach(obj => {
+                              text.push(obj.label);
+                            });
+                            if (value.length > 0) {
+                              data[json.queryField] = value;
+                              dataShow[json.queryField] = {
+                                queryTitle: json.queryTitle,
+                                queryValue: text,
+                              };
+                            } else {
+                              delete data[json.queryField];
+                              delete dataShow[json.queryField];
+                            }
+                            this.setState({
+                              data,
+                              dataShow,
+                            });
+                          }}
+                        />
+                      </div>
+                    );
+                  }
+
                   if (json.component === 'DatePicker') {
                     return (
                       <div key={j}>

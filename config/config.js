@@ -116,6 +116,10 @@ export default {
           path: '/profile',
           component: './profile/index',
         },
+        {
+          path: '/store/store',
+          component: './store/store/Index',
+        },
       ],
     },
   ],
@@ -126,8 +130,8 @@ export default {
    */
   define: {
     APP_TYPE: process.env.APP_TYPE || '',
-    'process.env.apiUrl': 'http://127.0.0.1:8091',
-    'process.env.wsUrl': 'ws://127.0.0.1:8091',
+    'process.env.apiUrl': 'http://127.0.0.1:8010',
+    'process.env.wsUrl': 'ws://127.0.0.1:8010',
   },
   // Theme for antd
   // https://ant.design/docs/react/customize-theme-cn
