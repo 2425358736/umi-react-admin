@@ -15,11 +15,11 @@ import {
 
 import AddUp from './components/AddUp';
 
-import StoreInfo from './components/StoreInfo';
+import Details from './components/Details';
 
 import styles from './index.less';
 
-import { postRequest, getRequest } from '@/utils/api';
+import { getRequest, deleteRequest } from '@/utils/api';
 
 import { StoreList, DelStore, StoreTop, GetRegion } from './Service';
 
@@ -134,7 +134,7 @@ class Index extends React.Component {
         },
         {
           title: '门店类型',
-          width: '8%',
+          width: '10%',
           dataIndex: 'storeType',
           column: 'storeTypeStr',
           filters: [
@@ -150,11 +150,11 @@ class Index extends React.Component {
         },
         {
           title: '门店名称',
-          width: '15%',
+          width: '10%',
           dataIndex: 'storeName',
           render(text, record) {
             return (
-              <Info title={record.storeName} info={<StoreInfo id={record.id} />}>
+              <Info title={record.storeName} info={<Details id={record.id} />}>
                 {record.storeName}
               </Info>
             );
@@ -162,27 +162,27 @@ class Index extends React.Component {
         },
         {
           title: '门店编号',
-          width: '12%',
+          width: '10%',
           dataIndex: 'storeNumber',
         },
         {
           title: '省',
-          width: '12%',
+          width: '10%',
           dataIndex: 'province',
         },
         {
           title: '市',
-          width: '12%',
+          width: '10%',
           dataIndex: 'city',
         },
         {
           title: '详细地址',
-          width: '12%',
+          width: '20%',
           dataIndex: 'detailedAddress',
         },
         {
           title: '操作',
-          width: '10%',
+          width: '15%',
           dataIndex: 'opt',
           render(text, record) {
             return (
@@ -210,7 +210,7 @@ class Index extends React.Component {
   };
 
   delete = async id => {
-    const data = await postRequest(`${DelStore}?ID=${id}`);
+    const data = await deleteRequest(`${DelStore}?id=${id}`);
     if (data.status === 200) {
       notification.success({ message: data.msg });
     } else {
@@ -236,15 +236,7 @@ class Index extends React.Component {
           </div>
           <div className={styles.tableWrap}>
             <div>
-              <OrdinaryTable
-                scroll={{
-                  x: 1700,
-                  y: 'calc(100vh - 252px)',
-                }}
-                align="center"
-                listUrl={StoreList}
-                columns={this.state.columns}
-              />
+              <OrdinaryTable align="center" listUrl={StoreList} columns={this.state.columns} />
             </div>
           </div>
         </div>
