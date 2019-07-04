@@ -121,6 +121,14 @@ export default {
           component: './store/store/Index',
         },
         {
+          path: '/commodity/category',
+          component: './commodity/category/Index',
+        },
+        {
+          path: '/commodity/commodity',
+          component: './commodity/commodity/Index',
+        },
+        {
           path: '/member/department',
           component: './member/memberDepartment/Index',
         },
