@@ -120,6 +120,10 @@ export default {
           path: '/store/store',
           component: './store/store/Index',
         },
+        {
+          path: '/member/department',
+          component: './member/memberDepartment/Index',
+        },
       ],
     },
   ],

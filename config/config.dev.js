@@ -112,6 +112,10 @@ export default {
           path: '/profile',
           component: './profile/index',
         },
+        {
+          path: '/member/department',
+          component: './member/memberDepartment/Index',
+        },
       ],
     },
   ],
