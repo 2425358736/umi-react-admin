@@ -21,7 +21,7 @@ import styles from './index.less';
 
 import { getRequest, deleteRequest } from '@/utils/api';
 
-import { StoreList, DelStore, StoreTop, GetRegion } from './Service';
+import { CommodityList, DelCommodity, CommodityTop, CommodityCategoryListTree } from './Service';
 
 const topStatistics = {
   topJson: [
@@ -29,37 +29,18 @@ const topStatistics = {
       displayTitle: '总共',
       displayField: 'total',
     },
-    {
-      displayTitle: '直营店',
-      displayField: 'zyd',
-      queryTitle: '门店类型',
-      queryField: 'storeType',
-      queryValue: ['0'],
-    },
-    {
-      displayTitle: '加盟店',
-      displayField: 'jmd',
-      queryTitle: '门店类型',
-      queryField: 'storeType',
-      queryValue: ['1'],
-    },
   ],
 };
 
 const search = {
   ordinary: {
-    queryTitle: '门店名称',
-    queryField: 'storeName',
+    queryTitle: '商品名称',
+    queryField: 'commodityName',
   },
   senior: [
     {
-      queryTitle: '门店编号',
-      queryField: 'storeNumber',
-      component: 'Input',
-    },
-    {
-      queryTitle: '所属区域',
-      queryField: 'regionId',
+      queryTitle: '所属分类',
+      queryField: 'categoryId',
       component: 'Cascader',
       componentData: [],
     },
@@ -73,32 +54,24 @@ const exportButton = {
       column: 'id',
     },
     {
-      title: '所属区域',
-      column: 'regionName',
+      title: '所属分类',
+      column: 'categoryIdStr',
     },
     {
-      title: '门店类型',
-      column: 'storeTypeStr',
+      title: '商品名称',
+      column: 'commodityName',
     },
     {
-      title: '门店名称',
-      column: 'storeName',
+      title: '单位',
+      column: 'measureStr',
     },
     {
-      title: '门店编号',
-      column: 'storeNumber',
+      title: '成本价(元)',
+      column: 'costPrice',
     },
     {
-      title: '省',
-      column: 'province',
-    },
-    {
-      title: '市',
-      column: 'city',
-    },
-    {
-      title: '详细地址',
-      column: 'detailedAddress',
+      title: '售价（元）',
+      column: 'sellingPrice',
     },
   ],
 };
@@ -112,8 +85,8 @@ class Index extends React.Component {
   }
 
   componentWillMount = async () => {
-    const regionTree = await getRequest(GetRegion);
-    search.senior[1].componentData = regionTree.data;
+    const commodityTree = await getRequest(CommodityCategoryListTree);
+    search.senior[0].componentData = commodityTree.data;
     this.columnsUp([]);
   };
 
@@ -128,50 +101,29 @@ class Index extends React.Component {
           isIncrement: true,
         },
         {
-          title: '所属区域',
+          title: '所属分类',
           width: '10%',
-          dataIndex: 'regionName',
+          dataIndex: 'categoryIdStr',
         },
         {
-          title: '门店类型',
+          title: '商品名称',
           width: '10%',
-          dataIndex: 'storeType',
-          column: 'storeTypeStr',
-          filters: [
-            {
-              text: '直营店',
-              value: '0',
-            },
-            {
-              text: '加盟店',
-              value: '1',
-            },
-          ],
+          dataIndex: 'commodityName',
         },
         {
-          title: '门店名称',
+          title: '单位',
           width: '10%',
-          dataIndex: 'storeName',
+          dataIndex: 'measureStr',
         },
         {
-          title: '门店编号',
+          title: '成本价(元)',
           width: '10%',
-          dataIndex: 'storeNumber',
+          dataIndex: 'costPrice',
         },
         {
-          title: '省',
+          title: '售价（元）',
           width: '10%',
-          dataIndex: 'province',
-        },
-        {
-          title: '市',
-          width: '10%',
-          dataIndex: 'city',
-        },
-        {
-          title: '详细地址',
-          width: '20%',
-          dataIndex: 'detailedAddress',
+          dataIndex: 'sellingPrice',
         },
         {
           title: '操作',
@@ -189,7 +141,7 @@ class Index extends React.Component {
                 <Operation
                   title="删除"
                   mode={0}
-                  reminder="此操作将会将门店删除，确认操作吗？"
+                  reminder="此操作将会将商品删除，确认操作吗？"
                   onClick={async () => {
                     await that.delete(record.id);
                   }}
@@ -207,7 +159,7 @@ class Index extends React.Component {
   };
 
   delete = async id => {
-    const data = await deleteRequest(`${DelStore}?id=${id}`);
+    const data = await deleteRequest(`${DelCommodity}?id=${id}`);
     if (data.status === 200) {
       notification.success({ message: data.msg });
     } else {
@@ -219,21 +171,21 @@ class Index extends React.Component {
     return (
       <div className={styles.sysUserWrap}>
         <div className={styles.baseTableWrap}>
-          <TopStatistics sourceUrl={StoreTop} topJson={topStatistics.topJson} />
+          <TopStatistics sourceUrl={CommodityTop} topJson={topStatistics.topJson} />
           <div className={styles.screenTag}>
             <Search
               ordinary={search.ordinary}
               senior={search.senior}
               operationBlock={[
-                <Add key="1" width={700} title="添加门店" component={AddUp} />,
-                <ExportButton key="2" exportUrl={StoreList} columns={exportButton.columns} />,
+                <Add key="1" width={700} title="添加商品" component={AddUp} />,
+                <ExportButton key="2" exportUrl={CommodityList} columns={exportButton.columns} />,
               ]}
             />
             <ScreeningTag />
           </div>
           <div className={styles.tableWrap}>
             <div>
-              <OrdinaryTable align="center" listUrl={StoreList} columns={this.state.columns} />
+              <OrdinaryTable align="center" listUrl={CommodityList} columns={this.state.columns} />
             </div>
           </div>
         </div>

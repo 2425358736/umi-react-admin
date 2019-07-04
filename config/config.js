@@ -120,6 +120,14 @@ export default {
           path: '/store/store',
           component: './store/store/Index',
         },
+        {
+          path: '/commodity/category',
+          component: './commodity/category/Index',
+        },
+        {
+          path: '/commodity/commodity',
+          component: './commodity/commodity/Index',
+        },
       ],
     },
   ],
