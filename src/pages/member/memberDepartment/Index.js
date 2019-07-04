@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'dva';
 import { Tree, Tag, Icon, Divider, Modal, Popconfirm, notification, Spin } from 'antd';
 import AddUp from './components/AddUp';
-// import Index from '../sysRole/Index';
+import Index from '../memberPosition/Index';
 import { postRequest } from '@/utils/api';
 import { DEPARTMENT_TREE, DEL_DEPARTMENT } from '@/services/member';
 import styles from './Index.less';
@@ -202,6 +202,9 @@ class sysDepartment extends React.Component {
                   <Tag>部门编号: {info.departmentNumber}</Tag>
                   <Tag>父级部门: {info.parentName}</Tag>
                   <Tag>备注: {info.remarks}</Tag>
+                </div>
+                <div>
+                  <Index id={this.state.info.id} />
                 </div>
               </div>
             )}
