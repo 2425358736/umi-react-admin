@@ -1,21 +1,21 @@
-// 系统设置 - 部门管理
+// 系统设置 - 区域管理
 import React from 'react';
 import { connect } from 'dva';
 import { Tree, Tag, Icon, Divider, Modal, Popconfirm, notification, Spin } from 'antd';
 import AddUp from './components/AddUp';
 // import Index from '../sysRole/Index';
 import { postRequest } from '@/utils/api';
-import { DEPARTMENT_TREE, DEL_DEPARTMENT } from '@/services/member';
+import { REGION_TREE, DEL_REGION } from '@/services/member';
 import styles from './Index.less';
 
 @connect(({ screen }) => ({
   screen,
 }))
-class sysDepartment extends React.Component {
+class regionPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      departmentList: [],
+      regionList: [],
       info: null,
       open: false,
       type: null,
@@ -31,13 +31,13 @@ class sysDepartment extends React.Component {
     this.setState({
       spinning: true,
     });
-    let departmentList = await postRequest(DEPARTMENT_TREE);
-    departmentList = departmentList.data;
+    let regionList = await postRequest(REGION_TREE);
+    regionList = regionList.data;
     this.setState({
-      departmentList,
+      regionList,
     });
     if (this.state.info && this.state.info.id > 0) {
-      const info = this.getInfo(departmentList);
+      const info = this.getInfo(regionList);
       this.setState({
         info,
       });
@@ -71,7 +71,7 @@ class sysDepartment extends React.Component {
   };
 
   deleteSysDepartment = async id => {
-    const data = await postRequest(`${DEL_DEPARTMENT}/${id}`);
+    const data = await postRequest(`${DEL_REGION}/${id}`);
     if (data.status === 200) {
       notification.success({ message: data.msg });
       this.initialization();
@@ -80,10 +80,10 @@ class sysDepartment extends React.Component {
     }
   };
 
-  recursion(departmentList, i) {
+  recursion(regionList, i) {
     const arr = [];
-    departmentList.forEach(department => {
-      if (department.parentId === i) {
+    regionList.forEach(region => {
+      if (region.parentId === i) {
         arr.push(
           <Tree.TreeNode
             title={
@@ -91,16 +91,16 @@ class sysDepartment extends React.Component {
                 className={styles.treeNode}
                 onClick={() => {
                   this.setState({
-                    info: department,
+                    info: region,
                   });
                 }}
               >
-                {department.departmentName}
+                {region.regionName}
               </Tag>
             }
-            key={department.id}
+            key={region.id}
           >
-            {this.recursion(department.children, department.id)}
+            {this.recursion(region.children, region.id)}
           </Tree.TreeNode>
         );
       }
@@ -109,11 +109,11 @@ class sysDepartment extends React.Component {
   }
 
   render() {
-    const { info, departmentList } = this.state;
+    const { info, regionList } = this.state;
     return (
       <div className={styles.departWrap}>
         <Modal
-          title={this.state.type === 'up' ? '编辑部门' : '添加部门'}
+          title={this.state.type === 'up' ? '编辑区域' : '添加区域'}
           style={{ top: 20 }}
           width={500}
           visible={this.state.open}
@@ -140,18 +140,18 @@ class sysDepartment extends React.Component {
                         this.setState({
                           info: {
                             id: 0,
-                            departmentName: '部门结构',
+                            regionName: '区域结构',
                           },
                         });
                       }}
                     >
                       <Icon type="folder" />
-                      &nbsp;&nbsp;部门结构
+                      &nbsp;&nbsp;区域结构
                     </Tag>
                   }
                   key="0"
                 >
-                  {this.recursion(departmentList, 0)}
+                  {this.recursion(regionList, 0)}
                 </Tree.TreeNode>
               </Tree>
             </div>
@@ -171,7 +171,7 @@ class sysDepartment extends React.Component {
                       });
                     }}
                   >
-                    添加下级部门
+                    添加下级区域
                   </span>
                   {info.id > 0 && (
                     <span
@@ -183,7 +183,7 @@ class sysDepartment extends React.Component {
                         });
                       }}
                     >
-                      修改部门
+                      修改区域
                     </span>
                   )}
                   {info.id > 0 && (
@@ -193,14 +193,14 @@ class sysDepartment extends React.Component {
                         this.deleteSysDepartment(info.id);
                       }}
                     >
-                      <span className={styles.departBtn}>删除部门</span>
+                      <span className={styles.departBtn}>删除区域</span>
                     </Popconfirm>
                   )}
                 </div>
                 <div className={styles.departTagWrap}>
-                  <Tag>部门名称: {info.departmentName}</Tag>
-                  <Tag>部门编号: {info.departmentNumber}</Tag>
-                  <Tag>父级部门: {info.parentName}</Tag>
+                  <Tag>区域名称: {info.regionName}</Tag>
+                  <Tag>区域编号: {info.regionNumber}</Tag>
+                  <Tag>父级区域: {info.parentName}</Tag>
                   <Tag>备注: {info.remarks}</Tag>
                 </div>
               </div>
@@ -212,4 +212,4 @@ class sysDepartment extends React.Component {
   }
 }
 
-export default sysDepartment;
+export default regionPage;

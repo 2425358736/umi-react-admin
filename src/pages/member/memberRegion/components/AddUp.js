@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Input, Form, notification } from 'antd';
 import { postRequest, jsonString } from '@/utils/api';
 
-import { ADD_DEPARTMENT, UP_DEPARTMENT } from '@/services/member';
+import { ADD_REGION, UP_REGION } from '@/services/member';
 
 const FormItem = Form.Item;
 
@@ -23,14 +23,14 @@ class AddUp extends React.Component {
     this.props.form.resetFields();
     if (type === 'up') {
       this.props.form.setFieldsValue({
-        departmentName: info.departmentName,
-        departmentNumber: info.departmentNumber,
-        parentName: info.parentName ? info.parentName : '部门结构',
+        regionName: info.regionName,
+        regionNumber: info.regionNumber,
+        parentName: info.parentName ? info.parentName : '区域结构',
         remarks: info.remarks,
       });
     } else {
       this.props.form.setFieldsValue({
-        parentName: info.departmentName,
+        parentName: info.regionName,
       });
     }
   };
@@ -50,10 +50,10 @@ class AddUp extends React.Component {
       if (this.props.type === 'up') {
         json.id = this.props.info.id;
         json.parentId = this.props.info.parentId;
-        data = await postRequest(UP_DEPARTMENT, json);
+        data = await postRequest(UP_REGION, json);
       } else {
         json.parentId = this.props.info.id;
-        data = await postRequest(ADD_DEPARTMENT, json);
+        data = await postRequest(ADD_REGION, json);
       }
       this.setState({
         buttonLoading: false,
@@ -76,30 +76,30 @@ class AddUp extends React.Component {
     return (
       <div style={{ margin: '15px 0 0 10%', overflow: 'hidden' }}>
         <Form style={{ marginTop: 20 }} layout="horizontal">
-          <FormItem label="部门名称" labelCol={{ span: 5 }} wrapperCol={{ span: 15 }}>
-            {getFieldDecorator('departmentName', {
+          <FormItem label="区域名称" labelCol={{ span: 5 }} wrapperCol={{ span: 15 }}>
+            {getFieldDecorator('regionName', {
               rules: [
                 {
                   required: true,
-                  message: '请输入部门名称!',
+                  message: '请输入区域名称!',
                 },
               ],
-            })(<Input placeholder="请输入部门名称" />)}
+            })(<Input placeholder="请输入区域名称" />)}
           </FormItem>
-          <FormItem label="部门编号" labelCol={{ span: 5 }} wrapperCol={{ span: 15 }}>
-            {getFieldDecorator('departmentNumber', {
+          <FormItem label="区域编号" labelCol={{ span: 5 }} wrapperCol={{ span: 15 }}>
+            {getFieldDecorator('regionNumber', {
               rules: [
                 {
                   required: true,
-                  message: '请输入部门编号!',
+                  message: '请输入区域编号!',
                 },
               ],
-            })(<Input placeholder="请输入部门编号" />)}
+            })(<Input placeholder="请输入区域编号" />)}
           </FormItem>
           <FormItem label="备注" labelCol={{ span: 5 }} wrapperCol={{ span: 15 }}>
             {getFieldDecorator('remarks')(<Input />)}
           </FormItem>
-          <FormItem label="父级部门" labelCol={{ span: 5 }} wrapperCol={{ span: 15 }}>
+          <FormItem label="父级区域" labelCol={{ span: 5 }} wrapperCol={{ span: 15 }}>
             {getFieldDecorator('parentName')(<Input disabled />)}
           </FormItem>
         </Form>

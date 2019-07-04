@@ -116,6 +116,10 @@ export default {
           path: '/member/department',
           component: './member/memberDepartment/Index',
         },
+        {
+          path: '/memberRegion/region',
+          component: './member/memberRegion/Index',
+        },
       ],
     },
   ],
