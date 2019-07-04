@@ -128,6 +128,14 @@ export default {
           path: '/commodity/commodity',
           component: './commodity/commodity/Index',
         },
+        {
+          path: '/member/department',
+          component: './member/memberDepartment/Index',
+        },
+        {
+          path: '/memberRegion/region',
+          component: './member/memberRegion/Index',
+        },
       ],
     },
   ],
