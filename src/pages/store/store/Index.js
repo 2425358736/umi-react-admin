@@ -152,13 +152,6 @@ class Index extends React.Component {
           title: '门店名称',
           width: '10%',
           dataIndex: 'storeName',
-          render(text, record) {
-            return (
-              <Info title={record.storeName} info={<Details id={record.id} />}>
-                {record.storeName}
-              </Info>
-            );
-          },
         },
         {
           title: '门店编号',
@@ -187,6 +180,10 @@ class Index extends React.Component {
           render(text, record) {
             return (
               <div>
+                <Info title={record.storeName} info={<Details id={record.id} />}>
+                  详情
+                </Info>
+                <Divider type="vertical" />
                 <Up width={700} id={record.id} component={AddUp} title="编辑" />
                 <Divider type="vertical" />
                 <Operation
