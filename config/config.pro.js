@@ -81,16 +81,16 @@ export default {
           component: './error/500/Index',
         },
         {
-          path: '/sys/equipmentDealer',
-          component: './sys/equipmentDealer/Index',
-        },
-        {
           path: '/sys/sysPermission',
           component: './sys/sysPermission/Index',
         },
         {
           path: '/sys/sysDepartment',
           component: './sys/sysDepartment/Index',
+        },
+        {
+          path: '/sys/sysRole',
+          component: './sys/sysRoleTwo/Index',
         },
         {
           path: '/sys/sysLog',
@@ -105,12 +105,36 @@ export default {
           component: './userCenter/insideMail/Index',
         },
         {
+          path: '/sys/sysUser',
+          component: './sys/sysUserTwo/Index',
+        },
+        {
           path: '/sys/sysDict',
           component: './sys/sysDict/index',
         },
         {
           path: '/profile',
           component: './profile/index',
+        },
+        {
+          path: '/store/store',
+          component: './store/store/Index',
+        },
+        {
+          path: '/commodity/category',
+          component: './commodity/category/Index',
+        },
+        {
+          path: '/commodity/commodity',
+          component: './commodity/commodity/Index',
+        },
+        {
+          path: '/member/department',
+          component: './member/memberDepartment/Index',
+        },
+        {
+          path: '/memberRegion/region',
+          component: './member/memberRegion/Index',
         },
       ],
     },
@@ -122,8 +146,8 @@ export default {
    */
   define: {
     APP_TYPE: process.env.APP_TYPE || '',
-    'process.env.apiUrl': 'http://127.0.0.1:8091',
-    'process.env.wsUrl': 'ws://127.0.0.1:8091',
+    'process.env.apiUrl': 'http://117.73.8.92:8091',
+    'process.env.wsUrl': 'ws://117.73.8.92:8091',
   },
   // Theme for antd
   // https://ant.design/docs/react/customize-theme-cn
