@@ -137,6 +137,10 @@ export default {
           component: './member/memberRegion/Index',
         },
         {
+          path: '/news/news',
+          component: './news/news/Index',
+        },
+        {
           path: '/memberPeople/headquartersPeople',
           component: './member/headquartersPeople/Index',
         },
