@@ -140,6 +140,10 @@ export default {
           path: '/memberPeople/headquartersPeople',
           component: './member/headquartersPeople/Index',
         },
+        {
+          path: '/memberPeople/regionPeople',
+          component: './member/regionPeople/Index',
+        },
       ],
     },
   ],

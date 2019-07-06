@@ -1,16 +1,10 @@
 /* eslint-disable no-const-assign,no-shadow,prefer-destructuring */
 
 import React from 'react';
-import { Spin, Button, Input, Form, notification, Cascader, Select, Radio } from 'antd';
+import { Spin, Button, Input, Form, notification, Cascader, Radio } from 'antd';
 import { postRequest, jsonString, getRequest } from '@/utils/api';
 
-import {
-  GetDepartment,
-  GetHeadquartersPeople,
-  UpHeadquartersPeople,
-  AddHeadquartersPeople,
-  POSITION_LIST,
-} from '../Service';
+import { GetRegionPeople, UpHeadquartersPeople, AddRegionPeople, GetRegion } from '../Service';
 
 const styles = require('./AddUp.less');
 
@@ -20,11 +14,9 @@ class AddUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      departmentTree: [],
+      regionTree: [],
       buttonLoading: false,
       loading: false,
-      positionArr: [],
-      positionId: 0,
     };
   }
 
@@ -34,24 +26,20 @@ class AddUp extends React.Component {
 
   initialization = async () => {
     this.props.form.resetFields();
-    const departmentTree = await getRequest(GetDepartment);
+    const regionTree = await getRequest(GetRegion);
     this.setState({
-      departmentTree: departmentTree.data,
+      regionTree: regionTree.data,
     });
     if (this.props.id > 0) {
       this.setState({ loading: true });
-      let store = await getRequest(`${GetHeadquartersPeople}?id=${this.props.id}`);
+      let store = await getRequest(`${GetRegionPeople}?id=${this.props.id}`);
       store = store.data;
-      const data = await postRequest(`${POSITION_LIST}/${store.departmentId}`);
-      this.setState({
-        positionArr: data.data,
-      });
-      let departmentIdArr = [];
-      if (store.departmentContinuity) {
-        departmentIdArr = store.departmentContinuity.split(',');
+      let regionIdArr = [];
+      if (store.parentContinuity) {
+        regionIdArr = store.parentContinuity.split(',');
       }
       this.props.form.setFieldsValue({
-        departmentId: departmentIdArr,
+        regionId: regionIdArr,
         realName: store.realName,
         jobNumber: store.jobNumber,
         gender: store.gender.toString(),
@@ -62,7 +50,6 @@ class AddUp extends React.Component {
         qq: store.qq,
         email: store.email,
         password: '******',
-        positionId: store.positionId.toString(),
       });
       this.setState({ loading: false });
     }
@@ -79,16 +66,15 @@ class AddUp extends React.Component {
       });
       const json = this.props.form.getFieldsValue();
       jsonString(json);
-      const departmentIds = json.departmentId.split(',');
-      json.departmentId = departmentIds[departmentIds.length - 1];
-      json.userType = 0;
-      json.positionId = this.state.positionId;
+      const regionIds = json.regionId.split(',');
+      json.regionId = parseInt(regionIds[regionIds.length - 1], 10);
+      json.userType = 1;
       let data;
       if (this.props.id > 0) {
         json.id = this.props.id;
         data = await postRequest(UpHeadquartersPeople, json);
       } else {
-        data = await postRequest(AddHeadquartersPeople, json);
+        data = await postRequest(AddRegionPeople, json);
       }
       this.setState({
         buttonLoading: false,
@@ -104,22 +90,6 @@ class AddUp extends React.Component {
 
   handleCancel = () => {
     this.props.callback(false);
-  };
-
-  departmentOnChange = async value => {
-    const departmentId = value.length > 0 ? value[value.length - 1] : 0;
-    const data = await postRequest(`${POSITION_LIST}/${departmentId}`);
-    if (data.status === 200) {
-      this.setState({
-        positionArr: data.data,
-      });
-    }
-  };
-
-  positionOnChange = value => {
-    this.setState({
-      positionId: parseInt(value, 10),
-    });
   };
 
   render() {
@@ -139,7 +109,7 @@ class AddUp extends React.Component {
           >
             <div className={styles.titleDom}>
               <span />
-              <span>任职信息</span>
+              <span>区域信息</span>
             </div>
             <FormItem label="工号" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
               {getFieldDecorator('jobNumber', {
@@ -152,45 +122,19 @@ class AddUp extends React.Component {
               })(<Input placeholder="请输入工号" />)}
             </FormItem>
 
-            <FormItem label="部门" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
-              {getFieldDecorator('departmentId', {
+            <FormItem label="区域" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
+              {getFieldDecorator('regionId', {
                 rules: [
                   {
                     required: true,
-                    message: '请选择所属部门',
+                    message: '请选择所属区域',
                   },
                 ],
               })(
-                <Cascader
-                  options={this.state.departmentTree}
-                  onChange={this.departmentOnChange}
-                  placeholder="所属部门"
-                  changeOnSelect
-                />
+                <Cascader options={this.state.regionTree} placeholder="所属区域" changeOnSelect />
               )}
             </FormItem>
 
-            <FormItem label="岗位" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
-              {getFieldDecorator('positionId', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请选择岗位',
-                  },
-                ],
-              })(
-                <Select
-                  showSearch
-                  placeholder="请选择岗位"
-                  optionFilterProp="children"
-                  onChange={this.positionOnChange}
-                >
-                  {this.state.positionArr.map(d => (
-                    <Select.Option key={d.id}>{d.positionName}</Select.Option>
-                  ))}
-                </Select>
-              )}
-            </FormItem>
             <div className={styles.titleDom}>
               <span />
               <span>个人信息</span>
