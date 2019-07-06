@@ -4,7 +4,7 @@ import { connect } from 'dva';
 import { Tree, Tag, Icon, Divider, Modal, Popconfirm, notification, Spin } from 'antd';
 import AddUp from './components/AddUp';
 import Index from '../memberPosition/Index';
-import { postRequest } from '@/utils/api';
+import { postRequest, getRequest } from '@/utils/api';
 import { DEPARTMENT_TREE, DEL_DEPARTMENT } from '@/services/member';
 import styles from './Index.less';
 
@@ -31,7 +31,7 @@ class sysDepartment extends React.Component {
     this.setState({
       spinning: true,
     });
-    let departmentList = await postRequest(DEPARTMENT_TREE);
+    let departmentList = await getRequest(DEPARTMENT_TREE);
     departmentList = departmentList.data;
     this.setState({
       departmentList,

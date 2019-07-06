@@ -1,7 +1,7 @@
 // 系统设置 - 岗位添加编辑
 import React from 'react';
 import { Tree, Button, Form, Input, Icon, notification, Row, Col, TreeSelect } from 'antd';
-import { postRequest } from '@/utils/api';
+import { postRequest, getRequest } from '@/utils/api';
 import { UP_POSITION, ADD_POSITION, POSITION_INFO, DEPARTMENT_TREE } from '@/services/member';
 
 const { TreeNode } = Tree;
@@ -79,7 +79,7 @@ class AddUp extends React.Component {
 
   initial = async () => {
     // 部门列表
-    const department = await postRequest(DEPARTMENT_TREE);
+    const department = await getRequest(DEPARTMENT_TREE);
 
     this.setState({
       departmentList: department.data,
