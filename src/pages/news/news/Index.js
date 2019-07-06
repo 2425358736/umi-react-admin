@@ -215,7 +215,7 @@ class Index extends React.Component {
               ordinary={search.ordinary}
               senior={search.senior}
               operationBlock={[
-                <Add key="1" width={900} title="添加新闻" component={AddUp} />,
+                <Add key="1" width={900} title="添加新闻公告" component={AddUp} />,
                 <ExportButton
                   key="2"
                   exportUrl={NewsBulletinList}

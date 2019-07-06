@@ -40,7 +40,7 @@ class Details extends React.Component {
               <p className={styles.cardContent}>{InfoData.typeStr}</p>
             </div>
 
-            <div className={styles.cardDom}>
+            <div className={styles.cardDom} style={{ maxWidth: '250px' }}>
               <p className={styles.cardTitle}>
                 <Icon type="team" className={styles.iconDom} />
                 创建时间

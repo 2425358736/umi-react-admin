@@ -32,6 +32,9 @@ class AddUp extends React.Component {
     this.setState({
       regionTree: regionTree.data,
     });
+    this.props.form.setFieldsValue({
+      storeType: '0',
+    });
     if (this.props.id > 0) {
       this.setState({ loading: true });
       let store = await getRequest(`${GetStore}?id=${this.props.id}`);

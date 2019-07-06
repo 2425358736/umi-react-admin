@@ -34,6 +34,10 @@ class AddUp extends React.Component {
 
   initialization = async () => {
     this.props.form.resetFields();
+    this.props.form.setFieldsValue({
+      type: '0',
+      isRelease: '0',
+    });
     if (this.props.id > 0) {
       this.setState({ loading: true });
       let info = await getRequest(`${GetNewsBulletin}?id=${this.props.id}`);
