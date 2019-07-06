@@ -265,13 +265,7 @@ class AddUp extends React.Component {
                 rules: [
                   {
                     required: true,
-                    validator: (_, value, callback) => {
-                      if (value.isEmpty()) {
-                        callback('请输入正文内容');
-                      } else {
-                        callback();
-                      }
-                    },
+                    message: '请输入正文内容',
                   },
                 ],
               })(
