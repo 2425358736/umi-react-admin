@@ -89,7 +89,7 @@ const exportButton = {
     },
     {
       title: '创建时间',
-      column: 'sellingPrice',
+      column: 'createDate',
     },
   ],
 };
