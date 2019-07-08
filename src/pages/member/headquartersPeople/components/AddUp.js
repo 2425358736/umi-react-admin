@@ -24,7 +24,7 @@ class AddUp extends React.Component {
       buttonLoading: false,
       loading: false,
       positionArr: [],
-      positionId: 0,
+      positionId: '',
     };
   }
 
@@ -61,10 +61,13 @@ class AddUp extends React.Component {
         loginName: store.loginName,
         qq: store.qq,
         email: store.email,
-        password: '******',
         positionId: store.positionId.toString(),
       });
       this.setState({ loading: false });
+    } else {
+      this.props.form.setFieldsValue({
+        password: '666666',
+      });
     }
   };
 
@@ -107,6 +110,9 @@ class AddUp extends React.Component {
   };
 
   departmentOnChange = async value => {
+    this.props.form.setFieldsValue({
+      positionId: '',
+    });
     const departmentId = value.length > 0 ? value[value.length - 1] : 0;
     const data = await postRequest(`${POSITION_LIST}/${departmentId}`);
     if (data.status === 200) {
@@ -124,6 +130,7 @@ class AddUp extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    const that = this;
     return (
       <Spin spinning={this.state.loading}>
         <div className={styles.formWrap}>
@@ -284,16 +291,18 @@ class AddUp extends React.Component {
                 ],
               })(<Input placeholder="请输入用户名" />)}
             </FormItem>
-            <FormItem label="密码" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
-              {getFieldDecorator('password', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入密码',
-                  },
-                ],
-              })(<Input placeholder="请输入密码" />)}
-            </FormItem>
+            {that.props.id === undefined && (
+              <FormItem label="密码" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
+                {getFieldDecorator('password', {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入密码',
+                    },
+                  ],
+                })(<Input placeholder="请输入密码" />)}
+              </FormItem>
+            )}
           </Form>
           <div className={styles.btnGroup}>
             <Button

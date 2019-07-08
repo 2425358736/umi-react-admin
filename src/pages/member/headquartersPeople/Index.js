@@ -129,7 +129,7 @@ class Index extends React.Component {
         },
         {
           title: '部门',
-          width: '10%',
+          width: '15%',
           dataIndex: 'departmentName',
         },
         {
@@ -144,7 +144,7 @@ class Index extends React.Component {
         },
         {
           title: '工号',
-          width: '10%',
+          width: '5%',
           dataIndex: 'jobNumber',
         },
         {
@@ -165,12 +165,12 @@ class Index extends React.Component {
         },
         {
           title: '身份证号',
-          width: '10%',
+          width: '20%',
           dataIndex: 'idNumber',
         },
         {
           title: '手机号',
-          width: '20%',
+          width: '10%',
           dataIndex: 'phone',
         },
         {
