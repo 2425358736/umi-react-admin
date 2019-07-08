@@ -65,9 +65,8 @@ class Info extends React.Component {
   };
 
   render() {
-    const { dispatch, list, children, title, id, collapsed } = this.props;
-    const { identifying } = this.state;
-    console.log(collapsed);
+    const { dispatch, list, children, title, id } = this.props;
+    const { identifying, open } = this.state;
     return (
       <div style={{ display: 'inline-block' }}>
         <div
@@ -124,7 +123,7 @@ class Info extends React.Component {
               payload: { list },
             });
           }}
-          visible={this.state.open}
+          visible={open}
           destroyOnClose
         >
           {this.props.info && this.props.info}

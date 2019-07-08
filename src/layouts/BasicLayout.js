@@ -1,9 +1,10 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
+import router from 'umi/router';
 import { Layout, Breadcrumb } from 'antd';
 import DocumentTitle from 'react-document-title';
 import isEqual from 'lodash/isEqual';
 import memoizeOne from 'memoize-one';
-import router from 'umi/router';
 import { connect } from 'dva';
 import { ContainerQuery } from 'react-container-query';
 import classNames from 'classnames';
@@ -74,10 +75,16 @@ class BasicLayout extends React.PureComponent {
   componentDidUpdate(preProps) {
     // After changing to phone mode,
     // if collapsed is true, you need to click twice to display
-    const { collapsed, isMobile } = this.props;
+    const {
+      collapsed,
+      isMobile,
+      location: { pathname },
+      breadcrumbNameMap,
+    } = this.props;
     if (isMobile && !preProps.isMobile && !collapsed) {
       this.handleMenuCollapse(false);
     }
+    this.matchParamsPath(pathname, breadcrumbNameMap);
   }
 
   getContext() {
@@ -146,17 +153,16 @@ class BasicLayout extends React.PureComponent {
   };
 
   getPageTitle = (pathname, breadcrumbNameMap) => {
-    const currRouterData = this.matchParamsPath(pathname, breadcrumbNameMap);
+    const pathKey = Object.keys(breadcrumbNameMap).find(key => pathToRegexp(key).test(pathname));
 
-    if (!currRouterData) {
+    if (!pathKey) {
       return '劳务平台';
     }
     // const pageName = formatMessage({
     //   id: currRouterData.locale || currRouterData.name,
     //   defaultMessage: currRouterData.name,
     // });
-
-    return `${currRouterData.name} - 劳务平台`;
+    return `${breadcrumbNameMap[pathKey].name} - 劳务平台`;
   };
 
   getLayoutStyle = () => {
