@@ -72,16 +72,6 @@ const exportButton = {
     {
       title: '门店类别',
       column: 'storeType',
-      filters: [
-        {
-          text: '直营店',
-          value: '0',
-        },
-        {
-          text: '加盟店',
-          value: '1',
-        },
-      ],
     },
     {
       title: '工号',
@@ -90,16 +80,6 @@ const exportButton = {
     {
       title: '性别',
       column: 'gender',
-      filters: [
-        {
-          text: '男',
-          value: '0',
-        },
-        {
-          text: '女',
-          value: '1',
-        },
-      ],
     },
     {
       title: '身份证号',
@@ -137,7 +117,22 @@ class Index extends React.Component {
         {
           title: '职称',
           width: '10%',
-          dataIndex: 'storeUserTypeStr',
+          dataIndex: 'storeUserType',
+          column: 'storeUserTypeStr',
+          filters: [
+            {
+              text: '店长',
+              value: '0',
+            },
+            {
+              text: '导诊',
+              value: '1',
+            },
+            {
+              text: '技师',
+              value: '2',
+            },
+          ],
         },
         {
           title: '姓名',
