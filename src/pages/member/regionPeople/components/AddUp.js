@@ -49,9 +49,12 @@ class AddUp extends React.Component {
         loginName: store.loginName,
         qq: store.qq,
         email: store.email,
-        password: '******',
       });
       this.setState({ loading: false });
+    } else {
+      this.props.form.setFieldsValue({
+        password: '666666',
+      });
     }
   };
 
