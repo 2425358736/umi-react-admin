@@ -26,6 +26,6 @@ export const AddChargeProject = '/store/addChargeProject'; // 添加费项
 
 export const UpChargeProject = '/store/upChargeProject'; // 修改费项
 
-export const DelChargeProject = '/store/DelChargeProject'; // 删除费项
+export const DelChargeProject = '/store/delChargeProject'; // 删除费项
 
 export const GetChargeProject = '/store/getChargeProject'; // 费项详情

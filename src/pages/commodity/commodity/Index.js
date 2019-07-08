@@ -132,7 +132,7 @@ class Index extends React.Component {
           render(text, record) {
             return (
               <div>
-                <Info title={record.storeName} info={<Details id={record.id} />}>
+                <Info title="商品详情" info={<Details id={record.id} />}>
                   详情
                 </Info>
                 <Divider type="vertical" />

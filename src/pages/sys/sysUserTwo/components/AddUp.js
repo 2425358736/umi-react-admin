@@ -33,12 +33,11 @@ class AddUp extends React.Component {
       let user = await postRequest(`${SYS_INFO}/${this.props.id}`);
       user = user.data;
       this.props.form.setFieldsValue({
-        departmentIds: user.departmentIds.toString().split(','),
-        realName: user.realName,
-        email: user.email,
+        realName: user.realName ? user.realName : '',
+        email: user.email ? user.email : '',
         loginName: user.loginName,
-        phone: user.phone,
-        roleIds: user.roleIds.toString().split(','),
+        phone: user.phone ? user.phone : '',
+        roleIds: user.roleIds ? user.roleIds.toString().split(',') : [],
         remarks: user.remarks,
       });
       this.setState({ loading: false });

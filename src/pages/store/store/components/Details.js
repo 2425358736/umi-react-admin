@@ -67,7 +67,9 @@ class Details extends React.Component {
                 </div>
                 <div className={styles.itemDom}>
                   <span>省市</span>
-                  <p>{InfoData.city}</p>
+                  <p>
+                    {InfoData.province}-{InfoData.city}
+                  </p>
                 </div>
                 <div className={styles.itemDom}>
                   <span>门店编号</span>
@@ -98,7 +100,7 @@ class Details extends React.Component {
             <span />
             <span>门店费项</span>
           </div>
-          <ChargeProject id={InfoData.id} />
+          <ChargeProject id={this.props.id} />
         </div>
       </div>
     );
