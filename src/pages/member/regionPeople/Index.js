@@ -135,12 +135,12 @@ class Index extends React.Component {
         },
         {
           title: '工号',
-          width: '10%',
+          width: '15%',
           dataIndex: 'jobNumber',
         },
         {
           title: '性别',
-          width: '10%',
+          width: '5%',
           dataIndex: 'gender',
           column: 'genderStr',
           filters: [
@@ -156,12 +156,12 @@ class Index extends React.Component {
         },
         {
           title: '身份证号',
-          width: '10%',
+          width: '20%',
           dataIndex: 'idNumber',
         },
         {
           title: '手机号',
-          width: '20%',
+          width: '10%',
           dataIndex: 'phone',
         },
         {
