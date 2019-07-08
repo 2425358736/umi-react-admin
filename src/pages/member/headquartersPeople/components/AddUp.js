@@ -24,7 +24,7 @@ class AddUp extends React.Component {
       buttonLoading: false,
       loading: false,
       positionArr: [],
-      positionId: 0,
+      positionId: '',
     };
   }
 
@@ -107,6 +107,9 @@ class AddUp extends React.Component {
   };
 
   departmentOnChange = async value => {
+    this.props.form.setFieldsValue({
+      positionId: '',
+    });
     const departmentId = value.length > 0 ? value[value.length - 1] : 0;
     const data = await postRequest(`${POSITION_LIST}/${departmentId}`);
     if (data.status === 200) {
