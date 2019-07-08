@@ -94,6 +94,7 @@ class AddUp extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    const that = this;
     return (
       <Spin spinning={this.state.loading}>
         <div className={styles.formWrap}>
@@ -228,16 +229,18 @@ class AddUp extends React.Component {
                 ],
               })(<Input placeholder="请输入用户名" />)}
             </FormItem>
-            <FormItem label="密码" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
-              {getFieldDecorator('password', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入密码',
-                  },
-                ],
-              })(<Input placeholder="请输入密码" />)}
-            </FormItem>
+            {that.props.id === undefined && (
+              <FormItem label="密码" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
+                {getFieldDecorator('password', {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入密码',
+                    },
+                  ],
+                })(<Input placeholder="请输入密码" />)}
+              </FormItem>
+            )}
           </Form>
           <div className={styles.btnGroup}>
             <Button
