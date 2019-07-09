@@ -29,3 +29,11 @@ export const UpChargeProject = '/store/upChargeProject'; // 修改费项
 export const DelChargeProject = '/store/delChargeProject'; // 删除费项
 
 export const GetChargeProject = '/store/getChargeProject'; // 费项详情
+
+// ////////////////////////////////////////////////////////////
+// 门店时间段设置
+// ////////////////////////////////////////////////////////////
+
+export const TimePeriodSetList = '/store/timePeriodSetList'; // 门店时间段列表
+
+export const UpTimePeriodSetAll = '/store/upTimePeriodSetAll'; // 批量修改时间段

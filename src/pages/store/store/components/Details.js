@@ -6,6 +6,7 @@ import { getRequest } from '@/utils/api';
 import { GetStore } from '../Service';
 
 import ChargeProject from './ChargeProject';
+import TimePeriodSet from './TimePeriodSet';
 
 class Details extends React.Component {
   constructor(props) {
@@ -101,6 +102,14 @@ class Details extends React.Component {
             <span>门店费项</span>
           </div>
           <ChargeProject id={this.props.id} />
+        </div>
+
+        <div className={styles.bottomWrap}>
+          <div className={styles.titleDom}>
+            <span />
+            <span>排班时段设置</span>
+          </div>
+          <TimePeriodSet storeId={this.props.id} />
         </div>
       </div>
     );
