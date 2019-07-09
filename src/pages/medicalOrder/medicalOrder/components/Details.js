@@ -4,12 +4,15 @@ import styles from './Detail.less';
 import { getRequest } from '@/utils/api';
 
 import { GetMedicalOrder } from '../Service';
+import ChargeProjectList from './ChargeProjectList';
 
 class Details extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       InfoData: {},
+      wxOrderChargeProjectVoList: [],
+      wxConsultationRecordVoList: [],
     };
   }
 
@@ -18,6 +21,8 @@ class Details extends React.Component {
     if (data.status === 200) {
       await this.setState({
         InfoData: data.data,
+        wxOrderChargeProjectVoList: data.data.wxOrderChargeProjectVoList || [],
+        wxConsultationRecordVoList: data.data.wxConsultationRecordVoList || [],
       });
     }
   };
@@ -197,11 +202,34 @@ class Details extends React.Component {
             <span />
             <span>缴费账单</span>
           </div>
+          <ChargeProjectList dataSource={this.state.wxOrderChargeProjectVoList} />
         </div>
         <div className={styles.midWrap}>
           <div className={styles.titleDom}>
             <span />
             <span>支付信息</span>
+          </div>
+          <div className={styles.midCon}>
+            <div className={styles.midRight}>
+              <div>
+                <div className={styles.itemDom}>
+                  <span>应付金额</span>
+                  <p>{InfoData.payableAmount}</p>
+                </div>
+                <div className={styles.itemDom}>
+                  <span>支付方式</span>
+                  <p>{InfoData.paymentMethodStr}</p>
+                </div>
+                <div className={styles.itemDom}>
+                  <span>支付状态</span>
+                  <p>{InfoData.payTypeStr}</p>
+                </div>
+                <div className={styles.itemDom}>
+                  <span>支付时间</span>
+                  <p>{InfoData.payDate}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div className={styles.midWrap}>
@@ -209,12 +237,50 @@ class Details extends React.Component {
             <span />
             <span>回访信息</span>
           </div>
+          <div className={styles.midCon}>
+            <div className={styles.midRight}>
+              <div>
+                <div className={styles.itemDom}>
+                  <span>回访时间</span>
+                  <p>{InfoData.returnData}</p>
+                </div>
+                <div className={styles.itemDom}>
+                  <span>内容记录</span>
+                  <p>{InfoData.returnVisitData}</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div className={styles.midWrap}>
           <div className={styles.titleDom}>
             <span />
             <span>问诊信息</span>
           </div>
+          <div className={styles.midCon}>
+            <div className={styles.midRight}>
+              <div className={styles.itemDom}>
+                <span>标题：</span>
+                <p>{InfoData.consultationTitle}</p>
+              </div>
+            </div>
+          </div>
+          {this.state.wxConsultationRecordVoList.map(role => (
+            <div className={styles.midCon}>
+              <div className={styles.midRight}>
+                <div>
+                  <div className={styles.itemDom}>
+                    <span>{role.type === 1 ? '回复时间' : '问诊时间'}</span>
+                    <p>{role.createDate}</p>
+                  </div>
+                  <div className={styles.itemDom}>
+                    <span>{role.type === 1 ? '回复内容' : '问诊内容'}</span>
+                    <p>{role.content}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     );
