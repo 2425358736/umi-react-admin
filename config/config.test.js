@@ -140,6 +140,22 @@ export default {
           path: '/news/news',
           component: './news/news/Index',
         },
+        {
+          path: '/memberPeople/headquartersPeople',
+          component: './member/headquartersPeople/Index',
+        },
+        {
+          path: '/memberPeople/regionPeople',
+          component: './member/regionPeople/Index',
+        },
+        {
+          path: '/memberPeople/storePeople',
+          component: './member/storePeople/Index',
+        },
+        {
+          path: '/medicalOrder/medicalOrder',
+          component: './medicalOrder/medicalOrder/Index',
+        },
       ],
     },
   ],
