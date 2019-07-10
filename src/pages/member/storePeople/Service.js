@@ -13,3 +13,11 @@ export const GetStorePeople = '/userExtend/getStorePeopleMsg'; // 门店员工�
 export const DelHeadquartersPeopleTop = '/userExtend/userExtendListTop'; // 门店人员头部头部
 
 export const GetRegion = '/store/getRegion'; // 区域树结构
+
+export const VerificationTechnician = '/userExtend/verificationTechnician'; // 批量排班时验证技师身份
+
+export const TimePeriodSetList = '/store/timePeriodSetList'; // 门店时间段列表
+
+export const TechnicianSet = '/technician/technicianSet'; // 设置技师排班
+
+export const TechnicianArrangeList = '/technician/technicianArrangeList'; // 技师排班情况

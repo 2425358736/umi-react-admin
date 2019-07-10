@@ -53,8 +53,11 @@ class InfoTable extends React.Component {
   columnsUp = () => {
     const { pagination, query, orders, columns } = this.state;
     const arr = columns;
-
+    const { align } = this.props;
     arr.forEach((json, i) => {
+      if (align) {
+        arr[i].align = align;
+      }
       if (json.filters) {
         arr[i].filteredValue = query[json.dataIndex] ? query[json.dataIndex] : null;
       }
