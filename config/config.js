@@ -152,6 +152,10 @@ export default {
           path: '/memberPeople/storePeople',
           component: './member/storePeople/Index',
         },
+        {
+          path: '/medicalOrder/medicalOrder',
+          component: './medicalOrder/medicalOrder/Index',
+        },
       ],
     },
   ],
