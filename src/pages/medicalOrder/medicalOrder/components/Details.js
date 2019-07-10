@@ -1,10 +1,11 @@
 import React from 'react';
-import { Icon, Tooltip } from 'antd';
+import { Icon, Tooltip, notification } from 'antd';
 import styles from './Detail.less';
 import { getRequest } from '@/utils/api';
 
-import { GetMedicalOrder } from '../Service';
+import { GetMedicalOrder, OfflinePayment } from '../Service';
 import ChargeProjectList from './ChargeProjectList';
+import { Operation } from '@/components/BusinessComponent/BusCom';
 
 class Details extends React.Component {
   constructor(props) {
@@ -27,8 +28,18 @@ class Details extends React.Component {
     }
   };
 
+  shouKuan = async id => {
+    const data = await getRequest(`${OfflinePayment}?id=${id}`);
+    if (data.status === 200) {
+      notification.success({ message: data.msg });
+    } else {
+      notification.error({ message: data.msg, description: data.subMsg });
+    }
+  };
+
   render() {
     const { InfoData } = this.state;
+    const that = this;
     return (
       <div>
         <div className={styles.topWrap}>
@@ -208,6 +219,16 @@ class Details extends React.Component {
           <div className={styles.titleDom}>
             <span />
             <span>支付信息</span>
+            <span>
+              <Operation
+                title="确认收款"
+                mode={0}
+                reminder="是否确认收款码？"
+                onClick={async () => {
+                  await that.shouKuan(InfoData.id);
+                }}
+              />
+            </span>
           </div>
           <div className={styles.midCon}>
             <div className={styles.midRight}>

@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { Divider } from 'antd';
+import AddUp from './components/AddUp';
 import {
   OrdinaryTable,
   TopStatistics,
@@ -7,6 +8,7 @@ import {
   ExportButton,
   ScreeningTag,
   Info,
+  Up,
 } from '@/components/BusinessComponent/BusCom';
 
 import Details from './components/Details';
@@ -158,7 +160,7 @@ class Index extends React.Component {
         },
         {
           title: '预约时间',
-          width: '20%',
+          width: '15%',
           dataIndex: 'appointmentDateStart',
         },
         {
@@ -199,12 +201,12 @@ class Index extends React.Component {
         },
         {
           title: '创建日期',
-          width: '20%',
+          width: '15%',
           dataIndex: 'createDate',
         },
         {
           title: '操作',
-          width: '5%',
+          width: '15%',
           dataIndex: 'opt',
           render(text, record) {
             return (
@@ -212,6 +214,10 @@ class Index extends React.Component {
                 <Info title="预约单详情" info={<Details id={record.id} />}>
                   详情
                 </Info>
+                {record.orderState === 0 && <Divider type="vertical" />}
+                {record.orderState === 0 && (
+                  <Up width={800} id={record.id} component={AddUp} title="取消" />
+                )}
               </div>
             );
           },
