@@ -3,6 +3,7 @@ import { Icon, Tooltip } from 'antd';
 import styles from './Detail.less';
 import { getRequest } from '@/utils/api';
 
+import ArrangeList from './ArrangeList';
 import { GetStorePeople } from '../Service';
 
 class Details extends React.Component {
@@ -112,6 +113,14 @@ class Details extends React.Component {
               </div>
             </div>
           </div>
+        </div>
+
+        <div className={styles.bottomWrap}>
+          <div className={styles.titleDom}>
+            <span />
+            <span>排班详情</span>
+          </div>
+          <ArrangeList sysUserId={this.props.id} />
         </div>
       </div>
     );

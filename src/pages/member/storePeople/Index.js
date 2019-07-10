@@ -1,5 +1,7 @@
 import React from 'react';
-import { Divider, notification } from 'antd';
+import { Divider, notification, Modal } from 'antd';
+
+import Schedul from './components/Schedul';
 
 import {
   OrdinaryTable,
@@ -19,9 +21,14 @@ import Details from './components/Details';
 
 import styles from './index.less';
 
-import { deleteRequest } from '@/utils/api';
+import { deleteRequest, postRequest } from '@/utils/api';
 
-import { StorePeopleList, DelHeadquartersPeople, DelHeadquartersPeopleTop } from './Service';
+import {
+  StorePeopleList,
+  DelHeadquartersPeople,
+  DelHeadquartersPeopleTop,
+  VerificationTechnician,
+} from './Service';
 
 const topStatistics = {
   topJson: [
@@ -97,6 +104,9 @@ class Index extends React.Component {
     super(props);
     this.state = {
       columns: [],
+      schedul: false,
+      personnel: [],
+      storeId: 0,
     };
   }
 
@@ -255,6 +265,24 @@ class Index extends React.Component {
           <div className={styles.tableWrap}>
             <div>
               <OrdinaryTable
+                operationBlock={[
+                  {
+                    title: '排班',
+                    onClick: async (idArr, objArr) => {
+                      console.log(idArr, objArr);
+                      const res = await postRequest(VerificationTechnician, { list: idArr });
+                      if (res.status === 200) {
+                        this.setState({
+                          storeId: res.data,
+                          schedul: true,
+                          personnel: idArr,
+                        });
+                      } else {
+                        notification.error({ message: res.msg, description: res.subMsg });
+                      }
+                    },
+                  },
+                ]}
                 align="center"
                 listUrl={StorePeopleList}
                 columns={this.state.columns}
@@ -262,6 +290,34 @@ class Index extends React.Component {
             </div>
           </div>
         </div>
+
+        <Modal
+          title="排班"
+          style={{ top: 20 }}
+          width={800}
+          visible={this.state.schedul}
+          footer={null}
+          onCancel={() => {
+            this.setState({
+              schedul: false,
+              personnel: [],
+              storeId: 0,
+            });
+          }}
+          destroyOnClose
+        >
+          <Schedul
+            personnel={this.state.personnel}
+            storeId={this.state.storeId}
+            callback={() => {
+              this.setState({
+                schedul: false,
+                personnel: [],
+                storeId: 0,
+              });
+            }}
+          />
+        </Modal>
       </div>
     );
   }
