@@ -42,6 +42,16 @@ const search = {
       queryField: 'phone',
       component: 'Input',
     },
+    {
+      queryTitle: '注册日期起',
+      queryField: 'createDateStart',
+      component: 'DatePicker',
+    },
+    {
+      queryTitle: '注册日期止',
+      queryField: 'createDateEnd',
+      component: 'DatePicker',
+    },
   ],
 };
 
