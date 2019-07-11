@@ -1,14 +1,14 @@
 import React from 'react';
-import { Button, Modal, Divider, notification } from 'antd';
+import { Button, Modal, Divider, notification, Popconfirm } from 'antd';
 import { InfoTable } from '@/components/BusinessComponent/BusCom';
 
-import { ChargeProjectList, DelChargeProject } from '../Service';
+import { GetTechnicianArrangeDayId, DelTechnicianArrangeDay } from '../Service';
 
-import AddUpScoreRecord from './AddUpScoreRecord';
+import AddUpTime from './AddUpTime';
 
 import { deleteRequest } from '@/utils/api';
 
-class ScoreRecord extends React.Component {
+class TechnicianArrangeDayList extends React.Component {
   constructor(props) {
     super(props);
     /**
@@ -34,28 +34,23 @@ class ScoreRecord extends React.Component {
           isIncrement: true,
         },
         {
-          title: '类型',
-          width: '10%',
-          dataIndex: 'typeStr',
-        },
-        {
-          title: '名称',
+          title: '预约状态',
           width: '20%',
-          dataIndex: 'chargeProjectName',
+          dataIndex: 'isAppointmentStr',
         },
         {
-          title: '描述',
+          title: '开始时间',
           width: '25%',
-          dataIndex: 'describe',
+          dataIndex: 'startDate',
         },
         {
-          title: '价格',
-          width: '20%',
-          dataIndex: 'price',
+          title: '结束时间',
+          width: '25%',
+          dataIndex: 'endDate',
         },
         {
           title: '操作',
-          width: '15%',
+          width: '20%',
           dataIndex: 'opt',
           render(text, record) {
             return (
@@ -71,13 +66,14 @@ class ScoreRecord extends React.Component {
                   编辑
                 </a>
                 <Divider type="vertical" />
-                <a
-                  onClick={() => {
+                <Popconfirm
+                  title="确定删除吗？"
+                  onConfirm={() => {
                     that.delete(record.id);
                   }}
                 >
-                  删除
-                </a>
+                  <a>删除</a>
+                </Popconfirm>
               </div>
             );
           },
@@ -87,7 +83,7 @@ class ScoreRecord extends React.Component {
   };
 
   delete = async id => {
-    const data = await deleteRequest(`${DelChargeProject}?id=${id}`);
+    const data = await deleteRequest(`${DelTechnicianArrangeDay}?id=${id}`);
     if (data.status === 200) {
       await this.setState({
         renovate: true,
@@ -111,7 +107,7 @@ class ScoreRecord extends React.Component {
     return (
       <div>
         <Modal
-          title="添加费项"
+          title="追加时段"
           style={{ top: 20 }}
           width={500}
           visible={this.state.open}
@@ -124,9 +120,9 @@ class ScoreRecord extends React.Component {
           }}
           destroyOnClose
         >
-          <AddUpScoreRecord
+          <AddUpTime
             id={this.state.id}
-            storeId={this.props.id}
+            arrangeId={this.props.id}
             callback={async on => {
               this.setState({
                 open: false,
@@ -143,12 +139,13 @@ class ScoreRecord extends React.Component {
             }}
           />
         </Modal>
-        <Button onClick={this.add}>添加费项</Button>
+        <Button onClick={this.add}>追加时段</Button>
         <InfoTable
           scroll={{ x: 900 }}
+          pageSize={15}
           columns={this.state.columns}
-          listUrl={ChargeProjectList}
-          additionalData={{ storeId: this.props.id }}
+          listUrl={GetTechnicianArrangeDayId}
+          additionalData={{ arrangeId: this.props.id }}
           renovate={this.state.renovate}
         />
       </div>
@@ -156,4 +153,4 @@ class ScoreRecord extends React.Component {
   }
 }
 
-export default ScoreRecord;
+export default TechnicianArrangeDayList;

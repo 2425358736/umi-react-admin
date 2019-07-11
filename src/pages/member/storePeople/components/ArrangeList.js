@@ -1,8 +1,11 @@
 import React from 'react';
-import { Divider } from 'antd';
-import { InfoTable } from '@/components/BusinessComponent/BusCom';
+import { Divider, notification, Popconfirm } from 'antd';
+import { InfoTable, Info } from '@/components/BusinessComponent/BusCom';
 
-import { TechnicianArrangeList } from '../Service';
+import TechnicianArrangeDayList from './TechnicianArrangeDayList';
+
+import { deleteRequest } from '@/utils/api';
+import { TechnicianArrangeList, DelTechnicianArrange } from '../Service';
 
 class ScoreRecord extends React.Component {
   constructor(props) {
@@ -44,38 +47,39 @@ class ScoreRecord extends React.Component {
           render(text, record) {
             return (
               <div>
-                <a
-                  onClick={() => {
-                    that.setState({
-                      open: true,
-                      id: record.id,
-                    });
-                  }}
-                >
-                  编辑
-                </a>
-                <Divider type="vertical" />
-                <a
-                  onClick={() => {
+                <Popconfirm
+                  title="确定删除吗？"
+                  onConfirm={() => {
                     that.delete(record.id);
                   }}
                 >
-                  删除
-                </a>
+                  <a>删除</a>
+                </Popconfirm>
                 <Divider type="vertical" />
-                <a
-                  onClick={() => {
-                    that.delete(record.id);
-                  }}
-                >
+                <Info title="详情" info={<TechnicianArrangeDayList id={record.id} />}>
                   详情
-                </a>
+                </Info>
               </div>
             );
           },
         },
       ],
     });
+  };
+
+  delete = async id => {
+    const data = await deleteRequest(`${DelTechnicianArrange}?id=${id}`);
+    if (data.status === 200) {
+      await this.setState({
+        renovate: true,
+      });
+      this.setState({
+        renovate: false,
+      });
+      notification.success({ message: data.msg });
+    } else {
+      notification.error({ message: data.msg, description: data.subMsg });
+    }
   };
 
   render() {
