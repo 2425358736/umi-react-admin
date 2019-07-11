@@ -156,6 +156,10 @@ export default {
           path: '/medicalOrder/medicalOrder',
           component: './medicalOrder/medicalOrder/Index',
         },
+        {
+          path: '/wxMemberPeople/wxMemberPeople',
+          component: './member/wxMemberPeople/Index',
+        },
       ],
     },
   ],
