@@ -47,15 +47,17 @@ class ScoreRecord extends React.Component {
           render(text, record) {
             return (
               <div>
-                <Popconfirm
-                  title="确定删除吗？"
-                  onConfirm={() => {
-                    that.delete(record.id);
-                  }}
-                >
-                  <a>删除</a>
-                </Popconfirm>
-                <Divider type="vertical" />
+                {record.isAppointment === 0 && (
+                  <Popconfirm
+                    title="确定删除吗？"
+                    onConfirm={() => {
+                      that.delete(record.id);
+                    }}
+                  >
+                    <a>删除</a>
+                  </Popconfirm>
+                )}
+                {record.isAppointment === 0 && <Divider type="vertical" />}
                 <Info title="详情" info={<TechnicianArrangeDayList id={record.id} />}>
                   详情
                 </Info>

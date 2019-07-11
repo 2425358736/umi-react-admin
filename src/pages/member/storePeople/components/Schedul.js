@@ -45,6 +45,14 @@ class Schedul extends React.Component {
     return null;
   };
 
+  disabledDate = value => {
+    console.log(moment(value).format('YYYY-MM-DD'));
+    if (moment(value).format('YYYY-MM-DD') === '2019-07-12') {
+      return true;
+    }
+    return false;
+  };
+
   nextStep = () => {
     this.setState({
       one: false,
@@ -86,6 +94,7 @@ class Schedul extends React.Component {
             <div>
               <span>选择日期</span>
               <Calendar
+                disabledDate={this.disabledDate}
                 validRange={[moment(), moment().add(1, 'M')]}
                 dateCellRender={this.dateCellRender}
                 onSelect={date => {

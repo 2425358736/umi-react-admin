@@ -53,29 +53,32 @@ class TechnicianArrangeDayList extends React.Component {
           width: '20%',
           dataIndex: 'opt',
           render(text, record) {
-            return (
-              <div>
-                <a
-                  onClick={() => {
-                    that.setState({
-                      open: true,
-                      id: record.id,
-                    });
-                  }}
-                >
-                  编辑
-                </a>
-                <Divider type="vertical" />
-                <Popconfirm
-                  title="确定删除吗？"
-                  onConfirm={() => {
-                    that.delete(record.id);
-                  }}
-                >
-                  <a>删除</a>
-                </Popconfirm>
-              </div>
-            );
+            if (record.isAppointment === 0) {
+              return (
+                <div>
+                  <a
+                    onClick={() => {
+                      that.setState({
+                        open: true,
+                        id: record.id,
+                      });
+                    }}
+                  >
+                    编辑
+                  </a>
+                  <Divider type="vertical" />
+                  <Popconfirm
+                    title="确定删除吗？"
+                    onConfirm={() => {
+                      that.delete(record.id);
+                    }}
+                  >
+                    <a>删除</a>
+                  </Popconfirm>
+                </div>
+              );
+            }
+            return null;
           },
         },
       ],
