@@ -43,6 +43,11 @@ const search = {
       component: 'Input',
     },
     {
+      queryTitle: '所属门店',
+      queryField: 'storeName',
+      component: 'Input',
+    },
+    {
       queryTitle: '注册日期起',
       queryField: 'createDateStart',
       component: 'DatePicker',
