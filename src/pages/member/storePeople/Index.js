@@ -208,7 +208,10 @@ class Index extends React.Component {
           render(text, record) {
             return (
               <div>
-                <Info title={record.storeName} info={<Details id={record.id} />}>
+                <Info
+                  title={record.storeName}
+                  info={<Details id={record.id} sysUserId={record.sysUserId} />}
+                >
                   详情
                 </Info>
                 <Divider type="vertical" />
@@ -269,13 +272,16 @@ class Index extends React.Component {
                   {
                     title: '排班',
                     onClick: async (idArr, objArr) => {
-                      console.log(idArr, objArr);
-                      const res = await postRequest(VerificationTechnician, { list: idArr });
+                      const arr = [];
+                      objArr.forEach(obj => {
+                        arr.push(obj.sysUserId);
+                      });
+                      const res = await postRequest(VerificationTechnician, { list: arr });
                       if (res.status === 200) {
                         this.setState({
                           storeId: res.data,
                           schedul: true,
-                          personnel: idArr,
+                          personnel: arr,
                         });
                       } else {
                         notification.error({ message: res.msg, description: res.subMsg });

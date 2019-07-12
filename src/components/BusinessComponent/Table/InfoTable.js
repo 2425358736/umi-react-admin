@@ -15,7 +15,7 @@ class InfoTable extends React.Component {
       dataShow: {},
       pagination: {
         current: 1,
-        pageSize: 5,
+        pageSize: props.pageSize ? props.pageSize : 5,
       },
       query: {},
       queryShow: {},
@@ -28,7 +28,7 @@ class InfoTable extends React.Component {
         showSizeChanger: true,
         showQuickJumper: true,
         pageSizeOptions: ['5', '10', '15'],
-        defaultPageSize: 5,
+        defaultPageSize: props.pageSize ? props.pageSize : 5,
       },
       loading: false,
       listUrl: props.listUrl || null,

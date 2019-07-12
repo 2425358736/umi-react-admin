@@ -21,3 +21,17 @@ export const TimePeriodSetList = '/store/timePeriodSetList'; // 门店时间段�
 export const TechnicianSet = '/technician/technicianSet'; // 设置技师排班
 
 export const TechnicianArrangeList = '/technician/technicianArrangeList'; // 技师排班情况
+
+export const GetTechnicianArrangeDayId = '/technician/getTechnicianArrangeDayId'; // 天排班情况
+
+export const DelTechnicianArrange = '/technician/delTechnicianArrange'; // 删除天排班
+
+export const GetTechnicianArrange = '/technician/getTechnicianArrange'; // 获取时段天详情
+
+export const UpTechnicianArrangeDay = '/technician/upTechnicianArrangeDay'; // 修改时段
+
+export const AddTechnicianArrangeDay = '/technician/addTechnicianArrangeDay'; // 添加时段
+
+export const GetTechnicianArrangeDay = '/technician/getTechnicianArrangeDay'; // 时段详情
+
+export const DelTechnicianArrangeDay = '/technician/delTechnicianArrangeDay'; // 删除时段

@@ -120,7 +120,7 @@ class Details extends React.Component {
             <span />
             <span>排班详情</span>
           </div>
-          <ArrangeList sysUserId={this.props.id} />
+          <ArrangeList sysUserId={this.props.sysUserId} />
         </div>
       </div>
     );
