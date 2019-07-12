@@ -35,3 +35,5 @@ export const AddTechnicianArrangeDay = '/technician/addTechnicianArrangeDay'; //
 export const GetTechnicianArrangeDay = '/technician/getTechnicianArrangeDay'; // 时段详情
 
 export const DelTechnicianArrangeDay = '/technician/delTechnicianArrangeDay'; // 删除时段
+
+export const GetDates = '/technician/getDates'; // 获取选中人员的天日期情况
