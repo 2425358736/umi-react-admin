@@ -146,7 +146,7 @@ class Schedul extends React.Component {
                   <span>上午：</span>
                   <Row>
                     {timePeriodSetList.map(json => {
-                      if (json.timeGroup === 0) {
+                      if (json.timeGroup === 0 && json.isOpen === 0) {
                         return (
                           <Col key={json.id.toString()} span={8}>
                             <Checkbox value={json.id}>
@@ -161,7 +161,7 @@ class Schedul extends React.Component {
                   <span>下午：</span>
                   <Row>
                     {timePeriodSetList.map(json => {
-                      if (json.timeGroup === 1) {
+                      if (json.timeGroup === 1 && json.isOpen === 0) {
                         return (
                           <Col key={json.id.toString()} span={8}>
                             <Checkbox value={json.id}>
