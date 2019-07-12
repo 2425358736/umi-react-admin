@@ -77,6 +77,16 @@ const search = {
       queryField: 'realName',
       component: 'Input',
     },
+    {
+      queryTitle: '预约日期起',
+      queryField: 'createDateStart',
+      component: 'DatePicker',
+    },
+    {
+      queryTitle: '预约日期止',
+      queryField: 'createDateEnd',
+      component: 'DatePicker',
+    },
   ],
 };
 

@@ -80,17 +80,7 @@ const exportButton = {
     },
     {
       title: '性别',
-      column: 'gender',
-      filters: [
-        {
-          text: '男',
-          value: '0',
-        },
-        {
-          text: '女',
-          value: '1',
-        },
-      ],
+      column: 'genderStr',
     },
     {
       title: '身份证号',

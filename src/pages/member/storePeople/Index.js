@@ -78,7 +78,7 @@ const exportButton = {
     },
     {
       title: '门店类别',
-      column: 'storeType',
+      column: 'storeTypeStr',
     },
     {
       title: '工号',
@@ -86,7 +86,7 @@ const exportButton = {
     },
     {
       title: '性别',
-      column: 'gender',
+      column: 'genderStr',
     },
     {
       title: '身份证号',
