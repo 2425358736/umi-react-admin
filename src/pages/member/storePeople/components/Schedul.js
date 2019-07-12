@@ -1,7 +1,7 @@
 import React from 'react';
 import { Spin, Button, Icon, Calendar, Tag, Checkbox, Row, Col, notification } from 'antd';
 import moment from 'moment';
-import { TimePeriodSetList, TechnicianSet } from '../Service';
+import { TimePeriodSetList, TechnicianSet, GetDates } from '../Service';
 
 import { getRequest, postRequest } from '@/utils/api';
 
@@ -16,6 +16,7 @@ class Schedul extends React.Component {
       dayArr: [],
       timePeriodSetList: [],
       timePeriodArr: [],
+      disabledDate: [],
       one: true,
       two: false,
     };
@@ -23,7 +24,15 @@ class Schedul extends React.Component {
 
   componentDidMount() {
     this.getTimePeriodSetList();
+    this.getDates();
   }
+
+  getDates = async () => {
+    const data = await getRequest(`${GetDates}?list=${this.props.personnel}`);
+    this.setState({
+      disabledDate: data.data,
+    });
+  };
 
   getTimePeriodSetList = async () => {
     const timePeriodSetList = await getRequest(
@@ -46,8 +55,9 @@ class Schedul extends React.Component {
   };
 
   disabledDate = value => {
+    const { disabledDate } = this.state;
     console.log(moment(value).format('YYYY-MM-DD'));
-    if (moment(value).format('YYYY-MM-DD') === '2019-07-12') {
+    if (disabledDate.indexOf(moment(value).format('YYYY-MM-DD')) >= 0) {
       return true;
     }
     return false;
