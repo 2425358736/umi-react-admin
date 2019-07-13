@@ -1,12 +1,19 @@
 import React from 'react';
-import { Button, Modal, Divider, notification, Popconfirm } from 'antd';
+import { Button, Modal, Divider, notification, Popconfirm, Icon } from 'antd';
+import moment from 'moment';
 import { InfoTable } from '@/components/BusinessComponent/BusCom';
 
-import { GetTechnicianArrangeDayId, DelTechnicianArrangeDay } from '../Service';
+import {
+  GetTechnicianArrangeDayId,
+  DelTechnicianArrangeDay,
+  GetTechnicianArrange,
+} from '../Service';
 
 import AddUpTime from './AddUpTime';
 
-import { deleteRequest } from '@/utils/api';
+import { deleteRequest, getRequest } from '@/utils/api';
+
+import styles from './Detail.less';
 
 class TechnicianArrangeDayList extends React.Component {
   constructor(props) {
@@ -16,6 +23,7 @@ class TechnicianArrangeDayList extends React.Component {
      * @type {{columns: Array, renovate: boolean, open: boolean}}
      */
     this.state = {
+      InfoData: {},
       columns: [],
       renovate: false,
       open: false,
@@ -85,6 +93,15 @@ class TechnicianArrangeDayList extends React.Component {
     });
   };
 
+  componentWillMount = async () => {
+    const data = await getRequest(`${GetTechnicianArrange}?id=${this.props.id}`);
+    if (data.status === 200) {
+      await this.setState({
+        InfoData: data.data,
+      });
+    }
+  };
+
   delete = async id => {
     const data = await deleteRequest(`${DelTechnicianArrangeDay}?id=${id}`);
     if (data.status === 200) {
@@ -107,12 +124,30 @@ class TechnicianArrangeDayList extends React.Component {
   };
 
   render() {
+    const { InfoData } = this.state;
     return (
       <div>
+        <div className={styles.topWrap}>
+          <div className={styles.titleDom}>
+            <span />
+            <span>基础信息</span>
+          </div>
+          <div className={styles.cardWrap}>
+            <div className={styles.cardDom}>
+              <p className={styles.cardTitle}>
+                <Icon type="credit-card" className={styles.iconDom} />
+                日期
+              </p>
+              <p className={styles.cardContent}>
+                {moment(InfoData.arrangeDate).format('YYYY-MM-DD')}
+              </p>
+            </div>
+          </div>
+        </div>
         <Modal
           title="追加时段"
-          style={{ top: 20 }}
-          width={500}
+          style={{ top: 200 }}
+          width={300}
           visible={this.state.open}
           footer={null}
           onCancel={() => {
@@ -142,15 +177,22 @@ class TechnicianArrangeDayList extends React.Component {
             }}
           />
         </Modal>
-        <Button onClick={this.add}>追加时段</Button>
-        <InfoTable
-          scroll={{ x: 900 }}
-          pageSize={15}
-          columns={this.state.columns}
-          listUrl={GetTechnicianArrangeDayId}
-          additionalData={{ arrangeId: this.props.id }}
-          renovate={this.state.renovate}
-        />
+        <div className={styles.bottomWrap}>
+          <div className={styles.titleDom}>
+            <span />
+            <span>排班详情</span>
+          </div>
+          <Button onClick={this.add}>追加时段</Button>
+          <InfoTable
+            scroll={{ x: 900 }}
+            align="center"
+            pageSize={15}
+            columns={this.state.columns}
+            listUrl={GetTechnicianArrangeDayId}
+            additionalData={{ arrangeId: this.props.id }}
+            renovate={this.state.renovate}
+          />
+        </div>
       </div>
     );
   }

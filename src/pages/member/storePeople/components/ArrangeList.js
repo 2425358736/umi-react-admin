@@ -58,7 +58,7 @@ class ScoreRecord extends React.Component {
                   </Popconfirm>
                 )}
                 {record.isAppointment === 0 && <Divider type="vertical" />}
-                <Info title="详情" info={<TechnicianArrangeDayList id={record.id} />}>
+                <Info title="排班详情" info={<TechnicianArrangeDayList id={record.id} />}>
                   详情
                 </Info>
               </div>

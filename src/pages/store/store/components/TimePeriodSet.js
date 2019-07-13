@@ -67,6 +67,7 @@ class TimePeriodSet extends React.Component {
                       style={{ width: '100px' }}
                     />
                     <Switch
+                      style={{ top: '-2px', right: '-5px' }}
                       onChange={checked => {
                         if (checked) {
                           data[i].isOpen = 0;
@@ -119,6 +120,7 @@ class TimePeriodSet extends React.Component {
                       style={{ width: '100px' }}
                     />
                     <Switch
+                      style={{ top: '-2px', right: '-5px' }}
                       onChange={checked => {
                         if (checked) {
                           data[i].isOpen = 0;

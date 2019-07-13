@@ -299,8 +299,9 @@ class Index extends React.Component {
 
         <Modal
           title="排班"
-          style={{ top: 20 }}
-          width={800}
+          style={{ top: 20, height: 700 }}
+          width={700}
+          height={700}
           visible={this.state.schedul}
           footer={null}
           onCancel={() => {

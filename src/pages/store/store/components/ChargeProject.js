@@ -146,6 +146,7 @@ class ScoreRecord extends React.Component {
         <Button onClick={this.add}>添加费项</Button>
         <InfoTable
           scroll={{ x: 900 }}
+          align="center"
           columns={this.state.columns}
           listUrl={ChargeProjectList}
           additionalData={{ storeId: this.props.id }}

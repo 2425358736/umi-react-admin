@@ -97,17 +97,8 @@ class AddUp extends React.Component {
     return (
       <Spin spinning={this.state.loading}>
         <div className={styles.formWrap}>
-          <Form
-            labelCol={{
-              xs: { span: 24 },
-              sm: { span: 8 },
-            }}
-            wrapperCol={{
-              xs: { span: 24 },
-              sm: { span: 16 },
-            }}
-          >
-            <FormItem label="开始日期" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
+          <Form>
+            <FormItem label="开始日期" labelCol={{ span: 10 }} wrapperCol={{ span: 14 }}>
               {getFieldDecorator('startDate', {
                 rules: [
                   {
@@ -118,7 +109,7 @@ class AddUp extends React.Component {
               })(<TimePicker />)}
             </FormItem>
 
-            <FormItem label="结束日期" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
+            <FormItem label="结束日期" labelCol={{ span: 10 }} wrapperCol={{ span: 14 }}>
               {getFieldDecorator('endDate', {
                 rules: [
                   {
@@ -129,7 +120,7 @@ class AddUp extends React.Component {
               })(<TimePicker />)}
             </FormItem>
           </Form>
-          <div className={styles.btnGroup}>
+          <div style={{ margin: '30px 0 30px' }} className={styles.btnGroup}>
             <Button
               className={styles.submitBtn}
               loading={this.state.buttonLoading}

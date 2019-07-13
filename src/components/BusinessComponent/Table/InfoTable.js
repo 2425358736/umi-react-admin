@@ -241,7 +241,7 @@ class InfoTable extends React.Component {
     const { query, queryShow, data, dataShow } = this.state;
     return (
       <div className={styles.infoTableWrap}>
-        <div className={styles.screenTag}>
+        <div style={this.props.ordinary ? null : { padding: '0px' }} className={styles.screenTag}>
           <div className={styles.searchWrap}>
             {// 普通搜索
             this.props.ordinary && (
