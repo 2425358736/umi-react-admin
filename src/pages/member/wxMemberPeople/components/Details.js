@@ -2,27 +2,82 @@ import React from 'react';
 import { Icon, Tooltip } from 'antd';
 import styles from './Detail.less';
 import { getRequest } from '@/utils/api';
-import ChargeProjectList from './ChargeProjectList';
+import { InfoTable, Info } from '@/components/BusinessComponent/BusCom';
+import BabyDetails from './BabyDetail';
 
-import { GetWxMember } from '../Service';
+import { GetWxMember, WxMemberBabyList } from '../Service';
 
 class Details extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       InfoData: {},
-      wxTreatmentArchivesVoList: [],
+      columns: [],
     };
   }
 
   componentWillMount = async () => {
+    this.setColumns();
     const data = await getRequest(`${GetWxMember}?id=${this.props.id}`);
     if (data.status === 200) {
       await this.setState({
         InfoData: data.data,
-        wxTreatmentArchivesVoList: data.data.wxTreatmentArchivesVoList || [],
       });
     }
+  };
+
+  setColumns = async () => {
+    this.setState({
+      columns: [
+        {
+          title: '序号',
+          width: '5%',
+          dataIndex: 'id',
+          render(text, record, index) {
+            return <span>{index + 1}</span>;
+          },
+        },
+        {
+          title: '宝贝姓名',
+          width: '10%',
+          dataIndex: 'babyName',
+        },
+        {
+          title: '年龄',
+          width: '5%',
+          dataIndex: 'age',
+        },
+        {
+          title: '生日',
+          width: '30%',
+          dataIndex: 'babyBirthday',
+        },
+        {
+          title: '身份证号',
+          width: '30%',
+          dataIndex: 'idNumber',
+        },
+        {
+          title: '性别',
+          width: '10%',
+          dataIndex: 'genderStr',
+        },
+        {
+          title: '操作',
+          width: '10%',
+          dataIndex: 'opt',
+          render(text, record) {
+            return (
+              <div>
+                <Info title="宝贝详情" info={<BabyDetails id={record.id} />}>
+                  详情
+                </Info>
+              </div>
+            );
+          },
+        },
+      ],
+    });
   };
 
   render() {
@@ -74,7 +129,15 @@ class Details extends React.Component {
             <span />
             <span>宝贝信息</span>
           </div>
-          <ChargeProjectList dataSource={this.state.wxTreatmentArchivesVoList} />
+          <InfoTable
+            scroll={{ x: 900 }}
+            align="center"
+            pageSize={15}
+            columns={this.state.columns}
+            listUrl={WxMemberBabyList}
+            additionalData={{ memberId: this.props.id }}
+            renovate={false}
+          />
         </div>
       </div>
     );
