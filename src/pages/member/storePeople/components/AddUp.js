@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { Spin, Button, Input, Form, notification, Select, Radio } from 'antd';
-import { postRequest, jsonString, getRequest } from '@/utils/api';
+import { postRequest, getRequest, requestParameterProcessing } from '@/utils/api';
+import UploadPicture from '@/components/BusinessComponent/Upload/UploadPicture';
 
 import { GetStorePeople, UpHeadquartersPeople, AddRegionPeople, StoreAllList } from '../Service';
 
@@ -36,6 +37,8 @@ class AddUp extends React.Component {
       let store = await getRequest(`${GetStorePeople}?id=${this.props.id}`);
       store = store.data;
       this.props.form.setFieldsValue({
+        picture: store.picture,
+        workingYears: store.workingYears,
         briefIntroduction: store.briefIntroduction,
         storeId: store.storeId.toString(),
         storeUserType: store.storeUserType.toString(),
@@ -64,7 +67,8 @@ class AddUp extends React.Component {
         buttonLoading: true,
       });
       const json = this.props.form.getFieldsValue();
-      jsonString(json);
+      requestParameterProcessing(json);
+      // jsonString(json);
       json.storeId = parseInt(this.state.storeId, 10);
       json.userType = 2;
       let data;
@@ -179,6 +183,30 @@ class AddUp extends React.Component {
                   },
                 ],
               })(<Input placeholder="请输入简介" />)}
+            </FormItem>
+
+            <FormItem label="工龄" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
+              {getFieldDecorator('workingYears', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入工龄',
+                  },
+                ],
+              })(<Input placeholder="请输入工龄" />)}
+            </FormItem>
+
+            <FormItem label="员工头像" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
+              {getFieldDecorator('picture', {
+                valuePropName: 'fileUrl',
+                getValueFromEvent: file => file.fileList,
+                rules: [
+                  {
+                    required: true,
+                    message: '请上传员工头像',
+                  },
+                ],
+              })(<UploadPicture number={1} />)}
             </FormItem>
 
             <div className={styles.titleDom}>

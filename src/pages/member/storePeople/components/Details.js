@@ -2,6 +2,7 @@ import React from 'react';
 import { Icon, Tooltip } from 'antd';
 import styles from './Detail.less';
 import { getRequest } from '@/utils/api';
+import UploadPicture from '@/components/BusinessComponent/Upload/UploadPicture';
 
 import ArrangeList from './ArrangeList';
 import { GetStorePeople } from '../Service';
@@ -100,15 +101,36 @@ class Details extends React.Component {
                   <p>{InfoData.email}</p>
                 </div>
               </div>
+            </div>
+          </div>
 
+          <div className={styles.midCon}>
+            <div className={styles.midRight}>
               <div>
                 <div className={styles.itemDom}>
-                  <span>简介：</span>
+                  <span>简介</span>
                   <p>{InfoData.briefIntroduction}</p>
                 </div>
                 <div className={styles.itemDom}>
-                  <span>备注：</span>
+                  <span>工龄</span>
+                  <p>{InfoData.workingYears}</p>
+                </div>
+                <div className={styles.itemDom}>
+                  <span>备注</span>
                   <p>{InfoData.remarks}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.midCon}>
+            <div className={styles.midRight}>
+              <div>
+                <div className={styles.itemDom}>
+                  <span>员工头像</span>
+                  <div>
+                    <UploadPicture fileUrl={InfoData.picture} disabled />
+                  </div>
                 </div>
               </div>
             </div>
