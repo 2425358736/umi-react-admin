@@ -2,9 +2,11 @@
 
 import React from 'react';
 import { Spin, Button, Input, Form, notification, Radio, Cascader } from 'antd';
-import { postRequest, jsonString, getRequest } from '@/utils/api';
+import { postRequest, requestParameterProcessing, getRequest } from '@/utils/api';
 
 import { GetRegion, GetStore, UpStore, AddStore } from '../Service';
+
+import UploadPicture from '@/components/BusinessComponent/Upload/UploadPicture';
 
 import province from './province';
 
@@ -63,6 +65,8 @@ class AddUp extends React.Component {
         province: provinceArr,
         detailedAddress: store.detailedAddress,
         storePublicity: store.storePublicity,
+        picture: store.picture,
+        publicityPicture: store.publicityPicture,
         remarks: store.remarks,
       });
       this.setState({ loading: false });
@@ -79,7 +83,7 @@ class AddUp extends React.Component {
         buttonLoading: true,
       });
       const json = this.props.form.getFieldsValue();
-      jsonString(json);
+      requestParameterProcessing(json);
       const regionIds = json.regionId.split(',');
       json.regionId = regionIds[regionIds.length - 1];
 
@@ -180,6 +184,32 @@ class AddUp extends React.Component {
                   },
                 ],
               })(<Input placeholder="请输入门店编号" />)}
+            </FormItem>
+
+            <FormItem label="门店标题图" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
+              {getFieldDecorator('picture', {
+                valuePropName: 'fileUrl',
+                getValueFromEvent: file => file.fileList,
+                rules: [
+                  {
+                    required: true,
+                    message: '请上传门店标题图',
+                  },
+                ],
+              })(<UploadPicture number={1} />)}
+            </FormItem>
+
+            <FormItem label="门店展示图" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
+              {getFieldDecorator('publicityPicture', {
+                valuePropName: 'fileUrl',
+                getValueFromEvent: file => file.fileList,
+                rules: [
+                  {
+                    required: true,
+                    message: '请上传门店展示图',
+                  },
+                ],
+              })(<UploadPicture number={10} />)}
             </FormItem>
 
             <FormItem label="省市区" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>

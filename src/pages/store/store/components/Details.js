@@ -8,6 +8,8 @@ import { GetStore } from '../Service';
 import ChargeProject from './ChargeProject';
 import TimePeriodSet from './TimePeriodSet';
 
+import UploadPicture from '@/components/BusinessComponent/Upload/UploadPicture';
+
 class Details extends React.Component {
   constructor(props) {
     super(props);
@@ -50,6 +52,24 @@ class Details extends React.Component {
               </p>
               <p className={styles.cardContent}>{InfoData.storeTypeStr}</p>
             </div>
+
+            <div className={styles.cardDom}>
+              <p className={styles.cardTitle}>
+                <Icon type="team" className={styles.iconDom} />
+                门店分数
+              </p>
+              <p className={styles.cardContent}>
+                {InfoData.average ? InfoData.average : '暂无评分'}
+              </p>
+            </div>
+
+            <div className={styles.cardDom}>
+              <p className={styles.cardTitle}>
+                <Icon type="team" className={styles.iconDom} />
+                评论人数
+              </p>
+              <p className={styles.cardContent}>{InfoData.commentNum}</p>
+            </div>
           </div>
         </div>
 
@@ -90,6 +110,35 @@ class Details extends React.Component {
                 <div className={styles.itemDom}>
                   <span>备注：</span>
                   <p>{InfoData.remarks}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.midWrap}>
+          <div className={styles.titleDom}>
+            <span />
+            <span>门店图片</span>
+          </div>
+
+          <div className={styles.midCon}>
+            <div className={styles.midRight}>
+              <div>
+                <div className={styles.itemDom}>
+                  <span>门店标题图</span>
+                  <div>
+                    <UploadPicture fileUrl={InfoData.picture} disabled />
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div className={styles.itemDom}>
+                  <span>门店展示图：</span>
+                  <div>
+                    <UploadPicture fileUrl={InfoData.publicityPicture} disabled />
+                  </div>
                 </div>
               </div>
             </div>
