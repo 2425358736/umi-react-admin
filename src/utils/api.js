@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import router from 'umi/router';
 import moment from 'moment';
 import request from './request';
@@ -127,10 +128,12 @@ export function postFormDateRequest(url, params) {
       });
   });
 }
+
 /**
  * 导出export
  */
 let current1 = 0;
+
 export async function exportExcel(url, params) {
   // Object.assign(params, { type: 1 });
   current1 += 1;
@@ -152,6 +155,7 @@ export async function exportExcel(url, params) {
     }
   }
 }
+
 /* eslint-disable */
 /**
  * 参数处理方法
@@ -195,6 +199,55 @@ export function jsonString(json) {
     }
   }
 }
+
+export function requestParameterProcessing(json) {
+  for (const key in json) {
+    if (Array.isArray(json[key])) {
+      let arr = [];
+      let type = 0; // 数据类型 0 字符 1 日期 2 上传 3 对象
+      json[key].forEach(obj => {
+        if (moment.isMoment(obj)) {
+          // 日期处理
+          type = 1;
+          arr.push(obj.format('YYYY-MM-DD'));
+        } else if (moment.isDate(obj)) {
+          type = 1;
+          arr.push(moment(obj).format('YYYY-MM-DD'));
+        } else if (obj.url && obj.uid && obj.name && obj.status) {
+          // 上传处理
+          type = 2;
+          arr.push(obj.url);
+        } else if (typeof obj === 'object') {
+          type = 3;
+          requestParameterProcessing(obj);
+          arr.push(obj);
+        } else {
+          type = 0;
+          arr.push(obj);
+        }
+      });
+      if (type === 2) {
+        json[key] = arr.join('#');
+      } else if (type === 1) {
+        json[key] = arr;
+      } else if (type === 0) {
+        json[key] = arr.toString();
+      } else {
+        json[key] = arr;
+      }
+    } else if (typeof json[key] === 'object') {
+      if (moment.isMoment(json[key])) {
+        // 日期处理
+        json[key] = json[key].format('YYYY-MM-DD');
+      } else if (moment.isDate(json[key])) {
+        json[key] = moment(json[key]).format('YYYY-MM-DD');
+      } else {
+        requestParameterProcessing(json[key]);
+      }
+    }
+  }
+}
+
 function exportExcelGet(url, params) {
   window.open(`${http}/upload/excel?list=${params}`);
 }
