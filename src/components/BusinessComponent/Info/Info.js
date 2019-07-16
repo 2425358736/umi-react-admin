@@ -1,5 +1,6 @@
 import React from 'react';
 import { Drawer } from 'antd';
+
 import { connect } from 'dva';
 import style from './Info.less';
 
@@ -101,6 +102,7 @@ class Info extends React.Component {
           {children}
         </div>
         <Drawer
+          getContainer="main"
           className={style.breadDom}
           maskStyle={{
             // transition: 'right 0.2s',
@@ -109,6 +111,7 @@ class Info extends React.Component {
             overflow: 'auto',
             // left: collapsed ? '80px' : '170px',
           }}
+          zIndex={0}
           title={this.props.title || this.state.title}
           placement="right"
           width="1000px"
