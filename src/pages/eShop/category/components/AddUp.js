@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Input, Form, notification } from 'antd';
-import { AddCommodityCategory, UpCommodityCategory } from '../Service';
+import { AddEShopCommodityCategory, UpEShopCommodityCategory } from '../Service';
 import { postRequest, jsonString } from '@/utils/api';
 
 const FormItem = Form.Item;
@@ -22,15 +22,15 @@ class AddUp extends React.Component {
     this.props.form.resetFields();
     if (type === 'up') {
       this.props.form.setFieldsValue({
-        categoryName: info.categoryName,
-        categoryNumber: info.categoryNumber,
+        shopCategoryName: info.shopCategoryName,
+        shopCategoryNumber: info.shopCategoryNumber,
         sort: info.sort,
         parentName: info.parentName ? info.parentName : '产品分类',
         remarks: info.remarks,
       });
     } else {
       this.props.form.setFieldsValue({
-        parentName: info.categoryName,
+        parentName: info.shopCategoryName,
       });
     }
   };
@@ -50,13 +50,13 @@ class AddUp extends React.Component {
       if (this.props.type === 'up') {
         json.id = this.props.info.id;
         json.parentId = this.props.info.parentId;
-        data = await postRequest(UpCommodityCategory, json);
+        data = await postRequest(UpEShopCommodityCategory, json);
       } else {
         json.parentId = this.props.info.id;
         if (this.props.info.parentContinuity) {
           json.parentContinuity = this.props.info.parentContinuity;
         }
-        data = await postRequest(AddCommodityCategory, json);
+        data = await postRequest(AddEShopCommodityCategory, json);
       }
       this.setState({
         buttonLoading: false,
@@ -80,7 +80,7 @@ class AddUp extends React.Component {
       <div style={{ marginLeft: '10%', overflow: 'hidden' }}>
         <Form style={{ marginTop: 20 }} layout="horizontal">
           <FormItem label="分类名称" labelCol={{ span: 5 }} wrapperCol={{ span: 15 }}>
-            {getFieldDecorator('categoryName', {
+            {getFieldDecorator('shopCategoryName', {
               rules: [
                 {
                   required: true,
@@ -90,7 +90,7 @@ class AddUp extends React.Component {
             })(<Input placeholder="请输入分类名称" />)}
           </FormItem>
           <FormItem label="分类编号" labelCol={{ span: 5 }} wrapperCol={{ span: 15 }}>
-            {getFieldDecorator('categoryNumber', {
+            {getFieldDecorator('shopCategoryNumber', {
               rules: [
                 {
                   required: true,

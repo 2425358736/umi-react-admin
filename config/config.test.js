@@ -160,6 +160,14 @@ export default {
           path: '/wxMemberPeople/wxMemberPeople',
           component: './member/wxMemberPeople/Index',
         },
+        {
+          path: '/eShop/category',
+          component: './eShop/category/Index',
+        },
+        {
+          path: '/eShop/eShop',
+          component: './eShop/eShop/Index',
+        },
       ],
     },
   ],
