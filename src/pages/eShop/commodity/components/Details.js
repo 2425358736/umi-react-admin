@@ -50,7 +50,7 @@ class Details extends React.Component {
               <p className={styles.cardContent}>{InfoData.isSellStr}</p>
             </div>
 
-            <div className={styles.cardDom}>
+            <div style={{ minWidth: '245px' }} className={styles.cardDom}>
               <p className={styles.cardTitle}>
                 <Icon type="team" className={styles.iconDom} />
                 创建日期
@@ -106,12 +106,13 @@ class Details extends React.Component {
             <span />
             <span>商品图片</span>
           </div>
-
           <div className={styles.midCon}>
             <div className={styles.midRight}>
+              <div />
+
               <div>
                 <div className={styles.itemDom}>
-                  <span>商品图:</span>
+                  <span>商品图：</span>
                   <div>
                     <UploadPicture fileUrl={InfoData.commodityPictures} disabled />
                   </div>
