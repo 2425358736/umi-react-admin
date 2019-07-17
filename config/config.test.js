@@ -168,6 +168,10 @@ export default {
           path: '/eShop/eShop',
           component: './eShop/eShop/Index',
         },
+        {
+          path: '/eShop/commodity',
+          component: './eShop/commodity/Index',
+        },
       ],
     },
   ],
