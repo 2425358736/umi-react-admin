@@ -176,7 +176,7 @@ class OrdinaryTable extends React.Component {
     this.setState({
       pagination: Object.assign(pagination, nextProps.screen.pagination),
     });
-    if (JSON.stringify(nextProps.screen) !== JSON.stringify(this.screen)) {
+    if (JSON.stringify(nextProps.screen) !== JSON.stringify(this.screen) || nextProps.renovate) {
       this.request(nextProps);
     }
     this.screen = JSON.parse(JSON.stringify(nextProps.screen));

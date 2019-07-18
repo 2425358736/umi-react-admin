@@ -172,6 +172,10 @@ export default {
           path: '/eShop/commodity',
           component: './eShop/commodity/Index',
         },
+        {
+          path: '/eShop/order',
+          component: './eShop/order/Index',
+        },
       ],
     },
   ],

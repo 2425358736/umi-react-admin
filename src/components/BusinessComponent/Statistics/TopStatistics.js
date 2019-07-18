@@ -36,7 +36,7 @@ class TopStatistics extends React.Component {
   screen = null;
 
   componentWillReceiveProps = nextProps => {
-    if (JSON.stringify(nextProps.screen) !== JSON.stringify(this.screen)) {
+    if (JSON.stringify(nextProps.screen) !== JSON.stringify(this.screen) || nextProps.renovate) {
       this.request();
     }
     this.screen = JSON.parse(JSON.stringify(nextProps.screen));
