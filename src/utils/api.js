@@ -10,7 +10,7 @@ export function getRequest(url) {
   return new Promise((resolve, reject) => {
     let headers = {};
     if (localStorage.getItem('Authorization')) {
-      headers = { Authorization: localStorage.getItem('Authorization') };
+      headers = { 'Blade-Auth': localStorage.getItem('Authorization') };
     }
     request(http + url, {
       method: 'GET',
@@ -31,7 +31,7 @@ export function postRequest(url, params, headers) {
     headers = {};
   }
   if (localStorage.getItem('Authorization')) {
-    headers.Authorization = localStorage.getItem('Authorization');
+    headers['Blade-Auth'] = localStorage.getItem('Authorization');
   }
 
   return new Promise((resolve, reject) => {
@@ -82,7 +82,7 @@ export function deleteRequest(url) {
   return new Promise((resolve, reject) => {
     let headers = {};
     if (localStorage.getItem('Authorization')) {
-      headers = { Authorization: localStorage.getItem('Authorization') };
+      headers = { 'Blade-Auth': localStorage.getItem('Authorization') };
     }
     request(http + url, {
       method: 'delete',
@@ -100,7 +100,7 @@ export function deleteRequest(url) {
 
 export function postFormDateRequest(url, params, headers) {
   if (localStorage.getItem('Authorization')) {
-    headers.Authorization = localStorage.getItem('Authorization');
+    headers['Blade-Auth'] = localStorage.getItem('Authorization');
   }
   let paramstr = '';
   for (const key in params) {
