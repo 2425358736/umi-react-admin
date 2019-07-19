@@ -41,18 +41,8 @@ export default {
    */
   routes: [
     {
-      path: '/user',
-      component: '../layouts/UserLayout',
-      routes: [
-        {
-          path: '/user',
-          component: './Index',
-        },
-        {
-          path: '/user/login',
-          component: './login/Index',
-        },
-      ],
+      path: '/login',
+      component: './login/Index',
     },
     {
       path: '/',
@@ -80,102 +70,6 @@ export default {
           path: '/error/500',
           component: './error/500/Index',
         },
-        {
-          path: '/sys/sysPermission',
-          component: './sys/sysPermission/Index',
-        },
-        {
-          path: '/sys/sysDepartment',
-          component: './sys/sysDepartment/Index',
-        },
-        {
-          path: '/sys/sysRole',
-          component: './sys/sysRoleTwo/Index',
-        },
-        {
-          path: '/sys/sysLog',
-          component: './sys/sysLog/Index',
-        },
-        {
-          path: '/sys/sendRecord',
-          component: './userCenter/sendRecord/Index',
-        },
-        {
-          path: '/sys/insideMail',
-          component: './userCenter/insideMail/Index',
-        },
-        {
-          path: '/sys/sysUser',
-          component: './sys/sysUserTwo/Index',
-        },
-        {
-          path: '/sys/sysDict',
-          component: './sys/sysDict/index',
-        },
-        {
-          path: '/profile',
-          component: './profile/index',
-        },
-        {
-          path: '/store/store',
-          component: './store/store/Index',
-        },
-        {
-          path: '/commodity/category',
-          component: './commodity/category/Index',
-        },
-        {
-          path: '/commodity/commodity',
-          component: './commodity/commodity/Index',
-        },
-        {
-          path: '/member/department',
-          component: './member/memberDepartment/Index',
-        },
-        {
-          path: '/memberRegion/region',
-          component: './member/memberRegion/Index',
-        },
-        {
-          path: '/news/news',
-          component: './news/news/Index',
-        },
-        {
-          path: '/memberPeople/headquartersPeople',
-          component: './member/headquartersPeople/Index',
-        },
-        {
-          path: '/memberPeople/regionPeople',
-          component: './member/regionPeople/Index',
-        },
-        {
-          path: '/memberPeople/storePeople',
-          component: './member/storePeople/Index',
-        },
-        {
-          path: '/medicalOrder/medicalOrder',
-          component: './medicalOrder/medicalOrder/Index',
-        },
-        {
-          path: '/wxMemberPeople/wxMemberPeople',
-          component: './member/wxMemberPeople/Index',
-        },
-        {
-          path: '/eShop/category',
-          component: './eShop/category/Index',
-        },
-        {
-          path: '/eShop/eShop',
-          component: './eShop/eShop/Index',
-        },
-        {
-          path: '/eShop/commodity',
-          component: './eShop/commodity/Index',
-        },
-        {
-          path: '/eShop/order',
-          component: './eShop/order/Index',
-        },
       ],
     },
   ],
@@ -186,7 +80,7 @@ export default {
    */
   define: {
     APP_TYPE: process.env.APP_TYPE || '',
-    'process.env.apiUrl': 'http://127.0.0.1:8010',
+    'process.env.apiUrl': 'http://47.101.46.79',
     'process.env.wsUrl': 'ws://127.0.0.1:8010',
   },
   // Theme for antd

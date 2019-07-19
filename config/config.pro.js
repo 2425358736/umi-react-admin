@@ -80,66 +80,6 @@ export default {
           path: '/error/500',
           component: './error/500/Index',
         },
-        {
-          path: '/sys/sysPermission',
-          component: './sys/sysPermission/Index',
-        },
-        {
-          path: '/sys/sysDepartment',
-          component: './sys/sysDepartment/Index',
-        },
-        {
-          path: '/sys/sysRole',
-          component: './sys/sysRoleTwo/Index',
-        },
-        {
-          path: '/sys/sysLog',
-          component: './sys/sysLog/Index',
-        },
-        {
-          path: '/sys/sendRecord',
-          component: './userCenter/sendRecord/Index',
-        },
-        {
-          path: '/sys/insideMail',
-          component: './userCenter/insideMail/Index',
-        },
-        {
-          path: '/sys/sysUser',
-          component: './sys/sysUserTwo/Index',
-        },
-        {
-          path: '/sys/sysDict',
-          component: './sys/sysDict/index',
-        },
-        {
-          path: '/profile',
-          component: './profile/index',
-        },
-        {
-          path: '/store/store',
-          component: './store/store/Index',
-        },
-        {
-          path: '/commodity/category',
-          component: './commodity/category/Index',
-        },
-        {
-          path: '/commodity/commodity',
-          component: './commodity/commodity/Index',
-        },
-        {
-          path: '/member/department',
-          component: './member/memberDepartment/Index',
-        },
-        {
-          path: '/memberRegion/region',
-          component: './member/memberRegion/Index',
-        },
-        {
-          path: '/news/news',
-          component: './news/news/Index',
-        },
       ],
     },
   ],

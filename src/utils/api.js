@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable import/no-extraneous-dependencies,no-param-reassign */
 import router from 'umi/router';
 import moment from 'moment';
 import request from './request';
@@ -26,12 +26,15 @@ export function getRequest(url) {
   });
 }
 
-export function postRequest(url, params) {
+export function postRequest(url, params, headers) {
+  if (!headers) {
+    headers = {};
+  }
+  if (localStorage.getItem('Authorization')) {
+    headers.Authorization = localStorage.getItem('Authorization');
+  }
+
   return new Promise((resolve, reject) => {
-    let headers = {};
-    if (localStorage.getItem('Authorization') && url !== '/system/verificationUser') {
-      headers = { Authorization: localStorage.getItem('Authorization') };
-    }
     request(http + url, {
       method: 'POST',
       headers,
@@ -95,10 +98,9 @@ export function deleteRequest(url) {
   });
 }
 
-export function postFormDateRequest(url, params) {
-  let headers = {};
+export function postFormDateRequest(url, params, headers) {
   if (localStorage.getItem('Authorization')) {
-    headers = { Authorization: localStorage.getItem('Authorization') };
+    headers.Authorization = localStorage.getItem('Authorization');
   }
   let paramstr = '';
   for (const key in params) {
@@ -127,33 +129,6 @@ export function postFormDateRequest(url, params) {
         reject(error);
       });
   });
-}
-
-/**
- * 导出export
- */
-let current1 = 0;
-
-export async function exportExcel(url, params) {
-  // Object.assign(params, { type: 1 });
-  current1 += 1;
-  Object.assign(params, {
-    pagination: {
-      current: current1,
-      pageSize: 5000,
-    },
-  });
-  const data = await postRequest(url, params);
-  if (data.status === 200) {
-    window.location.href = `${http}/file/excel?Authorization=${localStorage.getItem(
-      'Authorization'
-    )}`;
-    if (data.data.lastPage !== 0 && data.data.lastPage.toString() !== current1.toString()) {
-      exportExcel(url, params);
-    } else {
-      current1 = 0;
-    }
-  }
 }
 
 /* eslint-disable */
@@ -246,10 +221,6 @@ export function requestParameterProcessing(json) {
       }
     }
   }
-}
-
-function exportExcelGet(url, params) {
-  window.open(`${http}/upload/excel?list=${params}`);
 }
 
 /**

@@ -75,9 +75,6 @@ export default function request(url, options) {
     .then(response => response.json())
     .catch(e => {
       const status = e.name;
-      if (status === 401) {
-        window.location.href = '/user/login';
-      }
       if (status === 403) {
         router.push('/error/403');
       }
@@ -86,9 +83,6 @@ export default function request(url, options) {
       }
       if (status >= 404 && status < 422) {
         router.push('/error/404');
-      }
-      if (status === 'TypeError') {
-        window.location.href = '/user/login';
       }
     });
 }

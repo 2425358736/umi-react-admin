@@ -6,9 +6,7 @@ import { connect } from 'dva';
 import router from 'umi/router';
 import GlobalHeader from '@/components/GlobalHeader';
 import TopNavHeader from '@/components/TopNavHeader';
-import { postRequest } from '../utils/api';
 import styles from './Header.less';
-import { SYS_LOGOUT } from '@/services/SysInterface';
 
 const { Header } = Layout;
 
@@ -71,12 +69,9 @@ class HeaderView extends PureComponent {
       return;
     }
     if (key === 'logout') {
-      // dispatch({
-      //   type: 'login/logout',
-      // });
-      postRequest(SYS_LOGOUT);
       localStorage.removeItem('Authorization');
-      router.push('/user/login');
+      localStorage.removeItem('userInfo');
+      router.push('/login');
     }
   };
 
@@ -155,10 +150,8 @@ class HeaderView extends PureComponent {
   }
 }
 
-export default connect(({ user, global, setting, loading }) => ({
-  currentUser: user.currentUser,
+export default connect(({ global, setting }) => ({
   collapsed: global.collapsed,
-  fetchingNotices: loading.effects['global/fetchNotices'],
   notices: global.notices,
   setting,
 }))(HeaderView);

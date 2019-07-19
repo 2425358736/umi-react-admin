@@ -1,7 +1,7 @@
 import memoizeOne from 'memoize-one';
 import isEqual from 'lodash/isEqual';
 import Authorized from '@/utils/Authorized';
-import { getSysMenu } from '@/services/user';
+import getSysMenu from '@/services/user';
 
 const { check } = Authorized;
 
