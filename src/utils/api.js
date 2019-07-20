@@ -6,7 +6,15 @@ import request from './request';
 export const http = process.env.apiUrl;
 export const ws = `${process.env.wsUrl}/websocket`;
 
-export function getRequest(url) {
+export function getRequest(url, params) {
+  let paramstr = '?';
+  for (const key in params) {
+    if (key) {
+      paramstr = `${paramstr + key}=${params[key]}&`;
+    }
+  }
+  paramstr = paramstr.substring(0, paramstr.length - 1);
+  url += paramstr;
   return new Promise((resolve, reject) => {
     let headers = {};
     if (localStorage.getItem('Authorization')) {
@@ -18,7 +26,11 @@ export function getRequest(url) {
     })
       .then(response => {
         const resultData = response;
-        resolve(resultData);
+        if (resultData.code === 401) {
+          router.push('/login');
+        } else {
+          resolve(resultData);
+        }
       })
       .catch(error => {
         reject(error);
@@ -45,8 +57,8 @@ export function postRequest(url, params, headers) {
       .then(response => {
         const resultData = response;
         if (typeof resultData !== 'undefined') {
-          if (resultData.status === 120) {
-            router.push('/user/login');
+          if (resultData.code === 401) {
+            router.push('/login');
           } else {
             resolve(resultData);
           }
@@ -70,7 +82,11 @@ export function putRequest(url, params) {
     })
       .then(response => {
         const resultData = response;
-        resolve(resultData);
+        if (resultData.code === 401) {
+          router.push('/login');
+        } else {
+          resolve(resultData);
+        }
       })
       .catch(error => {
         reject(error);
@@ -90,7 +106,11 @@ export function deleteRequest(url) {
     })
       .then(response => {
         const resultData = response;
-        resolve(resultData);
+        if (resultData.code === 401) {
+          router.push('/login');
+        } else {
+          resolve(resultData);
+        }
       })
       .catch(error => {
         reject(error);
@@ -99,6 +119,9 @@ export function deleteRequest(url) {
 }
 
 export function postFormDateRequest(url, params, headers) {
+  if (!headers) {
+    headers = {};
+  }
   if (localStorage.getItem('Authorization')) {
     headers['Blade-Auth'] = localStorage.getItem('Authorization');
   }
@@ -120,7 +143,11 @@ export function postFormDateRequest(url, params, headers) {
       .then(response => {
         const resultData = response;
         if (typeof resultData !== 'undefined') {
-          resolve(resultData);
+          if (resultData.code === 401) {
+            router.push('/login');
+          } else {
+            resolve(resultData);
+          }
         } else {
           resolve(resultData);
         }

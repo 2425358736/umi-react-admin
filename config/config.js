@@ -70,6 +70,10 @@ export default {
           path: '/error/500',
           component: './error/500/Index',
         },
+        {
+          path: '/system/employee',
+          component: './system/employee/Index',
+        },
       ],
     },
   ],

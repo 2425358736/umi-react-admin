@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-curly-brace-presence */
 import React, { PureComponent, Suspense } from 'react';
 import { Layout } from 'antd';
 import classNames from 'classnames';
@@ -61,7 +62,7 @@ export default class SiderMenu extends PureComponent {
         collapsed={collapsed}
         breakpoint="lg"
         onCollapse={onCollapse}
-        width={170}
+        width={190}
         theme={theme}
         className={siderClassName}
       >
@@ -71,7 +72,7 @@ export default class SiderMenu extends PureComponent {
               src="https://haifeng-1258278342.cos.ap-chengdu.myqcloud.com/village/village_PC_logo.png"
               alt="logo"
             />
-            <h1>劳务平台</h1>
+            <h1>{'智慧路灯平台'}</h1>
           </Link>
         </div>
         <Suspense fallback={<PageLoading />}>

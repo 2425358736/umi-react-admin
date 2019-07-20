@@ -153,20 +153,20 @@ class BasicLayout extends React.PureComponent {
     const pathKey = Object.keys(breadcrumbNameMap).find(key => pathToRegexp(key).test(pathname));
 
     if (!pathKey) {
-      return '劳务平台';
+      return '智慧路灯平台';
     }
     // const pageName = formatMessage({
     //   id: currRouterData.locale || currRouterData.name,
     //   defaultMessage: currRouterData.name,
     // });
-    return `${breadcrumbNameMap[pathKey].name} - 劳务平台`;
+    return `${breadcrumbNameMap[pathKey].name} - 智慧路灯平台`;
   };
 
   getLayoutStyle = () => {
     const { fixSiderbar, isMobile, collapsed, layout } = this.props;
     if (fixSiderbar && layout !== 'topmenu' && !isMobile) {
       return {
-        paddingLeft: collapsed ? '80px' : '170px',
+        paddingLeft: collapsed ? '80px' : '190px',
       };
     }
     return null;
@@ -186,7 +186,7 @@ class BasicLayout extends React.PureComponent {
 
   getHeadWidth = () => {
     const { collapsed } = this.props;
-    return collapsed ? 'calc(100% - 80px)' : 'calc(100% - 170px)';
+    return collapsed ? 'calc(100% - 80px)' : 'calc(100% - 190px)';
   };
 
   render() {

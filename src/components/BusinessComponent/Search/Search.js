@@ -264,7 +264,7 @@ class Search extends React.Component {
                           onChange={(value, object) => {
                             const { data, dataShow } = this.state;
                             if (value.length > 0) {
-                              data[json.queryField] = value;
+                              data[json.queryField] = [value];
 
                               dataShow[json.queryField] = {
                                 queryTitle: json.queryTitle,
