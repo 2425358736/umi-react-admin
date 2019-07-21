@@ -40,7 +40,7 @@ yarn start
     │   │   └── index
     │   │       ├── index.js           // 页面逻辑
     │   │       ├── index.less         // 页面样式
-    │   ├── services              // 接口存放目录
+    │   │       ├── Service.js         // 接口
     │   ├── utils              // 常用工具类
     │   ├── defaultSetting.js             // 主题设置
     │   └── global.less            // 全局样式
