@@ -43,6 +43,7 @@ class Operation extends React.Component {
             className={this.props.btnType === 'submit' ? styles.submitBtn : styles.cancelBtn}
             loading={this.props.buttonLoading}
             onClick={this.click}
+            {...this.props}
           >
             {this.props.title}
           </Button>

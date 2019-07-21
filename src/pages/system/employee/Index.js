@@ -53,6 +53,45 @@ const search = {
       component: 'Select',
       componentData: [{ value: '0', title: 'A状态' }, { value: '1', title: 'B状态' }],
     },
+    {
+      queryTitle: '所属区域',
+      queryField: 'regionId',
+      component: 'Cascader', // 级联选择
+      componentData: [
+        {
+          value: 'zhejiang',
+          label: 'Zhejiang',
+          children: [
+            {
+              value: 'hangzhou',
+              label: 'Hangzhou',
+              children: [
+                {
+                  value: 'xihu',
+                  label: 'West Lake',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          value: 'jiangsu',
+          label: 'Jiangsu',
+          children: [
+            {
+              value: 'nanjing',
+              label: 'Nanjing',
+              children: [
+                {
+                  value: 'zhonghuamen',
+                  label: 'Zhong Hua Men',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
   ],
 };
 
@@ -61,6 +100,7 @@ class Index extends React.Component {
     super(props);
     this.state = {
       columns: [],
+      renovate: false,
     };
   }
 
@@ -141,7 +181,26 @@ class Index extends React.Component {
           render(text, record) {
             return (
               <div>
-                <Info title="用户详情" info={<Details id={record.id} />}>
+                <Info
+                  callback={() => {
+                    console.log('详情被关闭了');
+                  }}
+                  title="用户详情"
+                  info={
+                    <Details
+                      callback={async () => {
+                        console.log('如果详情页有编辑操作需要列表页刷新时，通知页面刷新');
+                        await that.setState({
+                          renovate: true,
+                        });
+                        await that.setState({
+                          renovate: false,
+                        });
+                      }}
+                      id={record.id}
+                    />
+                  }
+                >
                   详情
                 </Info>
                 <Divider type="vertical" />
@@ -187,6 +246,7 @@ class Index extends React.Component {
           <div className={styles.tableWrap}>
             <div>
               <OrdinaryTable
+                renovate={this.state.renovate}
                 scroll={{
                   x: 1400,
                   y: 'calc(100vh - 252px)',
@@ -195,6 +255,15 @@ class Index extends React.Component {
                 align="center"
                 listUrl={employeeList}
                 columns={this.state.columns}
+                operationBlock={[
+                  {
+                    title: '批量操作',
+                    onClick: (idArr, objArr) => {
+                      console.log(idArr);
+                      console.log(objArr);
+                    },
+                  },
+                ]}
               />
             </div>
           </div>

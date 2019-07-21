@@ -125,9 +125,11 @@ class Info extends React.Component {
               type: 'breadcrumb/fetch',
               payload: { list },
             });
+            this.props.callback();
           }}
           visible={open}
           destroyOnClose
+          {...this.props}
         >
           {this.props.info && this.props.info}
         </Drawer>

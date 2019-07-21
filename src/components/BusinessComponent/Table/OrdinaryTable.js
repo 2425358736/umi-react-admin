@@ -197,8 +197,8 @@ class OrdinaryTable extends React.Component {
     }
     if (data.code === 200) {
       const { pagination } = this.state;
-      pagination.total = data.total;
-      pagination.current = data.current;
+      pagination.total = data.data.total;
+      pagination.current = data.data.current;
       this.setState({
         dataSource: data.data.records,
         pagination,

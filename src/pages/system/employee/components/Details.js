@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from 'antd';
+import { Icon, Button } from 'antd';
 import styles from './Detail.less';
 import { getRequest } from '@/utils/api';
 
@@ -84,6 +84,18 @@ class Details extends React.Component {
                   <span>用户头像：</span>
                   <div>
                     <UploadPicture fileUrl={InfoData.avatorid} disabled />
+                  </div>
+                </div>
+                <div className={styles.itemDom}>
+                  <span>通知列表页刷新：</span>
+                  <div>
+                    <Button
+                      onClick={() => {
+                        this.props.callback();
+                      }}
+                    >
+                      通知列表页刷新
+                    </Button>
                   </div>
                 </div>
               </div>
