@@ -249,7 +249,7 @@ class Index extends React.Component {
                 renovate={this.state.renovate}
                 scroll={{
                   x: 1400,
-                  y: 'calc(100vh - 252px)',
+                  y: 'calc(100vh - 304px)',
                 }}
                 method="GET"
                 align="center"

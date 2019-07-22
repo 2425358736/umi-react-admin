@@ -190,7 +190,11 @@ class OrdinaryTable extends React.Component {
     jsonString(json.query);
     let data = {};
     if (this.props.method === 'GET') {
-      const obj = { ...json.query, ...json.pagination };
+      const pagination = {};
+      pagination.current = json.pagination.current;
+      pagination.size = json.pagination.pageSize;
+
+      const obj = { ...json.query, ...pagination };
       data = await getRequest(props.listUrl, obj);
     } else {
       data = await postRequest(props.listUrl, json);
