@@ -4,10 +4,9 @@ import { Drawer } from 'antd';
 import { connect } from 'dva';
 import style from './Info.less';
 
-@connect(({ breadcrumb, global }) => ({
+@connect(({ breadcrumb }) => ({
   breadcrumb,
   list: breadcrumb.list,
-  collapsed: global.collapsed,
 }))
 class Info extends React.Component {
   constructor(props) {
@@ -66,7 +65,7 @@ class Info extends React.Component {
   };
 
   render() {
-    const { dispatch, list, children, title, id } = this.props;
+    const { dispatch, list, children, title, id, callback } = this.props;
     const { identifying, open } = this.state;
     return (
       <div style={{ display: 'inline-block' }}>
@@ -105,11 +104,9 @@ class Info extends React.Component {
           getContainer="main"
           className={style.breadDom}
           maskStyle={{
-            // transition: 'right 0.2s',
             position: 'absolute',
             height: 'calc(100vh - 112px)',
             overflow: 'auto',
-            // left: collapsed ? '80px' : '170px',
           }}
           zIndex={0}
           title={this.props.title || this.state.title}
@@ -125,11 +122,10 @@ class Info extends React.Component {
               type: 'breadcrumb/fetch',
               payload: { list },
             });
-            this.props.callback();
+            callback();
           }}
           visible={open}
           destroyOnClose
-          {...this.props}
         >
           {this.props.info && this.props.info}
         </Drawer>
