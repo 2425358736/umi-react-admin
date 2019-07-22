@@ -6,13 +6,6 @@
 
 React + Ant Design + Ant Design Pro + dva + umi + less
 
-# 项目运行
-
-```
-
-git clone https://gitee.com/village_affairs_project/village_front.git
-
-cd village_front
 
 # 安装项目依赖
 yarn install
