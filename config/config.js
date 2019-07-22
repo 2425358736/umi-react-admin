@@ -52,7 +52,7 @@ export default {
         // dashboard
         {
           path: '/index',
-          component: './Index',
+          component: './index/Index',
         },
         {
           path: '/error/401',

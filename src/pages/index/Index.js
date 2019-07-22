@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactQMap from 'react-qmap';
 import { Drawer } from 'antd';
+import Detail from './components/Details';
+
 import jz from '@/assets/jz.jpeg';
 import styles from './index.less';
 
@@ -72,7 +74,7 @@ class Index extends React.Component {
             {bool && (
               <ReactQMap
                 center={currentLocation}
-                initialOptions={{ zoomControl: true, mapTypeControl: true }}
+                initialOptions={{ zoomControl: true, mapTypeControl: true, zoom: 1 }}
                 apiKey="7Y5BZ-7DTC3-FVN3J-3Z4X2-ROLLJ-N6B7Q"
                 style={{ height: 'calc(100vh - 152px)' }}
                 getMap={(map, maps) => {
@@ -129,24 +131,27 @@ class Index extends React.Component {
             )}
           </div>
           <Drawer
-            getContainer={false}
-            zIndex={100}
+            getContainer="main"
+            className={styles.breadDom}
+            maskStyle={{
+              position: 'absolute',
+              height: 'calc(100vh - 112px)',
+              overflow: 'auto',
+            }}
+            zIndex={0}
             title="设备信息"
-            width={500}
-            placement="bottom"
-            closable={false}
+            placement="right"
+            width="1000px"
+            visible={visible}
             onClose={() => {
-              console.log('关闭了');
               this.setState({
-                id: 0,
                 visible: false,
+                id: 0,
               });
             }}
-            visible={visible}
+            destroyOnClose
           >
-            <div>
-              <span>id:{id}</span>
-            </div>
+            <Detail id={id} />
           </Drawer>
         </div>
       </div>
