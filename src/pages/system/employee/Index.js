@@ -130,12 +130,12 @@ class Index extends React.Component {
         },
         {
           title: '创建日期',
-          width: '15%',
+          width: '13%',
           dataIndex: 'createTime',
         },
         {
           title: '修改日期',
-          width: '15%',
+          width: '13%',
           dataIndex: 'updateTime',
         },
         {
@@ -176,7 +176,7 @@ class Index extends React.Component {
         },
         {
           title: '操作',
-          width: '10%',
+          width: '14%',
           dataIndex: 'opt',
           render(text, record) {
             return (
@@ -248,7 +248,7 @@ class Index extends React.Component {
               <OrdinaryTable
                 renovate={this.state.renovate}
                 scroll={{
-                  x: 1400,
+                  x: 1200,
                   y: 'calc(100vh - 304px)',
                 }}
                 method="GET"
