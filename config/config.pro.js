@@ -41,18 +41,8 @@ export default {
    */
   routes: [
     {
-      path: '/user',
-      component: '../layouts/UserLayout',
-      routes: [
-        {
-          path: '/user',
-          component: './Index',
-        },
-        {
-          path: '/user/login',
-          component: './login/Index',
-        },
-      ],
+      path: '/login',
+      component: './login/Index',
     },
     {
       path: '/',
@@ -62,7 +52,7 @@ export default {
         // dashboard
         {
           path: '/index',
-          component: './Index',
+          component: './index/Index',
         },
         {
           path: '/error/401',
@@ -80,6 +70,10 @@ export default {
           path: '/error/500',
           component: './error/500/Index',
         },
+        {
+          path: '/system/employee',
+          component: './system/employee/Index',
+        },
       ],
     },
   ],
@@ -90,8 +84,8 @@ export default {
    */
   define: {
     APP_TYPE: process.env.APP_TYPE || '',
-    'process.env.apiUrl': 'http://117.73.8.92:8091',
-    'process.env.wsUrl': 'ws://117.73.8.92:8091',
+    'process.env.apiUrl': 'http://47.101.46.79',
+    'process.env.wsUrl': 'ws://127.0.0.1:8010',
   },
   // Theme for antd
   // https://ant.design/docs/react/customize-theme-cn
