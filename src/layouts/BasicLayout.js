@@ -114,7 +114,7 @@ class BasicLayout extends React.PureComponent {
             key: strPath,
             name: obj.name,
             fun: () => {
-              if (obj.children.length > 0) {
+              if (obj.children && obj.children.length > 0) {
                 console.log('是目录');
               } else {
                 router.push(obj.path);
