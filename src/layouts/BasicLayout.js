@@ -55,6 +55,13 @@ class BasicLayout extends React.PureComponent {
     this.matchParamsPath = memoizeOne(this.matchParamsPath, isEqual);
   }
 
+  componentWillMount() {
+    const token = localStorage.getItem('Authorization');
+    if (!token) {
+      window.location.href = '/login';
+    }
+  }
+
   componentDidMount() {
     const {
       dispatch,
