@@ -1,56 +1,60 @@
-/* eslint-disable no-param-reassign */
 import React from 'react';
+import RenderAuthorized from 'ant-design-pro/lib/Authorized'; // 权限组件---（建议不用，权限由后台来控制）
 import { Divider, notification } from 'antd';
 import Details from './components/Details';
+import NoAuth from '@/pages/error/403/Index';
 import {
-  OrdinaryTable,
-  Search,
-  Add,
-  Up,
-  Operation,
-  ScreeningTag,
-  Info,
+  OrdinaryTable, // 列表组件
+  Search, // 搜索组件
+  Add, // 添加包层
+  Up, // 修改包层
+  Operation, // 操作按钮
+  ScreeningTag, // 筛选标签展示组件
+  Info, // 详情弹出包层
 } from '@/components/BusinessComponent/BusCom';
 
-import AddUp from './components/AddUp';
+import AddUp from './components/AddUp'; // 添加编辑页面
 
 import styles from './index.less';
 
-import { postFormDateRequest } from '@/utils/api';
+import { postFormDateRequest } from '@/utils/api'; // post请求 formDate格式参数
 
 import { employeeList, delEmployee } from './Service';
 
+// 搜索json
 const search = {
+  // 基础搜索， 输入框
   ordinary: {
     queryTitle: '用户名',
     queryField: 'userName',
   },
+  // 高级搜索
   senior: [
     {
       queryTitle: '创建日期',
       queryField: 'createTime',
-      component: 'DatePicker',
+      component: 'DatePicker', // 日期选择框
     },
     {
       queryTitle: '办公室电话',
       queryField: 'officephone',
-      component: 'Input',
+      component: 'Input', // 输入框
     },
     {
       queryTitle: '删除状态',
       queryField: 'isDeleted',
-      component: 'Select-Multiple',
+      component: 'Select-Multiple', // 多选框
       componentData: [{ value: '0', title: '未删除' }, { value: '1', title: '已删除' }],
     },
     {
       queryTitle: '修改日期',
       queryField: 'updateTime',
-      component: 'RangePicker',
+      component: 'RangePicker', // 日期周期框
     },
     {
       queryTitle: '用户状态',
       queryField: 'status',
-      component: 'Select',
+      component: 'Select', // 单选框
       componentData: [{ value: '0', title: 'A状态' }, { value: '1', title: 'B状态' }],
     },
     {
@@ -95,9 +99,19 @@ const search = {
   ],
 };
 
+// 获取当前全县默认sysUserList， 正常应该从缓存中拿取
+const { Secured } = RenderAuthorized('sysUserList');
+
+// 注解式授权
+@Secured('sysUserList', <NoAuth />)
 class Index extends React.Component {
   constructor(props) {
     super(props);
+    /**
+     * columns 表格列
+     * renovate true 刷新表格 false 不刷新表格
+     * @type {{columns: Array, renovate: boolean}}
+     */
     this.state = {
       columns: [],
       renovate: false,
