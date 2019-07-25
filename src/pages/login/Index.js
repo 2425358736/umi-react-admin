@@ -12,11 +12,11 @@ class Index extends React.Component {
   state = {};
 
   onSubmit = async () => {
-    const json = {};
+    const json = this.props.form.getFieldsValue();
     json.grant_type = 'password';
     json.scope = 'all';
-    json.username = 'chen';
-    json.password = '123456';
+    // json.username = 'chen';
+    // json.password = '123456';
 
     const data = await postFormDateRequest(GetToken, json, {
       Authorization: 'Basic c3dvcmQ6c3dvcmRfc2VjcmV0',
