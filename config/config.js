@@ -74,6 +74,10 @@ export default {
           path: '/system/employee',
           component: './system/employee/Index',
         },
+        {
+          path: '/temp/GojsPage',
+          component: './temp/gojsPage/Index.js',
+        },
       ],
     },
   ],
