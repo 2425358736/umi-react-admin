@@ -78,6 +78,10 @@ export default {
           path: '/temp/GojsPage',
           component: './temp/gojsPage/Index.js',
         },
+        {
+          path: '/configuration/reactGojs',
+          component: './configuration/Index',
+        },
       ],
     },
   ],
