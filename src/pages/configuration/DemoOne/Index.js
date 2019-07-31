@@ -217,8 +217,6 @@ class Index extends React.Component {
           text: 'Gas\nCompanies',
           description: 'Provides natural gas liquids (NGLs).',
           caption: 'Gas Drilling Well',
-          imgsrc:
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/BarnettShaleDrilling-9323.jpg/256px-BarnettShaleDrilling-9323.jpg',
         },
         {
           key: 2,
@@ -231,8 +229,6 @@ class Index extends React.Component {
           description:
             'Provides associated petroleum gas (APG). This type of gas used to be released as waste from oil drilling, but is now commonly captured for processing.',
           caption: 'Offshore oil well',
-          imgsrc:
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Oil_platform_P-51_%28Brazil%29.jpg/512px-Oil_platform_P-51_%28Brazil%29.jpg',
         },
         {
           key: 3,
@@ -244,8 +240,6 @@ class Index extends React.Component {
           description:
             'APG processing turns associated petrolium gas into natural gas liquids (NGLs) and stable natural gas (SGN).',
           caption: 'Natural gas plant',
-          imgsrc:
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Solohiv_natural_gas_plant_-_fragment.jpg/256px-Solohiv_natural_gas_plant_-_fragment.jpg',
         },
         {
           key: 4,
@@ -257,8 +251,6 @@ class Index extends React.Component {
           description:
             'Natural gas liquids are separated into individual hydrocarbons like propane and butanes, hydrocarbon mixtures (naphtha) and liquefied petroleum gases (LPGs).',
           caption: 'Gas Plant',
-          imgsrc:
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Gasblok.jpg/256px-Gasblok.jpg',
         },
         {
           key: 5,
@@ -271,7 +263,6 @@ class Index extends React.Component {
           description:
             'Liquefied petroleum gases (LPGs) are transformed into Ethylene, propylene, benzene, and other by-products.',
           caption: 'Pyrolysis plant',
-          imgsrc: 'https://upload.wikimedia.org/wikipedia/commons/6/6c/Guelph.jpg',
         },
 
         {
@@ -286,8 +277,6 @@ class Index extends React.Component {
           description:
             'Ethylene and propylene (monomers) are processed into end products using various methods (polymerization).',
           caption: 'Plastics engineering-Polymer products',
-          imgsrc:
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Plastics_engineering-Polymer_products.jpg/256px-Plastics_engineering-Polymer_products.jpg',
         },
 
         {
@@ -302,8 +291,6 @@ class Index extends React.Component {
           description:
             'Polymerization produces PET, glycols, alcohols, expandable polystyrene, acrylates, BOPP-films and geosynthetics.',
           caption: 'Lego Color Bricks',
-          imgsrc:
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Lego_Color_Bricks.jpg/256px-Lego_Color_Bricks.jpg',
         },
         {
           key: 8,
@@ -317,8 +304,6 @@ class Index extends React.Component {
           description:
             'Polymerization produces commodity and specialty rubbers and thermoplastic elastomers.',
           caption: 'Sheet of synthetic rubber coming off the rolling mill at the plant of Goodrich',
-          imgsrc:
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Sheet_of_synthetic_rubber_coming_off_the_rolling_mill_at_the_plant_of_Goodrich.jpg/512px-Sheet_of_synthetic_rubber_coming_off_the_rolling_mill_at_the_plant_of_Goodrich.jpg',
         },
         {
           key: 9,
@@ -328,8 +313,6 @@ class Index extends React.Component {
           text: 'Intermediates',
           description: 'Produced Ethylene, Propylene, Butenes, Benzene, and other by-products.',
           caption: 'Propylene Containers',
-          imgsrc:
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/XVJ-12_Propylene_%288662385917%29.jpg/256px-XVJ-12_Propylene_%288662385917%29.jpg',
         },
         {
           key: 10,
@@ -341,8 +324,6 @@ class Index extends React.Component {
           text: 'LPG, Naphtha, MTBE',
           description: 'Propane, butane, and other general purpose fuels and byproducts.',
           caption: 'Liquid Petroleum Gas Truck',
-          imgsrc:
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/LPG_Truck.jpg/256px-LPG_Truck.jpg',
         },
         {
           key: 11,
@@ -354,8 +335,6 @@ class Index extends React.Component {
           text: 'Natural Gas, NGLs',
           description: 'Used for heating, cooking, and electricity generation',
           caption: 'Natural Gas Flame',
-          imgsrc:
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/%22LPG_flame%22.JPG/512px-%22LPG_flame%22.JPG',
         },
       ],
       linkDataArray: [

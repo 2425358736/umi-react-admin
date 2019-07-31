@@ -80,7 +80,11 @@ export default {
         },
         {
           path: '/configuration/reactGojs',
-          component: './configuration/Index',
+          component: './configuration/DemoOne/Index',
+        },
+        {
+          path: '/configuration/reactTwoGojs',
+          component: './configuration/DemoTwo/Index',
         },
       ],
     },
