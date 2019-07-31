@@ -15,7 +15,10 @@ class Index extends React.Component {
             key: 1,
             color: '#ff3a46',
             text: 'A',
+            pos: '500 -300',
             controlledKey: [2, 3, 4],
+            width: 50,
+            height: 50,
             url:
               'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564554589343&di=52a4f93e1d3e95cb3bbfc34a4edcec34&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F7de57a87e6746417c3e6326031cb91b3a98e1d28135059-LjdYkm_fw658',
           },
@@ -23,7 +26,10 @@ class Index extends React.Component {
             key: 2,
             color: '#8bff65',
             text: 'B',
+            pos: '500 -200',
             controlledKey: [],
+            width: 50,
+            height: 50,
             url:
               'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564554589343&di=52a4f93e1d3e95cb3bbfc34a4edcec34&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F7de57a87e6746417c3e6326031cb91b3a98e1d28135059-LjdYkm_fw658',
           },
@@ -31,7 +37,10 @@ class Index extends React.Component {
             key: 3,
             color: '#4f4fff',
             text: 'C',
+            pos: '300 -200',
             controlledKey: [5, 6, 7],
+            width: 50,
+            height: 50,
             url:
               'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564554589343&di=52a4f93e1d3e95cb3bbfc34a4edcec34&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F7de57a87e6746417c3e6326031cb91b3a98e1d28135059-LjdYkm_fw658',
           },
@@ -39,7 +48,10 @@ class Index extends React.Component {
             key: 4,
             color: '#e770ff',
             text: 'D',
+            pos: '700 -200',
             controlledKey: [8, 9, 10],
+            width: 50,
+            height: 50,
             url:
               'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564554589343&di=52a4f93e1d3e95cb3bbfc34a4edcec34&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F7de57a87e6746417c3e6326031cb91b3a98e1d28135059-LjdYkm_fw658',
           },
@@ -47,7 +59,10 @@ class Index extends React.Component {
             key: 5,
             color: '#c9ffe0',
             text: 'E',
+            pos: '200 -100',
             controlledKey: [11],
+            width: 50,
+            height: 50,
             url:
               'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564554589343&di=52a4f93e1d3e95cb3bbfc34a4edcec34&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F7de57a87e6746417c3e6326031cb91b3a98e1d28135059-LjdYkm_fw658',
           },
@@ -56,7 +71,10 @@ class Index extends React.Component {
             key: 6,
             color: '#ff3a97',
             text: 'F',
+            pos: '300 -100',
             controlledKey: [],
+            width: 50,
+            height: 50,
             url:
               'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564554589343&di=52a4f93e1d3e95cb3bbfc34a4edcec34&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F7de57a87e6746417c3e6326031cb91b3a98e1d28135059-LjdYkm_fw658',
           },
@@ -65,7 +83,10 @@ class Index extends React.Component {
             key: 7,
             color: '#7b8dff',
             text: 'G',
+            pos: '400 -100',
             controlledKey: [],
+            width: 50,
+            height: 50,
             url:
               'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564554589343&di=52a4f93e1d3e95cb3bbfc34a4edcec34&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F7de57a87e6746417c3e6326031cb91b3a98e1d28135059-LjdYkm_fw658',
           },
@@ -73,7 +94,10 @@ class Index extends React.Component {
             key: 8,
             color: '#9bff96',
             text: 'H',
+            pos: '600 -100',
             controlledKey: [],
+            width: 50,
+            height: 50,
             url:
               'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564554589343&di=52a4f93e1d3e95cb3bbfc34a4edcec34&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F7de57a87e6746417c3e6326031cb91b3a98e1d28135059-LjdYkm_fw658',
           },
@@ -81,7 +105,10 @@ class Index extends React.Component {
             key: 9,
             color: '#221bff',
             text: 'I',
+            pos: '700 -100',
             controlledKey: [],
+            width: 50,
+            height: 50,
             url:
               'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564554589343&di=52a4f93e1d3e95cb3bbfc34a4edcec34&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F7de57a87e6746417c3e6326031cb91b3a98e1d28135059-LjdYkm_fw658',
           },
@@ -89,7 +116,10 @@ class Index extends React.Component {
             key: 10,
             color: '#ff32ff',
             text: 'J',
+            pos: '800 -100',
             controlledKey: [],
+            width: 50,
+            height: 50,
             url:
               'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564554589343&di=52a4f93e1d3e95cb3bbfc34a4edcec34&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F7de57a87e6746417c3e6326031cb91b3a98e1d28135059-LjdYkm_fw658',
           },
@@ -97,6 +127,64 @@ class Index extends React.Component {
             key: 11,
             color: '#ff4e97',
             text: 'K',
+            pos: '200 0',
+            controlledKey: [],
+            width: 50,
+            height: 50,
+            url:
+              'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564554589343&di=52a4f93e1d3e95cb3bbfc34a4edcec34&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F7de57a87e6746417c3e6326031cb91b3a98e1d28135059-LjdYkm_fw658',
+          },
+          {
+            key: 12,
+            color: '#ff4e97',
+            text: '图片1',
+            pos: '950 -400',
+            width: 90,
+            height: 90,
+            controlledKey: [],
+            url:
+              'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564554589343&di=52a4f93e1d3e95cb3bbfc34a4edcec34&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F7de57a87e6746417c3e6326031cb91b3a98e1d28135059-LjdYkm_fw658',
+          },
+          {
+            key: 14,
+            color: '#ff4e97',
+            text: '图片2',
+            pos: '1050 -400',
+            width: 90,
+            height: 90,
+            controlledKey: [],
+            url:
+              'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564554589343&di=52a4f93e1d3e95cb3bbfc34a4edcec34&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F7de57a87e6746417c3e6326031cb91b3a98e1d28135059-LjdYkm_fw658',
+          },
+          {
+            key: 15,
+            color: '#ff4e97',
+            text: '图片3',
+            pos: '1150 -400',
+            width: 90,
+            height: 90,
+            controlledKey: [],
+            url:
+              'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564554589343&di=52a4f93e1d3e95cb3bbfc34a4edcec34&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F7de57a87e6746417c3e6326031cb91b3a98e1d28135059-LjdYkm_fw658',
+          },
+          {
+            key: 16,
+            color: '#ff4e97',
+            text: '图片3',
+            pos: '0 -400',
+            width: 90,
+            height: 90,
+            controlledKey: [],
+            url:
+              'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564554589343&di=52a4f93e1d3e95cb3bbfc34a4edcec34&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F7de57a87e6746417c3e6326031cb91b3a98e1d28135059-LjdYkm_fw658',
+          },
+          {
+            key: 17,
+            color: '#ff4e97',
+            text: '图片3',
+            pos: '100 -400',
+            width: 90,
+            height: 90,
             controlledKey: [],
             url:
               'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564554589343&di=52a4f93e1d3e95cb3bbfc34a4edcec34&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F7de57a87e6746417c3e6326031cb91b3a98e1d28135059-LjdYkm_fw658',
@@ -127,33 +215,28 @@ class Index extends React.Component {
       'animationManager.isEnabled': true, // 是否关闭自动动画
       'grid.visible': false, // 是否显示整个图表的背景网格
       'grid.gridCellSize': new go.Size(20, 20), // 网络单元格大小
-      // 允许在后台双击以创建新节点
-      'clickCreatingTool.archetypeNodeData': { text: 'Node' },
+      // 'clickCreatingTool.archetypeNodeData': { text: 'Node' },// 允许在后台双击以创建新节点
       // 允许ctrl-g调用groupselection命令
       'commandHandler.archetypeGroupData': { text: 'Group', isGroup: true, color: 'blue' },
       'commandHandler.copiesTree': false, // 对于copy命令
       'commandHandler.deletesTree': false, // 对于删除命令
       'toolManager.hoverDelay': 100, // 显示工具提示的速度
-      // 鼠标滚轮缩放而不是滚动
-      'toolManager.mouseWheelBehavior': go.ToolManager.WheelZoom,
+      'toolManager.mouseWheelBehavior': go.ToolManager.WheelZoom, // 鼠标滚轮缩放而不是滚动
       'draggingTool.dragsTree': false, // 拖动以进行移动和复制
       'draggingTool.isGridSnapEnabled': true,
-      layout: $(go.TreeLayout, { angle: 90, sorting: go.TreeLayout.SortingAscending }),
+      // layout: $(go.TreeLayout, { angle: 90, sorting: go.TreeLayout.SortingAscending }),
       'undoManager.isEnabled': false, // 启用撤消和恢复
     });
 
     myDiagram.nodeTemplate = $(
       go.Node,
       'Auto',
+      new go.Binding('location', 'pos', go.Point.parse).makeTwoWay(go.Point.stringify),
       $(go.Shape, 'RoundedRectangle', new go.Binding('fill', 'color')),
-      $(go.TextBlock, new go.Binding('text', 'text')),
       $(
         go.Picture,
-        {
-          background: 'gray',
-          width: 50,
-          height: 50,
-        },
+        new go.Binding('width', 'width'),
+        new go.Binding('height', 'height'),
         new go.Binding('source', 'url')
       ),
       {
@@ -171,6 +254,7 @@ class Index extends React.Component {
             const node1 = myDiagram.model.findNodeDataForKey(key);
             myDiagram.model.setDataProperty(node1, 'color', '#ededed');
           });
+          console.log(e, node);
           notification.open({
             message: JSON.stringify(node.jb),
           });
@@ -195,17 +279,18 @@ class Index extends React.Component {
         layerName: 'Background',
         routing: go.Link.Orthogonal,
         corner: 15,
-        fromSpot: go.Spot.RightSide,
-        toSpot: go.Spot.LeftSide,
+        fromSpot: go.Spot.BottomSide, // 连线冲哪段开始
+        toSpot: go.Spot.TopSide, // 连线冲哪段结束
       },
       // make sure links come in from the proper direction and go out appropriately
       new go.Binding('fromSpot', 'fromSpot', d => spotConverter(d)),
       new go.Binding('toSpot', 'toSpot', d => spotConverter(d)),
+
       new go.Binding('points').makeTwoWay(),
       // mark each Shape to get the link geometry with isPanelMain: true
       $(
         go.Shape,
-        { isPanelMain: true, stroke: '#41BFEC' /* blue */, strokeWidth: 10 },
+        { isPanelMain: true, stroke: '#41BFEC' /* blue */, strokeWidth: 7 },
         new go.Binding('stroke', 'color')
       ),
       $(go.Shape, {
@@ -216,7 +301,37 @@ class Index extends React.Component {
         strokeDashArray: [20, 40],
       })
     );
+    loop();
 
+    let opacity = 1;
+    let down = true;
+    function loop() {
+      const diagram = myDiagram;
+      setTimeout(() => {
+        const oldskips = diagram.skipsUndoManager;
+        diagram.skipsUndoManager = true;
+        diagram.links.each(link => {
+          const shape = link.findObject('PIPE');
+          const off = shape.strokeDashOffset - 3;
+          // animate (move) the stroke dash
+          shape.strokeDashOffset = off <= 0 ? 60 : off;
+          // animte (strobe) the opacity:
+          if (down) opacity -= 0.01;
+          else opacity += 0.003;
+          if (opacity <= 0) {
+            down = !down;
+            opacity = 0;
+          }
+          if (opacity > 1) {
+            down = !down;
+            opacity = 1;
+          }
+          shape.opacity = opacity;
+        });
+        diagram.skipsUndoManager = oldskips;
+        loop();
+      }, 60);
+    }
     return myDiagram;
   };
 
