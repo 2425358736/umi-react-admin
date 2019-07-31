@@ -191,17 +191,16 @@ class Index extends React.Component {
           },
         ],
         linkDataArray: [
-          { from: 1, to: 2 },
-          { from: 1, to: 3 },
-          { from: 1, to: 4 },
-          { from: 3, to: 5 },
-          { from: 3, to: 6 },
-          { from: 3, to: 7 },
-          { from: 4, to: 8 },
-          { from: 4, to: 9 },
-
-          { from: 4, to: 10 },
-          { from: 5, to: 11 },
+          { key: 2, from: 1, to: 2, color: '#ff3a46' },
+          { key: 3, from: 1, to: 3, color: '#ff3a46' },
+          { key: 4, from: 1, to: 4, color: '#ff3a46' },
+          { key: 5, from: 3, to: 5, color: '#4f4fff' },
+          { key: 6, from: 3, to: 6, color: '#4f4fff' },
+          { key: 7, from: 3, to: 7, color: '#4f4fff' },
+          { key: 8, from: 4, to: 8, color: '#e770ff' },
+          { key: 9, from: 4, to: 9, color: '#e770ff' },
+          { key: 10, from: 4, to: 10, color: '#e770ff' },
+          { key: 11, from: 5, to: 11, color: '#c9ffe0' },
         ],
       },
     };
@@ -232,7 +231,7 @@ class Index extends React.Component {
       go.Node,
       'Auto',
       new go.Binding('location', 'pos', go.Point.parse).makeTwoWay(go.Point.stringify),
-      $(go.Shape, 'RoundedRectangle', new go.Binding('fill', 'color')),
+      $(go.Shape, 'RoundedRectangle', { width: 60, height: 60 }, new go.Binding('fill', 'color')),
       $(
         go.Picture,
         new go.Binding('width', 'width'),
@@ -252,9 +251,14 @@ class Index extends React.Component {
 
           controlledKey.forEach(key => {
             const node1 = myDiagram.model.findNodeDataForKey(key);
-            myDiagram.model.setDataProperty(node1, 'color', '#ededed');
+            const linkArr = myDiagram.model.linkDataArray;
+            linkArr.forEach(link => {
+              if (link.key === key) {
+                myDiagram.model.setDataProperty(link, 'color', '#FFF');
+              }
+            });
+            myDiagram.model.setDataProperty(node1, 'color', '#FFF');
           });
-          console.log(e, node);
           notification.open({
             message: JSON.stringify(node.jb),
           });
@@ -282,20 +286,11 @@ class Index extends React.Component {
         fromSpot: go.Spot.BottomSide, // 连线冲哪段开始
         toSpot: go.Spot.TopSide, // 连线冲哪段结束
       },
-      // make sure links come in from the proper direction and go out appropriately
-      new go.Binding('fromSpot', 'fromSpot', d => spotConverter(d)),
-      new go.Binding('toSpot', 'toSpot', d => spotConverter(d)),
-
       new go.Binding('points').makeTwoWay(),
-      // mark each Shape to get the link geometry with isPanelMain: true
-      $(
-        go.Shape,
-        { isPanelMain: true, stroke: '#41BFEC' /* blue */, strokeWidth: 7 },
-        new go.Binding('stroke', 'color')
-      ),
+      $(go.Shape, { isPanelMain: true, strokeWidth: 7 }, new go.Binding('stroke', 'color')),
       $(go.Shape, {
         isPanelMain: true,
-        stroke: 'white',
+        stroke: '#FFF',
         strokeWidth: 3,
         name: 'PIPE',
         strokeDashArray: [20, 40],
