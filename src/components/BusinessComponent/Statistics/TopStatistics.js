@@ -23,7 +23,7 @@ class TopStatistics extends React.Component {
       spinning: true,
     });
     const data = await getRequest(this.props.sourceUrl);
-    if (data.status === 200) {
+    if (data.code === 200) {
       this.setState({
         dataSource: data.data,
       });

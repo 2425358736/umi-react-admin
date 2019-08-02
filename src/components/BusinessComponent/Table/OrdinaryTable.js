@@ -1,8 +1,8 @@
-/* eslint-disable no-param-reassign,react/sort-comp */
+/* eslint-disable react/sort-comp */
 import React from 'react';
 import { connect } from 'dva';
 import { Table, notification, Button } from 'antd';
-import { postRequest, getRequest, jsonString } from '@/utils/api';
+import { postRequest, requestParameterProcessing, exportExcel } from '@/utils/api';
 import styles from './OrdinaryTable.less';
 
 @connect(({ screen, breadcrumb }) => ({
@@ -187,28 +187,18 @@ class OrdinaryTable extends React.Component {
       loading: true,
     });
     const json = JSON.parse(JSON.stringify(props.screen));
-    jsonString(json.query);
-    let data = {};
-    if (this.props.method === 'GET') {
-      const pagination = {};
-      pagination.current = json.pagination.current;
-      pagination.size = json.pagination.pageSize;
-
-      const obj = { ...json.query, ...pagination };
-      data = await getRequest(props.listUrl, obj);
-    } else {
-      data = await postRequest(props.listUrl, json);
-    }
+    requestParameterProcessing(json.query);
+    const data = await postRequest(props.listUrl, json);
     if (data.code === 200) {
       const { pagination } = this.state;
       pagination.total = data.data.total;
-      pagination.current = data.data.current;
+      pagination.current = data.data.pageNum;
       this.setState({
-        dataSource: data.data.records,
+        dataSource: data.data.list,
         pagination,
       });
     } else {
-      notification.error({ message: data.msg, description: data.msg });
+      notification.error({ message: data.msg, description: data.subMsg });
     }
     this.setState({
       loading: false,
@@ -220,16 +210,28 @@ class OrdinaryTable extends React.Component {
   };
 
   render() {
-    const { operationBlock } = this.props;
     return (
       <div>
-        {operationBlock && (
+        {this.props.isExport && (
+          <Button
+            onClick={() => {
+              const json = JSON.parse(JSON.stringify(this.props.screen));
+              requestParameterProcessing(json.query);
+              json.export = this.state.columns;
+              exportExcel(this.props.listUrl, json);
+            }}
+            style={{ backgroundColor: 'rgb(243, 243, 243)' }}
+          >
+            导出
+          </Button>
+        )}
+        {this.props.operationBlock && (
           <div className={styles.optWrap}>
             <span>
               已选择<b>{this.state.idArr.length}</b>项
             </span>
             <div>
-              {operationBlock.map((obj, i) => (
+              {this.props.operationBlock.map((obj, i) => (
                 <Button
                   {...obj}
                   className={styles.optBtn}
@@ -258,7 +260,7 @@ class OrdinaryTable extends React.Component {
           loading={this.state.loading}
           onChange={this.handleTableChange}
           rowSelection={
-            operationBlock
+            this.props.operationBlock
               ? {
                   columnWidth: '2%',
                   onChange: (idArr, objArr) => {

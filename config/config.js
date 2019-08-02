@@ -75,16 +75,16 @@ export default {
           component: './system/employee/Index',
         },
         {
-          path: '/temp/GojsPage',
-          component: './temp/gojsPage/Index.js',
-        },
-        {
           path: '/configuration/reactGojs',
           component: './configuration/DemoOne/Index',
         },
         {
           path: '/configuration/reactTwoGojs',
           component: './configuration/DemoTwo/Index',
+        },
+        {
+          path: '/news/news',
+          component: './news/news/Index',
         },
       ],
     },

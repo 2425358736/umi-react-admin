@@ -122,7 +122,9 @@ class Info extends React.Component {
               type: 'breadcrumb/fetch',
               payload: { list },
             });
-            callback();
+            if (callback) {
+              callback();
+            }
           }}
           visible={open}
           destroyOnClose
