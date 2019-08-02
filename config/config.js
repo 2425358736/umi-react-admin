@@ -96,8 +96,8 @@ export default {
    */
   define: {
     APP_TYPE: process.env.APP_TYPE || '',
-    'process.env.apiUrl': 'http://47.101.46.79',
-    'process.env.wsUrl': 'ws://127.0.0.1:8010',
+    'process.env.apiUrl': 'http://localhost:3000',
+    'process.env.wsUrl': 'ws://localhost:3000',
   },
   // Theme for antd
   // https://ant.design/docs/react/customize-theme-cn

@@ -1,8 +1,7 @@
 import { getRequest } from '../utils/api';
 
 async function getSysMenu() {
-  const data = await getRequest('/blade-system/menu/routes');
-
+  const data = await getRequest('/api/getMenu');
   return data.data;
 }
 

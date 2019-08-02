@@ -1,8 +1,8 @@
 import React from 'react';
 import { Form, Icon, notification, Input, Button } from 'antd';
 import router from 'umi/router';
-import { postFormDateRequest } from '../../utils/api';
-import GetToken from './Service';
+import { postRequest } from '../../utils/api';
+import Login from './Service';
 
 import style from './index.less';
 
@@ -13,21 +13,13 @@ class Index extends React.Component {
 
   onSubmit = async () => {
     const json = this.props.form.getFieldsValue();
-    json.grant_type = 'password';
-    json.scope = 'all';
-    // json.username = 'chen';
-    // json.password = '123456';
 
-    const data = await postFormDateRequest(GetToken, json, {
-      Authorization: 'Basic c3dvcmQ6c3dvcmRfc2VjcmV0',
-      'Tenant-Id': '029205',
-    });
-    if (data.access_token) {
-      await localStorage.setItem('Authorization', `Bearer ${data.access_token}`);
-      await localStorage.setItem('userInfo', JSON.stringify(data));
+    const data = await postRequest(Login, json);
+    if (data.code === 200) {
+      await localStorage.setItem('Authorization', `Bearer ${data.data.token}`);
       router.push('/index');
     } else {
-      notification.error({ message: data.msg, description: data.subMsg });
+      notification.error({ message: data.msg, description: '账号/密码  admin/123456' });
     }
   };
 
@@ -47,7 +39,7 @@ class Index extends React.Component {
           </div>
           <Form onSubmit={this.onSubmit} style={{ maxWidth: '300px' }}>
             <FormItem>
-              {getFieldDecorator('username', {
+              {getFieldDecorator('userName', {
                 rules: [{ required: true, message: '请输入用户名!' }],
               })(
                 <Input

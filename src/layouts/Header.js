@@ -70,7 +70,6 @@ class HeaderView extends PureComponent {
     }
     if (key === 'logout') {
       localStorage.removeItem('Authorization');
-      localStorage.removeItem('userInfo');
       router.push('/login');
     }
   };

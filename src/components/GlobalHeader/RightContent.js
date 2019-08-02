@@ -3,6 +3,8 @@ import { FormattedMessage } from 'umi/locale';
 import Link from 'umi/link';
 import { Spin, Menu, Icon, Avatar, Tooltip, notification } from 'antd';
 import HeaderDropdown from '../HeaderDropdown';
+import CurrentUser from './Service';
+import { getRequest } from '@/utils/api';
 import styles from './index.less';
 
 export default class GlobalHeaderRight extends PureComponent {
@@ -10,8 +12,20 @@ export default class GlobalHeaderRight extends PureComponent {
     super(props);
     this.state = {
       isFullScreen: false,
+      userInfo: {},
     };
   }
+
+  componentWillMount = () => {
+    this.getUser();
+  };
+
+  getUser = async () => {
+    const data = await getRequest(CurrentUser);
+    this.setState({
+      userInfo: data.data,
+    });
+  };
 
   // 浏览器全屏
   requestFullScreen = () => {
@@ -52,9 +66,8 @@ export default class GlobalHeaderRight extends PureComponent {
   };
 
   render() {
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     const { onMenuClick, theme } = this.props;
-    const { isFullScreen } = this.state;
+    const { isFullScreen, userInfo } = this.state;
     const menu = (
       <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
         <Menu.Item>
@@ -91,8 +104,8 @@ export default class GlobalHeaderRight extends PureComponent {
         {userInfo ? (
           <HeaderDropdown overlay={menu}>
             <span className={`${styles.action} ${styles.account}`}>
-              <Avatar size="small" className={styles.avatar} src={userInfo.avatar} alt="avatar" />
-              <span className={styles.name}>{userInfo.nick_name}</span>
+              <Avatar size="small" className={styles.avatar} src={userInfo.portrait} alt="avatar" />
+              <span className={styles.name}>{userInfo.userName}</span>
             </span>
           </HeaderDropdown>
         ) : (
