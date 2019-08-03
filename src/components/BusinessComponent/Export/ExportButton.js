@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Icon, Checkbox, Modal, Button } from 'antd';
-import { jsonString, exportExcel } from '@/utils/api';
+import { requestParameterProcessing, exportExcel } from '@/utils/api';
 
 const styles = require('./Export.less');
 
@@ -87,7 +87,7 @@ class ExportButton extends React.Component {
                 className={styles.submitBtn}
                 onClick={() => {
                   const json = JSON.parse(JSON.stringify(this.props.screen));
-                  jsonString(json.query);
+                  requestParameterProcessing(json.query);
                   const exportArr = [];
                   this.props.columns.forEach(obj => {
                     this.state.checkedList.forEach(title => {

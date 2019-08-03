@@ -1,6 +1,6 @@
 import React from 'react';
 import { Upload, Modal, Icon } from 'antd';
-
+import FileUploader from './Service';
 import { http } from '@/utils/api';
 
 class UploadPicture extends React.Component {
@@ -78,7 +78,7 @@ class UploadPicture extends React.Component {
           }}
           fileList={fileList}
           name="file"
-          action={`${http}/file/fileUploader`}
+          action={`${http}${FileUploader}`}
           listType="picture-card"
           {...this.props}
         >

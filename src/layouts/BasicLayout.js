@@ -160,13 +160,13 @@ class BasicLayout extends React.PureComponent {
     const pathKey = Object.keys(breadcrumbNameMap).find(key => pathToRegexp(key).test(pathname));
 
     if (!pathKey) {
-      return '智慧路灯平台';
+      return 'admin管理系统平台';
     }
     // const pageName = formatMessage({
     //   id: currRouterData.locale || currRouterData.name,
     //   defaultMessage: currRouterData.name,
     // });
-    return `${breadcrumbNameMap[pathKey].name} - 智慧路灯平台`;
+    return `${breadcrumbNameMap[pathKey].name} - admin管理系统平台`;
   };
 
   getLayoutStyle = () => {

@@ -214,3 +214,11 @@ export function requestParameterProcessing(json) {
     }
   }
 }
+
+/**
+ * 导出export
+ */
+
+export async function exportExcel(url, params) {
+  console.log(url, params);
+}

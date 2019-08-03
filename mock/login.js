@@ -1,5 +1,5 @@
 export default {
-  'POST /api/login': (req, res) => {
+  'POST /sys/verificationUser': (req, res) => {
     const { password, userName } = req.body;
     if (password === '123456' && userName === 'admin') {
       res.send({

@@ -9,7 +9,7 @@ module.exports = {
   menu: {
     disableLocal: false,
   },
-  title: '智慧路灯平台',
+  title: 'admin管理系统平台',
   pwa: true,
   iconfontUrl: '',
   collapse: true,

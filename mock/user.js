@@ -2,7 +2,7 @@
 
 export default {
   // 支持值为 Object 和 Array
-  'GET /api/currentUser': (req, res) => {
+  'GET /sys/getUserInfoDetailed': (req, res) => {
     if (interceptor(req)) {
       res.send({
         code: 200,

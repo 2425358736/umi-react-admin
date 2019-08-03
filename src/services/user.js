@@ -1,7 +1,7 @@
 import { getRequest } from '../utils/api';
 
 async function getSysMenu() {
-  const data = await getRequest('/api/getMenu');
+  const data = await getRequest('/sys/getSysMenu');
   return data.data;
 }
 

@@ -198,7 +198,7 @@ class Index extends React.Component {
 
   delete = async id => {
     const data = await deleteRequest(`${DelNewsBulletin}?id=${id}`);
-    if (data.status === 200) {
+    if (data.code === 200) {
       notification.success({ message: data.msg });
     } else {
       notification.error({ message: data.msg, description: data.subMsg });

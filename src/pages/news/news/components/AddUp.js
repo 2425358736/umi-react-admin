@@ -1,9 +1,10 @@
 import React from 'react';
-import { Spin, Button, Input, Form, notification, Radio, Upload, Modal, Icon } from 'antd';
+import { Spin, Button, Input, Form, notification, Radio, Upload, Icon } from 'antd';
 import { ContentUtils } from 'braft-utils';
 import BraftEditor from 'braft-editor';
+import UploadPicture from '@/components/BusinessComponent/Upload/UploadPicture';
 
-import { postRequest, jsonString, getRequest, http } from '@/utils/api';
+import { postRequest, requestParameterProcessing, getRequest, http } from '@/utils/api';
 
 import 'braft-editor/dist/index.css';
 
@@ -19,8 +20,6 @@ class AddUp extends React.Component {
     this.state = {
       buttonLoading: false,
       loading: false,
-      titlePicture: '',
-      previewVisible: false,
       editorState: BraftEditor.createEditorState(null),
       fileList: [],
     };
@@ -41,20 +40,12 @@ class AddUp extends React.Component {
       let info = await getRequest(`${GetNewsBulletin}?id=${this.props.id}`);
       info = info.data;
       this.setState({
-        titlePicture: info.titlePicture,
         editorState: BraftEditor.createEditorState(info.content),
       });
       this.props.form.setFieldsValue({
         type: info.type.toString(),
         title: info.title,
-        titlePicture: [
-          {
-            uid: '-1',
-            name: 'xxx.png',
-            status: 'done',
-            url: info.titlePicture,
-          },
-        ],
+        titlePicture: info.titlePicture,
         isRelease: info.isRelease.toString(),
       });
       // 异步设置编辑器内容
@@ -77,9 +68,8 @@ class AddUp extends React.Component {
         buttonLoading: true,
       });
       const json = this.props.form.getFieldsValue();
-      json.titlePicture = this.state.titlePicture;
       json.content = json.content.toHTML();
-      jsonString(json);
+      requestParameterProcessing(json);
 
       let data;
       if (this.props.id > 0) {
@@ -91,7 +81,7 @@ class AddUp extends React.Component {
       this.setState({
         buttonLoading: false,
       });
-      if (data.status === 200) {
+      if (data.code === 200) {
         notification.success({ message: data.msg });
         this.props.callback(true);
       } else {
@@ -127,37 +117,8 @@ class AddUp extends React.Component {
     }
   };
 
-  normFile = e => {
-    if (e.file.response) {
-      console.log(e.file.response.data.filePath);
-      this.setState({
-        titlePicture: e.file.response.data.filePath,
-      });
-    }
-    console.log('Upload event:', e);
-    if (Array.isArray(e)) {
-      return e;
-    }
-    if (e.fileList.length <= 0) {
-      this.setState({
-        titlePicture: '',
-      });
-    }
-    this.props.form.setFieldsValue({
-      titlePicture: e.fileList,
-    });
-    return e && e.fileList;
-  };
-
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { titlePicture } = this.state;
-
-    const uploadButton = (
-      <div>
-        <div className="ant-upload-text">Upload</div>
-      </div>
-    );
 
     const extendControls = [
       {
@@ -226,40 +187,16 @@ class AddUp extends React.Component {
 
             <FormItem label="标题图片" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
               {getFieldDecorator('titlePicture', {
-                valuePropName: 'fileList',
-                getValueFromEvent: this.normFile,
+                valuePropName: 'fileUrl',
+                getValueFromEvent: file => file.fileList,
                 rules: [
                   {
                     required: true,
-                    message: '请上传标题图片',
+                    message: '请上传门店标题图',
                   },
                 ],
-              })(
-                <Upload
-                  onPreview={() => {
-                    this.setState({
-                      previewVisible: true,
-                    });
-                  }}
-                  name="file"
-                  action={`${http}/file/fileUploader`}
-                  listType="picture-card"
-                >
-                  {titlePicture ? null : uploadButton}
-                </Upload>
-              )}
+              })(<UploadPicture number={1} />)}
             </FormItem>
-            <Modal
-              visible={this.state.previewVisible}
-              footer={null}
-              onCancel={() => {
-                this.setState({
-                  previewVisible: false,
-                });
-              }}
-            >
-              <img alt="example" style={{ width: '100%' }} src={titlePicture} />
-            </Modal>
 
             <FormItem label="内容" labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
               {getFieldDecorator('content', {

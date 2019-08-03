@@ -1,6 +1,6 @@
 export default {
   // 支持值为 Object 和 Array
-  'GET /api/getMenu': (req, res) => {
+  'GET /sys/getSysMenu': (req, res) => {
     res.send({
       status: 200,
       subMsg: '',

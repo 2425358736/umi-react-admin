@@ -1,3 +1,3 @@
-const CurrentUser = '/api/currentUser'; // 登录
+const CurrentUser = '/sys/getUserInfoDetailed'; // 登录
 
 export default CurrentUser;
